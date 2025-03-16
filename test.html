@@ -1,1 +1,129 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Web Playground</title>
+  <style>
+    html, body {
+      background: #000;
+      color: #FFF;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .network {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      font-family: monospace;
+      font-size: 42px;
+    }
+
+    .chunk, .default-letter {
+      position: absolute;
+      font-size: 42px;
+      transition: all 1s ease-in-out;
+    }
+
+    .chunk {
+      color: transparent;
+      opacity: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="network"></div>
+
+  <script>
+
+    function animateDefaultText(text, baseX, finalY, letterSpacing = 30) {
+      const container = document.getElementsByClassName('network')[0];
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === " ") continue;
+        const span = document.createElement('span');
+        span.classList.add('default-letter');
+        span.innerText = text[i];
+        span.style.color = "white";
+        span.style.opacity = 0;
+        container.appendChild(span);
+
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight;
+        span.style.left = `${startX}px`;
+        span.style.top = `${startY}px`;
+
+        const finalX = baseX + i * letterSpacing;
+
+        setTimeout(() => {
+          span.style.opacity = 1;
+          span.style.left = `${finalX}px`;
+          span.style.top = `${finalY}px`;
+        }, i * 100);
+      }
+    }
+
+    function createLetterFragments(letter, letterIndex, baseX, finalY, letterSpacing = 30, nRows = 3, nCols = 3) {
+      const container = document.getElementsByClassName('network')[0];
+      for (let r = 0; r < nRows; r++) {
+        for (let c = 0; c < nCols; c++) {
+          const span = document.createElement('span');
+          span.classList.add('chunk');
+          span.innerText = letter;
+          container.appendChild(span);
+
+          const top = (r * 100 / nRows).toFixed(2);
+          const left = (c * 100 / nCols).toFixed(2);
+          const bottom = (100 - (r + 1) * 100 / nRows).toFixed(2);
+          const right = (100 - (c + 1) * 100 / nCols).toFixed(2);
+          span.style.clipPath = `inset(${top}% ${right}% ${bottom}% ${left}%)`;
+
+          const startX = Math.random() * window.innerWidth;
+          const startY = Math.random() * window.innerHeight;
+          span.style.left = `${startX}px`;
+          span.style.top = `${startY}px`;
+
+          const finalX = baseX + letterIndex * letterSpacing;
+
+          setTimeout(() => {
+            span.style.opacity = 1;
+            span.style.left = `${finalX}px`;
+            span.style.top = `${finalY}px`;
+
+            span.style.color = ((r * nCols + c) % 2 === 0) ? 'red' : 'orange';
+          }, (r * nCols + c) * 100 + letterIndex * 100);
+        }
+      }
+    }
+
+    function animateFragmentText(text, baseX, finalY, letterSpacing = 30) {
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === " ") continue;
+        createLetterFragments(text[i], i, baseX, finalY, letterSpacing);
+      }
+    }
+
+    (function() {
+      const container = document.getElementsByClassName('network')[0];
+      const finalY = window.innerHeight / 2;
+      const letterSpacing = 30;
+      const gap = 20; 
+
+      const team = "Eldiiar";
+      const alpha = "Bekbolotov";
+
+      const teamWidth = team.length * letterSpacing;
+      const alphaWidth = alpha.length * letterSpacing;
+      const totalWidth = teamWidth + gap + alphaWidth;
+      const overallBaseX = window.innerWidth / 2 - totalWidth / 2;
+
+      animateDefaultText(team, overallBaseX, finalY, letterSpacing);
+
+      animateFragmentText(alpha, overallBaseX + teamWidth + gap, finalY, letterSpacing);
+    })();
+  </script>
+</body>
+</html>
