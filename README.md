@@ -1,5 +1,4 @@
-# longfields.github.io
-My Official Page
+# eldiiarbekbolotov.github.io
 
 <p>Welcome to my GitHub pages website! It is currently a work-in-progress.</p>
 
