@@ -241,3 +241,30 @@ canvas.addEventListener("mouseout", function () {
 if (window.pondAnimationFrame) {
   cancelAnimationFrame(window.pondAnimationFrame);
 }
+const buttons = document.querySelectorAll('.rp-button');
+
+    buttons.forEach(button => {
+      const rp = document.createElement('div');
+      rp.classList.add('rp');
+      button.appendChild(rp);
+
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        rp.style.left = `${x}px`;
+        rp.style.top = `${y}px`;
+        rp.style.transform = 'translate(-50%, -50%) scale(1)';
+        rp.style.opacity = '1';
+        rp.style.borderRadius = '20%';
+        button.style.color = '#000';
+      });
+
+      button.addEventListener('mouseleave', () => {
+        rp.style.transform = 'translate(-50%, -50%) scale(0)';
+        rp.style.opacity = '1';
+        rp.style.borderRadius = '50%';
+        button.style.color = '#FFF';
+      });
+    });
