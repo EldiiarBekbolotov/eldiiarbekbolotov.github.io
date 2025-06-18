@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapid: Text Editor for Web Dev</title>
+    <meta name="description" content="Rapid: A Brand-New, Hackable Text-Editor Built for Modern Web Development.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+        }
+
+        :root {
+            --primary-color: dodgerblue;
+            --text-color: #333;
+            --background-color: #FFF;
+            --nav-height: 65px;
+            --shadow-dark: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            --font-family-body: 'Poppins', sans-serif;
+            --font-family-heading: 'Lato', Arial, sans-serif;
+        }
+        body {
+            font-family: var(--font-family-body);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        .navbar {
+            height: var(--nav-height); width: 100%;
+            background-color: var(--primary-color);
+            box-shadow: var(--shadow-dark);
+            padding: 0 20px;
+            display: flex; align-items: center; gap: 20px;
+        }
+        .navbar a {
+            color: white; font-size: 20px; text-decoration: none;
+            padding: 0 5px;
+            transition: text-decoration 0.3s ease;
+        }
+        .navbar a:hover, .navbar a.active {
+            text-decoration: underline;
+        }
+
+       
+        .scene {
+            display: none; 
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .scene.active {
+            display: block; 
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .text-content {
+            padding: 25px; 
+            max-width: 800px; margin: 0 auto;
+        }
+        .scene h1 {
+            font-family: var(--font-family-heading);
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .scene p {
+            font-size: 1.1em; color: #555;
+            margin-bottom: 1em;
+        }
+        .scene ul {
+            margin-bottom: 1em;
+            margin-left: 20px;
+        }
+        .download-section {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 20px; margin-top: 40px;
+        }
+        .download-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 20px;
+            color: white; background-color: var(--primary-color);
+            border: none; border-radius: 5px;
+            text-decoration: none; cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .download-button:hover {
+            background-color: #0056b3; transform: translateY(-2px);
+        }
+        .download-button:active {
+            transform: translateY(0);
+        }
+        .download-info {
+            font-size: 0.9em; color: #666;
+            max-width: 600px; text-align: center;
+        }
+        footer {
+            background-color: #111; color: white;
+            text-align: center; padding: 20px;
+            margin-top: auto; /* Pushes footer to the bottom */
+            box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.2);
+        }
+        footer h2 {
+            margin-top: 0; color: white;
+        }
+        footer a {
+            color: var(--primary-color); text-decoration: none;
+            transition: text-decoration 0.3s ease;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        main {
+            flex-grow: 1; 
+        }
+        .mega {
+          padding: 45px;background-image: linear-gradient(135deg,rgb(240, 244, 255), rgb(255, 229, 229));color: white;
+          background-attachment: fixed;
+          height: 400px;
+        text-align: center;
+        position: relative;
+          }
+          .mega h1 {
+            font-weight: 500;
+            opacity: 0;
+            position: absolute; top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            animation: o1 2s forwards;}
+            .mega h2 {
+            font-weight: 500;
+              opacity: 0;
+            position: absolute; top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            animation: o2 2s forwards;
+            animation-delay: 0.5s;
+              }
+          @keyframes o1 {
+            0% {
+              left: 0%;
+              color: white;
+              opacity: 0;
+              
+            transform: translate(-50%, -50%)rotate(100deg)scale(0);
+              }
+              50% {
+            transform: translate(-50%, -50%)rotate(-2deg)scale(0.5);
+                }
+            100% {
+              opacity: 1;
+              color: rgb(0, 132, 255);
+              left: 50%;
+              top: 35%;
+              }
+              }@keyframes o2 {
+            0% {
+              left: 100%;
+              color: white;
+              opacity: 0;
+              
+            transform: translate(-50%, -50%)rotate(100deg)scale(0);
+              }
+              50% {
+            transform: translate(-50%, -50%)rotate(-1deg)scale(0.5);
+               }
+            100% {
+              opacity: 1;
+              color: rgb(255, 31, 76);
+              left: 50%;
+              top: 55%;
+              }
+              }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#home" data-scene-index="0" class="nav-link">Home</a>
+        <a href="#about" data-scene-index="1" class="nav-link">About</a>
+        <a href="#get-rapid" data-scene-index="2" class="nav-link">Get Rapid</a>
+        <a href="https://rapideditor.gitbook.io/rapid" target='_blank'>Get Rapid</a>
+    </nav>
+    <main>
+        <section id="home" class="scene active">
+            <div class="text-content">
+                 <div class='mega'>
+    <h1>Introducing</h1>
+    <h2>Rapid</h2>
+    </div>
+                <p>The Brand-New, Hackable Text-Editor Built for Modern Web Development. Built with C++ and Qt.</p>
+            </div>
+        </section>
+        <section id="about" class="scene">
+            <div class="text-content">
+                <h1>About Rapid</h1>
+                <p>Built with C++ and Qt, it offers native performance and a beginner-friendly web developoment tools.</p>
+                <p>Rapid is a brand-new hackable text editor designed for web development. It's designed with beginners in mind, especially students learning front-end web development. Code editors like Visual Studio Code are bloated both in size and speed for beginners, and that is why Rapid is built to be extremely fast, lightweight, and intuitive to complete newcomers.</p>
+                <p>Rapid was first released in June 2025 by Eldiiar Bekbolotov as a sophomore (grade 10) in high school.</p>
+            </div>
+        </section>
+        <section id="get-rapid" class="scene">
+            <div class="text-content">
+                <h1>Get Rapid Now!</h1>
+                <p>Choose your operating system to download the latest version of Rapid.</p>
+                <div class="download-section">
+                    <p>
+                        <a href="downloads/Rapid_Installer_Windows.exe" download class="download-button">Download for Windows (.exe)</a>
+                    </p>
+                    <p>
+                        <a href="downloads/Rapid_macOS.dmg" download class="download-button">Download for macOS (.dmg)</a>
+                    </p>
+                    <p>
+                        <a href="downloads/Rapid_Linux.tar.gz" download class="download-button">Download for Linux (.tar.gz)</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <h2>Rapid - The Qt Web Editor</h2>
+        <p>&copy; 2024 <a href='https://github.com/eldiiarbekbolotov' target="_blank">Eldiiar Bekbolotov</a> - <a href='https://github.com/eldiiarbekbolotov/rapid' target="_blank">GitHub Repo</a></p>
+    </footer>
+    <script type>
+        /*
+        (c) 2025 All code by Eldiiar Bekbolotov
+        License: MIT
+        */
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const scenes = document.querySelectorAll('.scene');
+
+            function showScene(index) {
+                scenes.forEach(scene => {
+                    scene.classList.remove('active');
+                    scene.style.display = 'none'; 
+                });
+                navLinks.forEach(link => link.classList.remove('active'));
+
+                if (scenes[index]) {
+                    scenes[index].style.display = 'block'; 
+                    // A small timeout allows the display:block to apply before opacity/transform transition starts
+                    setTimeout(() => {
+                        scenes[index].classList.add('active');
+                    }, 10);
+                }
+                if (navLinks[index]) {
+                    navLinks[index].classList.add('active');
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const index = parseInt(event.target.dataset.sceneIndex);
+                    showScene(index);
+                });
+            });
+
+            const initialHash = window.location.hash;
+            let initialIndex = 0;
+            if (initialHash) {
+                const targetScene = document.querySelector(initialHash);
+                if (targetScene) {
+                    initialIndex = Array.from(scenes).indexOf(targetScene);
+                    if (initialIndex === -1) {
+                        initialIndex = 0;
+                    }
+                }
+            }
+            showScene(initialIndex);
+        });
+    </script>
+</body>
+</html>
