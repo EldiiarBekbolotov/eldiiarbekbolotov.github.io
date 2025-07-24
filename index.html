@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Outfit:wght@100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Outfit:wght@100..900&family=Lugrasimo&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -120,7 +120,7 @@
       h4,
       h5,
       h6 {
-        font-family: "Outfit", Arial, Helvetica, sans-serif;
+        font-family: "Inconsolata", Arial, Helvetica, sans-serif;
         font-weight: 400;
       }
       h1 {
@@ -198,16 +198,22 @@
         display: flex;
       }
       .social-link {
-        margin: 0 15px;
-        padding: 12px 10px;
+        margin-right: 5px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
         background: transparent;
-        border-radius: 8px;
-        color: var(--primary);
+        border-radius: 82px;
+        color: #FFF;
         text-decoration: underline;
         font-family: "Outfit", Arial, Helvetica, sans-serif;
         font-weight: 400;
         font-size: 1rem;
         transition: all 0.3s ease;
+      }
+      .social-link svg {
+        margin-top: 7px;
+        vertical-align: middle;
       }
       .social-link:hover {
         background: var(--primary);
@@ -281,31 +287,38 @@
       <canvas id="pondCanvas"></canvas>
 
       <div style="padding: 45px">
-        <h1 style="font-family: 'Inconsolata'">Eldiiar Bekbolotov</h1>
+        <h1 style="font-family: 'Lugrasimo'">Eldiiar Bekbolotov</h1>
          <div id="social-links">
-        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link">LinkedIn</a>
-        <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link">GitHub</a>
-        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link">Email</a>
+        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]"><path d="M7 10V17" stroke="currentColor"></path><path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10" stroke="currentColor"></path><path d="M7.00801 7L6.99902 7" stroke="currentColor"></path><path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="currentColor"></path></svg></a>
+        <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
+                style="width: 24px; height: 24px"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                class="h-6 w-6"
+                aria-hidden="true"
+              >
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg></a>
+        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="size-5 transition-all hover:text-primary group-focus:text-primary "><path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor"></path><path d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z" stroke="currentColor"></path></svg></a>
       </div>
-        <h2>e</h2>
-        <p>
-          I enjoy creating web applications with sturdy and fast engineering
-          along with appealing and accesible design.
-        </p>
+        <h3 style="line-height:30px;">Software Engineer<br>Web Designer<br> Social Entrepreneur<br>Student</h3>
       </div>
       <div id="wrapper">
         <div id="about">
           <h2 style="text-align: center">About</h2>
           <p>
-            I'm <span style="color: var(--primary)">Eldiiar Bekbolotov</span>, a
-            full stack developer and designer specializing in web development,
-            user interface (UI) and web component design.
+            Full stack developer and designer specializing in web development,
+            user interface (UI) and web component design. I enjoy creating web applications with sturdy and fast engineering
+          along with appealing and accesible design.
           </p>
-          <p>
+          <!--<p>
             Other than websites, I'm interested in browser games and
             visualizations, Data Science, and competitive programming using C++,
             Java, and Python.
-          </p>
+          </p>-->
         </div>
         <div id="lang-showcase">
           <h2 style="text-align: center">Technologies</h2>
@@ -406,31 +419,31 @@
         
       </div>
 <div id="projects">
-          <h1>Projects <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">BETA</span></h1>
-          <p>Selection of projects I've developed over the years.</p>
+          <h1>Open Source Portfolio <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">BETA</span></h1>
+          <p>Selection of open-source projects I've developed over the years.</p>
   <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>Khan Profile Viewer</h2>
+  <h2>Khan Profile Viewer <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
   <p>Interactive portfolio of your Khan Academy Computer Programming projects!</p>   
   <a href="https://github.com/EldiiarBekbolotov/khan-profile-viewer" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
   <a href="https://khanprofileviewer.web.app/" target="_blank"><button class="rp-button">View Demo</button></a>
   </div>
   <br/>
   <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>EldiiarBot</h2>
+  <h2>EldiiarBot <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
   <p>Custom AI Chatbot Website</p>
   <a href="https://github.com/EldiiarBekbolotov/EldiiarBot" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
   <a href="https://eldiiarbot.onrender.com/" target="_blank"><button class="rp-button">View Demo</button></a>
   </div>
   <br/>
           <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>SanjyraTree</h2>
+  <h2>SanjyraTree <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
   <p>The fast & intuitive family tree editor on the web.</p>
   <a href="https://github.com/EldiiarBekbolotov/SanjyraTree" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
   <a href="https://sanjyratree.web.app" target="_blank"><button class="rp-button">View Demo</button></a>
   </div>
   <br/>
   <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>LeaferStudios</h2>
+  <h2>LeaferStudios <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
   <p>Interactive portfolio of my Khan Academy Computer Programming projects</p>
   <hr>
    <p>
@@ -448,7 +461,7 @@
   <a href="https://leaferstudios.web.app" target="_blank"><button class="rp-button">View Demo</button></a>
   </div> <br/>
   <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>Math Study</h2>
+  <h2>Math Study <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2023</span></h2>
   <p>Collection of High School Math Course Notes by Eldiiar Bekbolotov</p>
   <a href="https://github.com/EldiiarBekbolotov/mathstudy" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
   <a href="https://mathstudy23.netlify.app/index.html" target="_blank"><button class="rp-button">View Demo</button></a>
