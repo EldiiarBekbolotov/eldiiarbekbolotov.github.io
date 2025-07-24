@@ -193,6 +193,29 @@
       #projects {
         padding: 45px;
       } 
+       #social-links {
+        text-align: center;
+        display: flex;
+      }
+      .social-link {
+        margin: 0 15px;
+        padding: 12px 10px;
+        background: transparent;
+        border-radius: 8px;
+        color: var(--primary);
+        text-decoration: underline;
+        font-family: "Outfit", Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      .social-link:hover {
+        background: var(--primary);
+        color: #000;
+        text-decoration: none;
+        transform: translateY(-2px);
+      }
+     
       .rp-button {
       position: relative;
       overflow: hidden;
@@ -259,7 +282,12 @@
 
       <div style="padding: 45px">
         <h1 style="font-family: 'Inconsolata'">Eldiiar Bekbolotov</h1>
-        <h2>Web Developer</h2>
+         <div id="social-links">
+        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link">LinkedIn</a>
+        <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link">GitHub</a>
+        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link">Email</a>
+      </div>
+        <h2>e</h2>
         <p>
           I enjoy creating web applications with sturdy and fast engineering
           along with appealing and accesible design.
@@ -271,8 +299,7 @@
           <p>
             I'm <span style="color: var(--primary)">Eldiiar Bekbolotov</span>, a
             full stack developer and designer specializing in web development,
-            user interface (UI) and web component design, and am currently in
-            high school.
+            user interface (UI) and web component design.
           </p>
           <p>
             Other than websites, I'm interested in browser games and
@@ -461,6 +488,7 @@
       document.getElementById("currentYear").innerText =
         new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
       animateText("Eldiiar Bekbolotov");
+    
       document.getElementById("logo-scene").style.display = "none";
 
       document.getElementById("web-content").style.display = "block";
