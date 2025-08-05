@@ -1,233 +1,269 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png> <link
-    rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
-    <link rel="manifest" href="site.webmanifest" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Eldiiar Bekbolotov | Developer Portfolio</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Outfit:wght@100..900&family=Lugrasimo&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --primary: rgb(62, 220, 99);
-        --primary-hover: rgb(36, 181, 70);
-      }
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        color: #fff;
-        margin: 0;
-        padding: 0;
-      }
-      canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100vh;
-        display: block;
-        z-index: -1;
-      }
-      .no-select {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FLRPR7R7LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-      .network {
-        display: flex;
-        position: absolute;
-        font-family: monospace;
-        font-size: 42px;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        overflow: hidden;
-      }
+    gtag('config', 'G-FLRPR7R7LT');
+  </script>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png>
+  <link rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
+  <link rel="manifest" href="site.webmanifest" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Eldiiar Bekbolotov | Developer Portfolio</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Outfit:wght@100..900&family=Lugrasimo&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: rgb(62, 220, 99);
+      --primary-hover: rgb(36, 181, 70);
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100vh;
+      display: block;
+      z-index: -1;
+    }
+
+    .no-select {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .network {
+      display: flex;
+      position: absolute;
+      font-family: monospace;
+      font-size: 42px;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .chunk {
+      position: absolute;
+      text-align: center;
+      font-size: 44px;
+      color: transparent;
+      transition: all 0.7s ease-in-out;
+    }
+
+    @media (max-width: 600px) {
       .chunk {
-        position: absolute;
-        text-align: center;
-        font-size: 44px;
-        color: transparent;
-        transition: all 0.7s ease-in-out;
+        font-size: 30px;
       }
+    }
 
-      @media (max-width: 600px) {
-        .chunk {
-          font-size: 30px;
-        }
+    @media (max-width: 400px) {
+      .chunk {
+        font-size: 20px;
       }
-      @media (max-width: 400px) {
-        .chunk {
-          font-size: 20px;
-        }
-      }
+    }
 
-      #blobSvg {
-        z-index: 1;
-        position: absolute;
-        transition: opacity 1s ease-in-out;
-        overflow: hidden;
-      }
+    #blobSvg {
+      z-index: 1;
+      position: absolute;
+      transition: opacity 1s ease-in-out;
+      overflow: hidden;
+    }
 
-      #web-content {
-        display: none;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        width: 100%;
-        height: 100%;
-        min-height: 100%;
-      }
+    #web-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+    }
 
-      #logo-scene {
-        background-color: #000;
-        display: block;
-        opacity: 1;
-        transition: opacity 1s ease-in-out;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
+    #logo-scene {
+      background-color: #000;
+      display: block;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
 
-      a {
-        color: var(--primary);
-        text-decoration: none;
-      }
-      a:hover {
-        color: var(--primary-hover);
-        text-decoration: underline;
-      }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
 
-      #web-content h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-family: "Inconsolata", Arial, Helvetica, sans-serif;
-        font-weight: 400;
-      }
-      h1 {
-        font-size: 3rem;
-      }
-      h2 {
-        font-size: 2rem;
-      }
-      h3 {
-        font-size: 1.5rem;
-      }
-      #web-content p {
-        font-family: "Outfit", Arial, Helvetica, sans-serif;
-        font-weight: 300;
-        font-size: 1.2rem;
-        line-height: 30px;
-      }
-      #tech {
-        text-align: center;
-      }
-      #tech img {
-        width: 50px;
-        height: 50px;
-        margin: 10px;
-        transition: all 0.3s ease-in-out;
-      }
-      #tech img:hover {
-        transform: scale(1.1);
-      }
-      footer {
-        padding: 0 25px;
-      }
-      footer p {
-        font-size: 16px !important;
-      }
+    a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+
+    #web-content h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Inconsolata", Arial, Helvetica, sans-serif;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    #web-content p {
+      font-family: "Outfit", Arial, Helvetica, sans-serif;
+      font-weight: 300;
+      font-size: 1.2rem;
+      line-height: 30px;
+    }
+
+    #tech {
+      text-align: center;
+    }
+
+    #tech img {
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #tech img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      padding: 0 25px;
+    }
+
+    footer p {
+      font-size: 16px !important;
+    }
+
+    #wrapper {
+      width: 100%;
+      margin: 0;
+      display: block;
+    }
+
+    #about {
+      padding: 45px;
+    }
+
+    #lang-showcase {
+      padding: 45px;
+    }
+
+    @media (min-width: 768px) {
       #wrapper {
-        width: 100%;
-        margin: 0;
-        display: block;
-      }
-      #about {
-        padding: 45px;
-      }
-      #lang-showcase {
-        padding: 45px;
-      }
-      @media (min-width: 768px) {
-        #wrapper {
-          display: flex;
-        }
-        #about {
-          padding: 40px;
-          width: 50%;
-        }
-        #lang-showcase {
-          padding: 40px;
-          width: 50%;
-        }
-        #tech img {
-          width: 70px;
-          height: 5vw;
-          margin: 1vw;
-        }
-      }
-      hr {
-        width: 100%;
-        border: 0;
-        border-top: 1px solid #5f5f5f;
-      }
-      #projects {
-        padding: 45px;
-      } 
-       #social-links {
-        text-align: center;
         display: flex;
       }
-      .social-link {
-        margin-right: 5px;
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        background: transparent;
-        border-radius: 82px;
-        color: #FFF;
-        text-decoration: underline;
-        font-family: "Outfit", Arial, Helvetica, sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+
+      #about {
+        padding: 40px;
+        width: 50%;
       }
-      .social-link svg {
-        margin-top: 7px;
-        vertical-align: middle;
+
+      #lang-showcase {
+        padding: 40px;
+        width: 50%;
       }
-      .social-link:hover {
-        background: var(--primary);
-        color: #000;
-        text-decoration: none;
-        transform: translateY(-2px);
+
+      #tech img {
+        width: 70px;
+        height: 5vw;
+        margin: 1vw;
       }
-     
-      .rp-button {
+    }
+
+    hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid #5f5f5f;
+    }
+
+    #projects {
+      padding: 45px;
+    }
+
+    #social-links {
+      text-align: center;
+      display: flex;
+    }
+
+    .social-link {
+      margin-right: 5px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      background: transparent;
+      border-radius: 82px;
+      color: #FFF;
+      text-decoration: underline;
+      font-family: "Outfit", Arial, Helvetica, sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link svg {
+      margin-top: 7px;
+      vertical-align: middle;
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: #000;
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    .rp-button {
       position: relative;
       overflow: hidden;
       cursor: pointer;
       background: transparent;
-      border: 2px solid rgb(240,240,240);
+      border: 2px solid rgb(240, 240, 240);
       color: white;
       padding: 0em 20px;
       height: 50px;
@@ -241,7 +277,7 @@
       position: absolute;
       width: 190%;
       height: 220%;
-      background: rgb(240,240,240);
+      background: rgb(240, 240, 240);
       border-radius: 50%;
       transform: translate(-50%, -50%) scale(0);
       pointer-events: none;
@@ -249,273 +285,235 @@
       opacity: 0;
       transition: transform 0.4s ease, opacity 0.4s ease;
     }
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
-    <div id="logo-scene">
-      <svg viewBox="0 0 500 500" width="100%" height="100%" id="blobSvg">
-        <defs>
-          <pattern
-            id="pattern"
-            x="0"
-            y="0"
-            width="15"
-            height="15"
-            patternUnits="userSpaceOnUse"
-            fill="#CFF2"
-          >
+<body>
+  <div id="logo-scene">
+    <svg viewBox="0 0 500 500" width="100%" height="100%" id="blobSvg">
+      <defs>
+        <pattern id="pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" fill="#CFF2">
+          <path
+            d="M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z">
+          </path>
+        </pattern>
+      </defs>
+      <path id="blob"
+        d="M427,282.5Q451,315,450,355Q449,395,411,407Q373,419,346,440Q319,461,284.5,471.5Q250,482,222.5,450Q195,418,184.5,386.5Q174,355,128,363.5Q82,372,69.5,342.5Q57,313,51.5,281.5Q46,250,41.5,215.5Q37,181,100.5,184.5Q164,188,142.5,130Q121,72,154.5,66Q188,60,219,95.5Q250,131,279.5,100Q309,69,345.5,69Q382,69,400.5,98Q419,127,443,153Q467,179,435,214.5Q403,250,427,282.5Z"
+        fill="url(#pattern)"></path>
+      <path id="blob"
+        d="M475.5,293Q473,336,452.5,376Q432,416,396,443.5Q360,471,316,480.5Q272,490,227,489.5Q182,489,142,468Q102,447,76.5,410Q51,373,36.5,333Q22,293,14,248.5Q6,204,32,167.5Q58,131,81.5,94.5Q105,58,146.5,45Q188,32,230,24Q272,16,312.5,29.5Q353,43,391.5,64.5Q430,86,451.5,124.5Q473,163,475.5,206.5Q478,250,475.5,293Z"
+        fill="url(#pattern)"></path>
+    </svg>
+    <div class="network no-select"></div>
+  </div>
+  <div id="web-content">
+    <canvas id="pondCanvas"></canvas>
+
+    <div style="padding: 45px">
+      <h1 style="font-family: 'Lugrasimo'">Eldiiar Bekbolotov</h1>
+      <div id="social-links">
+        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" color="currentColor"
+            class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
+            <path d="M7 10V17" stroke="currentColor"></path>
+            <path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10"
+              stroke="currentColor"></path>
+            <path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
             <path
-              d="M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z"
-            ></path>
-          </pattern>
-        </defs>
-        <path
-          id="blob"
-          d="M427,282.5Q451,315,450,355Q449,395,411,407Q373,419,346,440Q319,461,284.5,471.5Q250,482,222.5,450Q195,418,184.5,386.5Q174,355,128,363.5Q82,372,69.5,342.5Q57,313,51.5,281.5Q46,250,41.5,215.5Q37,181,100.5,184.5Q164,188,142.5,130Q121,72,154.5,66Q188,60,219,95.5Q250,131,279.5,100Q309,69,345.5,69Q382,69,400.5,98Q419,127,443,153Q467,179,435,214.5Q403,250,427,282.5Z"
-          fill="url(#pattern)"
-        ></path>
-        <path
-          id="blob"
-          d="M475.5,293Q473,336,452.5,376Q432,416,396,443.5Q360,471,316,480.5Q272,490,227,489.5Q182,489,142,468Q102,447,76.5,410Q51,373,36.5,333Q22,293,14,248.5Q6,204,32,167.5Q58,131,81.5,94.5Q105,58,146.5,45Q188,32,230,24Q272,16,312.5,29.5Q353,43,391.5,64.5Q430,86,451.5,124.5Q473,163,475.5,206.5Q478,250,475.5,293Z"
-          fill="url(#pattern)"
-        ></path>
-      </svg>
-      <div class="network no-select"></div>
-    </div>
-    <div id="web-content">
-      <canvas id="pondCanvas"></canvas>
-
-      <div style="padding: 45px">
-        <h1 style="font-family: 'Lugrasimo'">Eldiiar Bekbolotov</h1>
-         <div id="social-links">
-        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]"><path d="M7 10V17" stroke="currentColor"></path><path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10" stroke="currentColor"></path><path d="M7.00801 7L6.99902 7" stroke="currentColor"></path><path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="currentColor"></path></svg></a>
+              d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+              stroke="currentColor"></path>
+          </svg></a>
         <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
-                style="width: 24px; height: 24px"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                class="h-6 w-6"
-                aria-hidden="true"
-              >
-                <path
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-                ></path>
-              </svg></a>
-        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="size-5 transition-all hover:text-primary group-focus:text-primary "><path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor"></path><path d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z" stroke="currentColor"></path></svg></a>
+            style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+            class="h-6 w-6" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+            </path>
+          </svg></a>
+        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" color="currentColor"
+            class="size-5 transition-all hover:text-primary group-focus:text-primary ">
+            <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
+            </path>
+            <path
+              d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
+              stroke="currentColor"></path>
+          </svg></a>
       </div>
-        <h3 style="line-height:30px;">Software Engineer<br>Web Designer<br> Social Entrepreneur<br>Student</h3>
-      </div>
-      <div id="wrapper">
-        <div id="about">
-          <h2 style="text-align: center">About</h2>
-          <p>
-            Full stack developer and designer specializing in web development,
-            user interface (UI) and web component design. I enjoy creating web applications with sturdy and fast engineering
+      <h3 style="line-height:40px;">Software Engineer<br>Web Designer<br> Social Entrepreneur<br>Student</h3>
+    </div>
+    <div id="wrapper">
+      <div id="about">
+        <h2 style="text-align: center">About</h2>
+        <p>
+          Full stack developer and designer specializing in web development,
+          user interface (UI) and web component design. I enjoy creating web applications with sturdy and fast
+          engineering
           along with appealing and accesible design.
-          </p>
-          <!--<p>
+        </p>
+        <!--<p>
             Other than websites, I'm interested in browser games and
             visualizations, Data Science, and competitive programming using C++,
             Java, and Python.
           </p>-->
-        </div>
-        <div id="lang-showcase">
-          <h2 style="text-align: center">Technologies</h2>
-          <p id="tech">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg"
-              height="40"
-              alt="angularjs logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-              height="40"
-              alt="html5 logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-              height="40"
-              alt="javascript logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-              height="40"
-              alt="css3 logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-              height="40"
-              alt="cplusplus logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-              height="40"
-              alt="python logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-              height="40"
-              alt="java logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg"
-              height="40"
-              alt="vuejs logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuetify/vuetify-original.svg"
-              height="40"
-              alt="vuetify logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-              height="40"
-              alt="react logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/processing/processing-original.svg"
-              height="40"
-              alt="processing logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
-              height="40"
-              alt="bootstrap logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bulma/bulma-plain.svg"
-              height="40"
-              alt="bulma logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
-              height="40"
-              alt="firebase logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg"
-              height="40"
-              alt="jquery logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-              height="40"
-              alt="mongodb logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg"
-              height="40"
-              alt="tailwindcss logo"
-            />
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"
-              height="40"
-              alt="sass logo"
-            />
-          </p>
-        </div>
-
-        
       </div>
-<div id="projects">
-          <h1>Open Source Portfolio <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">BETA</span></h1>
-          <p>Selection of open-source projects I've developed over the years.</p>
-  <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>Khan Profile Viewer <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
-  <p>Interactive portfolio of your Khan Academy Computer Programming projects!</p>   
-  <a href="https://github.com/EldiiarBekbolotov/khan-profile-viewer" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
-  <a href="https://khanprofileviewer.web.app/" target="_blank"><button class="rp-button">View Demo</button></a>
-  </div>
-  <br/>
-  <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>EldiiarBot <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
-  <p>Custom AI Chatbot Website</p>
-  <a href="https://github.com/EldiiarBekbolotov/EldiiarBot" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
-  <a href="https://eldiiarbot.onrender.com/" target="_blank"><button class="rp-button">View Demo</button></a>
-  </div>
-  <br/>
-          <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>SanjyraTree <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
-  <p>The fast & intuitive family tree editor on the web.</p>
-  <a href="https://github.com/EldiiarBekbolotov/SanjyraTree" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
-  <a href="https://sanjyratree.web.app" target="_blank"><button class="rp-button">View Demo</button></a>
-  </div>
-  <br/>
-  <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>LeaferStudios <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span></h2>
-  <p>Interactive portfolio of my Khan Academy Computer Programming projects</p>
-  <hr>
-   <p>
-            <span style="color: var(--primary)">350,000+</span> lines of website
-            code written.<br />
-            <span style="color: var(--primary)">11,000+</span> votes received.
-            <br />
-            <span style="color: var(--primary)">1,000+</span> people
-            inspired/helped in CS topics.
-            <br />
-            <span style="color: var(--primary)">14</span> contest victories, 6
-            team-based and 8 individually.
-          </p>
-  <a href="https://github.com/EldiiarBekbolotov/LeaferStudios" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
-  <a href="https://leaferstudios.web.app" target="_blank"><button class="rp-button">View Demo</button></a>
-  </div> <br/>
-  <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
-  <h2>Math Study <span style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2023</span></h2>
-  <p>Collection of High School Math Course Notes by Eldiiar Bekbolotov</p>
-  <a href="https://github.com/EldiiarBekbolotov/mathstudy" target="_blank" style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
-  <a href="https://mathstudy23.netlify.app/index.html" target="_blank"><button class="rp-button">View Demo</button></a>
-  </div>
-        </div>
-      <footer>
-        <div style="display: flex; justify-content: space-between">
-          <p></p>
-          <p>
-            &copy; 2025 <span id="currentYear"></span>
-            <a href="https://github.com/EldiiarBekbolotov" target="_blank"
-              >Eldiiar Bekbolotov</a
-            >
-          </p>
-          <p>
-            <a href="https://github.com/EldiiarBekbolotov" target="_blank">
-              <svg
-                style="width: 24px; height: 24px"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="#FFF"
-                class="h-6 w-6"
-                aria-hidden="true"
-              >
-                <path
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-                ></path>
-              </svg>
-            </a>
-          </p>
-        </div>
-      </footer>
+      <div id="lang-showcase">
+        <h2 style="text-align: center">Technologies</h2>
+        <p id="tech">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" height="40"
+            alt="angularjs logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40"
+            alt="html5 logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40"
+            alt="javascript logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40"
+            alt="css3 logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" height="40"
+            alt="cplusplus logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40"
+            alt="python logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40"
+            alt="java logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" height="40"
+            alt="vuejs logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuetify/vuetify-original.svg" height="40"
+            alt="vuetify logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="40"
+            alt="react logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/processing/processing-original.svg" height="40"
+            alt="processing logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" height="40"
+            alt="bootstrap logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bulma/bulma-plain.svg" height="40"
+            alt="bulma logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" height="40"
+            alt="firebase logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" height="40"
+            alt="jquery logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" height="40"
+            alt="mongodb logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg"
+            height="40" alt="tailwindcss logo" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" height="40"
+            alt="sass logo" />
+        </p>
+      </div>
+
+
     </div>
-    <script src="js/index.js"></script>
-    <script type>
-      /** LOGO.js **/
-      document.getElementById("currentYear").innerText =
-        new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
-      animateText("Eldiiar Bekbolotov");
-    
-      document.getElementById("logo-scene").style.display = "none";
+    <div id="projects">
+      <h1>Open Source Portfolio 
+        <!--<span
+          style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">BETA</span>-->
+      </h1>
+      <p>Selection of open-source projects I've developed over the years.</p>
+      <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
+        <h2>Khan Profile Viewer <span
+            style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span>
+        </h2>
+        <p>Interactive portfolio of your Khan Academy Computer Programming projects!</p>
+        <a href="https://github.com/EldiiarBekbolotov/khan-profile-viewer" target="_blank"
+          style='margin-right:5px;'><button class="rp-button">View GitHub</button></a>
+        <a href="https://khanprofileviewer.web.app/" target="_blank"><button class="rp-button">View Demo</button></a>
+      </div>
+      <br />
+      <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
+        <h2>EldiiarBot <span
+            style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span>
+        </h2>
+        <p>Custom AI Chatbot Website</p>
+        <a href="https://github.com/EldiiarBekbolotov/EldiiarBot" target="_blank" style='margin-right:5px;'><button
+            class="rp-button">View GitHub</button></a>
+        <a href="https://eldiiarbot.onrender.com/" target="_blank"><button class="rp-button">View Demo</button></a>
+      </div>
+      <br />
+      <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
+        <h2>SanjyraTree <span
+            style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span>
+        </h2>
+        <p>The fast & intuitive family tree editor on the web.</p>
+        <a href="https://github.com/EldiiarBekbolotov/SanjyraTree" target="_blank" style='margin-right:5px;'><button
+            class="rp-button">View GitHub</button></a>
+        <a href="https://sanjyratree.web.app" target="_blank"><button class="rp-button">View Demo</button></a>
+      </div>
+      <br />
+      <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
+        <h2>LeaferStudios <span
+            style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2025</span>
+        </h2>
+        <p>Interactive portfolio of my Khan Academy Computer Programming projects</p>
+        <hr>
+        <p>
+          <span style="color: var(--primary)">350,000+</span> lines of website
+          code written.<br />
+          <span style="color: var(--primary)">11,000+</span> votes received.
+          <br />
+          <span style="color: var(--primary)">1,000+</span> people
+          inspired/helped in CS topics.
+          <br />
+          <span style="color: var(--primary)">14</span> contest victories, 6
+          team-based and 8 individually.
+        </p>
+        <a href="https://github.com/EldiiarBekbolotov/LeaferStudios" target="_blank" style='margin-right:5px;'><button
+            class="rp-button">View GitHub</button></a>
+        <a href="https://leaferstudios.web.app" target="_blank"><button class="rp-button">View Demo</button></a>
+      </div> <br />
+      <div style="border: 1px solid gainsboro;padding:30px;border-radius:10px;">
+        <h2>Math Study <span
+            style="user-select:none;background-color:rgb(0, 131, 0);padding: 5px;letter-spacing:2px;font-size:10px;position:relative;top:-7px;">2023</span>
+        </h2>
+        <p>Collection of High School Math Course Notes by Eldiiar Bekbolotov</p>
+        <a href="https://github.com/EldiiarBekbolotov/mathstudy" target="_blank" style='margin-right:5px;'><button
+            class="rp-button">View GitHub</button></a>
+        <a href="https://mathstudy23.netlify.app/index.html" target="_blank"><button class="rp-button">View
+            Demo</button></a>
+      </div>
+    </div>
+    <footer>
+      <div style="display: flex; justify-content: space-between">
+        <p></p>
+        <p>
+          &copy; 2025 <span id="currentYear"></span>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+        </p>
+        <p>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank">
+            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
+              class="h-6 w-6" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+              </path>
+            </svg>
+          </a>
+        </p>
+      </div>
+    </footer>
+  </div>
+  <script src="js/index.js"></script>
+  <script type>
+    /** LOGO.js **/
+    document.getElementById("currentYear").innerText =
+      new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
+    animateText("Eldiiar Bekbolotov");
 
-      document.getElementById("web-content").style.display = "block";
-      document.getElementById("web-content").style.opacity = 1;
-    </script>
-    <script type>
-      /* pond */
+    document.getElementById("logo-scene").style.display = "none";
 
-      function animate() {
-        pond.update();
-        pond.draw();
-        window.pondAnimationFrame = requestAnimationFrame(animate);
-      }
-      animate();
-    </script>
-  </body>
+    document.getElementById("web-content").style.display = "block";
+    document.getElementById("web-content").style.opacity = 1;
+  </script>
+  <script type>
+    /* pond */
+
+    function animate() {
+      pond.update();
+      pond.draw();
+      window.pondAnimationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+
 </html>
