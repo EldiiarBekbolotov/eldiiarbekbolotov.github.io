@@ -1,6 +1,6 @@
 :root {
-      --primary: rgb(220, 62, 62);
-      --primary-hover: rgb(36, 46, 181);
+      --primary: rgb(62, 220, 162);
+      --primary-hover: rgb(32, 155, 109);
       --big-font: 'Geist Mono', monospace;
       --small-font: 'Noto Sans', arial, helvetica, sans-serif;
     }
@@ -127,9 +127,17 @@
 
     #web-content p {
       font-family: var(--small-font);
-      font-weight: 300;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
       font-size: 1.2rem;
       line-height: 30px;
+      color: rgba(255,255,255,0.7);
+    }
+    #web-content p b {
+      font-weight: 600;
+      font-style: italic;
+      color: rgb(255, 255, 255);
     }
 
     #tech {
@@ -277,7 +285,7 @@
         justify-content: center;
         background-color: rgba(0,0,0,0.4);
         backdrop-filter: blur(10px);
-  box-shadow: 0 20px 80px rgba(243, 6, 6, 0.75);
+  box-shadow: 0 20px 80px rgba(6, 243, 176, 0.75);
     }
     nav a {
         padding: 0 20px;
@@ -316,14 +324,16 @@
   }
   .filter {
     padding: 8px 16px;
-    background: #4f4f4f;
+    background: #000000;
     border-radius: 20px;
+    border: 1px solid var(--primary);
+    color: #ffffff;
     cursor: pointer;
     transition: background 0.3s;
   }
   .filter.active {
     background: var(--primary);
-    color: #fff;
+    color: #000;
   }
   .grid {
     display: grid;
@@ -331,19 +341,22 @@
     gap: 20px;
   }
   .skill-card {
-    background: linear-gradient(rgba(101, 136, 206, 0.5), rgba(0,0,0,0.5));
+    background: linear-gradient(rgba(0, 45, 43, 0.9), rgba(0,0,0,0.5));
     border-radius: 10px;
     padding: 10px;
     font-family: var(--small-font);
     font-weight: 100;
     text-align: center;
-    box-shadow: inset 0 60px 0px rgba(181, 181, 181, 0.7);
-    transition: transform 0.2s;
+    /*box-shadow: inset 0 70px 30px rgba(255, 255, 255, 0.3);*/
+    transition: all 0.4s;
   }
-  .skill-card:hover img {
+  .skill-card:hover {
+    box-shadow: inset 0 40px 60px rgba(255, 255, 255, 0.3);
+  }
+  .skill-card:hover svg,.skill-card:hover img {
     transform: translateY(-5px)scale(1.1);
   }
-  .skill-card img {
+  .skill-card svg,.skill-card img {
     transition: all 0.3s;
     width: 50px;
     height: 50px;
@@ -353,4 +366,17 @@
   .skill-name {
     font-weight: bold;
     font-size: 14px;
+  }
+
+
+
+
+
+  .annon {
+    padding: 45px;
+    text-align: center;
+  }
+  .annon img {
+    border-radius: 5px;
+    width: 80vw;
   }
