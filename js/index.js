@@ -1,3 +1,5 @@
+
+
 function letterchunk(letter, index, totalLetters, nChunks = 5) {
   let container = document.getElementsByClassName("network")[0];
   let totalDuration =

@@ -50,16 +50,16 @@
     <canvas id="pondCanvas"></canvas>
 
     <nav>
-      <a href="index.html" class="active">HOME</a>
+      <a href="index.html" class="active">Home</a>
 
-      <a href="about.html">ABOUT</a>
+      <a href="about.html">About</a>
 
 
-      <a href="projects.html">PROJECTS</a>
+      <a href="projects.html">Projects</a>
     </nav>
 
     <div style="padding: 45px;height:90vh;">
-      <h4 style="margin-bottom:0;">DEVELOPER PORTFOLIO</h4>
+      <h4 style="margin-bottom:0;font-size:20px;">Hi, my name is</h4>
       <h1 style="margin-top:0;font-size:10vw;">ELDIIAR BEKBOLOTOV</h1>
       
       <div id="social-links">
@@ -94,6 +94,21 @@
           </svg></a>
       </div>
       <h3 style="line-height:40px;"></h3>
+    </div>
+
+    <div style="padding: 30px;">
+      <h1>Skills & Frameworks</h1>
+
+<div class="filters">
+  <div class="filter active" data-category="all">All</div>
+  <div class="filter" data-category="language">Languages</div>
+  <div class="filter" data-category="frontend">Frontend</div>
+  <div class="filter" data-category="backend">Backend</div>
+  <div class="filter" data-category="tool">Tools</div>
+  <div class="filter" data-category="design">Design</div>
+</div>
+
+<div class="grid" id="skillsGrid"></div>
     </div>
    
     <footer>
@@ -137,6 +152,67 @@
       window.pondAnimationFrame = requestAnimationFrame(animate);
     }
     animate();
+  </script>
+
+  <script>
+
+  const skills = [
+    { name: "Illustrator", category: "design", img: "https://img.icons8.com/color/48/000000/adobe-illustrator.png" },
+    { name: "Premiere Pro", category: "design", img: "https://img.icons8.com/color/48/000000/adobe-premiere-pro.png" },
+    { name: "Angular", category: "frontend", img: "https://img.icons8.com/color/48/000000/angularjs.png" },
+    { name: "Bootstrap", category: "frontend", img: "https://img.icons8.com/color/48/000000/bootstrap.png" },
+    { name: "C++", category: "language", img: "https://img.icons8.com/color/48/000000/c-plus-plus-logo.png" },
+    { name: "CSS", category: "frontend", img: "https://img.icons8.com/color/48/000000/css3.png" },
+    { name: "FastAPI", category: "backend", img: "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" },
+    { name: "Figma", category: "design", img: "https://img.icons8.com/color/48/000000/figma.png" },
+    { name: "Flask", category: "backend", img: "https://img.icons8.com/ios/50/000000/python.png" },
+    { name: "Git", category: "tool", img: "https://img.icons8.com/color/48/000000/git.png" },
+    { name: "Godot", category: "tool", img: "https://img.icons8.com/ios/50/000000/godot-engine.png" },
+    { name: "HTML", category: "frontend", img: "https://img.icons8.com/color/48/000000/html-5.png" },
+    { name: "Java", category: "language", img: "https://img.icons8.com/color/48/000000/java-coffee-cup-logo.png" },
+    { name: "JavaScript", category: "frontend", img: "https://img.icons8.com/color/48/000000/javascript.png" },
+    { name: "Jenkins", category: "tool", img: "https://img.icons8.com/color/48/000000/jenkins.png" },
+    { name: "Jira", category: "tool", img: "https://img.icons8.com/color/48/000000/jira.png" },
+    { name: "jQuery", category: "frontend", img: "https://img.icons8.com/color/48/000000/jquery.png" },
+    { name: "JSON", category: "tool", img: "https://img.icons8.com/color/48/000000/json.png" },
+    { name: "LaTeX", category: "tool", img: "https://img.icons8.com/color/48/000000/latex.png" },
+    { name: "Next.js", category: "frontend", img: "https://img.icons8.com/ios/50/000000/nextjs.png" },
+    { name: "Node.js", category: "backend", img: "https://img.icons8.com/color/48/000000/nodejs.png" },
+    { name: "OpenCV", category: "tool", img: "https://opencv.org/wp-content/uploads/2020/07/cropped-OpenCV_logo_no_text.png" },
+    { name: "PostgresSQL", category: "backend", img: "https://img.icons8.com/color/48/000000/postgreesql.png" },
+    { name: "Python", category: "language", img: "https://img.icons8.com/color/48/000000/python.png" },
+    { name: "React", category: "frontend", img: "https://img.icons8.com/color/48/000000/react-native.png" },
+    { name: "Spring", category: "backend", img: "https://img.icons8.com/color/48/000000/spring-logo.png" },
+    { name: "Tailwind CSS", category: "frontend", img: "https://img.icons8.com/color/48/000000/tailwind_css.png" },
+    { name: "Three.js", category: "frontend", img: "https://threejs.org/files/favicon.ico" },
+    { name: "TypeScript", category: "frontend", img: "https://img.icons8.com/color/48/000000/typescript.png" },
+    { name: "Vercel", category: "tool", img: "https://img.icons8.com/ios/50/000000/vercel.png" },
+  ];
+
+  const grid = document.getElementById("skillsGrid");
+  const filters = document.querySelectorAll(".filter");
+
+  function displaySkills(category = "all") {
+    grid.innerHTML = "";
+    const filtered = category === "all" ? skills : skills.filter(skill => skill.category === category);
+    filtered.forEach(skill => {
+      const card = document.createElement("div");
+      card.className = "skill-card";
+      card.innerHTML = `<img src="${skill.img}" alt="${skill.name}"><div class="skill-name">${skill.name}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  filters.forEach(filter => {
+    filter.addEventListener("click", () => {
+      filters.forEach(f => f.classList.remove("active"));
+      filter.classList.add("active");
+      displaySkills(filter.getAttribute("data-category"));
+    });
+  });
+
+  // Initial display
+  displaySkills();
   </script>
 </body>
 
