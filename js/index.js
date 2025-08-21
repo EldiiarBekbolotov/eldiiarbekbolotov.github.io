@@ -93,24 +93,24 @@ function MurkyPond() {
   this.mouseInfluence = 1;
   this.baseColors = [
     {
-      r: 40,
-      g: 80,
-      b: 60,
+      r: 250,
+      g: 250,
+      b: 250,
     },
     {
-      r: 50,
-      g: 90,
-      b: 70,
+      r: 250,
+      g: 250,
+      b: 250,
     },
     {
-      r: 60,
-      g: 100,
-      b: 75,
+      r: 250,
+      g: 250,
+      b: 250,
     },
     {
-      r: 70,
-      g: 110,
-      b: 65,
+      r: 250,
+      g: 250,
+      b: 250,
     },
   ];
   this.sediments = [];
@@ -130,10 +130,10 @@ MurkyPond.prototype.initParticles = function () {
     this.particles.push({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 40 + 5,
-      opacity: Math.random() * 0.1 + 0.0,
-      speedX: (Math.random() - 0.5) * 0.3,
-      speedY: (Math.random() - 0.5) * 0.3,
+      size: Math.random() * 90 + 40,
+      opacity: Math.random() * 0.05 + 0.0,
+      speedX: (Math.random() - 0.0) * 0.0,
+      speedY: (Math.random() - 0.0) * 0.0,
       color: "rgba(" + r + ", " + g + ", " + b + ", ",
       angle: Math.random() * Math.PI * 2,
       angleSpeed: (Math.random() - 0.5) * 0.002,
@@ -154,7 +154,7 @@ MurkyPond.prototype.initSediments = function () {
       size: size,
       opacity: opacity,
       //color: 'rgba(' + brownShade + ', ' + greenShade + ', ' + brownShade * 0.5 + ', ' + opacity + //')',
-      color: "rgba(255,255,5,0.05)",
+      color: `rgba(5, 113, 255, ${(Math.random() + 2) * 0.1})`,
       speedX: (Math.random() - 0.5) * 0.1,
       speedY: (Math.random() - 0.5) * 0.1,
       angle: Math.random() * Math.PI * 2,
@@ -187,7 +187,7 @@ MurkyPond.prototype.update = function () {
 };
 
 MurkyPond.prototype.draw = function () {
-  ctx.fillStyle = "rgba(30, 45, 45, 1)";
+  ctx.fillStyle = "rgb(0, 0, 0)";
   ctx.fillRect(
     0,
     0,
