@@ -88,35 +88,35 @@ window.addEventListener("resize", initCanvas);
 
 function MurkyPond() {
   this.particles = [];
-  this.numParticles = 300;
+  this.numParticles = 140;
   this.mouseX = null;
   this.mouseY = null;
   this.mouseRadius = 100;
   this.mouseInfluence = 1;
   this.baseColors = [
     {
-      r: 250,
-      g: 250,
-      b: 250,
+      r: 255,
+      g: 0,
+      b: 0,
     },
     {
-      r: 250,
-      g: 250,
-      b: 250,
+      r: 0,
+      g: 255,
+      b: 0,
     },
     {
-      r: 250,
-      g: 250,
-      b: 250,
+      r: 0,
+      g: 255,
+      b: 255,
     },
     {
-      r: 250,
-      g: 250,
-      b: 250,
+      r: 255,
+      g: 255,
+      b: 0,
     },
   ];
   this.sediments = [];
-  this.numSediments = 300;
+  this.numSediments = 0; // 300
   this.initParticles();
   this.initSediments();
 }
@@ -146,8 +146,8 @@ MurkyPond.prototype.initParticles = function () {
 MurkyPond.prototype.initSediments = function () {
   this.sediments = [];
   for (var i = 0; i < this.numSediments; i++) {
-    var size = Math.random() * 2 + 0.5;
-    var opacity = Math.random() * 0.3 + 0.1;
+    var size = Math.random() * 0.3 + 0.1;
+    var opacity = Math.random() * 0.1 + 0.3;
     var brownShade = Math.floor(Math.random() * 50) + 50;
     var greenShade = Math.floor(Math.random() * 20) + brownShade - 15;
     this.sediments.push({
@@ -155,8 +155,8 @@ MurkyPond.prototype.initSediments = function () {
       y: Math.random() * window.innerHeight,
       size: size,
       opacity: opacity,
-      //color: 'rgba(' + brownShade + ', ' + greenShade + ', ' + brownShade * 0.5 + ', ' + opacity + //')',
-      color: `rgba(5, 113, 255, ${(Math.random() + 2) * 0.1})`,
+      //color: 'rgba(' + brownShade + ', ' + greenShade + ', ' + brownShade * 0.5 + ', ' + opacity + ')',
+      color: `rgba(255,255, 255, ${(Math.random() + 2) * 1})`,
       speedX: (Math.random() - 0.5) * 0.1,
       speedY: (Math.random() - 0.5) * 0.1,
       angle: Math.random() * Math.PI * 2,
@@ -211,14 +211,14 @@ MurkyPond.prototype.draw = function () {
     gradient.addColorStop(0, p.color + p.opacity * brightnessFactor + ")");
     gradient.addColorStop(1, p.color + "0)");
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, p.size, -Math.PI, Math.PI);
     ctx.fillStyle = gradient;
     ctx.fill();
   }
   for (var j = 0; j < this.sediments.length; j++) {
     var s = this.sediments[j];
     ctx.beginPath();
-    ctx.arc(s.x, s.y, s.size, 30, Math.PI);
+    ctx.arc(s.x, s.y, s.size, -Math.PI, Math.PI);
     ctx.fillStyle = s.color;
     ctx.fill();
   }

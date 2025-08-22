@@ -1,6 +1,8 @@
 :root {
-      --primary: rgb(62, 220, 162);
-      --primary-hover: rgb(32, 155, 109);
+      --primary: rgb(51, 214, 138);
+      --primary-hover: rgb(155, 155, 32);
+      --primary-color: #000;
+      --navbar-shadow: 0 20px 120px rgba(6, 243, 57, 0.55);
       --big-font: 'Geist Mono', monospace;
       --small-font: 'Noto Sans', arial, helvetica, sans-serif;
     }
@@ -265,7 +267,7 @@
       position: absolute;
       width: 190%;
       height: 220%;
-      background: rgb(240, 240, 240);
+      background: rgb(255, 255, 255);
       border-radius: 50%;
       transform: translate(-50%, -50%) scale(0);
       pointer-events: none;
@@ -275,7 +277,7 @@
     }
 
     nav {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
@@ -283,9 +285,10 @@
         line-height: 62px;
         display: flex;
         justify-content: center;
-        background-color: rgba(0,0,0,0.4);
-        backdrop-filter: blur(10px);
-  box-shadow: 0 20px 80px rgba(6, 243, 176, 0.75);
+        background-color: rgba(0,0,0,0.1);
+        backdrop-filter: blur(30px);
+  box-shadow: var(--navbar-shadow);
+  z-index:999;
     }
     nav a {
         padding: 0 20px;
@@ -304,8 +307,8 @@
         border-top: 2px solid white;
     }
     nav a.active {
-        color: white;
-        border-bottom: 2px solid white;
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
     }
 
 
