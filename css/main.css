@@ -1,6 +1,6 @@
 :root {
       --primary: rgb(51, 214, 138);
-      --primary-hover: rgb(155, 155, 32);
+      --primary-hover: rgb(32, 155, 87);
       --primary-color: #000;
       --navbar-shadow: 0 20px 120px rgba(6, 243, 57, 0.55);
       --big-font: 'Geist Mono', monospace;
@@ -261,6 +261,9 @@
       border-radius: 8px;
       outline: none;
       transition: color 0.4s;
+    }
+    .rp-button:focus {
+      outline: 2px solid var(--primary);
     }
 
     .rp {

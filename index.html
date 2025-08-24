@@ -17,7 +17,7 @@
   <meta name="description" content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa.">
     <meta property="og:image" content="apple-touch-icon.png">
     <meta property="og:description" content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa.">
-    <meta property="og:title" content="Ryo Lu">
+    <meta property="og:title" content="Eldiiar Bekbolotov">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png>
   <link rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
@@ -31,6 +31,9 @@
     rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <style>
+    html {
+      display: none;
+    }
     #age-timer {
       display: inline-flex;
       font-family: var(--big-font), monospace;
@@ -193,6 +196,99 @@
       <p style="text-align:left;">I am thrilled to announce that FinBilim is launching soon! We are a student-led
         nonprofit dedicated to accelerating <b>financial opportunity</b> globally.</p>
     </div>
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    align-items: center;
+    text-align: center;
+   
+    gap: 15px;
+    margin-bottom: 45px;
+  }
+  .project-card { margin: 0 auto;
+    width: 400px;
+    height: 700px;
+    cursor:pointer;position:relative;
+    border: 1px solid rgba(255, 255, 255, 0.562);
+    border-radius: 8px;
+    transition: all 0.24s;
+  }
+  .project-card .content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+  }
+  .project-card:hover {
+    border-radius: 14px;
+    border: 1px solid var(--primary);
+  }
+  .project-card .tags {
+    position: absolute;bottom:0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 5px;
+
+  }
+  .project-card .tags span {
+    color: var(--primary-color);
+    border-radius: 3px;
+    background-color: var(--primary);
+    padding: 3px;
+  }
+  .project-card img {
+    width: 100%;
+  }
+</style>
+    <div style="padding:30px;text-align:center;max-width:80vw;margin:0 auto;">
+      <h1><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">🌟</span> Featured Projects</h1>
+
+      <div class="project-grid">
+        <div class="project-card">
+            <img src="android-chrome-512x512.png">
+            <div class="content">
+            <h1>FinBilim</h1>
+            <p>Central Asia's largest student-led financial literacy organization.</p>
+            <div class="tags">
+              <span>finance</span>
+              <span>tech</span>
+              <span>education</span>
+              <span>nonprofit</span>
+            </div></div>
+        </div>
+
+        <div class="project-card">
+            <img src="android-chrome-512x512.png">
+            <div class="content">
+            <h1>Operation FinRise</h1>
+            <p>American financial literacy initiative</p>
+            <div class="tags">
+              <span>fullstack</span>
+              <span>website</span>
+              <span>vanilla</span>
+              <span>nonprofit</span>
+            </div></div>
+        </div>
+
+        <div class="project-card">
+            <img src="android-chrome-512x512.png">
+            <div class="content">
+            <h1>PropNote AI</h1>
+            <p>Supercharging the real estate process</p>
+            <div class="tags">
+              <span>real estate</span>
+              <span>tech</span>
+              <span>ai</span>
+              <span>startup</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <a href="projects.html"><button class="rp-button">View All Projects</button></a>
+    </div>
 
     <div style="padding: 30px;text-align:center;max-width:80vw;margin:0 auto;">
       <h1><span
@@ -215,9 +311,15 @@
       <div class="grid" id="skillsGrid"></div>
     </div>
 
+    <div style="padding:30px;text-align:center;max-width:80vw;margin:0 auto;">
+      <h1>Writing</h1>
+      <p>What would a developer portfolio be without a personal blog? Plus, you may learn something new!</p>
+      <a href="blog.html"><button class="rp-button">View Blog</button></a>
+    </div>
+
     <footer>
       <div style="display: flex; justify-content: space-between">
-        <p></p>
+        <p><span id="visits"></span> <span style="font-family:'Noto Sans Emoji'">👀</span></p>
         <p>
           &copy; 2025 <span id="currentYear"></span>
           <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
@@ -257,7 +359,14 @@
     }
     animate();
   </script>
-
+  <!-- simple counter -->
+  <script>
+        var count = function(r) {
+              document.getElementById('visits').innerHTML = r.value + 8904;
+        }
+        </script>
+        <script async src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visits?callback=count">
+        </script>
   <script>
     (function () {
       const birthDate = new Date('2009-02-22T00:00:00Z');
