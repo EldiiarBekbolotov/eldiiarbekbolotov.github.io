@@ -14,10 +14,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="description" content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa.">
-    <meta property="og:image" content="apple-touch-icon.png">
-    <meta property="og:description" content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa.">
-    <meta property="og:title" content="Eldiiar Bekbolotov">
+  <meta name="description"
+    content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa.">
+  <meta property="og:image" content="apple-touch-icon.png">
+  <meta property="og:description"
+    content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa.">
+  <meta property="og:title" content="Eldiiar Bekbolotov">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png>
   <link rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
@@ -29,412 +31,11 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Noto+Color+Emoji&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Tulpen+One&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <style>
-    html {
-      display: none;
-    }
-    #age-timer {
-      display: inline-flex;
-      font-family: var(--big-font), monospace;
-      font-size: 2em;
-      color: rgba(255, 255, 255);
-      margin-top: 10px;
-    }
-
-    .digit-container {
-      display: inline-block;
-      width: 1ch;
-      /* match character width */
-      height: 1em;
-      overflow: hidden;
-      vertical-align: bottom;
-    }
-
-    .digit-stack {
-      display: block;
-      transition: transform 1.9s ease;
-    }
-
-    .digit-stack div {
-      height: 1em;
-      line-height: 1em;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 1ch;
-      /* same width as digits */
-      text-align: center;
-      /* center the dot */
-    }
-  </style>
-</head>
-
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="logo-scene">
-    <svg viewBox="0 0 500 500" width="100%" height="100%" id="blobSvg">
-      <defs>
-        <pattern id="pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" fill="#CFF2">
-          <path
-            d="M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z">
-          </path>
-        </pattern>
-      </defs>
-      <path id="blob"
-        d="M427,282.5Q451,315,450,355Q449,395,411,407Q373,419,346,440Q319,461,284.5,471.5Q250,482,222.5,450Q195,418,184.5,386.5Q174,355,128,363.5Q82,372,69.5,342.5Q57,313,51.5,281.5Q46,250,41.5,215.5Q37,181,100.5,184.5Q164,188,142.5,130Q121,72,154.5,66Q188,60,219,95.5Q250,131,279.5,100Q309,69,345.5,69Q382,69,400.5,98Q419,127,443,153Q467,179,435,214.5Q403,250,427,282.5Z"
-        fill="url(#pattern)"></path>
-      <path id="blob"
-        d="M475.5,293Q473,336,452.5,376Q432,416,396,443.5Q360,471,316,480.5Q272,490,227,489.5Q182,489,142,468Q102,447,76.5,410Q51,373,36.5,333Q22,293,14,248.5Q6,204,32,167.5Q58,131,81.5,94.5Q105,58,146.5,45Q188,32,230,24Q272,16,312.5,29.5Q353,43,391.5,64.5Q430,86,451.5,124.5Q473,163,475.5,206.5Q478,250,475.5,293Z"
-        fill="url(#pattern)"></path>
-    </svg>
-    <div class="network no-select"></div>
-  </div>
-  <div id="web-content">
-    <canvas id="pondCanvas"></canvas>
-
-    <nav>
-      <a href="index.html" class="active">Home</a>
-
-      <a href="about.html">About</a>
-
-
-      <a href="projects.html">Projects</a>
-    </nav>
-
-    <div style="padding: 45px;padding-top:100px;">
-
-      <div style="background-color: rgba(172, 0, 0, 0.2);color:var(--primary);padding:5px 8px;">
-        <h4 style="margin-top:0;margin-bottom:0;font-size:15px;color:rgb(183, 183, 183);"><span
-            style="color:rgba(255,255,255,0.4);border-right: 1px solid rgba(255,255,255,0.4);padding-right:4px;">1</span>
-          user.greeting =</h4>
-        <h1
-          style="margin-top:0;margin-bottom:0;margin-left:13px;margin-right:13px;font-family:var(--big-font),Arial, Helvetica, sans-serif;font-size:7vw;border:1px solid rgba(255,255,255,0.4);padding:4px;padding-left:15px;">
-          Hello!</h1>
-
-      </div>
-      <div
-        style="border-top:15px solid var(--primary);background-color: rgba(5, 173, 73, 0.2);margin-top:0;color:black;padding:5px 8px;">
-        <h4 style="margin-top:0;margin-bottom:0;font-size:15px;color:rgb(221, 221, 221);"><span
-            style="color:rgba(255,255,255,0.8);border-right: 1px solid var(--primary);padding-right:4px;margin-top:0;">2</span>
-          author.<span style="color:var(--primary);">name</span> =</h4>
-
-        <h1
-          style="border:1px solid var(--primary);font-family:var(--small-font);padding:4px;margin-top:0;margin-bottom:0;font-family:var(--big-font),Arial, Helvetica, sans-serif;font-size:7vw;padding-left:15px;color:#FFF;margin-right:13px;margin-left:13px;">
-          ELDIIAR BEKBOLOTOV</h1>
-      </div>
-      <div
-        style="padding-top:5px;margin-bottom:0px;font-size:20px;border-top:15px solid var(--primary);font-family:var(--small-font);color:rgb(183,183,183);background:rgba(19, 83, 211, 0.2);padding: 5px 8px;">
-
-
-        <h4 style="margin-top:0;margin-bottom:0;font-size:15px;color:rgb(183, 183, 183);"><span
-            style="color:rgba(255,255,255,0.4);border-right: 1px solid rgba(255,255,255,0.4);padding-right:4px;">3</span>
-          author.age = </h4>
-        <div id="age-timer"
-          style="border: 1px solid var(--primary);padding:4px;margin-left:13px;margin-right:13px;margin-top:0;"></div>
-      </div>
-      <div id="social-links" style="float:right;margin-top:30px;">
-        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
-            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round" color="currentColor"
-            class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
-            <path d="M7 10V17" stroke="currentColor"></path>
-            <path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10"
-              stroke="currentColor"></path>
-            <path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
-            <path
-              d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
-              stroke="currentColor"></path>
-          </svg></a>
-        <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
-            style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-            class="h-6 w-6" aria-hidden="true">
-            <path
-              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-            </path>
-          </svg></a>
-        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" color="currentColor"
-            class="size-5 transition-all hover:text-primary group-focus:text-primary ">
-            <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
-            </path>
-            <path
-              d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
-              stroke="currentColor"></path>
-          </svg></a>
-        <a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
-          <?xml version="1.0" encoding="UTF-8"?>
-          <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-            <g>
-              <path
-                d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
-                fill="#ffffff">
-
-              </path>
-            </g>
-          </svg>
-        </a>
-      </div>
-
-      <div>
-
-
-
-      </div>
-
-    </div>
-
-    <div class="annon" style="max-width:80vw;margin:0 auto;">
-      <h1><span
-          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">🚀</span>
-        Entrepreneur. Software Engineer. Student.</h1>
-      <img
-        src="https://media.licdn.com/dms/image/v2/D4E16AQGU1dpop0lRWg/profile-displaybackgroundimage-shrink_350_1400/B4EZjIJcv7HgAY-/0/1755704579274?e=1758758400&v=beta&t=_y61JQ-kxvefRvqgJpAk9rcfbRkwMNhyLg-73R7Cln8">
-      <p style="text-align:left;">I am thrilled to announce that FinBilim is launching soon! We are a student-led
-        nonprofit dedicated to accelerating <b>financial opportunity</b> globally.</p>
-    </div>
-<style>
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    align-items: center;
-    text-align: center;
-   
-    gap: 15px;
-    margin-bottom: 45px;
-  }
-  .project-card { margin: 0 auto;
-    width: 400px;
-    height: 700px;
-    cursor:pointer;position:relative;
-    border: 1px solid rgba(255, 255, 255, 0.562);
-    border-radius: 8px;
-    transition: all 0.24s;
-  }
-  .project-card .content {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
-  }
-  .project-card:hover {
-    border-radius: 14px;
-    border: 1px solid var(--primary);
-  }
-  .project-card .tags {
-    position: absolute;bottom:0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 5px;
-
-  }
-  .project-card .tags span {
-    color: var(--primary-color);
-    border-radius: 3px;
-    background-color: var(--primary);
-    padding: 3px;
-  }
-  .project-card img {
-    width: 100%;
-  }
-</style>
-    <div style="padding:30px;text-align:center;max-width:80vw;margin:0 auto;">
-      <h1><span
-          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">🌟</span> Featured Projects</h1>
-
-      <div class="project-grid">
-        <div class="project-card">
-            <img src="android-chrome-512x512.png">
-            <div class="content">
-            <h1>FinBilim</h1>
-            <p>Central Asia's largest student-led financial literacy organization.</p>
-            <div class="tags">
-              <span>finance</span>
-              <span>tech</span>
-              <span>education</span>
-              <span>nonprofit</span>
-            </div></div>
-        </div>
-
-        <div class="project-card">
-            <img src="android-chrome-512x512.png">
-            <div class="content">
-            <h1>Operation FinRise</h1>
-            <p>American financial literacy initiative</p>
-            <div class="tags">
-              <span>fullstack</span>
-              <span>website</span>
-              <span>vanilla</span>
-              <span>nonprofit</span>
-            </div></div>
-        </div>
-
-        <div class="project-card">
-            <img src="android-chrome-512x512.png">
-            <div class="content">
-            <h1>PropNote AI</h1>
-            <p>Supercharging the real estate process</p>
-            <div class="tags">
-              <span>real estate</span>
-              <span>tech</span>
-              <span>ai</span>
-              <span>startup</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <a href="projects.html"><button class="rp-button">View All Projects</button></a>
-    </div>
-
-    <div style="padding: 30px;text-align:center;max-width:80vw;margin:0 auto;">
-      <h1><span
-          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">💻</span>
-        Skills</h1>
-      <p style="text-align:left;">As a Full Stack Developer, I bring a diverse skill set built on many years of hands-on
-        experience. My journey began in the 3rd grade with web development, providing me with a strong foundation in
-        front-end design and development. Today, my passion for building efficient, scalable, and user-focused solutions
-        drives me to continually learn new languages and technologies. More recently, I have shifted into AI/ML app
-        development as well as competitive programming.</p>
-      <div class="filters">
-        <div class="filter active" data-category="all">All</div>
-        <div class="filter" data-category="language">Languages</div>
-        <div class="filter" data-category="frontend">Frontend</div>
-        <div class="filter" data-category="backend">Backend</div>
-        <div class="filter" data-category="tool">Tools</div>
-        <div class="filter" data-category="design">Design</div>
-      </div>
-
-      <div class="grid" id="skillsGrid"></div>
-    </div>
-
-    <div style="padding:30px;text-align:center;max-width:80vw;margin:0 auto;">
-      <h1>Writing</h1>
-      <p>What would a developer portfolio be without a personal blog? Plus, you may learn something new!</p>
-      <a href="blog.html"><button class="rp-button">View Blog</button></a>
-    </div>
-
-    <footer>
-      <div style="display: flex; justify-content: space-between">
-        <p><span id="visits"></span> <span style="font-family:'Noto Sans Emoji'">👀</span></p>
-        <p>
-          &copy; 2025 <span id="currentYear"></span>
-          <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
-        </p>
-        <p>
-          <a href="https://github.com/EldiiarBekbolotov" target="_blank">
-            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
-              class="h-6 w-6" aria-hidden="true">
-              <path
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-              </path>
-            </svg>
-          </a>
-        </p>
-      </div>
-    </footer>
-  </div>
-  <script src="js/index.js"></script>
-  <script type>
-    /** LOGO.js **/
-    document.getElementById("currentYear").innerText =
-      new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
-    animateText("Eldiiar Bekbolotov");
-
-    document.getElementById("logo-scene").style.display = "none";
-
-    document.getElementById("web-content").style.display = "block";
-    document.getElementById("web-content").style.opacity = 1;
-  </script>
-  <script type>
-    /* pond */
-
-    function animate() {
-      pond.update();
-      pond.draw();
-      window.pondAnimationFrame = requestAnimationFrame(animate);
-    }
-    animate();
-  </script>
-  <!-- simple counter -->
-  <script>
-        var count = function(r) {
-              document.getElementById('visits').innerHTML = r.value + 8904;
-        }
-        </script>
-        <script async src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visits?callback=count">
-        </script>
-  <script>
-    (function () {
-      const birthDate = new Date('2009-02-22T00:00:00Z');
-      const timerEl = document.getElementById('age-timer');
-
-      function createDigitStack(digit) {
-        const container = document.createElement('span');
-        container.className = 'digit-container';
-        const stack = document.createElement('span');
-        stack.className = 'digit-stack';
-        for (let i = 0; i <= 9; i++) {
-          const d = document.createElement('div');
-          d.textContent = i;
-          stack.appendChild(d);
-        }
-        stack.style.transform = `translateY(-${digit}em)`;
-        container.appendChild(stack);
-        return container;
-      }
-
-      function createAgeDisplay(ageStr) {
-        timerEl.innerHTML = '';
-        const digits = [];
-        ageStr.split('').forEach(char => {
-          if (char === '.') {
-            const dot = document.createElement('span');
-            dot.className = 'dot';
-            dot.textContent = '.';
-            timerEl.appendChild(dot);
-          } else {
-            const container = createDigitStack(Number(char));
-            timerEl.appendChild(container);
-            digits.push(container.querySelector('.digit-stack'));
-
-          }
-        });
-        return digits;
-      }
-
-      let digitStacks = [];
-      let prevAgeStr = '';
-
-      function updateAge() {
-        const now = new Date();
-        const ageInMs = now - birthDate;
-        const ageInYears = (ageInMs / (1000 * 60 * 60 * 24 * 365.2425)).toFixed(12);
-
-        if (!prevAgeStr) {
-          digitStacks = createAgeDisplay(ageInYears);
-        } else {
-          ageInYears.split('').forEach((char, i) => {
-            if (char !== prevAgeStr[i] && char !== '.') {
-              const digit = Number(char);
-              digitStacks[i].style.transform = `translateY(-${digit}em)`;
-              digitStacks[i].style.color = `var(--primary)`;
-            }
-          });
-        }
-        prevAgeStr = ageInYears;
-      }
-
-      updateAge();
-      setInterval(updateAge, 3000);
-    })();
-  </script>
-  <script>
-
-    const skills = [
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Geist+Mono:wght@100..900&family=Iceberg&family=Noto+Color+Emoji&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<script>
+   const skills = [
       { name: "Adobe Illustrator", category: "design", img: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100"><path fill="#300" d="M17.708 1h64.584C92.083 1 100 8.917 100 18.708v62.084c0 9.791-7.917 17.708-17.708 17.708H17.708C7.917 98.5 0 90.583 0 80.792V18.708C0 8.917 7.917 1 17.708 1"/><path fill="#FF9A00" d="M48.458 59.5h-15.5l-3.166 9.792a.73.73 0 0 1-.792.583h-7.833c-.459 0-.584-.25-.459-.75L34.125 30.5c.125-.417.25-.875.417-1.375.166-.875.25-1.792.25-2.708-.042-.209.125-.417.333-.459h10.792c.333 0 .5.125.541.334l15.209 42.916c.125.459 0 .667-.417.667h-8.708c-.292.042-.584-.167-.667-.458zm-13.083-8.458h10.583a59 59 0 0 0-.958-3c-.375-1.125-.75-2.334-1.125-3.584-.417-1.291-.792-2.541-1.208-3.833a90 90 0 0 1-1.125-3.708c-.334-1.167-.625-2.25-.917-3.25h-.083a51 51 0 0 1-1.417 5.375c-.625 2-1.25 4.083-1.917 6.166a82 82 0 0 1-1.833 5.834M70.75 33.083c-1.375.042-2.708-.5-3.708-1.458a5.4 5.4 0 0 1-1.417-3.833 4.9 4.9 0 0 1 1.5-3.709c1-.958 2.333-1.458 3.708-1.458 1.625 0 2.875.5 3.792 1.458A5.26 5.26 0 0 1 76 27.792a5.27 5.27 0 0 1-1.458 3.833c-.959 1-2.375 1.542-3.792 1.458M66.083 69.25V37.167c0-.417.167-.584.542-.584h8.25c.375 0 .542.209.542.584V69.25c0 .458-.167.667-.542.667h-8.167c-.416 0-.625-.25-.625-.667"/></svg>' },
       {
         name: "Vue.js",
@@ -554,6 +155,775 @@
       { name: "Vercel", category: "tool", img: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100"><path fill="#fff" fill-rule="evenodd" d="M100 93.957 50 7 0 93.957z" clip-rule="evenodd"/></svg>' },
       { name: "PHP", category: "language", img: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100"><path fill="#6E81B6" fill-rule="evenodd" d="M50 75.677c27.614 0 50-11.345 50-25.338S77.614 25 50 25 0 36.345 0 50.339s22.386 25.338 50 25.338" clip-rule="evenodd"/><path fill="#fff" fill-rule="evenodd" d="m60.133 58.528 2.48-12.764c.56-2.881.095-5.03-1.383-6.388-1.43-1.314-3.86-1.953-7.426-1.953H49.51l1.228-6.324a.814.814 0 0 0-.797-.969h-5.928a.81.81 0 0 0-.798.659l-2.634 13.55c-.24-1.524-.83-2.835-1.774-3.916-1.74-1.99-4.49-3-8.176-3H19.14a.81.81 0 0 0-.798.658l-5.33 27.43a.81.81 0 0 0 .798.968h5.974c.39 0 .724-.276.798-.66l1.29-6.634h4.447c2.334 0 4.295-.252 5.826-.75 1.566-.51 3.006-1.373 4.276-2.562a13.1 13.1 0 0 0 2.526-3.136l-1.065 5.48a.81.81 0 0 0 .798.968h5.929a.814.814 0 0 0 .798-.658l2.925-15.056H52.4c1.734 0 2.242.345 2.38.493.125.135.385.612.093 2.116l-2.358 12.136a.815.815 0 0 0 .798.968h6.023a.81.81 0 0 0 .797-.656M32.65 47.981c-.373 1.914-1.074 3.279-2.086 4.057-1.028.793-2.672 1.194-4.887 1.194h-2.648l1.915-9.854h3.424c2.515 0 3.528.538 3.935.988.565.625.684 1.876.347 3.615m52.455-7.558c-1.738-1.99-4.489-3-8.175-3H65.44a.81.81 0 0 0-.798.658l-5.33 27.43a.814.814 0 0 0 .797.968h5.975c.39 0 .724-.276.798-.66l1.29-6.634h4.448c2.334 0 4.294-.252 5.825-.75 1.566-.51 3.007-1.373 4.276-2.562a13.1 13.1 0 0 0 2.59-3.247 13.2 13.2 0 0 0 1.41-3.915c.68-3.495.136-6.283-1.616-8.288m-5.817 7.558c-.373 1.914-1.074 3.279-2.085 4.057-1.029.793-2.672 1.194-4.887 1.194h-2.648l1.914-9.854h3.424c2.516 0 3.529.538 3.936.988.563.625.683 1.876.346 3.615" clip-rule="evenodd"/><path fill="#000" fill-rule="evenodd" d="M28.197 42.565q3.405 0 4.54 1.257 1.133 1.258.54 4.315-.621 3.184-2.388 4.546-1.77 1.362-5.382 1.362H21.87l2.232-11.48zm-14.558 23.1h5.974l1.418-7.291h5.118q3.387 0 5.575-.713 2.187-.712 3.977-2.386a12.2 12.2 0 0 0 2.432-3.045q.93-1.665 1.32-3.674.949-4.877-1.43-7.598-2.377-2.721-7.563-2.721H18.97zm30.201-34.72h5.929l-1.418 7.293h5.282q4.984 0 6.876 1.738t1.135 5.634l-2.48 12.765h-6.022L55.5 46.237q.403-2.072-.297-2.825t-2.974-.753h-4.738l-3.054 15.715H38.51zm30.994 11.621q3.405 0 4.54 1.257 1.133 1.258.54 4.315-.619 3.184-2.388 4.546t-5.38 1.362H68.51l2.23-11.48zm-14.56 23.1h5.976l1.417-7.291h5.118q3.389 0 5.576-.713 2.187-.712 3.977-2.386a12.2 12.2 0 0 0 2.43-3.045q.93-1.665 1.322-3.674.948-4.877-1.43-7.598-2.377-2.721-7.563-2.721h-11.49z" clip-rule="evenodd"/></svg>' },
     ];
+
+</script>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <style>
+    html {
+      display: none;
+      visibility: hidden;
+    }
+
+    #age-timer {
+      display: inline-flex;
+      font-family: var(--big-font), monospace;
+      font-size: 2em;
+      color: rgba(255, 255, 255);
+      margin-top: 10px;
+    }
+    @media (max-width: 510px) { 
+      #age-timer {
+        font-size: 1em;
+      }
+     }
+    .digit-container {
+      display: inline-block;
+      width: 1ch;
+      /* match character width */
+      height: 1em;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .digit-stack {
+      display: block;
+      transition: transform 1.9s ease;
+    }
+
+    .digit-stack div {
+      height: 1em;
+      line-height: 1em;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 1ch;
+      /* same width as digits */
+      text-align: center;
+      /* center the dot */
+    }
+  </style>
+
+  
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="logo-scene">
+    <svg viewBox="0 0 500 500" width="100%" height="100%" id="blobSvg">
+      <defs>
+        <pattern id="pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" fill="#CFF2">
+          <path
+            d="M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z">
+          </path>
+        </pattern>
+      </defs>
+      <path id="blob"
+        d="M427,282.5Q451,315,450,355Q449,395,411,407Q373,419,346,440Q319,461,284.5,471.5Q250,482,222.5,450Q195,418,184.5,386.5Q174,355,128,363.5Q82,372,69.5,342.5Q57,313,51.5,281.5Q46,250,41.5,215.5Q37,181,100.5,184.5Q164,188,142.5,130Q121,72,154.5,66Q188,60,219,95.5Q250,131,279.5,100Q309,69,345.5,69Q382,69,400.5,98Q419,127,443,153Q467,179,435,214.5Q403,250,427,282.5Z"
+        fill="url(#pattern)"></path>
+      <path id="blob"
+        d="M475.5,293Q473,336,452.5,376Q432,416,396,443.5Q360,471,316,480.5Q272,490,227,489.5Q182,489,142,468Q102,447,76.5,410Q51,373,36.5,333Q22,293,14,248.5Q6,204,32,167.5Q58,131,81.5,94.5Q105,58,146.5,45Q188,32,230,24Q272,16,312.5,29.5Q353,43,391.5,64.5Q430,86,451.5,124.5Q473,163,475.5,206.5Q478,250,475.5,293Z"
+        fill="url(#pattern)"></path>
+    </svg>
+    <div class="network no-select"></div>
+  </div>
+
+  <div id="web-content">
+    <canvas id="pondCanvas"></canvas>
+
+    <nav>
+      <a href="index.html" class="active">Home</a>
+
+      <a href="about.html">About</a>
+
+
+      <a href="projects.html">Projects</a>
+    </nav>
+
+    <div style="padding: 45px;padding-top:100px;">
+
+      <div style="background-color: rgba(172, 0, 0, 0.2);color:var(--primary);padding:5px 8px;">
+        <h4 style="margin-top:0;margin-bottom:0;font-size:15px;color:rgb(183, 183, 183);"><span
+            style="color:rgba(255,255,255,0.4);border-right: 1px solid rgba(255,255,255,0.4);padding-right:4px;">1</span>
+          user.greeting =</h4>
+        <h1
+          style="margin-top:0;margin-bottom:0;margin-left:13px;margin-right:13px;font-family:var(--big-font),Arial, Helvetica, sans-serif;font-size:7vw;border:1px solid rgba(255,255,255,0.4);padding:4px;padding-left:15px;">
+          Hello!</h1>
+
+      </div>
+      <div
+        style="border-top:15px solid var(--primary);background-color: rgba(5, 173, 73, 0.2);margin-top:0;color:black;padding:5px 8px;">
+        <h4 style="margin-top:0;margin-bottom:0;font-size:15px;color:rgb(221, 221, 221);"><span
+            style="color:rgba(255,255,255,0.8);border-right: 1px solid var(--primary);padding-right:4px;margin-top:0;">2</span>
+          author.<span style="color:var(--primary);">name</span> =</h4>
+
+        <h1
+          style="border:1px solid var(--primary);font-family:var(--small-font);padding:4px;margin-top:0;margin-bottom:0;font-family:var(--big-font),Arial, Helvetica, sans-serif;font-size:7vw;padding-left:15px;color:#FFF;margin-right:13px;margin-left:13px;font-family:'Electrolize';">
+          Eldiiar Bekbolotov</h1>
+      </div>
+      <div
+        style="padding-top:5px;margin-bottom:0px;font-size:20px;border-top:15px solid var(--primary);font-family:var(--small-font);color:rgb(183,183,183);background:rgba(19, 83, 211, 0.2);padding: 5px 8px;">
+
+
+        <h4 style="margin-top:0;margin-bottom:0;font-size:15px;color:rgb(183, 183, 183);"><span
+            style="color:rgba(255,255,255,0.4);border-right: 1px solid rgba(255,255,255,0.4);padding-right:4px;">3</span>
+          author.age = </h4>
+        <div id="age-timer"
+          style="border: 1px solid var(--primary);padding:4px;margin-left:13px;margin-right:13px;margin-top:0;"></div>
+      </div>
+      
+
+    </div>
+    <!--work on card-->
+    <div class="annon">
+        <h2>About me</h2>
+      <img
+        src="https://media.licdn.com/dms/image/v2/D4E16AQGU1dpop0lRWg/profile-displaybackgroundimage-shrink_350_1400/B4EZjIJcv7HgAY-/0/1755704579274?e=1758758400&v=beta&t=_y61JQ-kxvefRvqgJpAk9rcfbRkwMNhyLg-73R7Cln8">
+      <p><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">👋</span> 
+          Hey, my name is Eldiiar. I am a high school student with a passion for software engineering, design, business, and finance, graduating in 2027.</p>
+          <p><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">⚡️</span> I strive to build web applications with sturdy and fast engineering along with appealing and accessible design.
+</p>
+
+<div id="social-links" style="float:right;margin-top:30px;">
+        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" color="currentColor"
+            class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
+            <path d="M7 10V17" stroke="currentColor"></path>
+            <path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10"
+              stroke="currentColor"></path>
+            <path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
+            <path
+              d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+              stroke="currentColor"></path>
+          </svg></a>
+        <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
+            style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+            class="h-6 w-6" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+            </path>
+          </svg></a>
+        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" color="currentColor"
+            class="size-5 transition-all hover:text-primary group-focus:text-primary ">
+            <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
+            </path>
+            <path
+              d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
+              stroke="currentColor"></path>
+          </svg></a>
+        <a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
+          <?xml version="1.0" encoding="UTF-8"?>
+          <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+            <g>
+              <path
+                d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
+                fill="#ffffff">
+
+              </path>
+            </g>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <style>
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        align-items: center;
+        text-align: center;
+
+        gap: 15px;
+        margin-bottom: 45px;
+      }
+
+      .project-card {
+        margin: 0 auto;
+        width: 400px;
+        height: 700px;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.562);
+        border-radius: 8px;
+        transition: all 0.24s;
+      }
+
+      .project-card .content {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+      }
+
+      .project-card:hover {
+        border-radius: 14px;
+        border: 1px solid var(--primary);
+      }
+
+      .project-card .tags {
+        position: absolute;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 5px;
+
+      }
+
+      .project-card .tags span {
+        color: var(--primary-color);
+        border-radius: 3px;
+        background-color: var(--primary);
+        padding: 3px;
+      }
+
+      .project-card img {
+        width: 100%;
+      }
+    </style>
+   
+   <!-- EXPERIENCE SHOWCASE START -->
+    <style>
+      .experience-section {
+        max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(34, 40, 66, 0.4);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .experience-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(88, 101, 242, 0.2), transparent 50%);
+            pointer-events: none;
+        }
+        .section-title {
+          color: #FFF;
+        }
+        .timeline {
+            position: relative;
+            margin-left: 120px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            border-radius: 2px;
+        }
+        .timeline-date {
+            position: absolute;
+            left: -110px;
+            width: 100px;
+            text-align: right;
+            font-size: 14px;
+            color: #ffffff8f;
+            top: 20px;
+        }
+        .job {
+            position: relative;
+            padding: 20px 0 20px 40px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .job:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+        .job::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 28px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 1px solid #ffffff;
+            box-shadow: 0 0px 10px rgb(2, 254, 74);
+            transition: transform 0.3s ease;
+        }
+        .job:hover::before {
+            transform: scale(1.2);
+        }
+        .job:last-child {
+            border-bottom: none;
+        }
+        .job-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .job-info {
+            flex: 1;
+        }
+        .job-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+        .company-name {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .company-name:hover {
+          border-bottom: 1px solid var(--primary);
+        }
+        .job-summary {
+            font-size: 14px;
+            color: #d0d0d0;
+            margin: 8px 0;
+        }
+        .job-description {
+            font-size: 14px;
+            color: #d0d0d0;
+            margin-top: 15px;
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease;
+        }
+        .job-description.active {
+            display: block;
+        }
+        .job-images {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .job-image {
+            max-width: 100%;
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+        .job-image:hover {
+            transform: scale(1.05);
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 16px;
+            border: 1px solid var(--primary);
+            
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px 16px;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+          background-color: var(--primary);
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .toggle-btn:focus {
+          background-color: var(--primary-hover);
+          color: var(--primary-color);
+          border-color: var(--primary-hover);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 600px) {
+            .experience-section {
+                padding: 20px;
+            }
+            .timeline {
+                margin-left: 80px;
+            }
+            .timeline-date {
+                left: -70px;
+                width: 60px;
+                font-size: 12px;
+            }
+            .job {
+                padding-left: 30px;
+            }
+            .job::before {
+                left: 4px;
+            }
+            .job-image {
+                width: 100%;
+                max-width: 150px;
+            }
+        }
+    </style>
+<div style="line-height: 1.6;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 40px;
+            overflow-x: hidden;width: 100%;">
+    <section class="experience-section">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="job">
+                <div class="timeline-date">June 2022 - Present</div>
+                <div class="job-header">
+                    <div class="job-info">
+                        <h3 class="job-title">Senior Software Engineer</h3>
+                        <div class="company-name">TechCorp Solutions</div>
+                        <div class="job-meta">San Francisco, CA</div>
+                        <div class="job-summary">Led the development of scalable microservices and mentored a team of developers.</div>
+                        <button class="toggle-btn" onclick="toggleDescription('desc1')">Show more</button>
+                        <div id="desc1" class="job-description">
+                            - Architected a scalable microservices ecosystem using Node.js and AWS.<br>
+                            - Streamlined CI/CD pipelines, slashing deployment time by 40%.<br>
+                            - Mentored a team of junior devs, elevating code quality through rigorous reviews.
+                            <div class="job-images">
+                                <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image">
+                                <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="job">
+                <div class="timeline-date">Jan 2020 - May 2022</div>
+                <div class="job-header">
+                    <div class="job-info">
+                        <h3 class="job-title">Software Engineer</h3>
+                        <div class="company-name">InnovateTech</div>
+                        <div class="job-meta">Remote</div>
+                        <div class="job-summary">Developed responsive web applications and optimized front-end performance.</div>
+                        <button class="toggle-btn" onclick="toggleDescription('desc2')">Show more</button>
+                        <div id="desc2" class="job-description">
+                            - Crafted dynamic, responsive web apps with React and TypeScript.<br>
+                            - Boosted front-end performance, cutting page load times by 25%.<br>
+                            - Partnered with UX designers to enhance user engagement by 15%.
+                            <div class="job-images">
+                                <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image">
+                                <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="job">
+                <div class="timeline-date">Aug 2018 - Dec 2019</div>
+                <div class="job-header">
+                    <div class="job-info">
+                        <h3 class="job-title">Junior Developer</h3>
+                        <div class="company-name">StartUp Innovations</div>
+                        <div class="job-meta">New York, NY</div>
+                        <div class="job-summary">Built RESTful APIs and contributed to database optimization.</div>
+                        <button class="toggle-btn" onclick="toggleDescription('desc3')">Show more</button>
+                        <div id="desc3" class="job-description">
+                            - Engineered RESTful APIs with Python and Flask.<br>
+                            - Optimized database schemas using PostgreSQL for better performance.<br>
+                            - Thrived in agile sprints, contributing to efficient project delivery.
+                            <div class="job-images">
+                                <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image">
+                                <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section></div>
+    <script>
+        function toggleDescription(id) {
+            const description = document.getElementById(id);
+            const button = description.previousElementSibling;
+            if (description.classList.contains('active')) {
+                description.classList.remove('active');
+                button.textContent = 'Show more';
+            } else {
+                description.classList.add('active');
+                button.textContent = 'Show less';
+            }
+        }
+    </script>
+<!--EXPERIENCE SHOWCASE END-->
+    <!-- PROJECT SHOWCASE START -->
+<style>
+    :root {
+      --card-bg: #000;
+      --text-color: #e0e0e0;
+      --accent-color: var(--primary);
+      --shadow: inset 0 40px 90px rgba(255, 255, 255, 0.3);
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(0px);
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover h2 span {
+      border-bottom: 1px solid var(--accent-color);
+    }
+
+    .grid-container a {
+      text-decoration: none;
+    }
+    .grid-container a:hover {
+      text-decoration: none;
+    }
+
+    .card img {
+      background: linear-gradient(30deg,rgb(75, 75, 75), rgb(2, 22, 38));
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card h2 {
+      display: inline-block;
+      font-family: var(--big-font);
+      font-size: 24px !important;
+      margin-bottom: 0.5rem;
+      color: #b0b0b0;
+      border-bottom: 1px solid transparent;
+      line-height: 30px;
+    }
+    .card h2 span {
+      color: var(--accent-color);
+    }
+
+    .card p {
+      font-size: 16px !important;
+      line-height: 23px !important;
+      margin-bottom: 1rem;
+      color: #b0b0b0;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background-color: #2a2a2a;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      color: var(--text-color);
+    }
+
+    @media (max-width: 600px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+<div style="padding:30px;">
+  <h1>Projects</h1>
+<div class="grid-container">
+    <a href="finrise.html"><div class="card">
+      <img src="src/finbilim-logo.svg" alt="Project 1">
+      <div class="card-content">
+        <h2><span>Operation FinRise</span> — 2025</h2>
+        <p>Developed a full-stack website for my financial literacy newsletter as the Chief Technology Officer.</p>
+        <div class="card-tags">
+          <span class="tag">Website</span>
+          <span class="tag">Non-Profit</span>
+          <span class="tag">Full Stack</span>
+          <span class="tag" style="box-shadow:inset 0px 0px 20px rgba(255, 255, 255, 0.421);">+12 more</span>
+        </div>
+      </div>
+    </div></a>
+  </div>
+</div>
+<!--  PROJECT SHOWCASE END  -->
+
+
+    <div style="padding: 30px;text-align:center;max-width:80vw;margin:0 auto;">
+      <h1><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">💻</span>
+        Skills</h1>
+      <p style="text-align:left;">As a Full Stack Developer, I bring a diverse skill set built on many years of hands-on
+        experience. My journey began in the 3rd grade with web development, providing me with a strong foundation in
+        front-end design and development. Today, my passion for building efficient, scalable, and user-focused solutions
+        drives me to continually learn new languages and technologies. More recently, I have shifted into AI/ML app
+        development as well as competitive programming.</p>
+      <div class="filters">
+        <div class="filter active" data-category="all">All</div>
+        <div class="filter" data-category="language">Languages</div>
+        <div class="filter" data-category="frontend">Frontend</div>
+        <div class="filter" data-category="backend">Backend</div>
+        <div class="filter" data-category="tool">Tools</div>
+        <div class="filter" data-category="design">Design</div>
+      </div>
+
+      <div class="grid" id="skillsGrid"></div>
+    </div>
+
+    <div style="padding:30px;text-align:center;max-width:80vw;margin:0 auto;">
+      <h1>Writing</h1>
+      <p>What would a developer portfolio be without a personal blog? Plus, you may learn something new!</p>
+      <a href="blog.html"><button class="rp-button">View Blog</button></a>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between">
+        <p><span id="visits"></span> <span style="font-family:'Noto Sans Emoji'">👀</span></p>
+        <p>
+          &copy; 2025 <span id="currentYear"></span>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+        </p>
+        <p>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank">
+            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
+              class="h-6 w-6" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+              </path>
+            </svg>
+          </a>
+        </p>
+      </div>
+    </footer>
+  </div>
+  <script src="js/index.js"></script>
+  <script type>
+    /** LOGO.js **/
+    document.getElementById("currentYear").innerText =
+      new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
+    animateText("Eldiiar Bekbolotov");
+
+    document.getElementById("logo-scene").style.display = "none";
+
+    document.getElementById("web-content").style.display = "block";
+    document.getElementById("web-content").style.opacity = 1;
+  </script>
+  <script type>
+    /* pond */
+
+    function animate() {
+      pond.update();
+      pond.draw();
+      window.pondAnimationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+  <!-- simple counter -->
+  <script>
+    var count = function (r) {
+      document.getElementById('visits').innerHTML = r.value + 8904;
+    }
+  </script>
+  <script async src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visits?callback=count">
+  </script>
+  <script>
+      (function () {
+        const birthDate = new Date('2009-02-22T00:00:00Z');
+        const timerEl = document.getElementById('age-timer');
+
+        function createDigitStack(digit) {
+          const container = document.createElement('span');
+          container.className = 'digit-container';
+          const stack = document.createElement('span');
+          stack.className = 'digit-stack';
+          for (let i = 0; i <= 9; i++) {
+            const d = document.createElement('div');
+            d.textContent = i;
+            stack.appendChild(d);
+          }
+          stack.style.transform = `translateY(-${digit}em)`;
+          container.appendChild(stack);
+          return container;
+        }
+
+        function createAgeDisplay(ageStr) {
+          timerEl.innerHTML = '';
+          const digits = [];
+          ageStr.split('').forEach(char => {
+            if (char === '.') {
+              const dot = document.createElement('span');
+              dot.className = 'dot';
+              dot.textContent = '.';
+              timerEl.appendChild(dot);
+            } else {
+              const container = createDigitStack(Number(char));
+              timerEl.appendChild(container);
+              digits.push(container.querySelector('.digit-stack'));
+
+            }
+          });
+          return digits;
+        }
+
+        let digitStacks = [];
+        let prevAgeStr = '';
+
+        function updateAge() {
+          const now = new Date();
+          const ageInMs = now - birthDate;
+          const ageInYears = (ageInMs / (1000 * 60 * 60 * 24 * 365.2425)).toFixed(12);
+
+          if (!prevAgeStr) {
+            digitStacks = createAgeDisplay(ageInYears);
+          } else {
+            ageInYears.split('').forEach((char, i) => {
+              if (char !== prevAgeStr[i] && char !== '.') {
+                const digit = Number(char);
+                digitStacks[i].style.transform = `translateY(-${digit}em)`;
+                digitStacks[i].style.color = `var(--primary)`;
+              }
+            });
+          }
+          prevAgeStr = ageInYears;
+        }
+
+        updateAge();
+        setInterval(updateAge, 3000);
+      })();
+  </script>
+  <script>
 
     const grid = document.getElementById("skillsGrid");
     const filters = document.querySelectorAll(".filter");

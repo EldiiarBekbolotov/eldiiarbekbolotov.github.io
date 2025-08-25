@@ -3,10 +3,13 @@
       --primary-hover: rgb(32, 155, 87);
       --primary-color: #000;
       --navbar-shadow: 0 20px 120px rgba(6, 243, 57, 0.55);
-      --big-font: 'Geist Mono', monospace;
+      --big-font: 'Space Grotesk','Geist Mono', monospace;
       --small-font: 'Noto Sans', arial, helvetica, sans-serif;
     }
 
+    * {
+      box-sizing: border-box;
+    }
     html,
     body {
       width: 100%;
@@ -118,6 +121,14 @@
     h1 {
       font-size: 3rem;
     }
+    @media (max-width: 510px) { 
+      h1 {
+        font-size: 2.5rem;
+      }
+      h2 {
+        font-size: 1.75rem;
+      }
+     }
 
     h2 {
       font-size: 2rem;
@@ -382,7 +393,13 @@
     padding: 45px;
     text-align: center;
   }
+  .annon h2 {
+    text-align: left;
+  }
+  .annon p {
+    text-align:left;
+  }
   .annon img {
     border-radius: 5px;
-    width: 80vw;
+    width: 100%;
   }
