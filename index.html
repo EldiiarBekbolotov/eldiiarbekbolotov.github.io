@@ -34,6 +34,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Geist+Mono:wght@100..900&family=Iceberg&family=Noto+Color+Emoji&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <script>
    const skills = [
       { name: "Adobe Illustrator", category: "design", img: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100"><path fill="#300" d="M17.708 1h64.584C92.083 1 100 8.917 100 18.708v62.084c0 9.791-7.917 17.708-17.708 17.708H17.708C7.917 98.5 0 90.583 0 80.792V18.708C0 8.917 7.917 1 17.708 1"/><path fill="#FF9A00" d="M48.458 59.5h-15.5l-3.166 9.792a.73.73 0 0 1-.792.583h-7.833c-.459 0-.584-.25-.459-.75L34.125 30.5c.125-.417.25-.875.417-1.375.166-.875.25-1.792.25-2.708-.042-.209.125-.417.333-.459h10.792c.333 0 .5.125.541.334l15.209 42.916c.125.459 0 .667-.417.667h-8.708c-.292.042-.584-.167-.667-.458zm-13.083-8.458h10.583a59 59 0 0 0-.958-3c-.375-1.125-.75-2.334-1.125-3.584-.417-1.291-.792-2.541-1.208-3.833a90 90 0 0 1-1.125-3.708c-.334-1.167-.625-2.25-.917-3.25h-.083a51 51 0 0 1-1.417 5.375c-.625 2-1.25 4.083-1.917 6.166a82 82 0 0 1-1.833 5.834M70.75 33.083c-1.375.042-2.708-.5-3.708-1.458a5.4 5.4 0 0 1-1.417-3.833 4.9 4.9 0 0 1 1.5-3.709c1-.958 2.333-1.458 3.708-1.458 1.625 0 2.875.5 3.792 1.458A5.26 5.26 0 0 1 76 27.792a5.27 5.27 0 0 1-1.458 3.833c-.959 1-2.375 1.542-3.792 1.458M66.083 69.25V37.167c0-.417.167-.584.542-.584h8.25c.375 0 .542.209.542.584V69.25c0 .458-.167.667-.542.667h-8.167c-.416 0-.625-.25-.625-.667"/></svg>' },
@@ -161,7 +164,6 @@
   <style>
     html {
       display: none;
-      visibility: hidden;
     }
 
     #age-timer {
@@ -282,9 +284,7 @@
       <p><span
           style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">👋</span> 
           Hey, my name is Eldiiar. I am a high school student with a passion for software engineering, design, business, and finance, graduating in 2027.</p>
-          <p><span
-          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">⚡️</span> I strive to build web applications with sturdy and fast engineering along with appealing and accessible design.
-</p>
+          
 
 <div id="social-links" style="float:right;margin-top:30px;">
         <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
@@ -398,6 +398,14 @@
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            font-weight: 200;
+        }
+        .experience-section a {
+
+          text-decoration: none;
+        }
+        .experience-section svg {
+          fill: var(--primary);
         }
         .experience-section::before {
             content: '';
@@ -441,8 +449,8 @@
             transition: transform 0.3s ease, background 0.3s ease;
         }
         .job:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.0);
+            transform: translateY(0px);
         }
         .job::before {
             content: '';
@@ -467,6 +475,9 @@
             display: flex;
             align-items: flex-start;
             gap: 20px;
+        }
+        .job-meta {
+          color: #ffffff8f;
         }
         .job-info {
             flex: 1;
@@ -518,12 +529,11 @@
             max-width: 100%;
             width: 200px;
             height: auto;
-            border-radius: 8px;
-            border: 2px solid var(--primary);
+            border-radius: 0px;
             transition: transform 0.3s ease;
         }
         .job-image:hover {
-            transform: scale(1.05);
+            transform: scale(1.00);
         }
         .toggle-btn {
             background: none;
@@ -531,7 +541,7 @@
             color: var(--primary);
             font-size: 16px;
             border: 1px solid var(--primary);
-            
+            border-radius: 4px;
             font-weight: 500;
             cursor: pointer;
             padding: 5px 16px;
@@ -542,7 +552,7 @@
             color: var(--primary-color);
             text-decoration: none;
         }
-        .toggle-btn:focus {
+        .toggle-btn:active {
           background-color: var(--primary-hover);
           color: var(--primary-color);
           border-color: var(--primary-hover);
@@ -579,6 +589,18 @@
                 width: 100%;
                 max-width: 150px;
             }
+            .timeline {
+              margin-left: 0px;
+            }
+            .timeline-date {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            color: #ffffff8f;
+        }
         }
     </style>
 <div style="line-height: 1.6;
@@ -588,14 +610,29 @@
             overflow-x: hidden;width: 100%;">
     <section class="experience-section">
         <h2 class="section-title">Experience</h2>
+        <p><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">😎</span> I've had the pleasure of contributing to a variety of meaningful projects that have impact people globally.
+</p>
+        <p><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">😁</span> I strive to build applications with sturdy and fast engineering along with appealing and accessible design.
+</p>
+<p><span
+          style="font-family:'noto color emoji';user-select:none;-webkit-user-select:none;-ms-user-select:none;">✉️</span> For resume inquiries, please email me using the mail button above.
+</p>
         <div class="timeline">
             <div class="job">
                 <div class="timeline-date">June 2022 - Present</div>
                 <div class="job-header">
                     <div class="job-info">
-                        <h3 class="job-title">Senior Software Engineer</h3>
-                        <div class="company-name">TechCorp Solutions</div>
-                        <div class="job-meta">San Francisco, CA</div>
+                        <h3 class="job-title">Founder & Chief Executive Officer</h3>
+                        <a href="#" target="_blank">
+                          
+                          <div class="company-name">FinBilim</div>
+                          <?xml version="1.0" encoding="utf-8"?>
+<svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z"/>
+</svg></a>
+                        <div class="job-meta">Bishkek</div>
                         <div class="job-summary">Led the development of scalable microservices and mentored a team of developers.</div>
                         <button class="toggle-btn" onclick="toggleDescription('desc1')">Show more</button>
                         <div id="desc1" class="job-description">
@@ -614,9 +651,9 @@
                 <div class="timeline-date">Jan 2020 - May 2022</div>
                 <div class="job-header">
                     <div class="job-info">
-                        <h3 class="job-title">Software Engineer</h3>
-                        <div class="company-name">InnovateTech</div>
-                        <div class="job-meta">Remote</div>
+                        <h3 class="job-title">Co-Founder & Chief Technology Officer</h3>
+                        <div class="company-name">Operation FinRise</div>
+                        <div class="job-meta">Ottawa</div>
                         <div class="job-summary">Developed responsive web applications and optimized front-end performance.</div>
                         <button class="toggle-btn" onclick="toggleDescription('desc2')">Show more</button>
                         <div id="desc2" class="job-description">
@@ -635,9 +672,9 @@
                 <div class="timeline-date">Aug 2018 - Dec 2019</div>
                 <div class="job-header">
                     <div class="job-info">
-                        <h3 class="job-title">Junior Developer</h3>
-                        <div class="company-name">StartUp Innovations</div>
-                        <div class="job-meta">New York, NY</div>
+                        <h3 class="job-title">Full Stack Dev</h3>
+                        <div class="company-name">Stellar Learning</div>
+                        <div class="job-meta">San Francisco</div>
                         <div class="job-summary">Built RESTful APIs and contributed to database optimization.</div>
                         <button class="toggle-btn" onclick="toggleDescription('desc3')">Show more</button>
                         <div id="desc3" class="job-description">
