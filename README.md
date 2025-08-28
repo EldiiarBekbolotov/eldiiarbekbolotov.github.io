@@ -1,6 +1,6 @@
 # eldiiarbekbolotov.github.io
 
-<p>Welcome to my GitHub pages developer portfolio!</p>
+<p>Hi, my name is Eldiiar Bekbolotov. Welcome to my developer portfolio, hosted on GitHub pages.</p>
 
 <img src='https://avatars.githubusercontent.com/u/75341047?s=96&v=4' style='height:100px'>
 
