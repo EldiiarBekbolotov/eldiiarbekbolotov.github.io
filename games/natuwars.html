@@ -40,6 +40,7 @@ If you have any questions or comments, feel free to share them in the discussion
     <link
         href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Merriweather&family=Bakbak+One&family=Freeman&family=Lato&display=swap"
         rel="stylesheet">
+
     <style type="text/css">
         * {
             --fontone: 'Freeman', Helvetica, arial;
@@ -437,7 +438,7 @@ There is no scrollbar on my iMac, and it looks better that way.
         Sorry, your browser does not support JavaScript, which is needed to run this game!
     </noscript>
     <h1 id='jj'>You can scroll down for game description</h1>
-    <div id='big-screen'>
+    <div id='big-screen' style='display:none;visibility:hidden;'>
         <p style='margin-top: 0px;'>NATUWARS is a game built for a fullscreen experience (16:9 ratio). Do you want to
             view it fullscreen?</p>
         <div style='display: flex;'>
@@ -599,8 +600,7 @@ There is no scrollbar on my iMac, and it looks better that way.
     <div class='article'>
         <h1>About NATUWARS</h1>
 
-        <p>NATUWARS v0.4 is an indie 2D offline shooter game developed by <a
-                href='https://www.khanacademy.org/profile/kaid_553656479258879622339276/'
+        <p>NATUWARS v0.4 is an indie 2D offline shooter game developed by <a href='https://leaferstudios.web.app'
                 target='_blank'>LeaferStudios</a> (a.k.a. Eldiiar Bekbolotov) and released on July 26, 2024.</p>
 
         <h2>Advance Praise</h2>
@@ -637,39 +637,21 @@ There is no scrollbar on my iMac, and it looks better that way.
             <li>Player statistic and currency system tracking</li>
             <li>Save your progress with encrypted savecode and savecode loading functionality</li>
         </ul>
-        <p>At over 7500 lines of code, this version is a massive update from v0.3. There are so many updates that you
-            should <a href='https://www.khanacademy.org/computer-programming/forestio-v03-beta/4614997930328064'
-                target='_blank'>visit the previous version</a> if you really want to compare them both.</p>
-
-        <h2>Developer's Notes</h2>
-        <p>Hello! I am the single author of NATUWARS v0.4 and my username is <a
-                href='https://www.khanacademy.org/profile/kaid_553656479258879622339276/'
-                target='_blank'>LeaferStudios</a> on the Khan Academy Computer Programming community.</p>
-        <p>I experienced zero lag while developing and testing NATUWARS v0.4 in Google Chrome, although it should run at
-            an average frame rate of 60 FPS in Safari even after hours of playing. There is no mobile or controller
-            support at this version, so you need a computer to play.</p>
-        <p>Here is a quick rundown of the previous versions:</p>
-        <ul>
-            <li>The previous versions of NATUWARS were called Forest.io. On 11 July 2024, I decided to change it the
-                name to NATUWARS to better originality and branding. You can visit <a
-                    href='https://www.khanacademy.org/computer-programming/forestio-update-name-logo-change-to-natuwars/6670213844484096'
-                    target='_blank'>the official logo update</a> for more information.</li>
-            <li><a href='https://www.khanacademy.org/computer-programming/forestio-v03-beta/4614997930328064'
-                    target='_blank'>Forest.io v0.3 BETA</a> (released on Khan Academy)</li>
-            <li><a href='https://www.khanacademy.org/computer-programming/forestio-v02-beta/5672189914955776'
-                    target='_blank'>Forest.io v0.2 BETA</a> (released on Khan Academy)</li>
-            <li><a href='https://www.khanacademy.org/computer-programming/forestio-alpha/5213888244137984'
-                    target='_blank'>Forest.io v0.1 [Alpha]</a> (released on Khan Academy)</li>
-
-        </ul>
-        <p>If you have any questions or comments, feel free to share them in the discussion section on Khan Academy!</p>
     </div>
 
     <footer>
-        <p>&copy; 2024 <a href='https://www.khanacademy.org/profile/kaid_553656479258879622339276/'
-                target='_blank'>LeaferStudios</a></p>
+        <p>&copy; 2024-Present <a href='https://leaferstudios.web.app' target='_blank'>LeaferStudios</a> - <span
+                id="visits1"></span></p>
     </footer>
+    <script>
+        var count1 = function (r) {
+            document.getElementById("visits1").innerHTML = r.value + ' views since 30 Aug 2025';
+        };
+    </script>
+    <script async
+        src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/natuwars?callback=count1"></script>
 
+    <script async src="https://abacus.jasoncameron.dev/hit/eldiiarcodes.web.app/natuwars?callback=count1"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Khan/processing-js@master/processing.js"></script>
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/gh/Mushy-Avocado/KA-exporter@main/exporter.js"></script>

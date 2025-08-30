@@ -972,308 +972,399 @@
         <a href="blog.html"><button class="rp-button">View Blog</button></a>
       </div>
 
-      <div style="
+    </div>
+    <div style="
           padding: 30px;
           text-align: center;
           max-width: 80vw;
           margin: 0 auto;
         ">
-        <h2><span class="emoji" style="font-style:normal;font-size:30px;">😃</span> You made it all the way here!
-        </h2>
-        <p>
-          I think you deserve a prize.<br />Here's a (hopefully entertaining) game for you:
-        </p>
+      <h2><span class="emoji" style="font-style:normal;font-size:30px;">😃</span> You made it all the way here!
+      </h2>
+      <p>
+        I think you deserve a prize.<br />Here's a (hopefully entertaining) game for you:
+      </p>
 
-      </div>
-      <style>
-        .slideshow-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: #eee;
-          background-color: transparent;
+    </div>
+    <style>
+      .slideshow-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #eee;
+        background-color: transparent;
+      }
+
+      .slideshow-card-wrapper {
+        position: relative;
+        max-width: 500px;
+        width: 90%;
+      }
+
+      .slideshow-card {
+        background-color: #00000087;
+
+        border-radius: 20px;
+        box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
+        height: 450px;
+        overflow: hidden;
+        text-align: center;
+        position: relative;
+      }
+
+      #card-link {
+        text-decoration: none;
+      }
+
+      #card-title {
+        display: inline-block;
+
+        border-bottom: 1px solid transparent;
+      }
+
+      #card-link:hover #card-title {
+        border-bottom: 1px solid var(--primary);
+      }
+
+      .card-media {
+        border-radius: 8px;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 500px;
+        min-width: 300px;
+        transition: opacity 0.5s ease-in-out;
+        display: block;
+      }
+
+      .card-media.hidden {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%)scale(0.5);
+        pointer-events: none;
+      }
+
+      .slideshow-card h2 {
+        font-family: var(--big-font);
+        margin: 1rem 0 0.5rem 0;
+      }
+
+      .slideshow-card p {
+        font-family: var(--small-font);
+        padding: 0 1rem 1rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .toggle-btn1 {
+        position: absolute;
+        top: 25%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        border: none;
+        color: #fff;
+        box-shadow: 0px 0px 70px var(--primary);
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 0px;
+        z-index: 2;
+        font-family: var(--small-font);
+        text-shadow: 0px 0px 10px var(--primary);
+        transform: scale(1, 1.9);
+        font-weight: 100;
+        transition: all 0.2s ease;
+      }
+
+      #card-desc {
+        text-align: left;
+      }
+
+      .toggle-btn1:hover {
+        background-color: rgba(0, 0, 0, 1);
+        color: var(--primary);
+        font-weight: 300;
+      }
+
+      .toggle-btn1:focus {
+        outline: 2px solid var(--primary);
+      }
+
+      .toggle-left {
+        left: 5px;
+      }
+
+      .toggle-right {
+        right: 5px;
+      }
+
+      .slideshow-refresh-btn {
+        background-color: transparent;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        color: var(--primary);
+        font-family: var(--big-font);
+        border: 2px solid var(--primary);
+        border-radius: 100px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 1.5rem;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+
+      .slideshow-refresh-btn:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+        color: var(--primary-color);
+      }
+
+      .slideshow-refresh-btn:focus {
+        outline: 2px solid white;
+      }
+
+      @media(max-width:600px) {
+
+        .toggle-left,
+        .toggle-right {
+          z-index: 3222;
         }
 
         .slideshow-card-wrapper {
-          position: relative;
-          max-width: 500px;
-          width: 90%;
+          max-width: 100%;
+          width: 100vw;
+          margin: 0;
         }
 
         .slideshow-card {
-          background-color: #00000087;
-
-          border-radius: 20px;
-          box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
-          height: 450px;
-          overflow: hidden;
-          text-align: center;
-          position: relative;
+          margin: 0;
         }
+      }
+    </style>
 
-        #card-link {
-          text-decoration: none;
-        }
 
-        #card-title {
-          display: inline-block;
 
-          border-bottom: 1px solid transparent;
-        }
+    <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
+    <div class="slideshow-container">
+      <div class="slideshow-card-wrapper">
+        <a id="card-link" href="">
+          <div class="slideshow-card" id="game-card">
+            <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
+            <img src="" alt="Game Image" class="card-media" id="card-img">
+            <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
+              <source src="" type="video/mp4">
+              Your browser does not support video.
+            </video>
+            <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
+            <h2 id="card-title"></h2>
+            <p id="card-desc"></p>
 
-        #card-link:hover #card-title {
-          border-bottom: 1px solid var(--primary);
-        }
 
-        .card-media {
-          border-radius: 8px;
-          margin: 0 auto;
-          width: 80%;
-          max-width: 500px;
-          min-width: 300px;
-          transition: opacity 0.5s ease-in-out;
-          display: block;
-        }
-
-        .card-media.hidden {
-          opacity: 0;
-          position: absolute;
-          z-index: -1;
-          top: 0;
-          left: 50%;
-          transform: translateX(-50%)scale(0.5);
-          pointer-events: none;
-        }
-
-        .slideshow-card h2 {
-          font-family: var(--big-font);
-          margin: 1rem 0 0.5rem 0;
-        }
-
-        .slideshow-card p {
-          font-family: var(--small-font);
-          padding: 0 1rem 1rem 1rem;
-          font-size: 0.9rem;
-        }
-
-        .toggle-btn1 {
-          position: absolute;
-          top: 25%;
-          transform: translateY(-50%);
-          background-color: rgba(0, 0, 0, 0.8);
-          border: none;
-          color: #fff;
-          box-shadow: 0px 0px 70px var(--primary);
-          font-size: 1.5rem;
-          padding: 0.5rem 1rem;
-          cursor: pointer;
-          border-radius: 0px;
-          z-index: 2;
-          font-family: var(--small-font);
-          text-shadow: 0px 0px 10px var(--primary);
-          transform: scale(1, 1.9);
-          font-weight: 100;
-          transition: all 0.2s ease;
-        }
-
-        #card-desc {
-          text-align: left;
-        }
-
-        .toggle-btn1:hover {
-          background-color: rgba(0, 0, 0, 1);
-          color: var(--primary);
-          font-weight: 300;
-        }
-
-        .toggle-btn1:focus {
-          outline: 2px solid var(--primary);
-        }
-
-        .toggle-left {
-          left: 5px;
-        }
-
-        .toggle-right {
-          right: 5px;
-        }
-
-        .slideshow-refresh-btn {
-          background-color: transparent;
-          border: none;
-          padding: 0.8rem 1.5rem;
-          font-size: 1rem;
-          color: var(--primary);
-          font-family: var(--big-font);
-          border: 2px solid var(--primary);
-          border-radius: 100px;
-          cursor: pointer;
-          transition: background-color 0.3s;
-          margin-top: 1.5rem;
-        }
-
-        .slideshow-refresh-btn:hover {
-          background-color: var(--primary-hover);
-          border-color: var(--primary-hover);
-          color: var(--primary-color);
-        }
-
-        .slideshow-refresh-btn:focus {
-          outline: 2px solid white;
-        }
-
-        @media(max-width:600px) {
-
-          .toggle-left,
-          .toggle-right {
-            z-index: 3222;
-          }
-
-          .slideshow-card-wrapper {
-            max-width: 100%;
-            width: 100vw;
-            margin: 0;
-          }
-
-          .slideshow-card {
-            margin: 0;
-          }
-        }
-      </style>
-
-      <div class="slideshow-container">
-        <div class="slideshow-card-wrapper">
-          <a id="card-link" href="">
-            <div class="slideshow-card" id="game-card">
-              <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
-              <img src="" alt="Game Image" class="card-media" id="card-img">
-              <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
-                <source src="" type="video/mp4">
-                Your browser does not support video.
-              </video>
-              <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
-              <h2 id="card-title"></h2>
-              <p id="card-desc"></p>
-            </div>
-          </a>
-        </div>
-        <button class="slideshow-refresh-btn" id="refresh-btn"><span class="emoji"
-            style="font-style: normal !important;margin: 0;margin-right:5px;">🎁</span>
-          New Prize</button>
+          </div>
+        </a>
       </div>
 
-      <script>
-        const projects = [
-          {
-            title: "NATUWARS v0.4",
-            desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-            img: "src/natuwars.png",
-            video: "src/natuwars.mp4",
-            link: "games/natuwars.html"
-          },
-          {
-            title: "LeafersCraft v0.3",
-            desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-            img: "src/leaferscraft.png",
-            video: "src/leaferscraft.mp4",
-            link: "games/leaferscraft.html"
-          },
-          {
-            title: "Rogue Run",
-            desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-            img: "src/roguerun.png",
-            video: "src/roguerun.mp4",
-            link: "games/roguerun.html"
-          },
-          {
-            title: "Cars",
-            desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-            img: "src/cars.png",
-            video: "src/cars.mp4",
-            link: "games/cars.html"
-          }
-        ];
-
-        let currentIndex = 0;
-        let mediaIndex = 1; // 0=image, 1=video
-
-        const cardImg = document.getElementById("card-img");
-        const cardVideo = document.getElementById("card-video");
-        const cardTitle = document.getElementById("card-title");
-        const cardDesc = document.getElementById("card-desc");
-        const cardLink = document.getElementById("card-link");
-
-        function fadeOutIn(element, callback) {
-          element.style.opacity = 0;
-          setTimeout(() => {
-            callback();
-            element.style.opacity = 1;
-          }, 300);
-        }
-
-        function displayProject(index) {
-          const proj = projects[index];
-          fadeOutIn(cardTitle, () => cardTitle.textContent = proj.title);
-          fadeOutIn(cardDesc, () => cardDesc.innerHTML = proj.desc);
-          fadeOutIn(cardImg, () => cardImg.src = proj.img);
-          fadeOutIn(cardVideo, () => {
-            cardVideo.querySelector("source").src = proj.video;
-            cardVideo.load();
-          });
-          mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
-          mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
-          cardLink.href = proj.link;
-        }
-
-        document.getElementById("refresh-btn").addEventListener("click", () => {
-          currentIndex = (currentIndex + 1) % projects.length;
-          mediaIndex = 1;
-          displayProject(currentIndex);
-        });
-
-        function toggleMedia(next = true) {
-          mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
-          mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
-          mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
-        }
-
-        document.getElementById("toggle-left").addEventListener("click", (e) => {
-          e.preventDefault();
-          toggleMedia(false);
-        });
-
-        document.getElementById("toggle-right").addEventListener("click", (e) => {
-          e.preventDefault();
-          toggleMedia(true);
-        });
-
-        // Initialize
-        displayProject(currentIndex);
-      </script>
-      <footer>
-        <div style="display: flex; justify-content: space-between">
-          <p>
-            <span id="visits"></span>
-            <span class="emoji">👀</span>
-          </p>
-          <p>
-            &copy; 2025 <span id="currentYear"></span>
-            <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
-          </p>
-          <p>
-            <a href="https://github.com/EldiiarBekbolotov" target="_blank">
-              <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
-                class="h-6 w-6" aria-hidden="true">
-                <path
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-                </path>
-              </svg>
-            </a>
-          </p>
-        </div>
-      </footer>
+      <div style="display:flex; gap:8px;">
+        <button id="like-btn" class="slideshow-refresh-btn">
+          ❤️ <span id="like-count">0</span>
+        </button>
+        <button class="slideshow-refresh-btn" id="refresh-btn">🎁 Next Project</button>
+      </div>
     </div>
+    <script>
+      const ABACUS_BASE = "https://abacus.jasoncameron.dev";
+      const SITE_IDS = [
+        "eldiiarbekbolotov.github.io",
+        "eldiiarcodes.web.app"
+      ];
+
+      const projects = [
+        {
+          key: "natuwars", title: "NATUWARS v0.4", desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+          img: "src/natuwars.png", video: "src/natuwars.mp4", link: "games/natuwars.html"
+        },
+        {
+          key: "leaferscraft", title: "LeafersCraft v0.3", desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+          img: "src/leaferscraft.png", video: "src/leaferscraft.mp4", link: "games/leaferscraft.html"
+        },
+        {
+          key: "laserfocus", title: "LASER FOCUS", desc: "Gamified concentration test.<br /><em style='font-size:16px;'>Released summer 2023 under the nickname LeaferStudios.</em>",
+          img: "src/laserfocus.png", video: "src/laserfocus.mp4", link: "games/laserfocus.html"
+        },
+        {
+          key: "roguerun", title: "Rogue Run", desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+          img: "src/roguerun.png", video: "src/roguerun.mp4", link: "games/roguerun.html"
+        },
+        {
+          key: "cars", title: "Cars", desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+          img: "src/cars.png", video: "src/cars.mp4", link: "games/cars.html"
+        }
+      ];
+
+      let currentIndex = 0;
+      let mediaIndex = 1; // 0=image, 1=video
+      let currentProjectKey = null;
+
+      const cardImg = document.getElementById("card-img");
+      const cardVideo = document.getElementById("card-video");
+      const cardTitle = document.getElementById("card-title");
+      const cardDesc = document.getElementById("card-desc");
+      const cardLink = document.getElementById("card-link");
+      const likeBtn = document.getElementById("like-btn");
+      const likeCountEl = document.getElementById("like-count");
+
+      function jsonp(url, timeout = 7000) {
+        return new Promise((resolve, reject) => {
+          const cb = "abacus_cb_" + Math.random().toString(36).slice(2);
+          const sep = url.includes("?") ? "&" : "?";
+          const full = url + sep + "callback=" + cb;
+
+          let timedOut = false;
+          const script = document.createElement("script");
+          script.src = full;
+          script.async = true;
+
+          const timer = setTimeout(() => {
+            timedOut = true;
+            cleanup();
+            reject(new Error("JSONP timeout"));
+          }, timeout);
+
+          function cleanup() {
+            clearTimeout(timer);
+            script.remove();
+            try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+          }
+
+          window[cb] = function (data) {
+            if (timedOut) return;
+            cleanup();
+            resolve(data);
+          };
+
+          script.onerror = () => {
+            cleanup();
+            reject(new Error("JSONP network error"));
+          };
+
+          document.head.appendChild(script);
+        });
+      }
+
+      async function hitIncrementAcrossSites(key) {
+        const safeKey = encodeURIComponent(key);
+        const promises = SITE_IDS.map(site => {
+          const url = `${ABACUS_BASE}/hit/${encodeURIComponent(site)}/${safeKey}`;
+          return jsonp(url)
+            .then(res => res && typeof res.value === "number" ? res.value : null)
+            .catch(() => null);
+        });
+        const results = await Promise.all(promises);
+        const valid = results.filter(v => typeof v === "number");
+        return valid.length ? valid.reduce((s, v) => s + v, 0) : null;
+      }
+
+      let lastLoadToken = 0;
+
+      async function loadLikesForProject(key) {
+        const token = ++lastLoadToken;
+        likeCountEl.textContent = "…";
+
+        try {
+          const total = await hitIncrementAcrossSites(key);
+          if (token === lastLoadToken && key === currentProjectKey) {
+            likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : "0";
+          }
+        } catch {
+          if (token === lastLoadToken && key === currentProjectKey) {
+            likeCountEl.textContent = "0";
+          }
+        }
+      }
+
+      async function addLikeForProject(key) {
+        const prev = Number(likeCountEl.textContent) || 0;
+        likeCountEl.textContent = String(prev + 1);
+        try {
+          const total = await hitIncrementAcrossSites(key);
+          if (key === currentProjectKey) {
+            likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : String(prev);
+          }
+        } catch {
+          if (key === currentProjectKey) {
+            likeCountEl.textContent = String(prev);
+          }
+        }
+      }
+
+      function fadeOutIn(element, callback) {
+        element.style.opacity = 0;
+        setTimeout(() => { callback(); element.style.opacity = 1; }, 300);
+      }
+
+      function displayProject(index) {
+        const proj = projects[index];
+        currentProjectKey = proj.key;
+
+        fadeOutIn(cardTitle, () => cardTitle.textContent = proj.title);
+        fadeOutIn(cardDesc, () => cardDesc.innerHTML = proj.desc);
+        fadeOutIn(cardImg, () => cardImg.src = proj.img);
+        fadeOutIn(cardVideo, () => {
+          const srcEl = cardVideo.querySelector("source");
+          srcEl.src = proj.video;
+          cardVideo.load();
+        });
+
+        mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
+        mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
+        cardLink.href = proj.link;
+
+        loadLikesForProject(proj.key);
+      }
+
+      document.getElementById("refresh-btn").addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % projects.length;
+        mediaIndex = 1;
+        displayProject(currentIndex);
+      });
+
+      function toggleMedia(next = true) {
+        mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
+        mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
+        mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
+      }
+
+      document.getElementById("toggle-left").addEventListener("click", e => { e.preventDefault(); toggleMedia(false); });
+      document.getElementById("toggle-right").addEventListener("click", e => { e.preventDefault(); toggleMedia(true); });
+      likeBtn.addEventListener("click", e => { e.preventDefault(); addLikeForProject(projects[currentIndex].key); });
+
+      displayProject(currentIndex);
+    </script>
+    <footer>
+      <div style="display: flex; justify-content: space-between">
+        <p>
+          <span id="visits"></span>
+          <span class="emoji">👀</span>
+        </p>
+        <p>
+          &copy; 2025 <span id="currentYear"></span>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+        </p>
+        <p>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank">
+            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
+              class="h-6 w-6" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+              </path>
+            </svg>
+          </a>
+        </p>
+      </div>
+    </footer>
   </div>
   <script src="js/techstack.js"></script>
   <script src="js/index.js"></script>
@@ -1305,11 +1396,25 @@
   </script>
   <!-- simple counter -->
   <script>
-    var count = function (r) {
-      document.getElementById("visits").innerHTML = r.value + 8904;
-    };
+    let totalVisits = 0;
+
+    function updateTotal(newValue) {
+      totalVisits += newValue;
+      document.getElementById("visits").innerText = totalVisits;
+    }
+
+    function countgh(response) {
+      updateTotal(response.value);
+    }
+
+    function countfb(response) {
+      updateTotal(response.value);
+    }
   </script>
-  <script async src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visits?callback=count"></script>
+
+  <script async
+    src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visitsgh?callback=countgh"></script>
+  <script async src="https://abacus.jasoncameron.dev/hit/eldiiarcodes.web.app/visitsfb?callback=countfb"></script>
   <script>
     (function () {
       const birthDate = new Date("2009-02-22T00:00:00Z");
