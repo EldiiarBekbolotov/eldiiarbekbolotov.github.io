@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<!--All code by LeaferStudios a.k.a. Eldiiar Bekbolotov-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>LASER FOCUS</title>
+    <style>
+        html,
+        body,
+        #wrapper {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            width: calc(100% + 1px);
+        }
+
+        body {
+            background-color: black;
+        }
+
+
+        canvas {
+            width: fit-content;
+            height: fit-content;
+        }
+
+        canvas:focus {
+            outline: none;
+        }
+
+        #wrapper {
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body id="wrapper">
+    <canvas class="sketch"></canvas>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Khan/processing-js@master/processing.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/Mushy-Avocado/KA-exporter@v1.0.1/exporter.js"></script>
+    <script type="application/javascript">
+
+
+        function program() {
+
+            title("LASER FOCUS");
+            size(400, 400);
+
+            var spinoff = false; // Change this to true before saving your spin-off [so it's visible to others]
+            /***
+             * LASER FOCUS 
+             * by LeaferStudios
+             * 
+             * Works on mobile - tested on iPad!
+             * 
+             * Spin-off proof is need to qualify for the leaderboard.
+             * Your spin-off's thumbnail must show the 'Game Over' screen score.
+             * Leaderboard is for Normal Mode only.
+             * Post your spin-off link in the Leaderboard Thread in the Tips and Thanks below!
+             * 
+             * Have any suggestions, comments, or questions? Ask in the T&T and Questions sections below!
+            ***/
+            /*
+            HOW TO PLAY:
+            Avoid the red shapes: circles, squares, triangles.
+            Get powerups: green circles give you temporary protection.
+            Go to settings to change game difficulty.
+            Go to shop to change game backgrounds (everything is free for now).
+            */
+            /***
+             * Laser Focus Version 1 Update Log:
+             *  July 28, 2023: Finished & Released on Khan Academy.
+             *  July 29, 2023: 26 votes and 1st on the HL!
+             *  August 9, 2023: 44 votes & 4 spin-offs, updated the leaderboard.
+            ***/
+
+            //{
+            frameRate(60);
+            smooth();
+            size(400, 400, P2D);
+
+            Object.constructor.prototype.create = function () {
+                /** Credit: Matthias@MatthiasSaihttam **/
+                var obj = Object.create(this.prototype);
+                this.apply(obj, arguments);
+                return obj;
+            };
+
+            var keys = [];
+
+            var dev = false;
+            var saveCode = [3, 0, 0, 0, 0];
+
+            var gameBackground = 0;
+
+            var diff = 3;
+            var gameSpeed = 7;
+
+            var highScores = {
+                normal: 0,
+                amateur: 0,
+                noob: 0,
+            };
+
+            var scene = 'logo'; // home
+            var fonts = [
+                "arial",
+                "arial Bold",
+            ];
+            var killText = ["Good", "Nice!", "Great!!", "Superb!!!", "Legendary!!!!", "Extraordinary!!!!!", "Ultra!!!!!!"];
+
+            var keys = [];
+            var click = false;
+
+
+            var intransition = false;
+            var to = "";
+
+            var Transitions = function () {
+                this.t = 0;
+                this.c = 255;
+            };
+            Transitions.prototype.create = function () {
+                fill(255, 255, 255, this.c / 1.5);
+                rect(0, 0, width, height);
+                if (this.t === 1) {
+                    scene = to;
+                }
+                if (this.t < 30) {
+                    this.c -= 10;
+                }
+                if (this.t > 30) {
+                    this.c = 255;
+                    this.t = 0;
+                    intransition = false;
+                }
+                this.t++;
+            };
+            var goto = new Transitions();
+            var o1 = 0;
+            var button = function (d) {
+                pushMatrix();
+                pushStyle();
+                rectMode(CENTER);
+
+                stroke(0, 0, 0);
+                strokeWeight(4);
+
+                if (mouseX > d.x - d.w / 2 &&
+                    mouseX < d.x + d.w / 2 &&
+                    mouseY > d.y - d.h / 2 &&
+                    mouseY < d.y + d.h / 2) {
+                    cursor("POINTER");
+
+                    o1 = lerp(o1, 255, 0.25);
+                    fill(132, 232, 132, o1);
+                    if (click) {
+                        d.after();
+                        intransition = true;
+                        to = scene;
+                    }
+                } else {
+                    o1 = lerp(o1, 0, 0.05);
+                    fill(255, 255, 255, o1);
+
+                }
+
+                rect(d.x, d.y, d.w, d.h);
+
+                textFont(createFont(fonts[0]), 25);
+                fill(0, 0, 0);
+                text(d.txt, d.x, d.y - 3);
+
+
+                popStyle();
+                popMatrix();
+            };
+            var grid = function () {
+                pushMatrix();
+                pushStyle();
+                scale(1);
+                stroke(7, 26, 235);
+                strokeWeight(0.1);
+                for (var g = 1; g <= 40; g++) {
+                    line(0, g * 15, 600, g * 15);
+                    line(g * 15, 0, g * 15, 600);
+                }
+                popStyle();
+                popMatrix();
+            };
+
+
+            var kscale = 0;
+            var ktext = function (txt, x, y) {
+                pushMatrix();
+                pushStyle();
+                translate(x + width / 2, y + 100);
+                scale(kscale);
+                kscale = lerp(kscale, 1, 0.25);
+
+                textFont(createFont("Trebuchet MS Bold"), 45);
+                textAlign(CENTER, CENTER);
+                fill(0);
+                text(txt, 0, 4);
+                fill(255);
+                text(txt, 0, 0);
+                popStyle();
+                popMatrix();
+            };
+
+            var Player = function (d) {
+                this.x = d.x;
+                this.y = d.y;
+                this.dead = false;
+                this.turn = "middle";
+                this.speed = 4;
+                this.size = 10;
+
+                this.one = 0;
+                this.two = 0;
+                this.one1 = 0;
+                this.speedy = 30;
+                this.r = 0;
+
+                this.killData = [];
+
+                this.hands = true;
+
+                this.score = 0;
+                this.scoreT = 0;
+
+                this.scales = 1.5;
+                this.veritas = 0;
+                this.ant = 0;
+                this.hitan = false;
+                this.rs = 0;
+
+                this.pt = false;
+                this.poweron = false;
+                this.ptimer = 0;
+
+                this.smash = false;
+            };
+            Player.prototype.display = function () {
+                pushMatrix();
+                translate(this.x + this.veritas / 3, this.y + this.veritas);
+                rotate(this.r + this.rs);
+                scale(this.scales);
+                fill(156, 161, 0);
+                pushStyle();
+                rectMode(CENTER);
+                rect(-2, 5 + this.two, 4, 6, 0, 0, 10, 10);
+
+                rect(2, 5 + this.one, 4, 6, 0, 0, 10, 10);
+                popStyle();
+                fill(158, 163, 13);
+                if (this.hands === true) {
+                    ellipse(-6.5, 0 - this.one1, 3, 3);
+
+                    ellipse(6.5, 0 + this.one1, 3, 3);
+                }
+                fill(225, 245, 0);
+                ellipse(0, 0, this.size, this.size);
+
+
+
+                fill(0);
+                ellipse(-2, 0, 2, 2);
+
+                ellipse(2, 0, 2, 2);
+
+                if (this.poweron === true) {
+                    pushStyle();
+                    stroke(27, 133, 247);
+                    strokeWeight(1);
+                    fill(0, 149, 255, 50);
+                    ellipse(0, 0, this.size + 20, this.size + 20);
+                    popStyle();
+                }
+                popMatrix();
+
+                this.one = sin(frameCount * this.speedy) * 2;
+                this.one1 = sin(frameCount * 6) * 4;
+                this.two = sin(frameCount * -this.speedy) * 2;
+
+                if (this.hands === false) {
+                    this.r = sin(frameCount * 16) * 15;
+                } else {
+
+                    this.r = sin(frameCount * 6) * 10;
+                }
+            };
+            Player.prototype.update = function () {
+                if (keys[LEFT]) {
+                    this.x -= this.speed;
+                }
+
+                if (keys[RIGHT]) {
+                    this.x += this.speed;
+                }
+
+                this.x = mouseX;
+                this.x = constrain(this.x, 0, 400);
+            };
+            Player.prototype.resetStats = function () {
+                this.x = width / 2;
+                this.y = height / 2 - 50;
+                this.dead = false;
+                this.turn = "middle";
+                this.speed = 4;
+                this.size = 10;
+
+                this.one = 0;
+                this.two = 0;
+                this.one1 = 0;
+                this.speedy = 30;
+                this.r = 0;
+
+                this.killData = [];
+
+                this.hands = true;
+
+                this.scoreT = 0;
+                this.scales = 1.5;
+                this.veritas = 0;
+                this.ant = 0;
+                this.hitan = false;
+                this.rs = 0;
+
+                this.pt = false;
+                this.smash = false;
+                this.ptimer = 0;
+                this.poweron = false;
+            };
+
+            var p = new Player({
+                x: width / 2,
+                y: height / 2 - 50,
+            });
+
+            var blockTypes = 2;
+
+            var Block = function (d) {
+                this.x = d.x;
+                this.y = d.y;
+                this.type = d.type;
+                this.size = random(30, 40);
+                this.z = 0;
+                this.done = false;
+                this.op = 255;
+            };
+            Block.prototype.display = function () {
+                pushMatrix();
+                pushStyle();
+                translate(this.x, this.y);
+                //fill(0, 0, 0);
+                //ellipse(0, 0, this.size, this.size);
+                switch (this.type) {
+                    case 0:
+                        rotate(this.z);
+                        fill(255, 0, 38, this.op);
+                        ellipse(0, 0, this.size, this.size);
+                        fill(this.z, this.z / 3, this.z / 2, this.op - 105);
+                        ellipse(0, 0, this.size, this.size);
+
+                        fill(0, 0, 0, this.op - 205);
+                        ellipse(5, -5, 10, 10);
+
+                        ellipse(5, 0, 15, 15);
+                        //ellipse(-5, 25, 20, 30);
+                        //ellipse(5, 25, 20, 30);
+                        break;
+                    case 1:
+                        rotate(this.z);
+                        pushStyle();
+                        rectMode(CENTER);
+                        fill(255, 102, 0, this.op);
+                        rect(0, 0, this.size, this.size, 5);
+                        fill(this.z, this.z / 3, this.z / 2, this.op - 105);
+                        rect(0, 0, this.size, this.size);
+
+                        fill(0, 0, 0, this.op - 205);
+                        rect(5, -5, 10, 10);
+
+                        rect(5, 0, 15, 15);
+                        //ellipse(-5, 25, 20, 30);
+                        //ellipse(5, 25, 20, 30);
+                        popStyle();
+                        break;
+                    case 2:
+                        rotate(this.z);
+
+                        fill(255, 72, 0, this.op);
+                        pushMatrix();
+                        translate(-20, -20);
+                        scale(0.9);
+                        triangle(21, 1, 46, 38, 0, 38);
+                        popMatrix();
+
+                        fill(247, 161, 0, this.op - 205);
+                        pushMatrix();
+                        translate(-20, -20);
+                        scale(0.8);
+                        triangle(21, 1, 46, 38, 0, 38);
+                        popMatrix();
+
+                        fill(231, 242, 14, this.op - 205);
+                        pushMatrix();
+                        translate(-20, -20);
+                        scale(0.8);
+                        triangle(21, 1, 46, 38, 30, 38);
+                        popMatrix();
+
+                        fill(0, 0, 0, this.op - 240);
+                        ellipse(5, -5, 10, 5);
+
+                        ellipse(-2, 0, 15, 10);
+                        ellipse(-2, 5, 10, 10);
+                        ellipse(-2, 2, 10, 10);
+                        break;
+                }
+                popStyle();
+                popMatrix();
+                this.z += 10;
+            };
+            Block.prototype.update = function () {
+                this.y -= gameSpeed;
+            };
+            var asd = 0;
+            Block.prototype.cool = function () {
+                if (p.smash === true) {
+                    if (dist(this.x, this.y, p.x, p.y) <= this.size * 20) {
+                        this.done = true;
+                    }
+                }
+                if (p.poweron === true) {
+                    if (dist(this.x, this.y, p.x, p.y) <= this.size * 10) {
+                        this.op = lerp(this.op, 25, 0.4);
+                        //this.done=true;
+                    }
+                } else {
+                    if (dist(this.x, this.y, p.x, p.y) <= this.size / 1.5) {
+
+                        p.hitan = true;
+                    }
+                    if (p.hitan === true) {
+                        asd++;
+                        p.scales = lerp(p.scales, 5, 0.1);
+                        p.veritas = lerp(p.veritas, -400, 0.001);
+                        p.rs++;
+
+                        if (p.ant >= 1500) {
+                            if (dev === true) {
+                                println(p.ant + "/1500 || " + asd);
+                            }
+                            p.dead = true;
+                            asd = 0;
+                        } else {
+                            p.ant++;
+                        }
+
+
+                    }
+                }
+            };
+            var blocks = [];
+
+            var Powerup = function (d) {
+                this.x = d.x;
+                this.y = d.y;
+                this.type = d.type;
+                this.size = 30;
+                this.z = 0;
+                this.done = false;
+                this.op = 255;
+                this.dur = d.dur;
+            };
+            Powerup.prototype.display = function () {
+                pushMatrix();
+                pushStyle();
+                translate(this.x, this.y);
+                switch (this.type) {
+                    case 0:
+                        rotate(this.z);
+                        fill(14, 199, 20, this.op);
+                        ellipse(4, 0, this.size, this.size);
+                        fill(this.z, this.z / 3, this.z / 2, this.op - 105);
+                        ellipse(0, 0, this.size, this.size);
+                        break;
+                }
+                popStyle();
+                popMatrix();
+                this.z += 10;
+            };
+            Powerup.prototype.update = function () {
+                this.y -= gameSpeed / 2;
+            };
+            var qwe = 0;
+            Powerup.prototype.cool = function () {
+                if (dist(this.x, this.y, p.x, p.y) <= p.size * 2.5) {
+
+                    p.pt = true;
+
+                }
+
+                if (p.pt === true) {
+                    this.op = lerp(this.op, 0, 0.12);
+                    p.ptimer += 1;
+                    qwe++;
+                    if (dev === true) {
+                        println(p.ptimer + "/" + this.dur + " || " + qwe);
+                    }
+                    p.poweron = true;
+                } else {
+
+                }
+
+                if (p.ptimer >= this.dur) {
+                    qwe = 0;
+                    p.ptimer = 0;
+                    p.poweron = false;
+                    p.smash = false;
+
+                    p.pt = false;
+                    this.done = true;
+                } else if (p.ptimer >= this.dur - 100) {
+                    p.smash = true;
+                    //p.poweron=true;
+                }
+
+            };
+            var powerups = [];
+
+            var timer = 0;
+
+            var fr = [];
+
+            var zz = 100;
+
+            var rst = function () {
+                p.resetStats();
+                blocks = [];
+                timer = 0;
+                fr = [];
+                zz = 100;
+            };
+
+            var powerupDur = 1000,
+                powerupDur1 = 500,
+                powerupDur2 = 300;
+
+
+            var bgs = [{
+                name: "Gray 1",
+                status: 0,
+                cost: 0,
+                clr: color(194, 194, 194),
+            },
+            {
+                name: "Gray 2",
+                status: 0,
+                cost: 0,
+                clr: color(77, 77, 77),
+            },
+            {
+                name: "Teal",
+                status: 0,
+                cost: 0,
+                clr: color(12, 150, 163)
+            },
+            {
+                name: "Green 1",
+                status: 0,
+                cost: 0,
+                clr: color(8, 143, 15)
+            },
+            {
+                name: "Green 2",
+                status: 0,
+                cost: 0,
+                clr: color(42, 94, 5)
+            },
+            {
+                name: "Purple 1",
+                status: 0,
+                cost: 0,
+                clr: color(97, 7, 120)
+            },
+            {
+                name: "Purple 2",
+                status: 0,
+                cost: 0,
+                clr: color(64, 3, 64)
+            },
+            {
+                name: "Red",
+                status: 0,
+                cost: 0,
+                clr: color(138, 5, 10)
+            },
+            ];
+
+            var pdur = 200;
+            var pdur2 = 350;
+            var pdur3 = 500;
+
+            var play = function () {
+                cursor("NONE");
+                background(194, 194, 194);
+                grid();
+
+                fill(bgs[gameBackground].clr);
+                rect(0, 0, width, height);
+
+                if (diff === 1) {
+                    gameSpeed = 3.5;
+                } else if (diff === 2) {
+                    gameSpeed = 5;
+                } else {
+                    gameSpeed = 7;
+                }
+
+                if (p.hitan === false) {
+                    timer += 1;
+                    if (p.poweron === true) {
+                        fill(255, 255, 255);
+                        switch (diff) {
+                            case 1:
+                                text((100 - (p.ptimer / pdur * 100)).toFixed(1) + "%", 200, 300);
+                                break;
+                            case 2:
+                                text((100 - (p.ptimer / pdur2 * 100)).toFixed(1) + "%", 200, 300);
+                                break;
+                            case 3:
+                                text((100 - (p.ptimer / pdur3 * 100)).toFixed(1) + "%", 200, 300);
+                                break;
+                        }
+
+                    }
+
+                    if (timer <= 3000) {
+                        for (var i = 0; i < 100; i++) {
+                            if (timer >= i * zz && timer <= i * zz + 1) {
+                                p.killData.push("kill");
+                                zz = i * 100;
+                            }
+                        }
+                    } else if (timer >= 3500 && timer <= 3500 + 1) {
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+                    } else if (timer >= 4000 && timer <= 4000 + 1) {
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+                    } else if (timer >= 4500 && timer <= 4500 + 1) {
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+                    } else if (timer >= 5000 && timer <= 5000 + 1) {
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                    } else if (timer >= 7000 && timer <= 7000 + 1) {
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                        p.killData.push("kill");
+
+                    }
+
+
+
+                    switch (p.killData.length) {
+                        case 0:
+                            break;
+                        case 1:
+                            p.score += 1;
+                            break;
+                        case 2:
+                            p.score += 2;
+                            break;
+                        case 3:
+                            p.score += 10;
+                            break;
+                        case 4:
+                            p.score += 20;
+                            break;
+                        case 5:
+                            p.score += 30;
+                            break;
+                        case 6:
+                            p.score += 40;
+                            break;
+                        case 7:
+                            p.score += 50;
+                            break;
+                        case 8:
+                            p.score += 60;
+                            break;
+                        case 9:
+                            p.score += 100;
+                            break;
+                    }
+
+                    switch (p.killData.length) {
+                        case 0:
+                            break;
+                        case 1:
+                            p.scoreT += 1;
+                            break;
+                        case 2:
+                            p.scoreT += 2;
+                            break;
+                        case 3:
+                            p.scoreT += 10;
+                            break;
+                        case 4:
+                            p.scoreT += 20;
+                            break;
+                        case 5:
+                            p.scoreT += 30;
+                            break;
+                        case 6:
+                            p.scoreT += 40;
+                            break;
+                        case 7:
+                            p.scoreT += 50;
+                            break;
+                        case 8:
+                            p.scoreT += 60;
+                            break;
+                        case 9:
+                            p.scoreT += 100;
+                            break;
+                    }
+                }
+
+                p.display();
+                p.update();
+
+                if (p.hitan === false) {
+                    if (diff === 1) {
+                        if (frameCount % 20 === 0) {
+                            blocks.push(new Block({
+                                x: random(0, width),
+                                y: height + 50,
+                                type: round(random(0, blockTypes)),
+                            }));
+                        }
+
+                        if (p.poweron === false && frameCount % powerupDur === 0) {
+                            powerups.push(new Powerup({
+                                x: random(0, width),
+                                y: height + 50,
+                                type: 0,
+                                dur: 200,
+                            }));
+                        }
+
+                    } else if (diff === 2) {
+                        if (frameCount % 14 === 0) {
+                            blocks.push(new Block({
+                                x: random(0, width),
+                                y: height + 50,
+                                type: round(random(0, blockTypes)),
+                            }));
+                        }
+
+                        if (p.poweron === false && frameCount % powerupDur1 === 0) {
+                            powerups.push(new Powerup({
+                                x: random(0, width),
+                                y: height + 50,
+                                type: 0,
+                                dur: 350,
+                            }));
+                        }
+                    } else {
+                        if (frameCount % 10 === 0) {
+                            blocks.push(new Block({
+                                x: random(0, width),
+                                y: height + 50,
+                                type: round(random(0, blockTypes)),
+                            }));
+                        }
+                        if (p.poweron === false && frameCount % (powerupDur2) === 0) {
+                            powerups.push(new Powerup({
+                                x: random(0, width),
+                                y: height + 50,
+                                type: 0,
+                                dur: 500,
+                            }));
+                        }
+                    }
+                }
+
+                for (var i = blocks.length - 1; i >= 0; i--) {
+                    blocks[i].display();
+                    blocks[i].update();
+                    blocks[i].cool();
+                    if (blocks[i].done === true) {
+                        blocks.splice(i, 1);
+                    }
+                }
+
+                for (var i = powerups.length - 1; i >= 0; i--) {
+                    powerups[i].display();
+                    powerups[i].update();
+                    powerups[i].cool();
+                    if (powerups[i].done === true) {
+                        powerups.splice(i, 1);
+                    }
+                }
+
+                textFont(createFont(fonts[1]), 85);
+                fill(255, 255, 255, 100);
+                text(timer, width / 2, height / 2);
+
+                if (dev === true) {
+                    textSize(20);
+                    fill(255, 255, 255, 255);
+                    text(this.__frameRate.toFixed(1), 20, height - 20 / 2);
+                }
+                if (frameCount % 100 === 0) {
+                    fr.push(this.__frameRate);
+                }
+
+                if (p.dead === true) {
+                    scene = 2;
+                }
+            };
+
+            var quotes = ["created by LeaferStudios", "You can Spin-off your high-score", "Patience. Concentration. Focus.", "HOF is for Normal Mode only...", "Share some feedback!"];
+            var d1 = 0;
+            var menu = function () {
+                background(193, 226, 247);
+                grid();
+                textFont(createFont(fonts[1]), 50);
+                fill(0, 0, 0);
+                text("LASER FOCUS", width / 2, 117);
+
+                textFont(createFont(fonts[1]), 19.2);
+                text("Do you have the concentration to win?", width / 2, 156);
+
+                pushMatrix();
+                pushStyle();
+                stroke(0, 0, 0);
+                fill(255, 4, 0);
+                rect(20, height - 40, 360, 30);
+                translate(width / 2, height - 25);
+                fill(255, 255, 255);
+                textFont(createFont(fonts[1]), 17);
+                scale(1 + sin(frameCount * 10) * 0.01);
+                if (frameCount % 100 === 0) {
+                    d1 = round(random(0, quotes.length - 1));
+                }
+                text(quotes[d1], 0, 0);
+                popStyle();
+                popMatrix();
+
+                button({
+                    x: width / 2,
+                    y: 211,
+                    w: 360,
+                    h: 50,
+                    txt: "Play",
+                    after: function () {
+                        scene = 1;
+                    },
+                });
+
+                button({
+                    x: width / 2 - 360 / 4,
+                    y: 211 + 49,
+                    w: 360 / 2,
+                    h: 50,
+                    txt: "How",
+                    after: function () {
+                        scene = 3;
+                    },
+                });
+
+                button({
+                    x: width / 2 + 360 / 4,
+                    y: 211 + 49,
+                    w: 360 / 2,
+                    h: 50,
+                    txt: "Shop",
+                    after: function () {
+                        scene = 6;
+                    },
+                });
+
+                button({
+                    x: width / 2 + 360 / 4,
+                    y: 211 + 49 * 2,
+                    w: 360 / 2,
+                    h: 50,
+                    txt: "Settings",
+                    after: function () {
+                        scene = 5;
+                    },
+                });
+
+                button({
+                    x: width / 2 - 360 / 4,
+                    y: 211 + 49 * 2,
+                    w: 360 / 2,
+                    h: 50,
+                    txt: "Lead",
+                    after: function () {
+                        scene = 4;
+                    },
+                });
+            };
+
+            var ly = -width;
+            var ly2 = width * 2;
+            var show = 1;
+
+            var dead = function () {
+                background(0, 55, 255);
+
+                textFont(createFont(fonts[1]), 40);
+                fill(255, 255, 255);
+                text("Game Over", width / 2, 73);
+                textFont(createFont(fonts[1]), 22);
+                if (diff === 1) {
+                    fill(13, 255, 0);
+
+                    if (timer >= highScores.noob) {
+                        highScores.noob = timer;
+                        text('New High Score! - Noob Mode', width / 2, 112);
+                    } else {
+                        text('Noob Mode', width / 2, 112);
+                    }
+                } else if (diff === 2) {
+                    fill(255, 251, 0);
+                    if (timer >= highScores.amateur) {
+                        highScores.amateur = timer;
+                        text('New High Score!- Amateur Mode', width / 2, 112);
+                    } else {
+                        text('Amateur Mode', width / 2, 112);
+                    }
+                } else if (diff === 3) {
+                    if (timer >= highScores.normal) {
+                        highScores.normal = timer;
+                        fill(255, 0, 21, 255);
+                        text('New High Score! - Normal Mode', width / 2, 112);
+                    } else {
+                        fill(255, 0, 21, 255);
+                        text('Normal Mode', width / 2, 112);
+                    }
+                }
+                fill(255, 255, 255);
+
+                var sum = 0;
+                for (var i = 0; i < fr.length; i++) {
+                    sum += fr[i];
+                }
+                textFont(createFont(fonts[1]), 19.2);
+                if (show === 1) {
+                    ly = lerp(ly, width / 2, 0.25);
+                    ly2 = lerp(ly2, width * 2, 0.25);
+                } else if (show === 2) {
+                    ly = lerp(ly, -width, 0.25);
+                    ly2 = lerp(ly2, width / 2, 0.25);
+                }
+                textSize(25);
+                text("\nFinal Score: " + timer + "\nDiamonds Earned: " + p.scoreT + " (+" + ((p.scoreT / p.score) * 100).toFixed(0) + "%)" + "\nAvg. Frame Rate*: " + (sum / fr.length).toFixed(2) + "\nCurrent Frame Rate: " + this.__frameRate.toFixed(2) + "\n", ly, 201);
+                textSize(19.2);
+                text("*Due to the fact that the game is\neasier when the frameRate is lower\nthe average frame rate is there to\nensure that the game is played\nequally across different devices. ", ly2, 194);
+
+                button({
+                    x: width / 2 - 50,
+                    y: 356 - 50,
+                    w: 100,
+                    h: 50,
+                    txt: "Stats",
+                    after: function () {
+                        show = 1;
+                    },
+                });
+                button({
+                    x: width / 2 + 50,
+                    y: 356 - 50,
+                    w: 100,
+                    h: 50,
+                    txt: "*Info",
+                    after: function () {
+                        show = 2;
+                    },
+                });
+
+                button({
+                    x: width / 2,
+                    y: 356,
+                    w: 200,
+                    h: 50,
+                    txt: "Restart",
+                    after: function () {
+                        rst();
+                        scene = 0;
+                    },
+                });
+            };
+
+            var lead = function () {
+                background(143, 143, 143);
+
+                textFont(createFont(fonts[1]), 50);
+                fill(0, 0, 0);
+                text("Leaderboard", width / 2, 81);
+
+                textFont(createFont(fonts[1]), 19.2);
+                text("Top 5 All-Time HOF:", width / 2, 125);
+                text("<--- Ldr. Requirements posted in program", width / 2, 295);
+                textFont(createFont(fonts[1]), 20.2);
+                fill(235, 242, 44);
+                text("1) SlothKing - 13,788", width / 2, 153);
+
+                fill(196, 196, 196);
+                text("2) tanakmat - 12,697", width / 2, 153 + 22);
+
+                fill(120, 98, 17);
+                text("3) NICKNAME - 11,081", width / 2, 153 + 44);
+                textSize(18);
+                fill(71, 71, 71);
+                text("4) Mr. Logo (MaXX) - 6,129", width / 2, 155 + 65);
+                text("5) LAZERWOLF - 8,729", width / 2, 155 + 85);
+
+                button({
+                    x: width / 2,
+                    y: 356,
+                    w: 200,
+                    h: 50,
+                    txt: "Back",
+                    after: function () {
+                        scene = 0;
+                    },
+                });
+            };
+            var rxy = 50;
+            var rxw = 70;
+            var z1 = 50;
+            var z2 = 50;
+            var z3 = 255;
+            var settings = function () {
+                background(52, 76, 133);
+
+                textFont(createFont(fonts[1]), 50);
+                fill(255, 255, 255);
+                text("Settings", width / 2, 81);
+
+                textFont(createFont(fonts[1]), 19.2);
+                text("Your Current High-Scores (HS):", width / 2, 125);
+                textSize(17);
+                if (diff === 1) {
+                    rxy = lerp(rxy, 50, 0.25);
+
+                    rxw = lerp(rxw, 55, 0.25);
+                    z1 = lerp(z1, 255, 0.25);
+                    z2 = lerp(z2, 50, 0.25);
+                    z3 = lerp(z3, 50, 0.25);
+                    text("Current Game Mode: L" + diff + ", Noob Mode", width / 2, 219);
+                } else if (diff === 2) {
+                    rxy = lerp(rxy, 155, 0.25);
+                    rxw = lerp(rxw, 90, 0.25);
+                    z1 = lerp(z1, 50, 0.25);
+                    z3 = lerp(z3, 50, 0.25);
+                    z2 = lerp(z2, 255, 0.25);
+                    text("Current Game Mode: L" + diff + ", Amateur Mode", width / 2, 219);
+                } else if (diff === 3) {
+                    rxy = lerp(rxy, 290, 0.25);
+                    rxw = lerp(rxw, 60, 0.25);
+                    z1 = lerp(z1, 50, 0.25);
+                    z2 = lerp(z2, 50, 0.25);
+                    z3 = lerp(z3, 255, 0.25);
+                    text("Current Game Mode: L" + diff + ", Normal Mode", width / 2, 219);
+                }
+                textFont(createFont(fonts[1]), 19.2);
+                fill(255, 0, 21, 255);
+                text("L3, Normal Mode: " + highScores.normal, width / 2, 155);
+
+                fill(255, 251, 0, 150);
+                text("L2, Amateur Mode: " + highScores.amateur, width / 2, 155 + 20);
+
+                fill(13, 255, 0, 150);
+                text("L1, Noob Mode: " + highScores.noob, width / 2, 155 + 40);
+
+                fill(255, 255, 255, 100);
+                rect(rxy, 238, rxw, 25);
+                fill(255, 255, 255, 150);
+                rect(50, 263, 300, 2);
+                fill(13, 255, 0, z1);
+                text("Easy", 77, 251);
+                fill(255, 251, 0, z2);
+                text("Medium", 200, 251);
+                fill(176, 7, 27, z3);
+                text("Hard", 321, 251);
+
+                button({
+                    x: width / 2 - 300 / 3,
+                    y: 345 - 50,
+                    w: 300 / 3,
+                    h: 50,
+                    txt: "Noob",
+                    after: function () {
+                        diff = 1;
+                    },
+                });
+                button({
+                    x: width / 2,
+                    y: 345 - 50,
+                    w: 300 / 3,
+                    h: 50,
+                    txt: "Amtr.",
+                    after: function () {
+                        diff = 2;
+                    },
+                });
+                button({
+                    x: width / 2 + 300 / 3,
+                    y: 345 - 50,
+                    w: 300 / 3,
+                    h: 50,
+                    txt: "Normal",
+                    after: function () {
+                        diff = 3;
+                    },
+                });
+
+                button({
+                    x: width / 2,
+                    y: 345,
+                    w: 300,
+                    h: 50,
+                    txt: "Back",
+                    after: function () {
+                        scene = 0;
+                    },
+                });
+            };
+
+            var how = function () {
+                background(74, 177, 255);
+
+                textFont(createFont(fonts[1]), 50);
+                fill(0, 0, 0);
+                text("How", width / 2, 78);
+
+                textFont(createFont(fonts[1]), 19.2);
+                text("Don't hit the red shapes. 🔴\nUse your mouse to move. 🐭\nEarn diamonds by surviving. 🤑\nLook out for powerups! 🟢\n", width / 2, 187);
+                textFont(createFont(fonts[1]), 19.2);
+                text("Spin-off proof is needed to\nqualify for the leaderboard!", width / 2, 284);
+
+                button({
+                    x: width / 2,
+                    y: 356,
+                    w: 200,
+                    h: 50,
+                    txt: "Back",
+                    after: function () {
+                        scene = 0;
+                    },
+                });
+            };
+
+            var shopage = 0;
+
+
+            var t1 = 'Equip';
+            var shop = function () {
+                background(178, 202, 237);
+                grid();
+
+
+
+                pushStyle();
+                rectMode(CENTER);
+                fill(bgs[gameBackground].clr, 255);
+                rect(width / 2, height / 2, 400, 400);
+
+
+                stroke(255, 255, 255, 100);
+                strokeWeight(2);
+                fill(255, 255, 255, 50);
+                rect(width / 2, height / 2, 100, 100, 10);
+                popStyle();
+                textFont(createFont(fonts[1]), 33);
+
+
+                fill(0, 0, 0, 200);
+                rect(0, 35, 400, 100);
+
+                fill(255, 255, 255);
+                text("Shop", width / 2, 70);
+                textFont(createFont(fonts[1]), 25);
+                text(bgs[shopage].name, width / 2, height / 2);
+                button({
+                    x: width / 2,
+                    y: 356 - 60,
+                    w: 200,
+                    h: 50,
+                    txt: t1,
+                    after: function () {
+                        if (t1 === 'Equip') {
+                            gameBackground = shopage;
+                            t1 = 'Unequip';
+                        } else if (t1 === 'Unequip') {
+                            t1 = "Equip";
+                        }
+                    },
+                });
+
+                /* switch (shopage) {
+                     case 0:
+                         text(bgs[0].name, width/2, height/2);
+                         button({
+                     x: width/2,
+                     y: 356-60,
+                     w: 200,
+                     h: 50,
+                     txt: t1,
+                     after: function() {
+                         if(t1==='Buy'){
+                        t1="Equip";
+                         }
+                         else if (t1==='Equip'){
+                             t1='Unequip';
+                         } else if (t1 === 'Unequip'){
+                             t1="Equip";
+                         }
+                     },
+                 });
+                         break;
+                     case 1:
+                         text('shopage2', width/2, height/2);
+                         
+                         break;
+                     case 2:
+                         text('shopage3', width/2, height/2);
+                         break;
+                 }
+                 */
+                button({
+                    x: width / 2 - 200 / 2 - 20,
+                    y: 356,
+                    w: 40,
+                    h: 50,
+                    txt: "<",
+                    after: function () {
+                        if (shopage <= 0) {
+                            shopage = 0;
+                        } else {
+                            shopage--;
+                            t1 = "Equip";
+                        }
+                    },
+                });
+                button({
+                    x: width / 2 + 200 / 2 + 20,
+                    y: 356,
+                    w: 40,
+                    h: 50,
+                    txt: ">",
+                    after: function () {
+                        if (shopage >= bgs.length - 1) {
+                            shopage = bgs.length - 1;
+                        } else {
+                            shopage++;
+                            t1 = "Equip";
+                        }
+                    },
+                });
+
+                button({
+                    x: width / 2,
+                    y: 356,
+                    w: 200,
+                    h: 50,
+                    txt: "Back",
+                    after: function () {
+                        scene = 0;
+                    },
+                });
+
+                textFont(createFont('monospace'), 20);
+                fill(bgs[gameBackground].clr, 0 + (sin(frameCount * 4) * 255));
+                text(bgs[gameBackground].name + ' Background Equipped', width / 2, height / 2 - 93 + sin(frameCount * 15) * 5);
+
+            };
+
+            keyPressed = function () {
+                keys[keyCode] = true;
+            };
+            keyReleased = function () {
+                keys[keyCode] = false;
+            };
+
+            mouseClicked = function () {
+                click = true;
+            };
+
+            function logo(x, y, s, r, a) {
+                pushMatrix();
+                pushStyle();
+                translate(x, y);
+                scale(s);
+                rotate(r);
+
+                fill(255, 255, 255, a);
+                rect(0, 0, 7, 70);
+                rect(0, 70, 70 / 2, 7);
+
+                rect(60, 0, 50, 7);
+                rect(60, 70 / 2, 50, 7);
+                rect(60, 70, 50, 7);
+
+                stroke(255, 255, 255, a);
+                noFill();
+                strokeWeight(7);
+                line(160, 0, 135, 77);
+                line(160, 0, 185, 77);
+                noStroke();
+                fill(255, 255, 255, a);
+
+                rect(225, 0, 7, 77);
+                rect(225, 0, 77 / 2, 7);
+                rect(225, 30, 77 / 2.5, 7);
+
+                rect(290, 0, 50, 7);
+                rect(290, 70 / 2, 50, 7);
+                rect(290, 70, 50, 7);
+
+                rect(365, 0, 7, 77);
+                noFill();
+                stroke(255, 255, 255, a);
+                strokeWeight(7);
+                arc(374, 19, 50, 31, -90, 90);
+                line(373, 41, 400, 74);
+                noStroke();
+
+                fill(99, 255, 117, a);
+                rect(0, 98.5, 400, 3);
+
+                textSize(45.5);
+                textFont(createFont("segoe ui"));
+                textAlign(LEFT, LEFT);
+                fill(255, 255, 255, a);
+                text("S   T   U   D   I  O  S", 0, 155);
+                popStyle();
+                popMatrix();
+            }
+            var bzr_lines = function (x, y, s, r, c) {
+                pushMatrix();
+                translate(x, y);
+                scale(s);
+                rotate(r);
+                fill(c);
+                beginShape();
+                vertex(0, 0);
+                bezierVertex(-200, 0, 0, 200, 800, 0);
+                endShape();
+                beginShape();
+                vertex(0, 260);
+                bezierVertex(-200, 73, 0, 167, 1000, 173);
+                endShape();
+                beginShape();
+                vertex(0, 400);
+                bezierVertex(-500, 405, 0, 231, 1000, 373);
+                bezierVertex(-500, 469, 0, 262, 1000, 434);
+                endShape();
+                beginShape();
+                vertex(0, 600);
+                bezierVertex(-418, 448, 932, 517, 600, 600);
+                endShape();
+                popMatrix();
+            };
+            var logoX = 600;
+            var logoAlpha = 0;
+            var logoCounter = 0;
+            var lr = 180;
+
+            draw = function () {
+                noStroke();
+                cursor("DEFAULT");
+                textAlign(CENTER, CENTER);
+
+                background(255, 0, 0);
+
+
+                switch (scene) {
+                    case 'thumb':
+                        background(255, 255, 255);
+                        //grid();
+                        textFont(createFont(fonts[1]), 40);
+
+                        pushMatrix();
+                        translate(width / 2, 68);
+                        scale(1.1, 1);
+                        fill(10, 110, 9, 50);
+                        text("LEAFERSTUDIOS", -2, 4);
+                        fill(2, 122, 30);
+                        text("LEAFERSTUDIOS", 0, 0);
+                        popMatrix();
+
+                        fill(255, 0, 0, 50);
+                        rect(155, 100, width, 95);
+                        fill(0, 34, 255, 50);
+                        rect(-160, 195, width, 120);
+
+                        pushMatrix();
+                        translate(-24, 100);
+                        scale(1.1, 1);
+                        textFont(createFont(fonts[1]), 100);
+                        fill(255, 0, 43, 60);
+                        text("LASER", width / 2 - 4, 54);
+                        fill(227, 13, 24);
+                        text("LASER", width / 2, 50);
+
+                        textFont(createFont(fonts[1]), 96.6);
+                        fill(16, 58, 110, 60);
+                        scale(1.03, 1.5);
+                        text("FOCUS", width / 2 - 5, 105);
+                        fill(25, 80, 207);
+                        text("FOCUS", width / 2 - 1.5, 100);
+                        popMatrix();
+
+                        pushMatrix();
+                        translate(0, 333);
+                        scale(1, 1);
+
+                        fill(19, 64, 128);
+                        textFont(createFont('trebuchet ms Bold'), 19.9);
+                        text('Do You Have The Concentration To Win?', width / 2, 0);
+                        textFont(createFont(fonts[0]), 14);
+                        fill(12, 99, 16);
+                        text('© 2023 LeaferStudios', width / 2, 56);
+                        popMatrix();
+
+
+                        break;
+                    case 'logo':
+                        background(0, 0, 0);
+                        pushMatrix();
+                        translate(-4.8123901823091823, 0);
+                        scale(1);
+                        bzr_lines(0, 0, 1, -10, color(16, 127, 224, 30));
+                        bzr_lines(0, 50, 3, 10, color(16, 127, 224, 30));
+
+                        logoX = lerp(logoX, 129, 0.05);
+                        logoAlpha = lerp(logoAlpha, 250, 0.025);
+                        logo(55, logoX, 0.75, lr, logoAlpha);
+                        lr = lerp(lr, 0, 0.08);
+                        popMatrix();
+                        logoCounter++;
+                        if (logoCounter >= 130) {
+                            scene = 0;
+                        }
+                        break;
+                    case 0:
+                        menu();
+                        break;
+                    case 1:
+                        play();
+                        break;
+                    case 2:
+                        dead();
+                        break;
+                    case 3:
+                        how();
+                        break;
+                    case 4:
+                        lead();
+                        break;
+                    case 5:
+                        settings();
+                        break;
+                    case 6:
+                        shop();
+                        break;
+                }
+
+                if (scene !== 'logo' && scene !== 'thumb') {
+                    fill(255, 255, 255, 100);
+                    rect(0, 0, width, 35);
+                    fill(0, 63, 115);
+                    textFont(createFont(fonts[0]), 20);
+                    text('💎 ' + p.score, width - 50, 35 / 2);
+                    fill(0, 0, 0, 50);
+                    if (diff === 1) {
+                        text('Noob Mode', 60, 35 / 2);
+                        fill(0, 0, 0);
+                        textFont(createFont('monospace'), 22);
+                        text("HI: " + highScores.noob, width / 2, 35 / 2);
+                    } else if (diff === 2) {
+                        text('Amateur Mode', 74, 35 / 2);
+                        fill(0, 0, 0);
+                        textFont(createFont('monospace'), 22);
+                        text("HI: " + highScores.amateur, width / 2, 35 / 2);
+                    } else if (diff === 3) {
+                        text('Normal Mode', 68, 35 / 2);
+                        fill(0, 0, 0);
+                        textFont(createFont('monospace'), 22);
+                        text("HI: " + highScores.normal, width / 2, 35 / 2);
+                    }
+
+                    //text(frameCount, width/2, height/2);
+                    if (p.killData.length >= 1 && frameCount % 100 === 0) {
+                        p.killData = [];
+                        kscale = 0;
+                    }
+
+                    switch (p.killData.length) {
+                        case 1:
+                            ktext(killText[0], 0, 0);
+                            break;
+                        case 2:
+                            ktext(killText[1], 0, 0);
+                            break;
+                        case 3:
+                            ktext(killText[2], 0, 0);
+                            break;
+                        case 4:
+                            ktext(killText[3], 0, 0);
+                            break;
+                        case 5:
+                            ktext(killText[4], 0, 0);
+                            break;
+                        case 6:
+                            ktext(killText[5], 0, 0);
+                            break;
+                        case 7:
+                            ktext(killText[6], 0, 0);
+                            break;
+                        case 8:
+                            ktext(killText[7], 0, 0);
+                            break;
+                        case 9:
+                            ktext(killText[8], 0, 0);
+                            break;
+                    }
+
+                }
+
+                click = false;
+                if (intransition) {
+                    goto.create();
+                }
+                if (keys[192]) {
+                    scene = 'thumb';
+                }
+
+            };
+
+            keyPressed = function () { keys[keyCode] = true; };
+            keyReleased = function () { keys[keyCode] = false; };
+            //}
+
+        }
+
+        runPJS(program);
+
+        // Add reload button on KA --> <script>
+
+    </script>
+</body>
+
+</html>

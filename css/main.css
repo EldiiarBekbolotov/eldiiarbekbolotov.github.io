@@ -1,6 +1,10 @@
 :root {
+  --primary: rgb(201, 146, 102);
+  --primary-hover: rgb(135, 101, 73);
   --primary: rgb(51, 214, 138);
   --primary-hover: rgb(32, 155, 87);
+  --primary: #72e276; /* Electric pink-red */
+  --primary-hover: #58b55b; /* Deeper, moodier shade */
   --primary-color: #000;
   --navbar-shadow: 0 20px 120px rgba(6, 243, 57, 0.55);
   --big-font: "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
@@ -23,6 +27,22 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--small-font);
+}
+.emoji {
+  font-family: "noto color emoji";
+  font-size: 25px;
+  margin: 0 15px;
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0px 0px 20px var(--primary);
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  font-weight: 100;
+  font-style: italic;
+}
+h1 .emoji {
+  font-size: 45px;
+  text-shadow: 0px 0px 20px var(--primary);
 }
 .no-select {
   -webkit-user-select: none; /* Safari */
@@ -200,7 +220,7 @@ footer p {
   padding: 45px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   #wrapper {
     display: flex;
   }
@@ -231,10 +251,28 @@ hr {
 #projects {
   padding: 45px;
 }
-
+footer {
+  padding-bottom: 62px;
+}
 #social-links {
-  text-align: center;
+  /*text-align: center;
   display: flex;
+  float: right;
+  margin-top: 30px;*/
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  line-height: 72px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 0 15px;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
 }
 
 .social-link {
@@ -246,22 +284,49 @@ hr {
   border-radius: 82px;
   color: #fff;
   text-decoration: underline;
-  font-family: "Outfit", Arial, Helvetica, sans-serif;
+  font-family: var(--small-font);
   font-weight: 400;
   font-size: 1rem;
   transition: all 0.3s ease;
+  text-decoration: none;
+}
+.ai {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  margin-left: auto;
+  width: fit-content !important;
+  font-size: 14px;
+  width: fit-content;
+  height: 45px;
+  line-height: 45px;
+  vertical-align: middle;
+  padding: 0px 10px;
+  border-radius: 100px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: rgb(216, 216, 216);
+}
+.ai svg {
+  width: 24px;
+  fill: rgb(255, 255, 255);
+  margin-right: 5px;
+}
+.ai:hover {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border: 2px solid var(--primary);
 }
 
 .social-link svg {
-  margin-top: 17px;
   vertical-align: middle;
 }
 
 .social-link:hover {
-  box-shadow: 0px -10px 10px var(--primary), inset 0px -10px 10px var(--primary);
+  box-shadow: inset 0px -10px 10px var(--primary);
   color: #ffffff;
   text-decoration: none;
-  transform: translateY(-2px);
+  transform: translateY(0px);
 }
 .social-link:active {
   box-shadow: 0px 0px 10px var(--primary), inset -2px -20px 10px var(--primary);

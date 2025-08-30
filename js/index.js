@@ -1,5 +1,3 @@
-
-
 function letterchunk(letter, index, totalLetters, nChunks = 5) {
   let container = document.getElementsByClassName("network")[0];
   let totalDuration =
@@ -104,6 +102,12 @@ function MurkyPond() {
       g: 255,
       b: 0,
     },
+
+    {
+      r: 0,
+      g: 0,
+      b: 255,
+    },
     {
       r: 0,
       g: 255,
@@ -114,9 +118,14 @@ function MurkyPond() {
       g: 255,
       b: 0,
     },
+    {
+      r: 255,
+      g: 255,
+      b: 255,
+    },
   ];
   this.sediments = [];
-  this.numSediments = 0; // 300
+  this.numSediments = 1000; // 300
   this.initParticles();
   this.initSediments();
 }
@@ -132,8 +141,8 @@ MurkyPond.prototype.initParticles = function () {
     this.particles.push({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 90 + 40,
-      opacity: Math.random() * 0.05 + 0.0,
+      size: Math.random() * 240 + 10,
+      opacity: Math.random() * 0.05 + 0.025,
       speedX: (Math.random() - 0.0) * 0.0,
       speedY: (Math.random() - 0.0) * 0.0,
       color: "rgba(" + r + ", " + g + ", " + b + ", ",
@@ -168,8 +177,8 @@ MurkyPond.prototype.update = function () {
   for (var i = 0; i < this.particles.length; i++) {
     var p = this.particles[i];
     p.angle += p.angleSpeed;
-    p.x += Math.cos(p.angle) * 0.75;
-    p.y += Math.sin(p.angle) * 0.75;
+    p.x += Math.cos(p.angle) * 0.45;
+    p.y += Math.sin(p.angle) * 0.45;
     if (p.x < -p.size) p.x = window.innerWidth + p.size;
     if (p.x > window.innerWidth + p.size) p.x = -p.size;
     if (p.y < -p.size) p.y = window.innerHeight + p.size;
@@ -189,7 +198,7 @@ MurkyPond.prototype.update = function () {
 };
 
 MurkyPond.prototype.draw = function () {
-  ctx.fillStyle = "rgb(0, 0, 0)";
+  ctx.fillStyle = "rgba(0, 0, 0, 1)";
   ctx.fillRect(
     0,
     0,
@@ -243,30 +252,30 @@ canvas.addEventListener("mouseout", function () {
 if (window.pondAnimationFrame) {
   cancelAnimationFrame(window.pondAnimationFrame);
 }
-const buttons = document.querySelectorAll('.rp-button');
+const buttons = document.querySelectorAll(".rp-button");
 
-    buttons.forEach(button => {
-      const rp = document.createElement('div');
-      rp.classList.add('rp');
-      button.appendChild(rp);
+buttons.forEach((button) => {
+  const rp = document.createElement("div");
+  rp.classList.add("rp");
+  button.appendChild(rp);
 
-      button.addEventListener('mousemove', (e) => {
-        const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+  button.addEventListener("mousemove", (e) => {
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-        rp.style.left = `${x}px`;
-        rp.style.top = `${y}px`;
-        rp.style.transform = 'translate(-50%, -50%) scale(1)';
-        rp.style.opacity = '1';
-        rp.style.borderRadius = '20%';
-        button.style.color = '#000';
-      });
+    rp.style.left = `${x}px`;
+    rp.style.top = `${y}px`;
+    rp.style.transform = "translate(-50%, -50%) scale(1)";
+    rp.style.opacity = "1";
+    rp.style.borderRadius = "20%";
+    button.style.color = "#000";
+  });
 
-      button.addEventListener('mouseleave', () => {
-        rp.style.transform = 'translate(-50%, -50%) scale(0)';
-        rp.style.opacity = '1';
-        rp.style.borderRadius = '50%';
-        button.style.color = '#FFF';
-      });
-    });
+  button.addEventListener("mouseleave", () => {
+    rp.style.transform = "translate(-50%, -50%) scale(0)";
+    rp.style.opacity = "1";
+    rp.style.borderRadius = "50%";
+    button.style.color = "#FFF";
+  });
+});

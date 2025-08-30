@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<!--All code by LeaferStudios a.k.a. Eldiiar Bekbolotov-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Rogue Run</title>
+    <style>
+        html,
+        body,
+        #wrapper {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            width: calc(100% + 1px);
+        }
+
+        body {
+            background-color: black;
+        }
+
+
+        canvas {
+            width: fit-content;
+            height: fit-content;
+        }
+
+        canvas:focus {
+            outline: none;
+        }
+
+        #wrapper {
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body id="wrapper">
+    <canvas class="sketch"></canvas>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Khan/processing-js@master/processing.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/Mushy-Avocado/KA-exporter@v1.0.1/exporter.js"></script>
+    <script type="application/javascript">
+
+
+        function program() {
+
+            title("Rogue Run");
+            size(600, 600);
+
+            /**
+ * Rogue Run v1
+ * by LeaferStudios
+ * https://www.khanacademy.org/profile/kaid_553656479258879622339276/projects
+ * Released on 27 April 2024
+ * Last Updated on 27 April 2024
+ * Entry to Khan Academy Computer Programming Contest: Taking Flight. One of my first games in a while!
+ * 
+ * Programmed on Google Chrome on iMac. 
+ * Please use Google Chrome for optimal experience! For some reason it is laggy on Safari browser's Khan Academy environment. Does not lag if ported to HTML.
+ * 
+ * FOR JUDGES:
+    Contest: Taking Flight
+    
+    I have completed 100% of Khan Academy's 'Intro to JS' and have been programming for 53 months.
+    
+    I would prefer to be placed in the [Intermediate or Advanced] bracket
+ * 
+ * Any questions or tips and thanks? Tell me in the questions or tips & thanks section below!
+ * 
+**/
+            var delag = false; // change this to true if you are experiencing game lag
+            size(600, 600, P2D);
+
+            smooth();
+            noStroke();
+            textAlign(CENTER, CENTER);
+
+            var scene = 'logo';
+            var msClicked = false;
+
+            var mode = 'mobile';
+
+            //{
+            var keys = [];
+            keyPressed = function () {
+                keys[keyCode] = true;
+            };
+            keyReleased = function () {
+                keys[keyCode] = false;
+            };
+            //} // keys
+
+            var speed = 0;
+            var score = 0;
+            var highScore = 0;
+            var shake = false;
+
+            /*** Particles ***/
+
+            var Particle = function (x, y, color, xal, yal, size, WIND, PRESSURE, dissNum) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = size;
+                this.xal = xal;
+                this.yal = yal;
+                this.w = WIND;
+                this.press = PRESSURE;
+                this.dissNum = dissNum;
+            };
+            Particle.prototype.display = function () {
+                pushMatrix();
+                var t = translate(this.x, this.y);
+                fill(this.color);
+                ellipse(0, 0, this.size, this.size);
+                popMatrix();
+            };
+            Particle.prototype.run = function () {
+                this.w += this.xal;
+                this.press += this.yal;
+                this.x += this.w;
+                this.y += this.press;
+                this.size -= this.dissNum;
+            };
+            Particle.prototype.create = function () {
+                if (delag === false) {
+                    this.display();
+                    this.run();
+                }
+            };
+            var particles = [];
+
+            var initiateParticles = function () {
+                if (delag === false) {
+                    // for (var i = 0; i < particles.length; i++) {
+                    for (var i = particles.length - 1; i >= 0; i--) {
+                        particles[i].create();
+                        if (particles[i].size <= 0) {
+                            particles.splice(i, 1);
+                        }
+                    }
+                }
+            };
+
+
+            var tr = function (x, y, s, r) {
+                pushMatrix();
+                var t = translate(x, y) + scale(s) + rotate(r);
+                triangle(0, 0, -12, 12, 0, 12);
+                popMatrix();
+            };
+
+            //{
+            var istrans = false;
+            var to = "";
+
+            var Transitions = function () {
+                this.t = 0;
+                this.c = 255;
+            };
+            Transitions.prototype.create = function () {
+                fill(255, 255, 255, this.c);
+                rect(0, 0, 600, 600);
+                if (this.t === 1) {
+                    scene = to;
+                }
+                if (this.t < 20) {
+                    this.c -= 10;
+                }
+                if (this.t > 20) {
+                    this.c = 255;
+                    this.t = 0;
+                    istrans = false;
+                }
+                this.t++;
+            };
+            var trans = new Transitions();
+
+            var L = function (x, y, s, r) {
+                pushMatrix();
+                var t = translate(x, y) + scale(s) + rotate(r);
+                beginShape();
+                vertex(71, 107);
+                vertex(75, 227);
+                vertex(129, 230);
+                vertex(116, 260);
+                vertex(56, 262);
+                vertex(43, 110);
+                endShape();
+                popMatrix();
+            };
+            var S = function (x, y, s, r) {
+                pushMatrix();
+                var t = translate(x, y) + scale(s) + rotate(r);
+                beginShape();
+                vertex(208, 186);
+                vertex(185, 185);
+                vertex(178, 212);
+                vertex(231, 221);
+                vertex(236, 274);
+                vertex(161, 272);
+                vertex(172, 255);
+                vertex(204, 260);
+                vertex(199, 232);
+                vertex(153, 221);
+                vertex(172, 162);
+                vertex(236, 172);
+                endShape();
+                popMatrix();
+            };
+            var mehLogo = function (x, y, s, r, c) {
+                pushMatrix();
+                var t = translate(x, y) + scale(s) + rotate(r);
+                fill(c);
+                L(-18, 9, 1, -5);
+                S(-44, -68, 1.2, 0);
+                popMatrix();
+            };
+            var c1 = color(28, 28, 28);
+            var c2 = color(1, 59, 7);
+
+            var py1 = 0;
+            var py2 = -380;
+            var gravity = 0;
+            var vel = 0;
+            var accel = 0.1;
+            var g2 = 0;
+            var v2 = 0;
+            var ac2 = 0.1;
+
+            var fr5 = 0;
+            var timer = 0;
+            var logo = function () {
+                background(3, 3, 3);
+                for (var i = 0; i < height; i++) {
+                    fill(lerpColor(c1, c2, i / 100));
+                    rect(0, i * 6, width, height);
+                }
+                mehLogo(width / 4 - 2, 80 + py2, 1, 0, color(67, 186, 73));
+                mehLogo(width / 4 + 5, 80 - 1 + py2, 1, 0, color(85, 212, 91));
+                mehLogo(width / 4 + 10, 80 + py2, 1, 0, color(67, 186, 73));
+                mehLogo(width / 4 + 3, 80 + 3 + py2, 1, 0, color(67, 186, 73));
+                mehLogo(width / 4, 80 + 1 + py2, 1, 0, color(0, 0, 0, frameCount * 2));
+
+                textFont(createFont('Arial Bold Italic '), 19);
+                fill(3, 3, 3);
+                text("L e a f e r S t u d i o s", width / 2, py1);
+                fill(130, 250, 144);
+                text("L e a f e r S t u d i o s", width / 2 + 2, py1);
+                py1 += gravity;
+                vel += accel;
+                gravity += 0.1;
+                if (py1 >= 380) {
+                    py1 = 380;
+                    gravity = -gravity / 3;
+                    fr5 += 5;
+                }
+                py2 += g2;
+                v2 += ac2;
+                g2 += 1.1;
+                if (py2 >= 0) {
+                    py2 = 0;
+                    g2 = -g2 / 5;
+                }
+                textFont(createFont('segoe ui Bold Italic '), 20);
+                fill(209, 209, 209, fr5);
+                text("Khan Academy Contest Entry", width / 2, 572);
+                timer++;
+                if (msClicked) {
+                    timer = 350;
+                }
+                if (timer === 350) {
+                    scene = "menu";
+                    istrans = true;
+                    to = "menu";
+                }
+            };
+
+            var button = function (txt, x, y, w, h, pg, txtC, boxShadow, c123) {
+                var v3 = 0;
+                rectMode(CENTER);
+                c123 = 140;
+                if (mouseX > x - w / 2 && mouseX < (x + w / 2) && mouseY > y - h / 2 && mouseY < (y + h / 2)) {
+                    txtC = color(185, 209, 48);
+                    fill(0, 0, 0, 250);
+                    c123 = lerp(c123, 255, 0.25);
+                    stroke(0, 157, 255, c123);
+                    strokeWeight(4);
+                    cursor('POINTER');
+                    if (msClicked) {
+                        scene = pg;
+                        istrans = true;
+                        to = pg;
+                    }
+                    v3 = lerp(v3, 25, 0.25);
+                    rect(x, y, w, h, v3);
+                    //w+=20;
+                } else {
+                    v3 = lerp(v3, 0, 0.25);
+
+                    txtC = color(226, 255, 82);
+                    fill(0, 0, 0, 250);
+                    c123 = lerp(c123, 0, 0.25);
+                    stroke(0, 157, 255, c123);
+                    strokeWeight(4);
+                    rect(x, y, w, h, v3);
+                    //w-=20;
+                }
+
+
+                fill(txtC);
+                textFont(createFont('arial black Italic'), 24);
+                text(txt, x, y);
+                noStroke();
+                rectMode(CORNER);
+            };
+            //} // trans logo & buttons
+
+            //{
+            var stars = [];
+            for (var i = 0; i < 200; i++) {
+                stars.push(random(0, 600));
+            }
+            var drawStars = function () {
+                for (var i = 0; i < 200; i++) {
+                    fill(255, 255, 255);
+                    ellipse(i * 3, stars[i], 2, 2);
+                }
+            };
+            //} // basic stars
+
+            //{
+            var animatedStar = function (x, y, w, h) {
+                this.x = x;
+                this.y = y;
+                this.w = w;
+                this.h = h;
+            };
+            animatedStar.prototype.create = function () {
+                fill(255, 255, 255);
+                rect(this.x, this.y, this.w, this.h);
+                this.y += speed / 10;
+            };
+            var animatedStars = [];
+            var drawAnimatedStars = function () {
+                if (frameCount % 1 === 0) {
+                    animatedStars.push(new animatedStar(random(0, 600), 0, random(1, 1), random(1, 1)));
+                }
+                for (var i = animatedStars.length - 1; i >= 0; i--) {
+                    animatedStars[i].create();
+                    if (animatedStars[i].y >= height) {
+                        animatedStars.splice(i, 1);
+                    }
+                }
+            };
+            //} // animated stars
+
+            var menulogo = function (x, y, s, r) {
+                pushMatrix();
+                translate(x, y);
+                rotate(r);
+                scale(s);
+                fill(255, 225, 0);
+                textFont(createFont("trebuchet ms Italic"), 59 - 3);
+                text("ROGUE", width / 2, 132);
+                textSize(100 - 5);
+                text("RUN", width / 2, 204);
+                fill(255, 225, 0);
+                textFont(createFont("trebuchet ms Bold"), 59 - 5);
+                text("ROGUE", width / 2, 132);
+                textSize(100 - 2);
+                text("RUN", width / 2, 204);
+                popMatrix();
+            };
+
+            var menu = function () {
+                background(1, 3, 5);
+                drawStars();
+
+                menulogo(-150, -98, 1.5, 0);
+
+                fill(222, 195, 44);
+                textFont(createFont("Arial"), 27);
+                text("High Score: " + highScore, 93, 20);
+                fill(92, 222, 44);
+                text("© 2024 LeaferStudios", width / 2, height - 20);
+
+                button('PLAY', width / 2, 444 - 100, 500, 50, 'play');
+                button('HOW', width / 2, 444 - 20, 350, 50, 'how');
+                button('LEADERS', width / 2, 444 + 80 - 20, 350, 50, 'lead');
+            }; // menu
+
+
+            /*var Player = {
+                x: width/2,
+                y: 550,
+                draw: function() {
+                    
+                },
+            };*/ // didnt use this version since it doesnt auto-update
+
+            var cam = {
+                x: 0,
+                y: 0,
+            };
+
+            //{
+            var bullet = function (x, y, color, direction, AFFILIATION) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.direction = direction;
+                this.speed = 15;
+                this.spliced = false;
+
+                this.AFFILIATION = AFFILIATION;
+            };
+            bullet.prototype.draw = function () {
+                fill(this.color);
+                rect(this.x, this.y, 2, 20);
+            };
+            bullet.prototype.update = function () {
+                if (this.direction === "up") {
+                    this.y -= this.speed;
+                } else {
+                    this.y += this.speed;
+                }
+                if (this.x < 0 || this.x >= width || this.y < 0 || this.y >= height) {
+                    this.spliced = true;
+                }
+            };
+            bullet.prototype.checkHit = function () {
+                switch (this.AFFILIATION) {
+                    case "rebel":
+                        break;
+                    case "empire":
+                        break;
+                }
+            };
+            var bullets = [];
+            //} // bullets
+
+            var Player = function (x, y) {
+                this.x = x;
+                this.y = y;
+                this.w = 35;
+                this.h = 50;
+                this.xv = 0;
+                this.yv = 0;
+                this.speed = 1.5;
+                this.rAmm = 0;
+
+                this.health = 100;
+                this.rnum = 0;
+                this.reload = true;
+                this.dead = false;
+            };
+            Player.prototype.draw = function () {
+                if (this.health <= 50) {
+                    particles.push(new Particle(
+                        this.x, // x positions
+                        this.y + 3, // y position
+                        color(250, random(0, 255), 0, 50), // p.c
+                        random(-0.0, 0.0), // p.xal
+                        random(-0.0, 0.0), // p.yal
+                        random(10, 49), // p.size
+                        random(0, 0), // p.WIND
+                        random(-1, 5), // p.PRESSURE
+                        2 // p.dissNum
+                    ));
+                }
+                fill(0, 0, 0);
+                pushMatrix();
+                translate(this.x, this.y + sin(frameCount * 5) * 2);
+                pushStyle();
+                rectMode(CENTER);
+                rotate(this.rAmm);
+                scale(1);
+                fill(0, 174, 255, 15 + sin(frameCount * 2) * 150);
+                rect(-9, 25, 10, 5, 0, 0, 90, 90);
+                rect(9, 25, 10, 5, 0, 0, 90, 90);
+                fill(255, 255, 255);
+                rect(0, 0, 30, 45, 90, 90, 2, 2);
+                fill(219, 219, 219);
+                rect(0, 0, 15, 45, 90, 90, 2, 2);
+                fill(0, 63, 158);
+                rect(-14, 5, 1, 40, 90, 90, 2, 2);
+                rect(14, 5, 1, 40, 90, 90, 2, 2);
+                fill(0, 0, 0, 30);
+                rect(0, 8, 5, 30, 90, 90, -15, -15);
+
+                fill(255, 255, 255);
+                rect(-12, -18, 1, 10);
+                rect(10, -18, 1, 10);
+
+                fill(0, 174, 255, 15 + sin(frameCount * 2) * 200);
+                rect(-2, 26, 10, 2, 0, 0, 90, 90);
+
+                fill(78, 95, 102);
+                rect(12, 4, 3, 15);
+                rect(-13, 4, 3, 15);
+
+                fill(255, 255, 255);
+                triangle(0, -24, -15, 20, 15, 20);
+                tr(-10, 8, 1, 0);
+                tr(20, 20, 1, 90);
+                tr(19, 20, 1, 30);
+                tr(-5, 24, 1, 60);
+                rect(0, 21, 37, 5);
+
+                fill(18, 86, 145);
+                ellipse(0, -8, 3, 15);
+
+                fill(5, 49, 97);
+                rect(0, 0, 3, 5);
+
+                //fill(0, 0, 0, 50);
+                //rect(0, 0, this.w, this.h);
+                popStyle();
+                popMatrix();
+                //this.x += cos(atan2(mouseY - this.y, mouseX - this.x)) * 30;
+                //this.y += cos(atan2(mouseX - this.x, mouseY - this.y)) * 12;
+
+                if (this.x > width) {
+                    this.x--;
+                }
+            };
+            Player.prototype.update = function () {
+                if (keys[LEFT] || keys[65]) {
+                    this.xv = this.xv - this.speed;
+                    this.rAmm = -5;
+                } else if (keys[RIGHT] || keys[68]) {
+                    this.xv = this.xv + this.speed;
+                    this.rAmm = 5;
+                } else {
+                    this.rAmm = 0;
+                }
+
+                if (keys[32] && this.reload === true) {
+                    bullets.push(new bullet(this.x + 10, this.y, color(0, 255, 0), "up", "rebel"));
+                    bullets.push(new bullet(this.x - 15, this.y, color(0, 255, 0), "up", "rebel"));
+                    this.reload = false;
+                }
+                this.rnum++;
+                if (this.rnum >= 25 && this.reload === false) {
+                    this.reload = true;
+                    this.rnum = 0;
+
+
+                }
+                this.xv = this.xv * 0.9;
+                this.yv = this.yv * 0.9;
+                this.x += this.xv;
+
+                if (this.x <= 0 + this.w) {
+                    this.x = 0 + this.w;
+                }
+                if (this.x >= 600 - this.w) {
+                    this.x = 600 - this.w;
+                }
+            };
+            Player.prototype.create = function () {
+                this.draw();
+                this.update();
+            };
+            Player.prototype.resett = function () {
+                this.health = 100;
+                this.dead = false;
+                speed = 0;
+                score = 0;
+            };
+            var player = new Player(width / 2, 500);
+
+            var enemy1 = function (x, y, s, r) {
+                pushMatrix();
+                pushStyle();
+                translate(x, y);
+                scale(s);
+                rectMode(CENTER);
+
+                rotate(r);
+                fill(38, 38, 38);
+                ellipse(0, 0, 20, 20);
+                rect(0, 0, 40, 10);
+                fill(145, 0, 0);
+                rect(20, 0, 2, 40, 50);
+                rect(-20, 0, 2, 40, 50);
+                fill(38, 38, 38);
+                rect(21, 0, 2, 50, 50);
+                rect(-21, 0, 2, 50, 50);
+                rect(23, 0, 2, 40, 50);
+                fill(145, 0, 0);
+                rect(-23, 0, 2, 40, 50);
+                fill(48, 48, 48);
+                ellipse(0, 0, 10, 10);
+                fill(79, 10, 10);
+                arc(0, 0, 10, 10, 90, 270);
+                popMatrix();
+                popStyle();
+            };
+            var enemy2 = function (x, y, s, r) {
+                pushMatrix();
+                pushStyle();
+                translate(x, y);
+                rectMode(CENTER);
+
+                scale(s);
+                rotate(r);
+                fill(23, 67, 99);
+                ellipse(0, 0, 20, 20);
+                rect(0, 0, 40, 10);
+                fill(0, 100, 143);
+                rect(20, 0, 5, 34, 50);
+                rect(-20, 0, 5, 34, 50);
+                fill(38, 38, 38);
+                rect(21, 0, 2, 40, 50);
+                rect(-21, 0, 2, 40, 50);
+                rect(23, 0, 2, 40, 50);
+                fill(23, 70, 156);
+                rect(-23, 0, 2, 40, 50);
+                fill(48, 48, 48);
+                ellipse(0, 0, 15, 53);
+                fill(92, 138, 150);
+                arc(0, 0, 10, 10, 90, 270);
+                fill(31, 107, 128);
+                arc(0, 0, 10, 10, 270, 360 + 90);
+                popMatrix();
+                popStyle();
+            };
+            var enemy3 = function (x, y, s, r) {
+                pushMatrix();
+                pushStyle();
+                translate(x, y);
+                scale(s);
+                rectMode(CENTER);
+
+                rotate(r);
+                fill(89, 89, 89);
+                ellipse(0, 1, 14, 21);
+                rect(0, 0, 40, 10);
+                fill(71, 71, 71);
+                rect(20, 0, 5, 34, 50);
+                rect(-20, 0, 5, 34, 50);
+                fill(38, 38, 38);
+                rect(21, 0, 2, 40, 50);
+                rect(-21, 0, 2, 40, 50);
+                rect(23, 0, 2, 40, 50);
+                fill(59, 59, 59);
+                rect(-23, 0, 2, 40, 50);
+                fill(48, 48, 48);
+                ellipse(0, 0, 26, 16);
+                fill(43, 43, 43);
+                arc(0, 0, 10, 10, 90, 270);
+                fill(61, 61, 61);
+                arc(0, 0, 10, 10, 270, 360 + 90);
+                popMatrix();
+                popStyle();
+            };
+
+            var TieFighter = function (x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.w = 50;
+                this.h = 50;
+                this.rAmm = 0;
+                this.type = type;
+                this.dead = false;
+                this.health = 100;
+            };
+            TieFighter.prototype.draw = function () {
+                fill(0, 0, 0);
+                pushMatrix();
+                translate(this.x, this.y);
+                pushStyle();
+                rectMode(CENTER);
+                rotate(180 + this.rAmm);
+                if (this.type === 0) {
+                    enemy1(0, 0, 1, 0);
+                } else if (this.type === 1) {
+                    if (this.health <= 50) {
+                        particles.push(new Particle(
+                            this.x, // x positions
+                            this.y + 3, // y position
+                            color(250, random(0, 255), 0, 50), // p.c
+                            random(-0.0, 0.0), // p.xal
+                            random(-0.0, 0.0), // p.yal
+                            random(20, 40), // p.size
+                            random(0, 0), // p.WIND
+                            random(-1, 5), // p.PRESSURE
+                            2 // p.dissNum
+                        ));
+                    }
+                    enemy2(0, 0, 1, 0);
+                } else if (this.type === 2) {
+                    if (this.health <= 66) {
+                        particles.push(new Particle(
+                            this.x, // x positions
+                            this.y + 3, // y position
+                            color(250, random(0, 255), 0, 50), // p.c
+                            random(-0.0, 0.0), // p.xal
+                            random(-0.0, 0.0), // p.yal
+                            random(5, 15), // p.size
+                            random(0, 0), // p.WIND
+                            random(-1, 5), // p.PRESSURE
+                            2 // p.dissNum
+                        ));
+                    } else if (this.health <= 32) {
+                        particles.push(new Particle(
+                            this.x, // x positions
+                            this.y + 3, // y position
+                            color(250, random(0, 255), 0, 50), // p.c
+                            random(-0.0, 0.0), // p.xal
+                            random(-0.0, 0.0), // p.yal
+                            random(20, 40), // p.size
+                            random(0, 0), // p.WIND
+                            random(-1, 5), // p.PRESSURE
+                            2 // p.dissNum
+                        ));
+                    }
+                    enemy3(0, 0, 1, 0);
+
+                }
+                //text(this.type, 0, 0);
+                //fill(255, 255, 255, 50);
+                //rect(0, 0, this.w, this.h);
+                popStyle();
+                popMatrix();
+            };
+            TieFighter.prototype.update = function () {
+                this.y += speed / 10;
+                if (player.x > this.x) {
+                    this.x += 0.5;
+                    this.rAmm = lerp(this.rAmm, -3, 0.15);
+                }
+                if (player.x < this.x) {
+                    this.x -= 0.5;
+                    this.rAmm = lerp(this.rAmm, 3, 0.15);
+                }
+
+            };
+            TieFighter.prototype.checkHit = function () {
+
+            };
+            TieFighter.prototype.create = function () {
+                this.draw();
+                this.update();
+                this.checkHit();
+            };
+            var TieFighters = [];
+
+            var TILE_Y = -600;
+            var TILE2_Y = -600;
+            var drawgameBg = function () {
+                background(0, 0, 0);
+                background(0, 0, 0);
+                for (var i = 0; i < 8; i++) {
+                    fill(117, 117, 117, 50);
+                    rect(0, TILE_Y + i * 80, 10, 90);
+                }
+                TILE_Y += speed / 10;
+                if (TILE_Y > 60) {
+                    TILE_Y = 0;
+                }
+                for (var i = 0; i < 8; i++) {
+                    rect(600 - 10, TILE2_Y + i * 80, 10, 90);
+                }
+                TILE2_Y += speed / 10;
+                if (TILE2_Y > 60) {
+                    TILE2_Y = 0;
+                }
+                drawAnimatedStars();
+            };
+
+            var addEnemies = function () {
+                if (frameCount % 150 === 0 && speed > 0) {
+                    TieFighters.push(new TieFighter(random(0, 600), -60, Math.floor(Math.random() * 3)));
+                }
+                for (var i = TieFighters.length - 1; i >= 0; i--) {
+                    TieFighters[i].create();
+                    if (TieFighters[i].y >= height + 50) {
+                        TieFighters.splice(i, 1);
+                        player.health -= 5;
+                        shake = true;
+                    }
+                    if (TieFighters[i].type === 0) {
+                        if (frameCount % 100 === 0) {
+                            bullets.push(new bullet(TieFighters[i].x + 10, TieFighters[i].y, color(255, 0, 0), "empire"));
+                            bullets.push(new bullet(TieFighters[i].x, TieFighters[i].y, color(255, 0, 0), "empire"));
+                            bullets.push(new bullet(TieFighters[i].x - 10, TieFighters[i].y, color(255, 0, 0), "empire"));
+                        }
+                    } else if (TieFighters[i].type === 1) {
+                        if (frameCount % 100 === 0) {
+                            bullets.push(new bullet(TieFighters[i].x + 10, TieFighters[i].y, color(255, 0, 0), "empire"));
+                            bullets.push(new bullet(TieFighters[i].x - 10, TieFighters[i].y, color(255, 0, 0), "empire"));
+                        }
+                    } else if (TieFighters[i].type === 2) {
+                        if (frameCount % 100 === 0) {
+                            bullets.push(new bullet(TieFighters[i].x, TieFighters[i].y, color(255, 0, 0), "empire"));
+                        }
+                    }
+
+                }
+            };
+
+            var addStats = function () {
+                fill(255, 255, 255, 100);
+                textFont(createFont("Segoe UI Bold"), 42);
+                text(~~speed + " mph", width / 2, 31);
+
+                text(score, width / 2, 95);
+                fill(122, 6, 6);
+                rect(20, 20, 100, 10, 0);
+                fill(54, 189, 0);
+                rect(20, 20, player.health, 10, 0);
+            };
+            var qwe = 0;
+            var qwesize = 0;
+            var qweclr = color(255, 247, 0, 250);
+
+            var play = function () {
+                cursor("DEFAULT");
+                background(0, 0, 0);
+                pushMatrix();
+                translate(cam.x, cam.y);
+                drawgameBg();
+
+                if (score <= 5) {
+                    speed = lerp(speed, 11, 0.1);
+                } else if (score <= 15) {
+                    speed = lerp(speed, 21, 0.1);
+                } else if (score <= 30) {
+                    speed = lerp(speed, 41, 0.1);
+                } else if (score <= 45) {
+                    speed = lerp(speed, 61, 0.1);
+
+                } else if (score <= 60) {
+                    speed = lerp(speed, 81, 0.1);
+
+                } else if (score >= 75) {
+                    speed = lerp(speed, 101, 0.1);
+
+                }
+                //  speed+=0.01;
+                for (var i = 0; i < bullets.length; i++) {
+                    bullets[i].draw();
+                    bullets[i].update();
+                }
+                for (var i = bullets.length - 1; i >= 0; i--) {
+                    if (bullets[i].spliced === true) {
+                        bullets.splice(i, 1);
+                    }
+
+                }
+                for (var i = bullets.length - 1; i >= 0; i--) {
+                    if (bullets[i].direction !== 'up') {
+                        var b = bullets[i];
+                        var bx = b.x;
+                        var by = b.y;
+
+                        if (bx > player.x - player.w / 2 && bx < player.x + player.w / 2 &&
+                            by > player.y - player.h / 2 && by < player.y + player.h / 2) {
+                            shake = true;
+
+                            // Collision with player
+                            player.health -= 10; // Reduce player health
+                            bullets.splice(i, 1); // Remove bullet
+                            particles.push(new Particle(
+                                player.x, // x positions
+                                player.y + 3, // y position
+                                color(250, random(0, 255), 0, 50), // p.c
+                                random(-0.5, 0.5), // p.xal
+                                random(-0.5, 0.5), // p.yal
+                                random(10, 49), // p.size
+                                random(0, 0), // p.WIND
+                                random(-0, 0), // p.PRESSURE
+                                2 // p.dissNum
+                            ));
+                        }
+                    }
+                }
+
+                // Collision detection between bullets and enemies
+                for (var i = bullets.length - 1; i >= 0; i--) {
+                    var b = bullets[i];
+                    if (b.direction === 'up') {
+                        for (var j = TieFighters.length - 1; j >= 0; j--) {
+                            var e = TieFighters[j];
+                            var ex = e.x;
+                            var ey = e.y;
+                            if (b.x > ex - e.w / 2 && b.x < ex + e.w / 2 &&
+                                b.y > ey - e.h / 2 && b.y < ey + e.h / 2) {
+                                // Collision with enemy
+                                bullets.splice(i, 1); // Remove bullet
+                                if (TieFighters[j].type === 0) {
+                                    TieFighters[j].health -= 100;
+                                } else if (TieFighters[j].type === 1) {
+                                    TieFighters[j].health -= 50;
+                                } else if (TieFighters[j].type === 2) {
+                                    TieFighters[j].health -= 34;
+                                }
+
+                            }
+
+                            if (TieFighters[j].health <= 0) {
+                                for (var z = 0; z < 15; z++) {
+                                    particles.push(new Particle(
+                                        TieFighters[j].x, // x positions
+                                        TieFighters[j].y, // y positions
+                                        color(250, random(0, 255), 0, 50), // p.c
+                                        random(-0.95, 0.95), // p.xal
+                                        random(-0.95, 0.95), // p.yal
+                                        random(20, 40), // p.size
+                                        random(0, 0), // p.WIND
+                                        random(0, 0), // p.PRESSURE
+                                        2 // p.dissNum
+                                    ));
+                                }
+                                score += 1; // Increase score
+                                shake = true;
+                                TieFighters.splice(j, 1); // Remove enemy
+                            }
+                        }
+                    }
+                }
+
+                //Player.draw();
+
+                addEnemies();
+                player.create();
+
+                addStats();
+                popMatrix();
+
+                if (player.health <= 0) {
+                    player.dead = true;
+                }
+                if (player.dead === true) {
+                    scene = 'lose';
+                }
+                pushStyle();
+                noStroke();
+
+                strokeWeight(1);
+                if (mouseIsPressed || keys[32]) {
+                    qwe = lerp(qwe, 360, 0.25);
+                } else {
+                    qwe = lerp(qwe, 0, 0.2);
+                    qwesize = lerp(qwesize, 20, 0.2);
+                }
+                if (player.reload === true) {
+                    fill(qweclr, 45);
+                    qwesize = lerp(qwesize, 45, 0.2);
+                    qweclr = lerp(qweclr, color(0, 0, 0), 0.2);
+                } else {
+                    fill(qweclr, 45);
+                    qweclr = lerp(qweclr, color(255, 225, 0), 0.7);
+                    qwesize = lerp(qwesize, 20, 0.02);
+                }
+
+                translate(width - 50, 25);
+                rotate(-90);
+
+                stroke(qweclr);
+
+                arc(0, 0, qwesize, qwesize, 0, qwe);
+                popStyle();
+                pushStyle();
+                noFill();
+                stroke(25, 25, 25);
+                arc(width - 50, 25, 18, 18, 0, 360);
+                arc(width - 50, 25, 12, 12, 0, 360);
+                stroke(250, 250, 250);
+
+                arc(width - 50, 25, 15, 15, 0, 360);
+
+
+                popStyle();
+
+
+                initiateParticles();
+
+            };
+
+            var how = function () {
+                background(0);
+                drawStars();
+                fill(242, 255, 0);
+                textFont(createFont("trebuchet ms Bold Italic"), 80);
+                text("HOW", width / 2, 100);
+
+                pushStyle();
+                //textAlign(LEFT, LEFT);
+                textFont(createFont("trebuchet ms Bold Italic"), 15);
+                text('For Computer: Arrow Keys or WASD to move\nand click or press [SPACEBAR] to shoot. You can double shoot (2x2)\n when reload circle (top right corner) is empty/not overheated.\nFor Mobile/Touchscreen: Drag finger\n to move and tap to shoot.\nDon\'t let enemies get past you (-5 health).\nDon\'t let enemies hit you (-10 health per hit).\nScore increases when you destroy an enemy!\nRead the "ENEMY GUIDE" for information on enemies.\n\n© 2024 by LeaferStudios a.k.a. LeaferStudios\nEntry to KACP Contest: Taking Flight', width / 2, 284);
+                button("ENEMY GUIDE", width / 2, 430 + 50, 400, 50, "enemy_guide");
+                button("HOME", width / 2, 550, 500, 50, "menu");
+                popStyle();
+            };
+            var enemy_guide = function () {
+                background(0);
+                drawStars();
+                fill(242, 255, 0);
+                textFont(createFont("trebuchet ms Bold Italic"), 60);
+                text("Enemy Guide", width / 2, 40);
+
+                fill(189, 28, 28, 150);
+                rect(0, 100, width / 3, 300);
+                fill(69, 98, 224, 100);
+                rect(0 + width / 3, 100, width / 3, 300);
+                fill(242, 242, 242, 50);
+                rect(width - width / 3, 100, width / 3, 300);
+
+                enemy1(width / 3 - (width / 3 / 2), 181, 1.5, 0);
+                enemy2(width / 3 + (width / 3 / 2), 181, 1.5, 0);
+                enemy3(width - (width / 3 / 2), 181, 1.5, 0);
+
+                pushStyle();
+                //textAlign(LEFT, LEFT);
+                textFont(createFont("trebuchet ms"), 15);
+                fill(255, 255, 255);
+                text('Swiftfire Cruiser\n\nShoots 3 lasers per second\nExplodes in 1 laser hit', width / 3 - width / 3, 218, width / 3, 150);
+                text('Ironclad Guardian\n\nShoots 2 lasers per second\nExplodes in 2 laser hits', width / 3, 218, width / 3, 150);
+
+                text('Titanic Beamstormer\n\nShoots 1 lasers per second\nExplodes in 3 laser hits', width - width / 3, 218, width / 3, 150);
+
+                button("PLAY", width / 2, 430 + 50, 400, 50, "play");
+                button("BACK", width / 2, 550, 500, 50, "how");
+                popStyle();
+                fill(255, 255, 255);
+                textSize(20);
+                text(Math.round(this.__frameRate), 10, 30);
+            };
+
+            var leaderboard = [
+
+                'Raven - 72',
+                'ThaLegoMango - 54',
+                'StrikingJedi - 45',
+                'sbru2942 - 44',
+                'Pikachu - 37',
+                'AndrewBabu - 36',
+                'MBCRIZZ - 32',
+                '🪷🦩naturedeer🪐 🐎 - 27',
+                'Unknown - 25',
+                'LightningVOLT - 19',
+                'LeaferStudios - 52',
+            ];
+            var lead = function () {
+                background(0);
+                drawStars();
+                fill(242, 255, 0);
+                textFont(createFont("trebuchet ms Bold Italic"), 80);
+                text("LEADERS", width / 2, 67);
+                textFont(createFont("trebuchet ms"), 20);
+                pushStyle();
+                for (var i = 0; i < leaderboard.length; i++) {
+                    fill(255, 255, 255);
+                    text("#" + (i + 1) + " " + leaderboard[i], width / 2, 153 + i * 30);
+                }
+                popStyle();
+                textSize(25);
+                text("*Spin-Off Proof is necessary!", width / 2, 468);
+                button("BACK", width / 2, 536, 500, 50, "menu");
+            };
+
+            var lose = function () {
+                animatedStars = [];
+                TieFighters = [];
+                bullets = [];
+
+                background(0);
+                //rawStars();
+                fill(242, 255, 0);
+                textFont(createFont("trebuchet ms Bold "), 80);
+                text("Game Over!", width / 2, 100);
+
+                pushStyle();
+                textFont(createFont("Arial Bold Italic"), 20);
+                text('Final Score: ' + score + '\n' + 'Top Speed: ' + ~~speed + 'mph', width / 2, 236);
+                popStyle();
+
+                pushMatrix();
+                translate(width / 2, height / 2 + 50 + sin(frameCount * 5) * 2);
+                pushStyle();
+                scale(2);
+                rectMode(CENTER);
+                rotate(Math.atan2(mouseX - width / 2, -(mouseY - ((height / 2) + 50))) * (180 / PI));
+                scale(1);
+                fill(0, 174, 255, 15 + sin(frameCount * 2) * 150);
+                rect(-9, 25, 10, 5, 0, 0, 90, 90);
+                rect(9, 25, 10, 5, 0, 0, 90, 90);
+                fill(255, 255, 255);
+                rect(0, 0, 30, 45, 90, 90, 2, 2);
+                fill(219, 219, 219);
+                rect(0, 0, 15, 45, 90, 90, 2, 2);
+                fill(0, 63, 158);
+                rect(-14, 5, 1, 40, 90, 90, 2, 2);
+                rect(14, 5, 1, 40, 90, 90, 2, 2);
+                fill(0, 0, 0, 30);
+                rect(0, 8, 5, 30, 90, 90, -15, -15);
+
+                fill(255, 255, 255);
+                rect(-12, -18, 1, 10);
+                rect(10, -18, 1, 10);
+
+                fill(0, 174, 255, 15 + sin(frameCount * 2) * 200);
+                rect(-2, 26, 10, 2, 0, 0, 90, 90);
+
+                fill(78, 95, 102);
+                rect(12, 4, 3, 15);
+                rect(-13, 4, 3, 15);
+
+                fill(255, 255, 255);
+                triangle(0, -24, -15, 20, 15, 20);
+                tr(-10, 8, 1, 0);
+                tr(20, 20, 1, 90);
+                tr(19, 20, 1, 30);
+                tr(-5, 24, 1, 60);
+                rect(0, 21, 37, 5);
+
+                fill(18, 86, 145);
+                ellipse(0, -8, 3, 15);
+
+                fill(5, 49, 97);
+                rect(0, 0, 3, 5);
+
+                //fill(0, 0, 0, 50);
+                //rect(0, 0, this.w, this.h);
+                popStyle();
+                popMatrix();
+
+                button("BACK", width / 2, 500, 500, 50, "menu");
+                fill(222, 195, 44);
+                textFont(createFont("Arial"), 27);
+                if (score > highScore) {
+                    text("High Score: " + score, 93, 20);
+                } else {
+                    text("High Score: " + highScore, 93, 20);
+                }
+
+                if (score > highScore) {
+                    text("NEW HIGH SCORE!", width / 2, 160);
+                    highScore = score;
+                } else if (score >= highScore / 1.5) {
+                    text("Nice score!", width / 2, 160);
+                } else if (score >= highScore / 2) {
+                    text("Not bad!", width / 2, 160);
+                } else if (score >= highScore / 3) {
+                    text("Keep trying!", width / 2, 160);
+                } else if (score >= highScore / 10) {
+                    text("You can do this!", width / 2, 160);
+                } else {
+                    text("Maybe try again?", width / 2, 160);
+                }
+            };
+            var s1x = 0;
+            var s1y = 0;
+
+            draw = function () {
+                cursor('DEFAULT');
+                pushMatrix();
+                translate(s1x, s1y);
+                switch (scene) {
+                    case 'logo':
+                        logo();
+                        break;
+                    case 'menu':
+                        player.resett();
+                        menu();
+                        break;
+                    case 'play':
+                        try {
+                            play();
+                        } catch (e) {
+                            //println(e);
+                        }
+                        break;
+                    case 'enemy_guide':
+                        enemy_guide();
+                        break;
+                    case 'how':
+                        how();
+                        break;
+                    case 'lose':
+                        lose();
+                        break;
+                    case 'lead':
+                        lead();
+                        break;
+                }
+                msClicked = false;
+                if (istrans) {
+                    trans.create();
+                }
+                popMatrix();
+                if (shake === true) {
+                    s1x = random(-5, 5);
+                    s1y = random(-5, 5);
+                } else {
+                    s1x = 0;
+                    s1y = 0;
+                }
+                shake = false;
+            };
+
+            mouseClicked = function () {
+                msClicked = true;
+                if (mode === "mobile") {
+                    if (player.reload === true) {
+                        bullets.push(new bullet(player.x + 10, player.y, color(0, 255, 0), "up"));
+                        bullets.push(new bullet(player.x - 15, player.y, color(0, 255, 0), "up"));
+                        player.reload = false;
+                    }
+
+                    if (player.reload === false && frameCount % 10 === 0) {
+                        player.reload = true;
+                    }
+                }
+            };
+
+            mouseDragged = function () {
+                if (mode === "mobile") {
+                    player.speed = 1.75;
+                    if (mouseX < pmouseX) {
+                        player.xv = player.xv - player.speed;
+                        player.rAmm = -5;
+                    }
+                    if (mouseX > pmouseX) {
+                        player.xv = player.xv + player.speed;
+                        player.rAmm = 5;
+                    }
+                }
+            };
+
+            /**==
+             * 
+             * (c) 2024-Present by LeaferStudios
+             * All code by LeaferStudios
+             * https://www.khanacademy.org/profile/kaid_553656479258879622339276/projects
+             * 
+            --**/
+
+
+        }
+
+        runPJS(program);
+
+        // Add reload button on KA --> <script>
+
+    </script>
+</body>
+
+</html>

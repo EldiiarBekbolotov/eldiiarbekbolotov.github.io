@@ -56,6 +56,14 @@
       font-size: 2em;
       color: rgba(255, 255, 255);
       margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      margin-left: 13px;
+      margin-right: 13px;
+      margin-top: 0;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 4px;
+      padding-bottom: 4px;
     }
 
     @media (max-width: 510px) {
@@ -115,480 +123,541 @@
   </div>
 
   <div id="web-content">
+
     <canvas id="pondCanvas"></canvas>
-
     <nav>
-      <a href="index.html" class="active">Home</a>
-
-      <a href="about.html">About</a>
-
-      <a href="projects.html">Projects</a>
+      <a href="index.html" class="active">Portfolio</a>
+      <a href="services.html">Services</a>
     </nav>
 
-    <div style="padding: 45px; padding-top: 100px">
-      <div style="
-            background-color: rgba(172, 0, 0, 0.2);
+    <div id="social-links">
+      <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
+          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" color="currentColor"
+          class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
+          <path d="M7 10V17" stroke="currentColor"></path>
+          <path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10"
+            stroke="currentColor"></path>
+          <path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
+          <path
+            d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+            stroke="currentColor"></path>
+        </svg></a>
+      <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
+          style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+          class="h-6 w-6" aria-hidden="true">
+          <path
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg></a>
+      <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg"
+          width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" color="currentColor"
+          class="size-5 transition-all hover:text-primary group-focus:text-primary">
+          <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
+          </path>
+          <path
+            d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
+            stroke="currentColor"></path>
+        </svg></a>
+      <a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
+        <?xml version="1.0" encoding="UTF-8"?>
+        <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+          <g>
+            <path
+              d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
+              fill="#ffffff"></path>
+          </g>
+        </svg>
+      </a>
 
-            padding: 5px 8px;
-          ">
-        <h4 style="
-              margin-top: 0;
-              margin-bottom: 0;
-              font-size: 15px;
-              color: rgb(183, 183, 183);
-              font-family: var(--mono) !important;
-            ">
-          <span style="
-                color: rgba(255, 255, 255, 0.4);
-                border-right: 1px solid rgba(255, 255, 255, 0.4);
-                padding-right: 4px;
-              ">1</span>
+
+      <a class="ai no-select" onclick="openAI();">
+        <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
+          height="24" viewBox="0 0 24 24" width="24">
+          <g>
+            <rect fill="none" height="24" width="24"></rect>
+          </g>
+          <g>
+            <g>
+              <path
+                d="M17.5 12c0-3.04 2.46-5.5 5.5-5.5-3.04 0-5.5-2.46-5.5-5.5 0 3.04-2.46 5.5-5.5 5.5 3.04 0 5.5 2.46 5.5 5.5z">
+              </path>
+              <path
+                d="M15.65 11.58c.18-.5.27-1.03.31-1.58h-2c-.1 1.03-.51 1.93-1.27 2.69-.88.87-1.94 1.31-3.19 1.31C7.03 14 5 12.07 5 9.5 5 7.03 6.93 5 9.5 5c.46 0 .89.08 1.3.2l1.56-1.56C11.5 3.22 10.55 3 9.5 3 5.85 3 3 5.85 3 9.5S5.85 16 9.5 16c.56 0 2.26-.06 3.8-1.3l6.3 6.3 1.4-1.4-6.3-6.3c.4-.5.72-1.08.95-1.72z">
+              </path>
+            </g>
+          </g>
+        </svg>
+        <span>AI Mode</span>
+      </a>
+    </div>
+
+
+    <style>
+      .zzq {
+        padding: 45px;
+        padding-top: 100px;
+        width: fit-content;
+        margin: 0 auto;
+      }
+
+      .zzq-one {
+        background-color: rgba(172, 0, 0, 0.2);
+
+        padding: 5px 8px;
+      }
+
+      .zzq-h4-one {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 15px;
+        color: rgb(183, 183, 183);
+        font-family: var(--mono) !important;
+      }
+
+      .one-span {
+        color: rgba(255, 255, 255, 0.4);
+        border-right: 1px solid rgba(255, 255, 255, 0.4);
+        padding-right: 4px;
+      }
+
+      .zzq-greeting {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 13px;
+        margin-right: 13px;
+        font-family: var(--big-font), Arial, Helvetica, sans-serif;
+        font-size: 4vw;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 4px;
+        padding-left: 15px;
+      }
+
+      .zzq-two {
+        background-color: rgba(5, 173, 73, 0.2);
+        margin-top: 0;
+        color: black;
+        padding: 5px 8px;
+      }
+
+      .zzq-h4-two {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 15px;
+        color: rgb(183, 183, 183);
+        font-family: var(--mono) !important;
+      }
+
+      .two-span {
+        color: rgba(255, 255, 255, 0.4);
+        border-right: 1px solid var(--primary);
+        padding-right: 4px;
+        margin-top: 0;
+      }
+
+      .zzq-name {
+        border: 1px solid var(--primary);
+        padding: 4px;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: var(--big-font) !important;
+        font-size: 7vw;
+        padding-right: 15px;
+        padding-left: 15px;
+        color: #fff;
+        margin-right: 13px;
+        margin-left: 13px;
+      }
+
+      .zzq-three {
+        padding-top: 5px;
+        margin-bottom: 0px;
+        font-size: 20px;
+        font-family: var(--small-font);
+        color: rgb(183, 183, 183);
+        background: rgba(19, 83, 211, 0.2);
+        padding: 5px 8px;
+      }
+
+      .zzq-h4-three {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 15px;
+        color: rgb(183, 183, 183);
+        font-family: var(--mono) !important;
+      }
+
+      .three-span {
+        color: rgba(255, 255, 255, 0.4);
+        border-right: 1px solid rgba(255, 255, 255, 0.4);
+        padding-right: 4px;
+      }
+    </style>
+    <div class="zzq">
+      <div class="zzq-one">
+        <h4 class="zzq-h4-one">
+          <span class="one-span">1</span>
           user.<span style="color: var(--colora)">greeting</span> =
         </h4>
-        <h1 style="
-              margin-top: 0;
-              margin-bottom: 0;
-              margin-left: 13px;
-              margin-right: 13px;
-              font-family: var(--big-font), Arial, Helvetica, sans-serif;
-              font-size: 4vw;
-              border: 1px solid rgba(255, 255, 255, 0.4);
-              padding: 4px;
-              padding-left: 15px;
-            ">
+        <h1 class="zzq-greeting">
           Hello!
         </h1>
       </div>
-      <div style="
-            background-color: rgba(5, 173, 73, 0.2);
-            margin-top: 0;
-            color: black;
-            padding: 5px 8px;
-          ">
-        <h4 style="
-              margin-top: 0;
-              margin-bottom: 0;
-              font-size: 15px;
-              color: rgb(183, 183, 183);
-              font-family: var(--mono) !important;
-            ">
-          <span style="
-                color: rgba(255, 255, 255, 0.4);
-                border-right: 1px solid var(--primary);
-                padding-right: 4px;
-                margin-top: 0;
-              ">2</span>
+      <div class="zzq-two">
+        <h4 class="zzq-h4-two">
+          <span class="two-span">2</span>
           author.<span style="color: var(--colorb)">name</span> =
         </h4>
 
-        <h1 style="
-              border: 1px solid var(--primary);
-              font-family: var(--small-font);
-              padding: 4px;
-              margin-top: 0;
-              margin-bottom: 0;
-              font-family: var(--big-font), Arial, Helvetica, sans-serif;
-              font-size: 7vw;
-              padding-left: 15px;
-              color: #fff;
-              margin-right: 13px;
-              margin-left: 13px;
-            ">
+        <h1 class="zzq-name">
           Eldiiar Bekbolotov
         </h1>
       </div>
-      <div style="
-            padding-top: 5px;
-            margin-bottom: 0px;
-            font-size: 20px;
-            font-family: var(--small-font);
-            color: rgb(183, 183, 183);
-            background: rgba(19, 83, 211, 0.2);
-            padding: 5px 8px;
-          ">
-        <h4 style="
-              margin-top: 0;
-              margin-bottom: 0;
-              font-size: 15px;
-              color: rgb(183, 183, 183);
-              font-family: var(--mono) !important;
-            ">
-          <span style="
-                color: rgba(255, 255, 255, 0.4);
-                border-right: 1px solid rgba(255, 255, 255, 0.4);
-                padding-right: 4px;
-              ">3</span>
-          author.<span style="color: var(--colorc)">age</span>> =
+      <div class="zzq-three">
+        <h4 class="zzq-h4-three">
+          <span class="three-span">3</span>
+          author.<span style="color: var(--colorc)">age</span> =
         </h4>
-        <div id="age-timer" style="
-              border: 1px solid rgba(255, 255, 255, 0.4);
-              margin-left: 13px;
-              margin-right: 13px;
-              margin-top: 0;
-              padding-left: 15px;
-              padding-right: 15px;
-              padding-top: 4px;
-              padding-bottom: 4px;
-            "></div>
+        <div id="age-timer"></div>
       </div>
     </div>
+
+
     <!--work on card-->
-    <div class="annon">
-      <h2>About me</h2>
-      <img
-        src="https://media.licdn.com/dms/image/v2/D4E16AQGU1dpop0lRWg/profile-displaybackgroundimage-shrink_350_1400/B4EZjIJcv7HgAY-/0/1755704579274?e=1758758400&v=beta&t=_y61JQ-kxvefRvqgJpAk9rcfbRkwMNhyLg-73R7Cln8" />
-      <p>
-        <span style="
-              font-family: 'noto color emoji';
-              user-select: none;
-              -webkit-user-select: none;
-              -ms-user-select: none;
-            ">👋</span>
-        Hey, my name is <b>Eldiiar Bekbolotov</b>. I focus on engineering,
-        business, finance, and design. I strive to work on meaningful projects
-        that solve issues and positively impact underserved people in a
-        variety of fields using the power of modern technology. As a strong
-        advocate for creative innovation, I actively develop and maintain
-        solutions that improve the lives of over 400,000 people worldwide. As
-        a high school student (graduating 2027), I balance a healthy
-        school/work/life balance. In my spare time, I enjoy playing chess,
-        running, and writing stories.
-      </p>
-      <p>
-        <span style="
-              font-family: 'noto color emoji';
-              user-select: none;
-              -webkit-user-select: none;
-              -ms-user-select: none;
-            ">🤝</span>
-        Feel free to <b>connect with me</b> on LinkedIn, view my open source projects
-        on GitHub, send a message via email, or read my Medium publications:
-      </p>
-
-      <div id="social-links" style="float: right; margin-top: 30px">
-        <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
-            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round" color="currentColor"
-            class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
-            <path d="M7 10V17" stroke="currentColor"></path>
-            <path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10"
-              stroke="currentColor"></path>
-            <path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
-            <path
-              d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
-              stroke="currentColor"></path>
-          </svg></a>
-        <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
-            style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-            class="h-6 w-6" aria-hidden="true">
-            <path
-              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-            </path>
-          </svg></a>
-        <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" color="currentColor"
-            class="size-5 transition-all hover:text-primary group-focus:text-primary">
-            <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
-            </path>
-            <path
-              d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
-              stroke="currentColor"></path>
-          </svg></a>
-        <a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
-          <?xml version="1.0" encoding="UTF-8"?>
-          <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-            <g>
-              <path
-                d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
-                fill="#ffffff"></path>
-            </g>
-          </svg>
-        </a>
+    <div id="wrapper">
+      <div id="about">
+        <h1 style="text-align: center;font-size:3rem;font-family:var(--big-font);">About me</h1>
+        <p>
+          <span class="emoji">👋</span>
+          Hey, my name is <b>Eldiiar Bekbolotov</b>. I'm a 16 y/o student developer focusing on software engineering,
+          UI/UX
+          design, and entrepreneurship. I'm really passionate about STEM,
+          business, finance, and design. I strive to work on meaningful projects
+          that solve issues and positively impact underserved people in a
+          variety of fields using the power of creative innovation. I actively develop and maintain
+          solutions that improve the lives of thousands worldwide. <!--As
+            a high school student (graduating 2027), I balance a healthy
+            school/work/life balance. In my spare time, I enjoy playing chess,
+            running, and writing stories.-->
+        </p>
+        <p>
+          <span class="emoji">🤝</span>
+          Feel free to <b>connect with me</b> on LinkedIn, view my open source projects
+          on GitHub, send a message via email, or read my Medium publications.
+        </p>
       </div>
+
+      <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
+        <div style="margin:0 auto;">
+          <img src="android-chrome-512x512.png"
+            style="width:30vw;box-shadow:0px 4px 3px rgba(251, 21, 21, 0.5);border-radius:50%;" />
+        </div>
+      </div>
+
     </div>
+    <div style="
+  background-color: #000000;">
+      <div class="annon">
+        <h2>About me</h2>
+        <img
+          src="https://media.licdn.com/dms/image/v2/D4E16AQGU1dpop0lRWg/profile-displaybackgroundimage-shrink_350_1400/B4EZjIJcv7HgAY-/0/1755704579274?e=1758758400&v=beta&t=_y61JQ-kxvefRvqgJpAk9rcfbRkwMNhyLg-73R7Cln8" />
 
-    <!-- EXPERIENCE SHOWCASE START -->
-    <style>
-      .experience-section {
-        max-width: 1200px;
-        margin: 0 auto;
-        background: rgba(34, 40, 66, 0.4);
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        position: relative;
-        overflow: hidden;
-        font-weight: 200;
-      }
 
-      .experience-section a {
-        text-decoration: none;
-      }
 
-      .experience-section svg {
-        fill: var(--primary);
-      }
+      </div>
 
-      .experience-section::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10% 20%,
-            rgba(88, 101, 242, 0.2),
-            transparent 50%);
-        pointer-events: none;
-      }
-
-      .section-title {
-        color: #fff;
-      }
-
-      .timeline {
-        position: relative;
-        margin-left: 120px;
-      }
-
-      .timeline::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 10px;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(to bottom, white, gray, transparent);
-        border-radius: 2px;
-      }
-
-      .timeline-date {
-        position: absolute;
-        left: -110px;
-        width: 100px;
-        text-align: right;
-        font-size: 14px;
-        color: #ffffff8f;
-        top: 20px;
-      }
-
-      .job {
-        position: relative;
-        padding: 20px 0 20px 40px;
-        transition: transform 0.3s ease, background 0.3s ease;
-      }
-
-      .job:hover {
-        background: rgba(255, 255, 255, 0);
-        transform: translateY(0px);
-      }
-
-      .job::before {
-        content: "";
-        position: absolute;
-        left: 6px;
-        top: 28px;
-        width: 12px;
-        height: 12px;
-        background: var(--primary);
-        border-radius: 50%;
-        border: 1px solid #ffffff;
-        box-shadow: 0 0px 10px rgb(2, 254, 74);
-        transition: transform 0.3s ease;
-      }
-
-      .job:hover::before {
-        transform: scale(1.2);
-      }
-
-      .job:last-child {
-        border-bottom: none;
-      }
-
-      .job-header {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-        font-family: var(--big-font);
-      }
-
-      .job-meta {
-        color: #ffffff8f;
-        font-weight: 400;
-        font-family: var(--big-font);
-      }
-
-      .job-info {
-        flex: 1;
-      }
-
-      .job-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #ffffff;
-        margin: 0;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-      }
-
-      .company-name {
-        font-size: 16px;
-        font-weight: 400;
-        color: var(--primary);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-        display: inline-block;
-        cursor: pointer;
-      }
-
-      .company-name:hover {
-        border-bottom: 1px solid var(--primary);
-      }
-
-      .job-summary {
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.7);
-        margin: 8px 0;
-        font-family: var(--small-font);
-        font-weight: 400;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      .job-summary b {
-        font-style: italic;
-        font-weight: 600;
-        font-family: var(--big-font);
-      }
-
-      .job-description b {
-        font-style: italic;
-        font-weight: 600;
-        font-family: var(--big-font);
-      }
-
-      .job-description {
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.7);
-        margin-top: 15px;
-        display: none;
-        ;
-        font-weight: 400;
-        font-family: var(--small-font);
-
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        padding: 15px;
-        border-radius: 8px;
-        animation: slideIn 0.3s ease;
-      }
-
-      .job-description.active {
-        display: block;
-      }
-
-      .job-images {
-        display: flex;
-        gap: 15px;
-        margin-top: 15px;
-        flex-wrap: wrap;
-      }
-
-      .job-image {
-        max-width: 100%;
-        width: 200px;
-        height: auto;
-        border-radius: 0px;
-        transition: transform 0.3s ease;
-      }
-
-      .job-image:hover {
-        transform: scale(1);
-      }
-
-      .toggle-btn {
-        background: none;
-        border: none;
-        color: #FFF;
-        font-size: 16px;
-        border: 1px solid #FFF;
-        border-radius: 4px;
-        font-weight: 500;
-        cursor: pointer;
-        padding: 5px 16px;
-        transition: all 0.3s ease;
-      }
-
-      .toggle-btn:hover {
-        background-color: #FFF;
-        color: #000;
-        text-decoration: none;
-      }
-
-      .toggle-btn:active {
-        background-color: var(--primary-hover);
-        color: var(--primary-color);
-        border-color: var(--primary-hover);
-      }
-
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (max-width: 600px) {
+      <!-- EXPERIENCE SHOWCASE START -->
+      <style>
         .experience-section {
-          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+          background: rgba(34, 40, 66, 0.4);
+          padding: 30px;
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(10px);
+          position: relative;
+          overflow: hidden;
+          font-weight: 200;
+        }
+
+        .experience-section a {
+          text-decoration: none;
+        }
+
+        .experience-section svg {
+          fill: var(--primary);
+        }
+
+        .experience-section::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(circle at 10% 20%,
+              rgba(88, 101, 242, 0.2),
+              transparent 50%);
+          pointer-events: none;
+        }
+
+        .section-title {
+          color: #fff;
         }
 
         .timeline {
-          margin-left: 80px;
+          position: relative;
+          margin-left: 120px;
+        }
+
+        .timeline::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 10px;
+          width: 4px;
+          height: 100%;
+          background: linear-gradient(to bottom, white, gray, transparent);
+          border-radius: 2px;
         }
 
         .timeline-date {
-          left: -70px;
-          width: 60px;
-          font-size: 12px;
+          position: absolute;
+          left: -110px;
+          width: 100px;
+          text-align: right;
+          font-size: 14px;
+          color: #ffffff8f;
+          top: 20px;
         }
 
         .job {
-          padding-left: 30px;
+          position: relative;
+          padding: 20px 0 20px 40px;
+          transition: all 0.3s ease;
+        }
+
+        .job:hover {
+          background: rgba(255, 255, 255, 0);
+          transform: translateY(0px);
         }
 
         .job::before {
-          left: 4px;
+          content: "";
+          position: absolute;
+          left: 6px;
+          top: 28px;
+          width: 12px;
+          height: 12px;
+          background: var(--primary);
+          border-radius: 50%;
+          border: 1px solid #ffffff;
+          box-shadow: 0 0px 10px rgb(2, 254, 74);
+          transition: transform 0.3s ease;
+        }
+
+        .job:hover::before {
+          transform: scale(1.2);
+        }
+
+        .job:last-child {
+          border-bottom: none;
+        }
+
+        .job-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 20px;
+          font-family: var(--big-font);
+        }
+
+        .job-meta {
+          color: #ffffff8f;
+          font-weight: 400;
+          font-family: var(--big-font);
+        }
+
+        .job-info {
+          flex: 1;
+        }
+
+        .job-title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0;
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .company-name {
+          font-size: 16px;
+          font-weight: 400;
+          color: var(--primary);
+          text-decoration: none;
+          border-bottom: 1px solid transparent;
+          display: inline-block;
+          cursor: pointer;
+        }
+
+        .company-name:hover {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        .job-summary {
+          font-size: 18px;
+          color: rgba(255, 255, 255, 0.7);
+          margin: 8px 0;
+          font-family: var(--small-font);
+          font-weight: 400;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        .job-summary b {
+          font-style: italic;
+          font-weight: 600;
+          font-family: var(--big-font);
+        }
+
+        .job-description b {
+          font-style: italic;
+          font-weight: 600;
+          font-family: var(--big-font);
+        }
+
+        .job-description {
+          font-size: 18px;
+          color: rgba(255, 255, 255, 0.7);
+          margin-top: 15px;
+          display: none;
+          ;
+          font-weight: 400;
+          font-family: var(--small-font);
+
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          padding: 15px;
+          padding-left: 0px;
+          border-radius: 8px;
+          animation: slideIn 0.3s ease;
+          list-style: none;
+        }
+
+        .job-description li::before {
+          content: "- ";
+          display: inline-block;
+          margin-right: 10px;
+          color: var(--primary);
+          transform: scale(4, 1);
+        }
+
+        .job-description.active {
+          display: block;
+        }
+
+        .job-images {
+          display: flex;
+          gap: 15px;
+          margin-top: 15px;
+          flex-wrap: wrap;
         }
 
         .job-image {
-          width: 100%;
-          max-width: 150px;
+          max-width: 100%;
+          width: 200px;
+          height: auto;
+          border-radius: 0px;
+          transition: transform 0.3s ease;
         }
 
-        .timeline {
-          margin-left: 0px;
+        .job-image:hover {
+          transform: scale(1);
         }
 
-        .timeline-date {
-          position: relative;
-          left: 0;
-          top: 0;
-          width: 100%;
-          text-align: left;
-          font-size: 14px;
-          color: #ffffff8f;
+        .toggle-btn {
+          background: none;
+          border: none;
+          color: #FFF;
+          font-size: 16px;
+          border: 1px solid #FFF;
+          border-radius: 4px;
+          font-weight: 500;
+          cursor: pointer;
+          padding: 5px 16px;
+          transition: all 0.3s ease;
         }
-      }
-    </style>
-    <div style="
+
+        .toggle-btn:hover {
+          background-color: #FFF;
+          color: #000;
+          text-decoration: none;
+        }
+
+        .toggle-btn:active {
+          background-color: var(--primary-hover);
+          color: var(--primary-color);
+          border-color: var(--primary-hover);
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .experience-section {
+            padding: 20px;
+          }
+
+          .timeline {
+            margin-left: 80px;
+          }
+
+          .timeline-date {
+            left: -70px;
+            width: 60px;
+            font-size: 12px;
+          }
+
+          .job {
+            padding-left: 30px;
+          }
+
+          .job::before {
+            left: 4px;
+          }
+
+          .job-image {
+            width: 100%;
+            max-width: 150px;
+          }
+
+          .timeline {
+            margin-left: 0px;
+          }
+
+          .timeline-date {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            color: #ffffff8f;
+          }
+        }
+      </style>
+      <div style="
           line-height: 1.6;
           color: #e0e0e0;
           margin: 0;
@@ -596,346 +665,624 @@
           overflow-x: hidden;
           width: 100%;
         ">
-      <section class="experience-section">
-        <h2 class="section-title">Experience</h2>
+        <section class="experience-section">
+          <h2 class="section-title">Experience</h2>
 
-        <p>
-          <span style="
-                font-family: 'noto color emoji';
-                user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-              ">✉️</span>
-          For resume inquiries, please send a message via email.
-        </p>
-        <div class="timeline">
-          <div class="job">
-            <div class="timeline-date">June 2022 - Present</div>
-            <div class="job-header">
-              <div class="job-info">
-                <h3 class="job-title">Founder & Chief Executive Officer</h3>
-                <a href="#" target="_blank">
-                  <div class="company-name">FinBilim</div>
-                  <?xml version="1.0" encoding="utf-8"?>
-                  <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                      d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                  </svg>
-                </a>
-                <div class="job-meta">Bishkek</div>
-                <div class="job-summary">
-                  Building the largest student-led financial organization in the world.
-                </div>
-                <button class="toggle-btn" onclick="toggleDescription('desc1')">
-                  Show more
-                </button>
-                <div id="desc1" class="job-description">
-                  - Founded the largest student-led financial literacy initiative in Central Asia, expanded it into a
-                  global organization.<br />
-                  - Developed the official website totaling <b>2,100,000 lines of code</b> receiving
-                  <b>10,000 visitors</b> per month.<br />
-                  - Mentored a team of junior devs, elevating code quality
-                  through rigorous reviews.
-                  <div class="job-images">
-                    <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                    <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+          <p>
+            <span class="emoji" style="margin-left:0;">✉️</span>
+            For resume inquiries, please send a message via email.
+          </p>
+          <div class="timeline">
+            <div class="job">
+              <div class="timeline-date">June 2022 - Present</div>
+              <div class="job-header">
+                <div class="job-info">
+                  <h3 class="job-title">Founder & Chief Executive Officer</h3>
+                  <a href="#" target="_blank">
+                    <div class="company-name">FinBilim</div>
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                    </svg>
+                  </a>
+                  <div class="job-meta">Bishkek · Ottawa · Remote</div>
+                  <div class="job-summary">
+                    Building the largest student-led financial organization in the world.
                   </div>
+                  <button class="toggle-btn" onclick="toggleDescription('desc1')">
+                    Show more
+                  </button>
+                  <ul id="desc1" class="job-description">
+                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
+                      a
+                      global organization.</li>
+                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
+                      <b>10,000 visitors</b> per month.
+                    </li><br />
+                    <li></li>
+                    <div class="job-images">
+                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
+                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="job">
+              <div class="timeline-date">Jan 2020 - May 2022</div>
+              <div class="job-header">
+                <div class="job-info">
+                  <h3 class="job-title">
+                    Co-Founder & Chief Technology Officer
+                  </h3>
+                  <div class="company-name">Operation FinRise</div>
+                  <div class="job-meta">Ottawa · Remote</div>
+                  <div class="job-summary">
+                    Developed responsive web applications and optimized
+                    back-end performance.
+                  </div>
+                  <button class="toggle-btn" onclick="toggleDescription('desc2')">
+                    Show more
+                  </button>
+                  <ul id="desc2" class="job-description">
+                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
+                      a
+                      global organization.</li>
+                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
+                      <b>10,000 visitors</b> per month.
+                    </li><br />
+                    <li></li>
+                    <div class="job-images">
+                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
+                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="job">
+              <div class="timeline-date">Aug 2018 - Dec 2019</div>
+              <div class="job-header">
+                <div class="job-info">
+                  <h3 class="job-title">Full Stack Developer</h3>
+                  <div class="company-name">Stellar Learning</div>
+                  <div class="job-meta">San Francisco · Remote</div>
+                  <div class="job-summary">
+                    Built RESTful APIs and contributed to database optimization.
+                  </div>
+                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
+                    Show more
+                  </button>
+                  <ul id="desc3" class="job-description">
+                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
+                      a
+                      global organization.</li>
+                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
+                      <b>10,000 visitors</b> per month.
+                    </li><br />
+                    <li></li>
+                    <div class="job-images">
+                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
+                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                    </div>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
-          <div class="job">
-            <div class="timeline-date">Jan 2020 - May 2022</div>
-            <div class="job-header">
-              <div class="job-info">
-                <h3 class="job-title">
-                  Co-Founder & Chief Technology Officer
-                </h3>
-                <div class="company-name">Operation FinRise</div>
-                <div class="job-meta">Ottawa</div>
-                <div class="job-summary">
-                  Developed responsive web applications and optimized
-                  front-end performance.
-                </div>
-                <button class="toggle-btn" onclick="toggleDescription('desc2')">
-                  Show more
-                </button>
-                <div id="desc2" class="job-description">
-                  - Crafted dynamic, responsive web apps with React and
-                  TypeScript.<br />
-                  - Boosted front-end performance, cutting page load times by
-                  25%.<br />
-                  - Partnered with UX designers to enhance user engagement by
-                  15%.
-                  <div class="job-images">
-                    <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                    <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="job">
-            <div class="timeline-date">Aug 2018 - Dec 2019</div>
-            <div class="job-header">
-              <div class="job-info">
-                <h3 class="job-title">Full Stack Dev</h3>
-                <div class="company-name">Stellar Learning</div>
-                <div class="job-meta">San Francisco</div>
-                <div class="job-summary">
-                  Built RESTful APIs and contributed to database optimization.
-                </div>
-                <button class="toggle-btn" onclick="toggleDescription('desc3')">
-                  Show more
-                </button>
-                <div id="desc3" class="job-description">
-                  - Engineered RESTful APIs with Python and Flask.<br />
-                  - Optimized database schemas using PostgreSQL for better
-                  performance.<br />
-                  - Thrived in agile sprints, contributing to efficient
-                  project delivery.
-                  <div class="job-images">
-                    <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                    <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    <script>
-      function toggleDescription(id) {
-        const description = document.getElementById(id);
-        const button = description.previousElementSibling;
-        if (description.classList.contains("active")) {
-          description.classList.remove("active");
-          button.textContent = "Show more";
-        } else {
-          description.classList.add("active");
-          button.textContent = "Show less";
+        </section>
+      </div>
+      <script>
+        function toggleDescription(id) {
+          const description = document.getElementById(id);
+          const button = description.previousElementSibling;
+          if (description.classList.contains("active")) {
+            description.classList.remove("active");
+            button.textContent = "Show more";
+          } else {
+            description.classList.add("active");
+            button.textContent = "Show less";
+          }
         }
-      }
-    </script>
-    <!--EXPERIENCE SHOWCASE END-->
-    <!-- PROJECT SHOWCASE START -->
-    <style>
-      :root {
-        --card-bg: #000;
-        --text-color: #e0e0e0;
-        --accent-color: var(--primary);
-        --shadow: inset 0 40px 90px rgba(255, 255, 255, 0.3);
-      }
+      </script>
+      <!--EXPERIENCE SHOWCASE END-->
+      <!-- PROJECT SHOWCASE START -->
+      <style>
+        :root {
+          --card-bg: #000;
+          --text-color: #e0e0e0;
+          --accent-color: var(--primary);
+          --shadow: inset 0 40px 90px rgba(255, 255, 255, 0.3);
+        }
 
-      .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .card {
-        background-color: var(--card-bg);
-        border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-      }
-
-      .card:hover {
-        transform: translateY(0px);
-        box-shadow: var(--shadow);
-      }
-
-      .card:hover h2 span {
-        border-bottom: 1px solid var(--accent-color);
-      }
-
-      .grid-container a {
-        text-decoration: none;
-      }
-
-      .grid-container a:hover {
-        text-decoration: none;
-      }
-
-      .card img {
-        background: linear-gradient(30deg, rgb(75, 75, 75), rgb(2, 22, 38));
-        width: 100%;
-        height: 50%;
-        object-fit: cover;
-      }
-
-      .card-content {
-        padding: 1.5rem;
-      }
-
-      .card h2 {
-        display: inline-block;
-        font-family: var(--big-font);
-        font-size: 24px !important;
-        margin-bottom: 0.5rem;
-        color: #b0b0b0;
-        border-bottom: 1px solid transparent;
-        line-height: 30px;
-      }
-
-      .card h2 span {
-        color: var(--accent-color);
-      }
-
-      .card p {
-        font-size: 16px !important;
-        line-height: 23px !important;
-        margin-bottom: 1rem;
-        color: #b0b0b0;
-      }
-
-      .card-tags {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-      }
-
-      .tag {
-        background-color: #2a2a2a;
-        padding: 0.3rem 0.6rem;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        color: var(--text-color);
-      }
-
-      @media (max-width: 600px) {
         .grid-container {
-          grid-template-columns: 1fr;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+          max-width: 1200px;
+          margin: 0 auto;
         }
-      }
-    </style>
-    <div style="padding: 30px">
-      <h1>Projects</h1>
-      <div class="grid-container">
-        <a href="finrise.html">
-          <div class="card">
-            <img src="src/finbilim-logo.svg" alt="Project 1" />
-            <div class="card-content">
-              <h2><span>Operation FinRise</span> — 2025</h2>
-              <p>
-                Developed a full-stack website for my financial literacy
-                newsletter as the Chief Technology Officer.
-              </p>
-              <div class="card-tags">
-                <span class="tag">Website</span>
-                <span class="tag">Non-Profit</span>
-                <span class="tag">Full Stack</span>
-                <span class="tag" style="
+
+        .card {
+          background-color: var(--card-bg);
+          border-radius: 10px;
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
+        }
+
+        .card:hover {
+          transform: translateY(0px);
+          box-shadow: var(--shadow);
+        }
+
+        .card:hover h2 span {
+          border-bottom: 1px solid var(--accent-color);
+        }
+
+        .grid-container a {
+          text-decoration: none;
+        }
+
+        .grid-container a:hover {
+          text-decoration: none;
+        }
+
+        .card img {
+          background: linear-gradient(30deg, rgb(75, 75, 75), rgb(2, 22, 38));
+          width: 100%;
+          height: 50%;
+          object-fit: cover;
+        }
+
+        .card-content {
+          padding: 1.5rem;
+        }
+
+        .card h2 {
+          display: inline-block;
+          font-family: var(--big-font);
+          font-size: 24px !important;
+          margin-bottom: 0.5rem;
+          color: #b0b0b0;
+          border-bottom: 1px solid transparent;
+          line-height: 30px;
+        }
+
+        .card h2 span {
+          color: var(--accent-color);
+        }
+
+        .card p {
+          font-size: 16px !important;
+          line-height: 23px !important;
+          margin-bottom: 1rem;
+          color: #b0b0b0;
+        }
+
+        .card-tags {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .tag {
+          background-color: #2a2a2a;
+          padding: 0.3rem 0.6rem;
+          border-radius: 5px;
+          font-size: 0.8rem;
+          color: var(--text-color);
+        }
+
+        @media (max-width: 600px) {
+          .grid-container {
+            grid-template-columns: 1fr;
+          }
+        }
+      </style>
+      <div style="padding: 30px">
+        <h1>Projects</h1>
+        <div class="grid-container">
+          <a href="finrise.html">
+            <div class="card">
+              <img src="src/finbilim-logo.svg" alt="Project 1" />
+              <div class="card-content">
+                <h2><span>Operation FinRise</span> — 2025</h2>
+                <p>
+                  Developed a full-stack website for my financial literacy
+                  newsletter as the Chief Technology Officer.
+                </p>
+                <div class="card-tags">
+                  <span class="tag">Website</span>
+                  <span class="tag">Non-Profit</span>
+                  <span class="tag">Full Stack</span>
+                  <span class="tag" style="
                       box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
                     ">+12 more</span>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
 
-        <a href="https://khanprofileviewer.web.app/" target="_blank">
-          <div class="card">
-            <img src="src/khanprofileviewer.png" alt="Project 1" />
-            <div class="card-content">
-              <h2><span>Khan Profile Viewer</span> — 2025</h2>
-              <p>
-                Tool to turn any Khan Academy Computer Programming profile into an interactive portfolio.
-              </p>
-              <div class="card-tags">
-                <span class="tag">API</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">Tool</span>
-                <span class="tag" style="
+          <a href="https://khanprofileviewer.web.app/" target="_blank">
+            <div class="card">
+              <img src="src/khanprofileviewer.png" alt="Project 1" />
+              <div class="card-content">
+                <h2><span>Khan Profile Viewer</span> — 2025</h2>
+                <p>
+                  Tool to turn any Khan Academy Computer Programming profile into an interactive portfolio.
+                </p>
+                <div class="card-tags">
+                  <span class="tag">API</span>
+                  <span class="tag">JavaScript</span>
+                  <span class="tag">Tool</span>
+                  <span class="tag" style="
                       box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
                     ">+3 more</span>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <!--  PROJECT SHOWCASE END  -->
-
-    <div style="
-          padding: 30px;
-          text-align: center;
-          max-width: 80vw;
-          margin: 0 auto;
-        ">
-      <h1>
-        <span style="
-              font-family: 'noto color emoji';
-              user-select: none;
-              -webkit-user-select: none;
-              -ms-user-select: none;
-            ">💻</span>
-        Skills
-      </h1>
-      <p style="text-align: left">
-        As a Full Stack Developer, I bring a diverse skill set built on many
-        years of hands-on experience. My journey began in the 3rd grade with
-        web development, providing me with a strong foundation in front-end
-        design and development. Today, my passion for building efficient,
-        scalable, and user-focused solutions drives me to continually learn
-        new languages and technologies. More recently, I have shifted into
-        AI/ML app development as well as competitive programming.
-      </p>
-      <div class="filters">
-        <div class="filter active" data-category="all">All</div>
-        <div class="filter" data-category="language">Languages</div>
-        <div class="filter" data-category="frontend">Frontend</div>
-        <div class="filter" data-category="backend">Backend</div>
-        <div class="filter" data-category="tool">Tools</div>
-        <div class="filter" data-category="design">Design</div>
-      </div>
-
-      <div class="grid" id="skillsGrid"></div>
-    </div>
-
-    <div style="
-          padding: 30px;
-          text-align: center;
-          max-width: 80vw;
-          margin: 0 auto;
-        ">
-      <h1>Writing</h1>
-      <p>
-        What would a developer portfolio be without a personal blog? Plus, you
-        may learn something new!
-      </p>
-      <a href="blog.html"><button class="rp-button">View Blog</button></a>
-    </div>
-
-    <footer>
-      <div style="display: flex; justify-content: space-between">
-        <p>
-          <span id="visits"></span>
-          <span style="font-family: 'Noto Sans Emoji'">👀</span>
-        </p>
-        <p>
-          &copy; 2025 <span id="currentYear"></span>
-          <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
-        </p>
-        <p>
-          <a href="https://github.com/EldiiarBekbolotov" target="_blank">
-            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
-              class="h-6 w-6" aria-hidden="true">
-              <path
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-              </path>
-            </svg>
           </a>
-        </p>
+        </div>
       </div>
-    </footer>
+      <!--  PROJECT SHOWCASE END  -->
+
+      <div style="
+          padding: 30px;
+          text-align: center;
+          max-width: 80vw;
+          margin: 0 auto;
+        ">
+        <h1>
+          <span class="emoji">💻</span>
+          Skills
+        </h1>
+        <p style="text-align: left">
+          As a Full Stack Developer, I bring a diverse skill set built on many
+          years of hands-on experience. <!--My journey began in the 3rd grade with
+          web development, providing me with a strong foundation in front-end
+          design and development. Today, my passion for building efficient,
+          scalable, and user-focused solutions drives me to continually learn
+          new languages and technologies. More recently, I have shifted into
+          AI/ML app development as well as competitive programming.-->
+        </p>
+        <div class="filters">
+          <div class="filter active" data-category="all">All</div>
+          <div class="filter" data-category="language">Languages</div>
+          <div class="filter" data-category="frontend">Frontend</div>
+          <div class="filter" data-category="backend">Backend</div>
+          <div class="filter" data-category="tool">Tools</div>
+          <div class="filter" data-category="design">Design</div>
+        </div>
+
+        <div class="grid" id="skillsGrid"></div>
+      </div>
+
+      <div style="
+          padding: 30px;
+          text-align: center;
+          max-width: 80vw;
+          margin: 0 auto;
+        ">
+        <h1><span class="emoji">📖</span> Writing</h1>
+        <p>
+          What would a developer portfolio be without a personal blog?
+        </p>
+        <a href="blog.html"><button class="rp-button">View Blog</button></a>
+      </div>
+
+      <div style="
+          padding: 30px;
+          text-align: center;
+          max-width: 80vw;
+          margin: 0 auto;
+        ">
+        <h2><span class="emoji" style="font-style:normal;font-size:30px;">😃</span> You made it all the way here!
+        </h2>
+        <p>
+          I think you deserve a prize.<br />Here's a (hopefully entertaining) game for you:
+        </p>
+
+      </div>
+      <style>
+        .slideshow-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: #eee;
+          background-color: transparent;
+        }
+
+        .slideshow-card-wrapper {
+          position: relative;
+          max-width: 500px;
+          width: 90%;
+        }
+
+        .slideshow-card {
+          background-color: #00000087;
+
+          border-radius: 20px;
+          box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
+          height: 450px;
+          overflow: hidden;
+          text-align: center;
+          position: relative;
+        }
+
+        #card-link {
+          text-decoration: none;
+        }
+
+        #card-title {
+          display: inline-block;
+
+          border-bottom: 1px solid transparent;
+        }
+
+        #card-link:hover #card-title {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        .card-media {
+          border-radius: 8px;
+          margin: 0 auto;
+          width: 80%;
+          max-width: 500px;
+          min-width: 300px;
+          transition: opacity 0.5s ease-in-out;
+          display: block;
+        }
+
+        .card-media.hidden {
+          opacity: 0;
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%)scale(0.5);
+          pointer-events: none;
+        }
+
+        .slideshow-card h2 {
+          font-family: var(--big-font);
+          margin: 1rem 0 0.5rem 0;
+        }
+
+        .slideshow-card p {
+          font-family: var(--small-font);
+          padding: 0 1rem 1rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .toggle-btn1 {
+          position: absolute;
+          top: 25%;
+          transform: translateY(-50%);
+          background-color: rgba(0, 0, 0, 0.8);
+          border: none;
+          color: #fff;
+          box-shadow: 0px 0px 70px var(--primary);
+          font-size: 1.5rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          border-radius: 0px;
+          z-index: 2;
+          font-family: var(--small-font);
+          text-shadow: 0px 0px 10px var(--primary);
+          transform: scale(1, 1.9);
+          font-weight: 100;
+          transition: all 0.2s ease;
+        }
+
+        #card-desc {
+          text-align: left;
+        }
+
+        .toggle-btn1:hover {
+          background-color: rgba(0, 0, 0, 1);
+          color: var(--primary);
+          font-weight: 300;
+        }
+
+        .toggle-btn1:focus {
+          outline: 2px solid var(--primary);
+        }
+
+        .toggle-left {
+          left: 5px;
+        }
+
+        .toggle-right {
+          right: 5px;
+        }
+
+        .slideshow-refresh-btn {
+          background-color: transparent;
+          border: none;
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+          color: var(--primary);
+          font-family: var(--big-font);
+          border: 2px solid var(--primary);
+          border-radius: 100px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          margin-top: 1.5rem;
+        }
+
+        .slideshow-refresh-btn:hover {
+          background-color: var(--primary-hover);
+          border-color: var(--primary-hover);
+          color: var(--primary-color);
+        }
+
+        .slideshow-refresh-btn:focus {
+          outline: 2px solid white;
+        }
+
+        @media(max-width:600px) {
+
+          .toggle-left,
+          .toggle-right {
+            z-index: 3222;
+          }
+
+          .slideshow-card-wrapper {
+            max-width: 100%;
+            width: 100vw;
+            margin: 0;
+          }
+
+          .slideshow-card {
+            margin: 0;
+          }
+        }
+      </style>
+
+      <div class="slideshow-container">
+        <div class="slideshow-card-wrapper">
+          <a id="card-link" href="">
+            <div class="slideshow-card" id="game-card">
+              <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
+              <img src="" alt="Game Image" class="card-media" id="card-img">
+              <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
+                <source src="" type="video/mp4">
+                Your browser does not support video.
+              </video>
+              <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
+              <h2 id="card-title"></h2>
+              <p id="card-desc"></p>
+            </div>
+          </a>
+        </div>
+        <button class="slideshow-refresh-btn" id="refresh-btn"><span class="emoji"
+            style="font-style: normal !important;margin: 0;margin-right:5px;">🎁</span>
+          New Prize</button>
+      </div>
+
+      <script>
+        const projects = [
+          {
+            title: "NATUWARS v0.4",
+            desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/natuwars.png",
+            video: "src/natuwars.mp4",
+            link: "games/natuwars.html"
+          },
+          {
+            title: "LeafersCraft v0.3",
+            desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/leaferscraft.png",
+            video: "src/leaferscraft.mp4",
+            link: "games/leaferscraft.html"
+          },
+          {
+            title: "Rogue Run",
+            desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/roguerun.png",
+            video: "src/roguerun.mp4",
+            link: "games/roguerun.html"
+          },
+          {
+            title: "Cars",
+            desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/cars.png",
+            video: "src/cars.mp4",
+            link: "games/cars.html"
+          }
+        ];
+
+        let currentIndex = 0;
+        let mediaIndex = 1; // 0=image, 1=video
+
+        const cardImg = document.getElementById("card-img");
+        const cardVideo = document.getElementById("card-video");
+        const cardTitle = document.getElementById("card-title");
+        const cardDesc = document.getElementById("card-desc");
+        const cardLink = document.getElementById("card-link");
+
+        function fadeOutIn(element, callback) {
+          element.style.opacity = 0;
+          setTimeout(() => {
+            callback();
+            element.style.opacity = 1;
+          }, 300);
+        }
+
+        function displayProject(index) {
+          const proj = projects[index];
+          fadeOutIn(cardTitle, () => cardTitle.textContent = proj.title);
+          fadeOutIn(cardDesc, () => cardDesc.innerHTML = proj.desc);
+          fadeOutIn(cardImg, () => cardImg.src = proj.img);
+          fadeOutIn(cardVideo, () => {
+            cardVideo.querySelector("source").src = proj.video;
+            cardVideo.load();
+          });
+          mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
+          mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
+          cardLink.href = proj.link;
+        }
+
+        document.getElementById("refresh-btn").addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % projects.length;
+          mediaIndex = 1;
+          displayProject(currentIndex);
+        });
+
+        function toggleMedia(next = true) {
+          mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
+          mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
+          mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
+        }
+
+        document.getElementById("toggle-left").addEventListener("click", (e) => {
+          e.preventDefault();
+          toggleMedia(false);
+        });
+
+        document.getElementById("toggle-right").addEventListener("click", (e) => {
+          e.preventDefault();
+          toggleMedia(true);
+        });
+
+        // Initialize
+        displayProject(currentIndex);
+      </script>
+      <footer>
+        <div style="display: flex; justify-content: space-between">
+          <p>
+            <span id="visits"></span>
+            <span class="emoji">👀</span>
+          </p>
+          <p>
+            &copy; 2025 <span id="currentYear"></span>
+            <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+          </p>
+          <p>
+            <a href="https://github.com/EldiiarBekbolotov" target="_blank">
+              <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
+                class="h-6 w-6" aria-hidden="true">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                </path>
+              </svg>
+            </a>
+          </p>
+        </div>
+      </footer>
+    </div>
   </div>
   <script src="js/techstack.js"></script>
   <script src="js/index.js"></script>
   <script type>
+    function openAI() {
+
+    };
+
+
     /** LOGO.js **/
     document.getElementById("currentYear").innerText =
       new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();

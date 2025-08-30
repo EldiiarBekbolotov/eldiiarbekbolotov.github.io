@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<!--All code by LeaferStudios a.k.a. Eldiiar Bekbolotov-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Cars [GAME]</title>
+    <script>
+        /**
+        
+            Cars - Provember Wk.3 Entry by LeaferStudios
+            
+            Use your mouse to dodge cars. Yellow cars give you free health points. When you get hit by a car you lose health points.
+            
+            How high a score can you get? The leaderboard is in the Tips and Thanks. Spin-off proof would be nice, but is not required. Be honest with your scores.
+            
+            Mobile support added! In mobile press the first, second, or third track to move the player
+            
+            Subscribe for more cool stuff: https://www.khanacademy.org/computer-programming/leaferstudios/4934504502870016
+            
+            Released: 2021-11-21
+            
+            (c) 2021 - LeaferStudios
+        **/
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        html,
+        body {
+            background-image: linear-gradient(50deg, #434343 0%, black 100%);
+            background-size: 150%;
+            background-position: center;
+
+            margin: 0;
+            font-family: "Roboto";
+            height: 100%;
+            width: 100%;
+        }
+
+        canvas {
+            outline: none;
+        }
+
+        .txt {
+            padding: 45px;
+        }
+
+        #intro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(35deg, #212121, #414119);
+            color: #FFF;
+            height: 100%;
+            width: 100%;
+            transition: all 1s;
+            z-index: 12;
+        }
+
+        h1 {
+            font-weight: 500;
+            font-size: 60px;
+            margin: 0;
+        }
+
+        p {
+            padding-bottom: 45px;
+            font-size: 20px;
+        }
+
+        button {
+            padding: 0 16.5px;
+            height: 42px;
+            border: none;
+            font-family: "Roboto", arial;
+            border-radius: 3px;
+            background-color: rgb(255, 227, 163);
+            font-size: 14.5px;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        button:hover {
+            background-color: rgb(219, 192, 129);
+        }
+
+        button:focus {
+            background-color: rgb(191, 164, 100);
+        }
+
+        a {
+            color: #1877F2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #intro.on {
+            top: -100vh;
+        }
+
+        #game {
+            opacity: 0;
+        }
+
+        #game.on {
+            animation: fz 1s forwards;
+        }
+
+        @keyframes fz {
+            0% {
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.05;
+            }
+
+            20% {
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 0.1;
+            }
+
+            40% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            60% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #show {
+            background-image: linear-gradient(50deg, rgb(252, 222, 221), #FFF);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            overflow: hidden;
+            padding-top: 80px;
+            padding-left: 100px;
+            display: none;
+        }
+    </style>
+</head>
+
+<!-- rest of code -->
+
+<body>
+
+    <div id="intro">
+        <div style="padding: 160px 65px;">
+            <h1>Cars</h1>
+            <p>An HTML game by <a href="https://www.khanacademy.org/profile/kaid_553656479258879622339276"
+                    target="_blank">LeaferStudios</a></p>
+            <button onclick="pl();">Play Game ✨</button>
+            <br /><br />
+            <a style="opacity:0;" onclick="sl();">a</a>
+        </div>
+    </div>
+
+    <!-- Canvas Game Scene -->
+    <div class="scene" style="overflow: hidden;text-align:center;padding-top: 25px;" id="game">
+        <canvas id="cnv"></canvas>
+    </div>
+
+    <!-- thumbnail -->
+    <div id="show">
+        <h1 style="margin-bottom:25px;">Cars [GAME]</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Red_Ferrari_458_Spider_in_Monaco_2012.jpg/1200px-Red_Ferrari_458_Spider_in_Monaco_2012.jpg"
+            width="400" style="border-radius: 5px;">
+        <p style="margin-bottom:25px;">Entry to Provember Wk.3 | by LeaferStudios</p>
+    </div>
+
+
+    <!-- Processing.js 1.4.8 -->
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+    <!-- JAVASCRIPT [type removes eb] -->
+    <script type>
+
+        /** INIT. **/
+        function pl() {
+            document.getElementById("intro").classList.toggle("on");
+            setTimeout(function () {
+                document.getElementById("game").classList.toggle("on");
+            }, 1000);
+        }
+
+        function sl() {
+
+            document.getElementById("show").style.display = "block";
+            //document.body.innerHTML = document.getElementById("show").innerHTML;
+        }
+        // pjs setup
+        var workit = function (pjs) {
+            with (pjs) {
+                /**
+                 *  Initial Setup
+                 */
+                size(450, 550); // size of screen
+                frameRate(60); // frameRate
+                smooth(); // works on firefox
+                noStroke(); // noStroke
+                textAlign(CENTER, CENTER); // textAlign
+                background(0xffFF9E80); // default background
+
+                //** Variables **//
+                var scene = 0;
+                var click = false;
+                var hi = 12430;
+                var mobile = false;
+                var titlec = 600;
+                var hc = false;
+                var hiscores = []; // hiscores array
+                /* 
+                    Function which sorts scores
+                    from hiscores array
+                */
+                function sortScores() {
+                    if (hiscores.length === 0) {
+                        hi = 0;
+                    } else {
+                        // sort hiscores & display best score
+                        hiscores.sort(function (a, b) {
+                            return b - a
+                        });
+                        hi = hiscores[0];
+                    }
+                }
+
+                //** Background **//
+                function drawBg() {
+                    rectMode(CORNER);
+                    fill(50, 0, 0, 10);
+                    pushMatrix();
+                    translate(width / 12 / 2, 0);
+                    rect(0, 0, width / 12, height);
+                    rect(width / 12 * 2, 0, width / 12, height);
+                    rect(width / 12 * 4, 0, width / 12, height);
+                    rect(width / 12 * 6, 0, width / 12, height);
+                    rect(width / 12 * 8, 0, width / 12, height);
+                    rect(width / 12 * 10, 0, width / 12, height);
+                    rect(width / 12 * 12, 0, width / 12, height);
+                    popMatrix();
+                }
+                var tr = false;
+                var ds = 0;
+                var Transition = (function () {
+                    Transition = function () {
+                        this.t = 0;
+                        this.c = 255;
+                    };
+                    Transition.prototype = {
+                        run: function () {
+                            pushStyle();
+                            rectMode(CENTER);
+                            fill(255, 255, 255, this.c);
+                            rect(width / 2, height / 2, width, height);
+                            popStyle();
+                            if (this.t === 1) {
+                                scene = ds;
+                            }
+                            if (this.t < 20) {
+                                this.c -= 10;
+                            }
+                            if (this.t > 20) {
+                                this.c = 255;
+                                this.t = 0;
+                                tr = false;
+                                ds = "";
+                            }
+                            this.t++;
+                        },
+                    };
+                    return Transition;
+                })();
+                var _t = new Transition();
+
+
+                ///** Button Constructor **//
+                var Button = function (x, y, w, h, txt, rn) {
+                    this.x = x;
+                    this.y = y;
+                    this.w = w;
+                    this.h = h;
+                    this.txt = txt;
+                    this.scl = 1.5;
+                    this.clicked = false;
+                    this.rn = rn;
+                    this.clr = 0;
+                };
+                Button.prototype.draw = function () {
+                    pushMatrix();
+                    translate(this.x, this.y);
+                    scale(this.scl);
+                    rectMode(CENTER);
+                    fill(this.clr);
+                    rect(0, 0, this.w, this.h, 4);
+                    fill(0xffFFEBEE);
+                    textFont(createFont("arial", 30));
+                    text(this.txt, 0, 0);
+                    popMatrix();
+                    if (mouseX >= this.x - this.w / 2 && mouseX <= this.x + this.w / 2 && mouseY >= this.y - this.h / 2 && mouseY <= this.y + this.h / 2) {
+                        cursor('GRAB');
+                        this.scl = lerp(this.scl, 1.1, 0.15);
+                        if (click) {
+                            this.rn();
+                            tr = true;
+                            ds = scene;
+                            titlec = 600;
+                        } else {
+                            tr = false;
+                            ds = "";
+                        }
+                        this.clr = color(0xff1A237E);
+                    } else {
+                        this.scl = lerp(this.scl, 1, 0.25);
+                        this.clr = color(0xff283593);
+                    }
+                }
+
+                /** Buttons **/
+                //{
+                /*var playButton = new Button(135, 250, 150, 50, `█▀█ █      ▄▀█ █▄█\n█▀▀ █▄▄ █▀█   █   `,
+                    function() {
+                        scene = 1;
+                    }
+                );
+                var howButton = new Button(135, 320, 150, 50, `█   █ █▀█ █  █   █\n█▀█ █▄█ ▀▄▀▄▀`, function() {
+                    scene = 2;
+                });*/
+
+                var playButton = new Button(135, 250, 150, 50, `Play`,
+                    function () {
+                        scene = 1;
+                    }
+                );
+                var howButton = new Button(135, 320, 150, 50, `How`, function () {
+                    scene = 2;
+                });
+
+                var creditsButton = new Button(310, 250, 150, 50, `Credits`, function () {
+                    scene = 4;
+                });
+
+                var settingsButton = new Button(310, 320, 150, 50, `Settings`, function () {
+                    scene = 5;
+                });
+
+                var backButton = new Button(130, 480, 125, 45, `Back`, function () {
+                    scene = 0;
+                });
+                //}
+
+
+                function home() {
+                    background(0xff95A5A6);
+
+                    drawBg();
+
+                    textFont(createFont("Arial"), 30);
+                    fill(0xff546E7A);
+                    text("v.1.0", 50, 25);
+                    pushStyle();
+                    textAlign(RIGHT, RIGHT);
+                    textFont(createFont("Arial"), 30);
+                    fill(0xff303F9F);
+                    text("HI " + hi, width - 10, 40);
+                    popStyle();
+                    fill(0xff0D47A1);
+                    text(
+                        `
+█▀▀ ▄▀█ █▀█ █▀
+█▄▄ █▀█ █▀▄ ▄█
+`, width / 2, titlec);
+                    titlec = lerp(titlec, 150, 0.15);
+
+                    playButton.draw();
+                    howButton.draw();
+                    settingsButton.draw();
+                    creditsButton.draw();
+                    textFont(createFont("monospace Bold"), 15);
+                    text("(c) 2021 - LeaferStudios", width / 2, height - 25);
+                }
+
+                var cars = [];
+                var coins = [];
+
+                var carGraphic = function (x, y, c, r) {
+                    pushMatrix();
+                    translate(x, y);
+                    rotate(r);
+                    fill(0, 0, 0, 105);
+                    rect(0, 81, 45, 8, 9);
+                    stroke(0, 0, 0);
+                    strokeWeight(1.5);
+                    fill(0, 0, 0);
+                    rect(0 - 2, 9, 8, 15, 1);
+                    rect(0 + 36 + 2, 9, 8, 15, 1);
+                    rect(0 - 2, 0 + 64, 8, 15, 1);
+                    rect(0 + 36 + 2, 0 + 64, 8, 15, 1);
+
+                    fill(c);
+                    rect(-3, 35, 3, 8, 1);
+                    rect(44, 35, 3, 8, 1);
+                    rect(0, 0, 45, 85, 15, 15, 5, 5);
+                    noStroke();
+                    stroke(87, 87, 87);
+
+                    fill(0, 0, 0);
+                    line(12, 6, 8, 35);
+                    line(45 - 12, 6, 45 - 6 - 2, 35);
+                    noStroke();
+                    fill(0, 0, 0);
+                    rect(12.2, 31, 21, 10, 5, 5, 0, 0);
+                    fill(28, 28, 28);
+                    rect(12.2, 61, 21, 10, 0, 0, 5, 5);
+                    fill(0, 200);
+                    rect(33.3, 36, 4, 17, 0, 50, 50, 0);
+                    rect(8, 36, 4, 17, 50, 0, 0, 50);
+                    fill(c);
+                    rect(12, 42, 20, 20, -5, -5, -19, -19);
+
+                    stroke(69, 69, 69);
+                    strokeWeight(1);
+
+                    fill(26, 26, 26, 30);
+                    rect(15, 12, 12, 14, 0, 0, 4, 4);
+                    noStroke();
+                    fill(0, 0, 0, 25);
+                    rect(12, 0, 45 / 2, 85, 10, 0, 0, 5);
+
+                    stroke(0, 50);
+                    fill(c);
+                    triangle(6, 59, 15, 74, 10, 84);
+                    triangle(32, 74, 41, 59, 35, 84);
+                    fill(c);
+                    rect(2.5, 74, 40, 8);
+                    noStroke();
+                    popMatrix();
+                };
+                var p = {
+                    name: "Lightning McQueen",
+                    ps: 1,
+                    x: 0,
+                    y: 400,
+                    w: 45,
+                    h: 85,
+                    hp: 3,
+                    score: 0,
+                    speed: 0.25,
+                    sp: 0,
+                    dead: false,
+                    draw: function () {
+                        pushMatrix();
+                        translate(this.x, this.y);
+                        //fill(0xffD40000);
+                        //rect(0, 0, this.w, this.h, 5);
+                        carGraphic(0, 0, color(255, 0, 0));
+                        popMatrix();
+                    },
+                    run: function () {
+
+                        this.hp = constrain(this.hp, 0, 8);
+                        switch (this.ps) {
+                            case 0:
+                                this.x = lerp(this.x, (width / 3) / 3, this.speed);
+                                break;
+                            case 1:
+                                this.x = lerp(this.x, (width / 3) * 1.35, this.speed);
+                                break;
+                            case 2:
+                                this.x = lerp(this.x, (width / 3 * 2) * 1.19, this.speed);
+                                break;
+                        }
+
+
+                        if (mouseX <= width / 3) {
+                            if (mobile && click) {
+                                this.ps = 0;
+                            } else if (!mobile) {
+                                this.ps = 0;
+                            }
+                        } else if (mouseX >= width / 3 && mouseX <= width / 3 * 2) {
+                            if (mobile && click) {
+                                this.ps = 1;
+                            } else if (!mobile) {
+                                this.ps = 1;
+                            }
+                        } else if (mouseX >= width / 3 * 2) {
+                            if (mobile && click) {
+                                this.ps = 2;
+                            } else if (!mobile) {
+                                this.ps = 2;
+                            }
+                        }
+
+                        if (this.hp <= 0) {
+                            this.dead = true;
+                        }
+
+                        if (this.dead) {
+                            scene = 3;
+                        }
+                    },
+                };
+
+
+
+
+                var Car = function (x, y, c) {
+                    this.x = x;
+                    this.y = y;
+                    this.c = c;
+                    this.w = 45;
+                    this.h = 85;
+                    this.r = 3.14;
+
+                    this.lane = floor(random(0, 3));
+                    this.siz = floor(random(1, 4));
+                    this.speed = floor(random(3, 15));
+                    this.ded = false;
+                };
+                Car.prototype.draw = function () {
+                    pushMatrix();
+                    translate(this.x, this.y);
+                    this.h = 125 * this.siz;
+                    //fill(0);
+                    //rect(0, 0, this.w, this.h, 5);
+                    for (var i = this.siz; i >= 0; i--) {
+                        carGraphic(this.w, i * 125, this.c, this.r);
+                    }
+
+                    textSize(35);
+                    fill(255);
+                    //text(this.siz, 0, 0);
+                    popMatrix();
+                }
+                Car.prototype.run = function () {
+                    if (this.lane === 0) {
+                        this.x = (width / 3) / 3;
+                        if (this.y < 0) {
+                            fill(255, 224, 20);
+                            rect(width / 3 / 3, -20, 40, 40, 10);
+                            if (hc) {
+                                fill(255, 255, 255, 50);
+                                rect(0, 0, width / 3, height, 10);
+                            }
+                        }
+                    } else if (this.lane === 1) {
+                        this.x = (width / 3) * 1.35;
+                        if (this.y < 0) {
+                            fill(255, 224, 20);
+                            rect(width / 3 * 1.35, -20, 40, 40, 10);
+                            if (hc) {
+                                fill(255, 255, 255, 50);
+                                rect(width / 3, 0, width / 3, height, 10);
+                            }
+                        }
+                    } else if (this.lane === 2) {
+                        this.x = (width / 3 * 2) * 1.19;
+                        if (this.y < 0) {
+                            fill(255, 224, 20);
+                            rect(width / 3 * 2 * 1.19, -20, 40, 40, 10);
+                            if (hc) {
+                                fill(255, 255, 255, 50);
+                                rect(width - width / 3, 0, width / 3, height, 10);
+                            }
+                        }
+                    } else {
+                        println("error");
+                    }
+
+                    //this.y += this.speed;
+                    this.y += p.sp;
+                    if (this.y > 600) {
+                        p.score += this.siz;
+                        this.ded = true;
+                    }
+
+                    if (p.x + p.w > this.x &&
+                        p.x < this.x + this.w &&
+                        p.y + p.h > this.y &&
+                        p.y < this.y + this.h) {
+                        this.ded = true;
+                        if (this.c === color(0xffFDD835)) {
+                            p.hp += this.siz;
+                        } else {
+                            p.hp -= this.siz;
+                        }
+                    }
+                };
+
+                var cl = [color(0xffFDD835), color(0xffDD2C00), color(0xff43A047), color(0xffFAFAFA), color(0xff1976D2), color(0xff9C27B0), color(0xff212121)];
+                var j = 255;
+
+                var fd = -300;
+                var bgc = color(255, 0, 0);
+
+                function reset() {
+                    sortScores();
+                    cars = [];
+                    scene = 0;
+                    hiscores.push(p.score);
+                    p.score = 0;
+                    p.sp = 0;
+                    p.ps = 1;
+                    p.hp = 3;
+                    p.speed = 0.25;
+                    p.dead = false;
+                }
+
+                function replay() {
+                    sortScores();
+                    cars = [];
+                    hiscores.push(p.score);
+                    p.score = 0;
+                    p.sp = 0;
+                    p.ps = 1;
+                    p.hp = 3;
+                    p.speed = 0.25;
+                    p.dead = false;
+                    scene = 1;
+                }
+
+                function play() {
+                    sortScores();
+                    rectMode(CORNER);
+                    background(bgc);
+                    pushMatrix();
+
+                    fill(0, 0, 0, sin(frameCount * 0.009) * 90);
+                    rect(width / 3, 0, width / 3, height);
+                    fill(0, 0, 0, sin(frameCount * 0.05) * 30);
+                    rect(0, 0, width / 3, height);
+                    fill(0, 0, 0, sin(frameCount * 0.05) * -30);
+                    rect(width / 3 * 2, 0, width / 3, height);
+                    p.sp = lerp(p.sp, 10, 0.01);
+                    for (var i = 0; i >= -15 + 1; i--) {
+                        fill(255);
+                        rect(width / 3 / 3 + 20, fd - i * 100, 5, 35);
+                        rect(width / 3 + 70, fd - i * 100, 5, 35);
+                        rect(width / 3 * 2 + 70, fd - i * 100, 5, 35);
+                    }
+                    fd += p.sp;
+                    if (fd >= 150) {
+                        fd = -350;
+                    }
+
+                    p.draw();
+                    p.run();
+                    popMatrix();
+
+
+
+                    try {
+                        if (frameCount % 100 === 0) {
+                            cars.push(new Car(-300, -400, cl[floor(random(0, cl.length))]));
+                            cars.push(new Car(-300, -400, cl[floor(random(0, cl.length))]));
+                        }
+
+                        for (var i = cars.length - 1; i >= 0; i--) {
+                            cars[i].draw();
+                            cars[i].run();
+
+                            if (cars[i].ded) {
+                                cars.splice(i, 1);
+                            }
+                        }
+                        noStroke();
+                    } catch (e) {
+                        println(e);
+                    }
+
+                    if (p.score < 5) {
+                        bgc = color(50, 50, 50);
+                    } else if ((p.score >= 5 && p.score < 10)) {
+                        bgc = color(0xff455A64);
+                        p.sp = 11;
+                    } else if ((p.score >= 10 && p.score < 20)) {
+                        bgc = color(0xff5D4037);
+                        p.sp = 12;
+                    } else if ((p.score >= 20 && p.score < 30)) {
+                        bgc = color(0xffF57F17);
+                        p.sp = 13;
+                    } else if ((p.score >= 30 && p.score < 40)) {
+                        bgc = color(0xffBF360C);
+                        p.sp = 13.5;
+                    } else if ((p.score >= 40 && p.score < 50)) {
+                        bgc = color(0xff880E4F);
+                        p.sp = 14;
+                    } else if ((p.score >= 50 && p.score < 60)) {
+                        bgc = color(0xffCDDC39);
+                        p.sp = 14.5;
+                    } else if ((p.score >= 60 && p.score < 70)) {
+                        bgc = color(0xffA7FFEB);
+                        p.sp = 15;
+                    } else if ((p.score >= 70 && p.score < 100)) {
+                        bgc = color(0xff0D47A1);
+                        p.sp = 15.5;
+                    } else if ((p.score >= 100 && p.score < 120)) {
+                        bgc = color(0xff21759B);
+                        p.sp = 16;
+                    } else if ((p.score >= 120 && p.score < 150)) {
+                        bgc = color(0xff1877F2);
+                        p.sp = 16.5;
+                    } else if ((p.score >= 150 && p.score < 200)) {
+                        bgc = color(0xffFF5700);
+                        p.sp = 10;
+                    } else if ((p.score >= 200 && p.score < 220)) {
+                        bgc = color(0xff410093);
+                        p.sp = 11;
+                    } else if ((p.score >= 220 && p.score < 250)) {
+                        bgc = color(0xff5D4037);
+                        p.sp = 12;
+                    } else if ((p.score >= 250 && p.score < 300)) {
+                        bgc = color(0xffBD081C);
+                        p.sp = 13;
+                    } else if ((p.score >= 300 && p.score < 350)) {
+                        bgc = color(0xff4C75A3);
+                        p.sp = 13.5;
+                    } else if ((p.score >= 350 && p.score < 400)) {
+                        bgc = color(0xff02B875);
+                        p.sp = 14;
+                    } else if ((p.score >= 400 && p.score < 450)) {
+                        bgc = color(0xffEE1D51);
+                        p.sp = 15;
+                    } else if ((p.score >= 450 && p.score < 500)) {
+                        bgc = color(0xff00C300);
+                        p.sp = 15.5;
+                    } else if ((p.score >= 500 && p.score < 525)) {
+                        bgc = color(0xffB92B27);
+                        p.sp = 16;
+                    } else if ((p.score >= 525 && p.score < 550)) {
+                        bgc = color(0xff2C3E50);
+                        p.sp = 14;
+                    } else if ((p.score >= 550 && p.score < 600)) {
+                        bgc = color(0xff8E44AD);
+                        p.sp = 14.5;
+                    } else if ((p.score >= 600)) {
+                        bgc = color(0xff95A5A6);
+                        p.sp = 15;
+                    }
+
+                    textFont(createFont("serif Bold"), 45);
+                    fill(0, 0, 0, 50);
+                    rect(0, 0, width, 65);
+                    fill(255);
+                    pushStyle();
+                    textAlign(LEFT, LEFT);
+                    text(p.score, 15, 47);
+                    popStyle();
+                    pushStyle();
+                    textAlign(RIGHT);
+                    //text(p.hp, width-50, 50);
+                    for (var i = p.hp - 1; i >= 0; i--) {
+                        textFont(createFont("Arial"), 35);
+                        fill(255, 60, 0);
+                        pushMatrix();
+                        scale(1.2, 1);
+                        text("\u2665", width - 85 - i * 25, 45);
+                        popMatrix();
+                    }
+                    popStyle();
+                }
+
+
+
+                // Game over buttons
+                //{
+                var homeButton = new Button(230, 450, 165, 55, `Home`, function () {
+                    reset();
+                });
+                var replayButton = new Button(230, 380, 265, 55, `Replay`, function () {
+                    replay();
+                });
+                //}
+
+                // rest of the scenes [dead how credits settings]
+                function dead() {
+                    sortScores();
+                    background(0xff95A5A6);
+                    textFont(createFont("Arial"), 30);
+                    fill(0, 0, 0, 50);
+                    text("v.1.0", 50, 25);
+                    pushStyle();
+                    textAlign(RIGHT, RIGHT);
+                    textFont(createFont("Arial"), 30);
+                    fill(0, 0, 175);
+                    text("HI " + hi, width - 10, 40);
+                    popStyle();
+                    drawBg();
+
+                    textFont(createFont("Arial"), 60);
+
+                    fill(0xff2980B9);
+                    text("You Died", width / 2, titlec);
+                    titlec = lerp(titlec, 156, 0.15);
+
+
+                    homeButton.draw();
+                    replayButton.draw();
+                    textFont(createFont("arial"), 48);
+                    fill(0xff2980B9);
+                    text("Score: " + p.score + "\n", width / 2, height / 2);
+                }
+
+                function how() {
+                    background(0xff95A5A6);
+
+                    drawBg();
+
+                    textFont(createFont("Arial"), 70);
+
+                    fill(0, 0, 175);
+                    text("How", width / 2, titlec);
+                    titlec = lerp(titlec, 90, 0.15);
+
+                    backButton.draw();
+                    textFont(createFont("arial"), 28);
+                    fill(0, 0, 0);
+                    text("You are in a highway\nDodge incoming cars\nYou have three lives\nYellow cars = free lives\nEight lives maximum\nThe game is infinite\nHow high can you score?", width / 2, height / 2);
+                }
+
+                function credits() {
+                    background(0xff95A5A6);
+
+                    drawBg();
+
+                    textFont(createFont("Arial"), 70);
+
+                    fill(0, 0, 175);
+                    text("Credits", width / 2, titlec);
+                    titlec = lerp(titlec, 90, 0.15);
+
+                    backButton.draw();
+                    textFont(createFont("arial"), 30);
+                    fill(0, 0, 0);
+                    text("All code programmed by LeaferStudios\na.k.a. Eldiiar Bekbolotov", 0, 0, 450, 550);
+
+                }
+
+                var c3 = color(150, 150, 150);
+
+                function settings() {
+                    background(0xff95A5A6);
+
+                    drawBg();
+
+                    textFont(createFont("Arial"), 70);
+
+                    fill(0, 0, 175);
+                    text("Settings", titlec, 150);
+                    titlec = lerp(titlec, width / 2, 0.15);
+
+                    backButton.draw();
+                    textFont(createFont("arial"), 35);
+                    fill(90, 90, 100);
+                    text("Interaction: " + (mobile ? "Mobile" : "Mouse"), width / 2, height / 2 + 65);
+                    stroke(0);
+                    strokeWeight(4);
+                    fill(c3);
+                    rect(width / 2, height / 2, 180, 50);
+                    noStroke();
+                    fill(0, 0, 250);
+                    text("Mobile: " + (mobile ? "on" : "off"), width / 2, height / 2);
+
+                    if (mouseX > width / 2 - 95 && mouseX < width / 2 + 95 && mouseY > height / 2 - 25 && mouseY < height / 2 + 25) {
+                        cursor("POINTER");
+
+                        if (click) {
+                            mobile = !mobile;
+                        }
+                    }
+
+                    if (mobile) {
+                        c3 = color(150, 150, 250);
+                    } else {
+                        c3 = color(150, 150, 150);
+                    }
+                }
+
+                /**
+                 * the PJS
+                    draw function
+                **/
+                draw = function () {
+                    background(0xffD50000);
+                    cursor("DEFAULT");
+
+                    sortScores();
+
+                    // switch scenes
+                    switch (scene) {
+                        case 0:
+                            home();
+                            break;
+                        case 1:
+                            play();
+                            break;
+                        case 2:
+                            how();
+                            break;
+                        case 3:
+                            dead();
+                            break;
+                        case 4:
+                            credits();
+                            break;
+                        case 5:
+                            settings();
+                            break;
+                    }
+                    if (ds) {
+                        _t.run();
+                    }
+                    click = false;
+                }
+
+                // mouse clicked runs when mouse is clicked
+                mouseClicked = function () {
+                    click = true;
+                }
+            }
+        };
+        var canvas = document.getElementById("cnv");
+        var processingInstance = new Processing(canvas, workit);
+    </script>
+
+    <script>
+        //alert('Welcome to CARS || By @LeaferStudios');
+    </script>
+</body>
+
+</html>
