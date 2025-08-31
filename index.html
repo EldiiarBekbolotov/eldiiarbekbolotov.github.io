@@ -52,18 +52,23 @@
 
     #age-timer {
       display: inline-flex;
-      font-family: var(--big-font), monospace;
+      font-family: var(--mono), monospace;
       font-size: 2em;
-      color: rgba(255, 255, 255);
+      color: rgb(255, 255, 255);
+      font-weight: 200;
       margin-top: 10px;
       border: 1px solid rgba(255, 255, 255, 0.4);
+
       margin-left: 13px;
       margin-right: 13px;
       margin-top: 0;
       padding-left: 15px;
-      padding-right: 15px;
-      padding-top: 4px;
-      padding-bottom: 4px;
+      padding-right: 20px;
+      padding-top: 5px;
+      padding-bottom: 0px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border-top-right-radius: 20px;
     }
 
     @media (max-width: 510px) {
@@ -106,7 +111,7 @@
   <div id="logo-scene">
     <svg viewBox="0 0 500 500" width="100%" height="100%" id="blobSvg">
       <defs>
-        <pattern id="pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" fill="#CFF2">
+        <pattern id="pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" fill="#EFF2">
           <path
             d="M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z">
           </path>
@@ -160,20 +165,10 @@
             d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
             stroke="currentColor"></path>
         </svg></a>
-      <a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
-        <?xml version="1.0" encoding="UTF-8"?>
-        <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-          <g>
-            <path
-              d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
-              fill="#ffffff"></path>
-          </g>
-        </svg>
-      </a>
 
 
-      <a class="ai no-select" onclick="openAI();">
+
+      <a class="ai no-select" href="eldiiargpt.html">
         <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
           height="24" viewBox="0 0 24 24" width="24">
           <g>
@@ -204,9 +199,72 @@
       }
 
       .zzq-one {
-        background-color: rgba(172, 0, 0, 0.2);
+        background-color: rgba(4, 4, 4, 0.2);
+        padding: 0px 8px 20px 8px;
+        border-top-right-radius: 10px;
 
-        padding: 5px 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-top-left-radius: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .zzq-one:hover {
+
+        background-color: rgba(189, 11, 11, 0.2);
+
+        box-shadow: 0px -10px 40px rgba(255, 18, 18, 0.3);
+      }
+
+      .zzq-two {
+        background-color: rgba(4, 4, 4, 0.2);
+        margin-top: 0;
+        color: black;
+        padding: 0px 8px 20px 8px;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+        transition: all 0.3s ease;
+      }
+
+      .zzq-two:hover {
+
+        background-color: rgba(24, 189, 9, 0.2);
+        box-shadow: 0px 0px 40px rgba(5, 239, 9, 0.3);
+      }
+
+      .zzq-two:hover .zzq-name {
+        color: #FFF;
+      }
+
+      .zzq-three:hover {
+
+        background-color: rgba(21, 88, 221, 0.2);
+        box-shadow: 0px 10px 40px rgba(5, 165, 239, 0.3);
+      }
+
+      .zzq-three {
+        margin-bottom: 0px;
+        transition: all 0.3s ease;
+        font-size: 20px;
+        font-family: var(--small-font);
+        color: rgb(183, 183, 183);
+        background-color: rgba(4, 4, 4, 0.2);
+        padding: 0px 8px 20px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom-right-radius: 10px;
+
+        border-bottom-left-radius: 10px;
       }
 
       .zzq-h4-one {
@@ -228,19 +286,21 @@
         margin-bottom: 0;
         margin-left: 13px;
         margin-right: 13px;
-        font-family: var(--big-font), Arial, Helvetica, sans-serif;
+        font-family: var(--big-font), Arial, Helvetica, sans-serif !important;
+        font-style: italic;
         font-size: 4vw;
+        letter-spacing: 10px;
+        font-weight: 400 !important;
         border: 1px solid rgba(255, 255, 255, 0.4);
         padding: 4px;
         padding-left: 15px;
+
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
       }
 
-      .zzq-two {
-        background-color: rgba(5, 173, 73, 0.2);
-        margin-top: 0;
-        color: black;
-        padding: 5px 8px;
-      }
+
 
       .zzq-h4-two {
         margin-top: 0;
@@ -252,13 +312,17 @@
 
       .two-span {
         color: rgba(255, 255, 255, 0.4);
-        border-right: 1px solid var(--primary);
+        border-right: 4px solid var(--primary);
         padding-right: 4px;
         margin-top: 0;
       }
 
       .zzq-name {
-        border: 1px solid var(--primary);
+        border: 4px solid var(--primary);
+        border-top-right-radius: 20px;
+
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
         padding: 4px;
         margin-top: 0;
         margin-bottom: 0;
@@ -271,15 +335,6 @@
         margin-left: 13px;
       }
 
-      .zzq-three {
-        padding-top: 5px;
-        margin-bottom: 0px;
-        font-size: 20px;
-        font-family: var(--small-font);
-        color: rgb(183, 183, 183);
-        background: rgba(19, 83, 211, 0.2);
-        padding: 5px 8px;
-      }
 
       .zzq-h4-three {
         margin-top: 0;
@@ -295,7 +350,7 @@
         padding-right: 4px;
       }
     </style>
-    <div class="zzq">
+    <div class="zzq no-select">
       <div class="zzq-one">
         <h4 class="zzq-h4-one">
           <span class="one-span">1</span>
@@ -331,7 +386,7 @@
         <h1 style="text-align: center;font-size:3rem;font-family:var(--big-font);">About me</h1>
         <p>
           <span class="emoji">👋</span>
-          Hey, my name is <b>Eldiiar Bekbolotov</b>. I'm a 16 y/o student developer focusing on software engineering,
+          Hey, my name is <b>Eldiiar Bekbolotov</b>. I'm a high school developer focusing on software engineering,
           UI/UX
           design, and entrepreneurship. I'm really passionate about STEM,
           business, finance, and design. I strive to work on meaningful projects
@@ -345,21 +400,20 @@
         <p>
           <span class="emoji">🤝</span>
           Feel free to <b>connect with me</b> on LinkedIn, view my open source projects
-          on GitHub, send a message via email, or read my Medium publications.
+          on GitHub, or send a message via email.
         </p>
       </div>
 
       <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
         <div style="margin:0 auto;">
-          <img src="android-chrome-512x512.png"
-            style="width:30vw;box-shadow:0px 4px 3px rgba(251, 21, 21, 0.5);border-radius:50%;" />
+          <img src="android-chrome-512x512.png" id="pfp" />
         </div>
       </div>
 
     </div>
     <div style="
   background-color: #000000;">
-      <div class="annon">
+      <!--<div class="annon">
         <h2>About me</h2>
         <img
           src="https://media.licdn.com/dms/image/v2/D4E16AQGU1dpop0lRWg/profile-displaybackgroundimage-shrink_350_1400/B4EZjIJcv7HgAY-/0/1755704579274?e=1758758400&v=beta&t=_y61JQ-kxvefRvqgJpAk9rcfbRkwMNhyLg-73R7Cln8" />
@@ -367,20 +421,20 @@
 
 
       </div>
-
+  -->
       <!-- EXPERIENCE SHOWCASE START -->
+
       <style>
         .experience-section {
           max-width: 1200px;
           margin: 0 auto;
-          background: rgba(34, 40, 66, 0.4);
+          background: rgba(66, 48, 34, 0.4);
           padding: 30px;
           border-radius: 12px;
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
           backdrop-filter: blur(10px);
           position: relative;
           overflow: hidden;
-          font-weight: 200;
         }
 
         .experience-section a {
@@ -399,13 +453,14 @@
           width: 100%;
           height: 100%;
           background: radial-gradient(circle at 10% 20%,
-              rgba(88, 101, 242, 0.2),
+              var(--shadow),
               transparent 50%);
           pointer-events: none;
         }
 
         .section-title {
           color: #fff;
+          text-align: center;
         }
 
         .timeline {
@@ -430,8 +485,11 @@
           width: 100px;
           text-align: right;
           font-size: 14px;
+          font-family: var(--small-font);
           color: #ffffff8f;
           top: 20px;
+
+          font-weight: 200;
         }
 
         .job {
@@ -455,12 +513,14 @@
           background: var(--primary);
           border-radius: 50%;
           border: 1px solid #ffffff;
-          box-shadow: 0 0px 10px rgb(2, 254, 74);
+          box-shadow: 0 0px 10px var(--primary);
           transition: transform 0.3s ease;
         }
 
         .job:hover::before {
           transform: scale(1.2);
+
+          box-shadow: 0 0px 20px var(--primary-hover);
         }
 
         .job:last-child {
@@ -666,19 +726,19 @@
           width: 100%;
         ">
         <section class="experience-section">
-          <h2 class="section-title">Experience</h2>
+          <h1 class="section-title">Experience</h1>
 
           <p>
-            <span class="emoji" style="margin-left:0;">✉️</span>
+            <span class="emoji" style="margin-left:0;font-style:normal;">📄</span>
             For resume inquiries, please send a message via email.
           </p>
           <div class="timeline">
             <div class="job">
-              <div class="timeline-date">June 2022 - Present</div>
+              <div class="timeline-date">June 2025 - Present</div>
               <div class="job-header">
                 <div class="job-info">
                   <h3 class="job-title">Founder & Chief Executive Officer</h3>
-                  <a href="#" target="_blank">
+                  <a href="https://www.linkedin.com/company/finbilim/" target="_blank">
                     <div class="company-name">FinBilim</div>
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -688,29 +748,27 @@
                   </a>
                   <div class="job-meta">Bishkek · Ottawa · Remote</div>
                   <div class="job-summary">
-                    Building the largest student-led financial organization in the world.
+                    Building the largest student-led financial organization in Asia.
                   </div>
                   <button class="toggle-btn" onclick="toggleDescription('desc1')">
                     Show more
                   </button>
                   <ul id="desc1" class="job-description">
-                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
-                      a
-                      global organization.</li>
+                    <li>Fostered an environment of rapid growth, becoming the largest student-led financial literacy
+                      initiative in Central Asia and expanding globally in the process.</li>
                     <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
                       <b>10,000 visitors</b> per month.
-                    </li><br />
-                    <li></li>
+                    </li>
                     <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                      <img src="src/finbilim-logo.svg" alt="FinBilim logo (dark mode)" class="job-image" />
+                      <img src="src/finbilim-stock.png" alt="FinBilim stock page screenshot" class="job-image" />
                     </div>
                   </ul>
                 </div>
               </div>
             </div>
             <div class="job">
-              <div class="timeline-date">Jan 2020 - May 2022</div>
+              <div class="timeline-date">August 2025 - Present</div>
               <div class="job-header">
                 <div class="job-info">
                   <h3 class="job-title">
@@ -719,10 +777,11 @@
                   <div class="company-name">Operation FinRise</div>
                   <div class="job-meta">Ottawa · Remote</div>
                   <div class="job-summary">
-                    Developed responsive web applications and optimized
-                    back-end performance.
+                    Build, style, and ship full-stack websites and tools to increase financial literacy among Gen Z.
+                    Developed the official website featuring education content, financial tools, weekly newsletter, and
+                    an AI assistant.
                   </div>
-                  <button class="toggle-btn" onclick="toggleDescription('desc2')">
+                  <!--<button class="toggle-btn" onclick="toggleDescription('desc2')">
                     Show more
                   </button>
                   <ul id="desc2" class="job-description">
@@ -737,20 +796,28 @@
                       <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
                       <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
                     </div>
-                  </ul>
+                  </ul>-->
                 </div>
               </div>
             </div>
             <div class="job">
-              <div class="timeline-date">Aug 2018 - Dec 2019</div>
+              <div class="timeline-date">August 2025 - Present</div>
               <div class="job-header">
                 <div class="job-info">
-                  <h3 class="job-title">Full Stack Developer</h3>
-                  <div class="company-name">Stellar Learning</div>
-                  <div class="job-meta">San Francisco · Remote</div>
+                  <h3 class="job-title">Co-Founder & Software Engineering Lead</h3>
+                  <a href="https://stellarlearning.app/" target="_blank">
+                    <div class="company-name">PropNote AI</div>
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                    </svg>
+                  </a>
+                  <div class="job-meta">Remote</div>
                   <div class="job-summary">
-                    Built RESTful APIs and contributed to database optimization.
+                    Develop and maintain a responsive AI powered real estate tool for smoother property tours.
                   </div>
+                  <!--
                   <button class="toggle-btn" onclick="toggleDescription('desc3')">
                     Show more
                   </button>
@@ -766,7 +833,118 @@
                       <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
                       <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
                     </div>
-                  </ul>
+                  </ul>-->
+                </div>
+              </div>
+            </div>
+            <div class="job">
+              <div class="timeline-date">August 2025 - Present</div>
+              <div class="job-header">
+                <div class="job-info">
+                  <h3 class="job-title">Full Stack Developer</h3>
+                  <a href="https://stellarlearning.app/" target="_blank">
+                    <div class="company-name">Stellar Learning</div>
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                    </svg>
+                  </a>
+                  <div class="job-meta">San Francisco · Remote</div>
+                  <div class="job-summary">
+                    Collaborate with other developers to develop a free edtech solution. Help expand it to Canada.
+                  </div><!--
+                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
+                    Show more
+                  </button>
+                  <ul id="desc3" class="job-description">
+                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
+                      a
+                      global organization.</li>
+                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
+                      <b>10,000 visitors</b> per month.
+                    </li><br />
+                    <li></li>
+                    <div class="job-images">
+                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
+                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                    </div>
+                  </ul>-->
+                </div>
+              </div>
+            </div>
+            <div class="job">
+              <div class="timeline-date">August 2025 - Present</div>
+              <div class="job-header">
+                <div class="job-info">
+                  <h3 class="job-title">Chief Technology Officer</h3>
+                  <a href="https://www.linkedin.com/company/openscopeteam" target="_blank">
+                    <div class="company-name">OpenScope Initiative</div>
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                    </svg>
+                  </a>
+                  <div class="job-meta">Ottawa · Remote</div>
+                  <div class="job-summary">
+                    Develop a beautiful, responsive, full-stack website to a science communications platform.
+                  </div>
+                  <!--
+                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
+                    Show more
+                  </button>
+                  <ul id="desc3" class="job-description">
+                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
+                      a
+                      global organization.</li>
+                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
+                      <b>10,000 visitors</b> per month.
+                    </li><br />
+                    <li></li>
+                    <div class="job-images">
+                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
+                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                    </div>
+                  </ul>-->
+                </div>
+              </div>
+            </div>
+            <div class="job">
+              <div class="timeline-date">August 2025 - Present</div>
+              <div class="job-header">
+                <div class="job-info">
+                  <h3 class="job-title">Director of Technology</h3>
+                  <a href="https://www.linkedin.com/company/ecoacion-magazine" target="_blank">
+                    <div class="company-name">EcoAction Magazine</div>
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                    </svg>
+                  </a>
+                  <div class="job-meta">Ottawa · Remote</div>
+                  <div class="job-summary">
+                    Transform a static Wix site into a real, full-stack website to advance the organization's digital
+                    presence.
+                  </div>
+                  <!--
+                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
+                    Show more
+                  </button>
+                  <ul id="desc3" class="job-description">
+                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
+                      a
+                      global organization.</li>
+                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
+                      <b>10,000 visitors</b> per month.
+                    </li><br />
+                    <li></li>
+                    <div class="job-images">
+                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
+                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
+                    </div>
+                  </ul>-->
                 </div>
               </div>
             </div>
@@ -802,6 +980,18 @@
           gap: 2rem;
           max-width: 1200px;
           margin: 0 auto;
+        }
+
+        @media (min-width: 601px) {
+          .grid-container {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .grid-container {
+            grid-template-columns: 1fr;
+          }
         }
 
         .card {
@@ -881,17 +1071,16 @@
           }
         }
       </style>
-      <div style="padding: 30px">
+      <div style="padding: 30px;text-align: center;">
         <h1>Projects</h1>
         <div class="grid-container">
-          <a href="finrise.html">
+          <a href="projects/finrise.html">
             <div class="card">
-              <img src="src/finbilim-logo.svg" alt="Project 1" />
+              <img src="src/finrise-splash.png" alt="Project 1" />
               <div class="card-content">
                 <h2><span>Operation FinRise</span> — 2025</h2>
                 <p>
-                  Developed a full-stack website for my financial literacy
-                  newsletter as the Chief Technology Officer.
+                  Developed and designed a robust full-stack website for the financial literacy initiative.
                 </p>
                 <div class="card-tags">
                   <span class="tag">Website</span>
@@ -900,6 +1089,46 @@
                   <span class="tag" style="
                       box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
                     ">+12 more</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects/propnote.html">
+            <div class="card">
+              <img src="src/propnoteai.png" alt="PropNote AI" />
+              <div class="card-content">
+                <h2><span>PropNote AI</span> — 2025</h2>
+                <p>
+                  AI powered real estate app for property tours.
+                </p>
+                <div class="card-tags">
+                  <span class="tag">JavaScript</span>
+                  <span class="tag">Groq</span>
+                  <span class="tag">Real Estate</span>
+                  <span class="tag" style="
+                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                    ">+2 more</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://eldiiarbot.onrender.com" target="_blank">
+            <div class="card">
+              <img src="src/eldiiarbot.png" alt="Project 1" />
+              <div class="card-content">
+                <h2><span>EldiiarBot</span> — 2025</h2>
+                <p>
+                  AI chatbot has 6 different modes like Scientist, Socratic Tutor, Gym Coach, and more.
+                </p>
+                <div class="card-tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">Groq</span>
+                  <span class="tag">JavaScript</span>
+                  <span class="tag" style="
+                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                    ">+2 more</span>
                 </div>
               </div>
             </div>
@@ -925,6 +1154,8 @@
             </div>
           </a>
         </div>
+        <p><a href="archive.html" class="underline-link">View Project Archive</a> <span class="emoji"
+            style="font-style:normal;">💾</span></p>
       </div>
       <!--  PROJECT SHOWCASE END  -->
 
@@ -935,11 +1166,13 @@
           margin: 0 auto;
         ">
         <h1>
-          <span class="emoji">💻</span>
+
           Skills
         </h1>
         <p style="text-align: left">
-          As a Full Stack Developer, I bring a diverse skill set built on many
+          <span class="emoji" style="font-style:normal;">💻</span> As a software engineer specializing in full stack
+          development and UI/UX design, I bring a wide array of skills
+          built on many
           years of hands-on experience. <!--My journey began in the 3rd grade with
           web development, providing me with a strong foundation in front-end
           design and development. Today, my passion for building efficient,
@@ -970,6 +1203,17 @@
           What would a developer portfolio be without a personal blog?
         </p>
         <a href="blog.html"><button class="rp-button">View Blog</button></a>
+        <!--<a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
+          <?xml version="1.0" encoding="UTF-8"?>
+          <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+            <g>
+              <path
+                d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
+                fill="#ffffff"></path>
+            </g>
+          </svg>
+        </a>-->
       </div>
 
     </div>
@@ -979,375 +1223,388 @@
           max-width: 80vw;
           margin: 0 auto;
         ">
-      <h2><span class="emoji" style="font-style:normal;font-size:30px;">😃</span> You made it all the way here!
+      <h2><span class="emoji" style="font-style:normal;font-size:30px;">😃</span> Dear <span
+          style="font-style:italic;color:var(--primary);">friend</span>,
       </h2>
       <p>
-        I think you deserve a prize.<br />Here's a (hopefully entertaining) game for you:
+        As a thank-you for making it to the end, click the gift box to reveal your mystery prize!
       </p>
 
     </div>
-    <style>
-      .slideshow-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #eee;
-        background-color: transparent;
-      }
-
-      .slideshow-card-wrapper {
-        position: relative;
-        max-width: 500px;
-        width: 90%;
-      }
-
-      .slideshow-card {
-        background-color: #00000087;
-
-        border-radius: 20px;
-        box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
-        height: 450px;
-        overflow: hidden;
-        text-align: center;
-        position: relative;
-      }
-
-      #card-link {
-        text-decoration: none;
-      }
-
-      #card-title {
-        display: inline-block;
-
-        border-bottom: 1px solid transparent;
-      }
-
-      #card-link:hover #card-title {
-        border-bottom: 1px solid var(--primary);
-      }
-
-      .card-media {
-        border-radius: 8px;
-        margin: 0 auto;
-        width: 80%;
-        max-width: 500px;
-        min-width: 300px;
-        transition: opacity 0.5s ease-in-out;
-        display: block;
-      }
-
-      .card-media.hidden {
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%)scale(0.5);
-        pointer-events: none;
-      }
-
-      .slideshow-card h2 {
-        font-family: var(--big-font);
-        margin: 1rem 0 0.5rem 0;
-      }
-
-      .slideshow-card p {
-        font-family: var(--small-font);
-        padding: 0 1rem 1rem 1rem;
-        font-size: 0.9rem;
-      }
-
-      .toggle-btn1 {
-        position: absolute;
-        top: 25%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.8);
-        border: none;
-        color: #fff;
-        box-shadow: 0px 0px 70px var(--primary);
-        font-size: 1.5rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        border-radius: 0px;
-        z-index: 2;
-        font-family: var(--small-font);
-        text-shadow: 0px 0px 10px var(--primary);
-        transform: scale(1, 1.9);
-        font-weight: 100;
-        transition: all 0.2s ease;
-      }
-
-      #card-desc {
-        text-align: left;
-      }
-
-      .toggle-btn1:hover {
-        background-color: rgba(0, 0, 0, 1);
-        color: var(--primary);
-        font-weight: 300;
-      }
-
-      .toggle-btn1:focus {
-        outline: 2px solid var(--primary);
-      }
-
-      .toggle-left {
-        left: 5px;
-      }
-
-      .toggle-right {
-        right: 5px;
-      }
-
-      .slideshow-refresh-btn {
-        background-color: transparent;
-        border: none;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-        color: var(--primary);
-        font-family: var(--big-font);
-        border: 2px solid var(--primary);
-        border-radius: 100px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 1.5rem;
-        margin-right: 10px;
-        margin-left: 10px;
-      }
-
-      .slideshow-refresh-btn:hover {
-        background-color: var(--primary-hover);
-        border-color: var(--primary-hover);
-        color: var(--primary-color);
-      }
-
-      .slideshow-refresh-btn:focus {
-        outline: 2px solid white;
-      }
-
-      @media(max-width:600px) {
-
-        .toggle-left,
-        .toggle-right {
-          z-index: 3222;
+    <div>
+      <p style="padding: 30px;max-width:80vw;margin:0 auto;text-align:center;">You deserve a prize for making it all the
+        way here.<br />Here's a (hopefully entertaining)
+        game I made just for you:</p>
+      <style>
+        .slideshow-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: #eee;
+          background-color: transparent;
         }
 
         .slideshow-card-wrapper {
-          max-width: 100%;
-          width: 100vw;
-          margin: 0;
+          position: relative;
+          max-width: 500px;
+          width: 90%;
         }
 
         .slideshow-card {
-          margin: 0;
+          background-color: #00000087;
+
+          border-radius: 20px;
+          box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
+          height: 450px;
+          overflow: hidden;
+          text-align: center;
+          position: relative;
         }
-      }
-    </style>
+
+        #card-link {
+          text-decoration: none;
+        }
+
+        #card-title {
+          display: inline-block;
+
+          border-bottom: 1px solid transparent;
+        }
+
+        #card-link:hover #card-title {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        .card-media {
+          border-radius: 8px;
+          margin: 0 auto;
+          width: 80%;
+          max-width: 500px;
+          min-width: 300px;
+          transition: opacity 0.5s ease-in-out;
+          display: block;
+        }
+
+        .card-media.hidden {
+          opacity: 0;
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%)scale(0.5);
+          pointer-events: none;
+        }
+
+        .slideshow-card h2 {
+          font-family: var(--big-font);
+          margin: 1rem 0 0.5rem 0;
+        }
+
+        .slideshow-card p {
+          font-family: var(--small-font);
+          padding: 0 1rem 1rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .toggle-btn1 {
+          position: absolute;
+          top: 25%;
+          transform: translateY(-50%);
+          background-color: rgba(0, 0, 0, 0.8);
+          border: none;
+          color: #fff;
+          box-shadow: 0px 0px 70px var(--primary);
+          font-size: 1.5rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          border-radius: 0px;
+          z-index: 2;
+          font-family: var(--small-font);
+          text-shadow: 0px 0px 10px var(--primary);
+          transform: scale(1, 1.9);
+          font-weight: 100;
+          transition: all 0.2s ease;
+        }
+
+        #card-desc {
+          text-align: left;
+        }
+
+        .toggle-btn1:hover {
+          background-color: rgba(0, 0, 0, 1);
+          color: var(--primary);
+          font-weight: 300;
+        }
+
+        .toggle-btn1:focus {
+          outline: 2px solid var(--primary);
+        }
+
+        .toggle-left {
+          left: 5px;
+        }
+
+        .toggle-right {
+          right: 5px;
+        }
+
+        .slideshow-refresh-btn {
+          background-color: transparent;
+          border: none;
+          padding: 15px 10px;
+          padding-right: 25px;
+          font-size: 20px;
+          color: var(--primary);
+          font-family: var(--big-font);
+          border: 2px solid var(--primary);
+          border-radius: 100px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          margin-top: 1.5rem;
+          margin-right: 10px;
+          margin-left: 10px;
+        }
+
+        .slideshow-refresh-btn .emoji {
+          margin-right: 5px;
+        }
+
+        .slideshow-refresh-btn:hover {
+          background-color: var(--primary-hover);
+          border-color: var(--primary-hover);
+          color: var(--primary-color);
+        }
+
+        .slideshow-refresh-btn:focus {
+          outline: 2px solid white;
+        }
+
+        @media(max-width:600px) {
+
+          .toggle-left,
+          .toggle-right {
+            z-index: 3222;
+          }
+
+          .slideshow-card-wrapper {
+            max-width: 100%;
+            width: 100vw;
+            margin: 0;
+          }
+
+          .slideshow-card {
+            margin: 0;
+          }
+        }
+      </style>
 
 
 
-    <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
-    <div class="slideshow-container">
-      <div class="slideshow-card-wrapper">
-        <a id="card-link" href="">
-          <div class="slideshow-card" id="game-card">
-            <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
-            <img src="" alt="Game Image" class="card-media" id="card-img">
-            <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
-              <source src="" type="video/mp4">
-              Your browser does not support video.
-            </video>
-            <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
-            <h2 id="card-title"></h2>
-            <p id="card-desc"></p>
+      <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
+      <div class="slideshow-container">
+        <div class="slideshow-card-wrapper">
+          <a id="card-link" href="">
+            <div class="slideshow-card" id="game-card">
+              <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
+              <img src="" alt="Game Image" class="card-media" id="card-img">
+              <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
+                <source src="" type="video/mp4">
+                Your browser does not support video.
+              </video>
+              <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
+              <h2 id="card-title"></h2>
+              <p id="card-desc"></p>
 
 
-          </div>
-        </a>
+            </div>
+          </a>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button id="like-btn" class="slideshow-refresh-btn">
+            <span class="emoji" style="font-style:normal;">❤️</span> <span id="like-count">0</span>
+          </button>
+          <button class="slideshow-refresh-btn" id="refresh-btn"><span class="emoji"
+              style="font-style:normal;">🎁</span>
+            Next Project</button>
+        </div>
       </div>
+      <script>
+        const ABACUS_BASE = "https://abacus.jasoncameron.dev";
+        const SITE_IDS = [
+          "eldiiarbekbolotov.github.io",
+          "eldiiarcodes.web.app"
+        ];
 
-      <div style="display:flex; gap:8px;">
-        <button id="like-btn" class="slideshow-refresh-btn">
-          ❤️ <span id="like-count">0</span>
-        </button>
-        <button class="slideshow-refresh-btn" id="refresh-btn">🎁 Next Project</button>
-      </div>
-    </div>
-    <script>
-      const ABACUS_BASE = "https://abacus.jasoncameron.dev";
-      const SITE_IDS = [
-        "eldiiarbekbolotov.github.io",
-        "eldiiarcodes.web.app"
-      ];
+        const projects = [
+          {
+            key: "natuwars", title: "NATUWARS v0.4", desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/natuwars.png", video: "src/natuwars.mp4", link: "games/natuwars.html"
+          },
+          {
+            key: "leaferscraft", title: "LeafersCraft v0.3", desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/leaferscraft.png", video: "src/leaferscraft.mp4", link: "games/leaferscraft.html"
+          },
+          {
+            key: "laserfocus", title: "LASER FOCUS", desc: "Gamified concentration test.<br /><em style='font-size:16px;'>Released summer 2023 under the nickname LeaferStudios.</em>",
+            img: "src/laserfocus.png", video: "src/laserfocus.mp4", link: "games/laserfocus.html"
+          },
+          {
+            key: "roguerun", title: "Rogue Run", desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/roguerun.png", video: "src/roguerun.mp4", link: "games/roguerun.html"
+          },
+          {
+            key: "cars", title: "Cars", desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+            img: "src/cars.png", video: "src/cars.mp4", link: "games/cars.html"
+          }
+        ];
 
-      const projects = [
-        {
-          key: "natuwars", title: "NATUWARS v0.4", desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-          img: "src/natuwars.png", video: "src/natuwars.mp4", link: "games/natuwars.html"
-        },
-        {
-          key: "leaferscraft", title: "LeafersCraft v0.3", desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-          img: "src/leaferscraft.png", video: "src/leaferscraft.mp4", link: "games/leaferscraft.html"
-        },
-        {
-          key: "laserfocus", title: "LASER FOCUS", desc: "Gamified concentration test.<br /><em style='font-size:16px;'>Released summer 2023 under the nickname LeaferStudios.</em>",
-          img: "src/laserfocus.png", video: "src/laserfocus.mp4", link: "games/laserfocus.html"
-        },
-        {
-          key: "roguerun", title: "Rogue Run", desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-          img: "src/roguerun.png", video: "src/roguerun.mp4", link: "games/roguerun.html"
-        },
-        {
-          key: "cars", title: "Cars", desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-          img: "src/cars.png", video: "src/cars.mp4", link: "games/cars.html"
+        let currentIndex = 0;
+        let mediaIndex = 1; // 0=image, 1=video
+        let currentProjectKey = null;
+
+        const cardImg = document.getElementById("card-img");
+        const cardVideo = document.getElementById("card-video");
+        const cardTitle = document.getElementById("card-title");
+        const cardDesc = document.getElementById("card-desc");
+        const cardLink = document.getElementById("card-link");
+        const likeBtn = document.getElementById("like-btn");
+        const likeCountEl = document.getElementById("like-count");
+
+        function jsonp(url, timeout = 7000) {
+          return new Promise((resolve, reject) => {
+            const cb = "abacus_cb_" + Math.random().toString(36).slice(2);
+            const sep = url.includes("?") ? "&" : "?";
+            const full = url + sep + "callback=" + cb;
+
+            let timedOut = false;
+            const script = document.createElement("script");
+            script.src = full;
+            script.async = true;
+
+            const timer = setTimeout(() => {
+              timedOut = true;
+              cleanup();
+              reject(new Error("JSONP timeout"));
+            }, timeout);
+
+            function cleanup() {
+              clearTimeout(timer);
+              script.remove();
+              try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+            }
+
+            window[cb] = function (data) {
+              if (timedOut) return;
+              cleanup();
+              resolve(data);
+            };
+
+            script.onerror = () => {
+              cleanup();
+              reject(new Error("JSONP network error"));
+            };
+
+            document.head.appendChild(script);
+          });
         }
-      ];
 
-      let currentIndex = 0;
-      let mediaIndex = 1; // 0=image, 1=video
-      let currentProjectKey = null;
+        async function hitIncrementAcrossSites(key) {
+          const safeKey = encodeURIComponent(key);
+          const promises = SITE_IDS.map(site => {
+            const url = `${ABACUS_BASE}/hit/${encodeURIComponent(site)}/${safeKey}`;
+            return jsonp(url)
+              .then(res => res && typeof res.value === "number" ? res.value : null)
+              .catch(() => null);
+          });
+          const results = await Promise.all(promises);
+          const valid = results.filter(v => typeof v === "number");
+          return valid.length ? valid.reduce((s, v) => s + v, 0) : null;
+        }
 
-      const cardImg = document.getElementById("card-img");
-      const cardVideo = document.getElementById("card-video");
-      const cardTitle = document.getElementById("card-title");
-      const cardDesc = document.getElementById("card-desc");
-      const cardLink = document.getElementById("card-link");
-      const likeBtn = document.getElementById("like-btn");
-      const likeCountEl = document.getElementById("like-count");
+        let lastLoadToken = 0;
 
-      function jsonp(url, timeout = 7000) {
-        return new Promise((resolve, reject) => {
-          const cb = "abacus_cb_" + Math.random().toString(36).slice(2);
-          const sep = url.includes("?") ? "&" : "?";
-          const full = url + sep + "callback=" + cb;
+        async function loadLikesForProject(key) {
+          const token = ++lastLoadToken;
+          likeCountEl.textContent = "…";
 
-          let timedOut = false;
-          const script = document.createElement("script");
-          script.src = full;
-          script.async = true;
-
-          const timer = setTimeout(() => {
-            timedOut = true;
-            cleanup();
-            reject(new Error("JSONP timeout"));
-          }, timeout);
-
-          function cleanup() {
-            clearTimeout(timer);
-            script.remove();
-            try { delete window[cb]; } catch (e) { window[cb] = undefined; }
-          }
-
-          window[cb] = function (data) {
-            if (timedOut) return;
-            cleanup();
-            resolve(data);
-          };
-
-          script.onerror = () => {
-            cleanup();
-            reject(new Error("JSONP network error"));
-          };
-
-          document.head.appendChild(script);
-        });
-      }
-
-      async function hitIncrementAcrossSites(key) {
-        const safeKey = encodeURIComponent(key);
-        const promises = SITE_IDS.map(site => {
-          const url = `${ABACUS_BASE}/hit/${encodeURIComponent(site)}/${safeKey}`;
-          return jsonp(url)
-            .then(res => res && typeof res.value === "number" ? res.value : null)
-            .catch(() => null);
-        });
-        const results = await Promise.all(promises);
-        const valid = results.filter(v => typeof v === "number");
-        return valid.length ? valid.reduce((s, v) => s + v, 0) : null;
-      }
-
-      let lastLoadToken = 0;
-
-      async function loadLikesForProject(key) {
-        const token = ++lastLoadToken;
-        likeCountEl.textContent = "…";
-
-        try {
-          const total = await hitIncrementAcrossSites(key);
-          if (token === lastLoadToken && key === currentProjectKey) {
-            likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : "0";
-          }
-        } catch {
-          if (token === lastLoadToken && key === currentProjectKey) {
-            likeCountEl.textContent = "0";
+          try {
+            const total = await hitIncrementAcrossSites(key);
+            if (token === lastLoadToken && key === currentProjectKey) {
+              likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : "0";
+            }
+          } catch {
+            if (token === lastLoadToken && key === currentProjectKey) {
+              likeCountEl.textContent = "0";
+            }
           }
         }
-      }
 
-      async function addLikeForProject(key) {
-        const prev = Number(likeCountEl.textContent) || 0;
-        likeCountEl.textContent = String(prev + 1);
-        try {
-          const total = await hitIncrementAcrossSites(key);
-          if (key === currentProjectKey) {
-            likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : String(prev);
-          }
-        } catch {
-          if (key === currentProjectKey) {
-            likeCountEl.textContent = String(prev);
+        async function addLikeForProject(key) {
+          const prev = Number(likeCountEl.textContent) || 0;
+          likeCountEl.textContent = String(prev + 1);
+          try {
+            const total = await hitIncrementAcrossSites(key);
+            if (key === currentProjectKey) {
+              likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : String(prev);
+            }
+          } catch {
+            if (key === currentProjectKey) {
+              likeCountEl.textContent = String(prev);
+            }
           }
         }
-      }
 
-      function fadeOutIn(element, callback) {
-        element.style.opacity = 0;
-        setTimeout(() => { callback(); element.style.opacity = 1; }, 300);
-      }
+        function fadeOutIn(element, callback) {
+          element.style.opacity = 0;
+          setTimeout(() => { callback(); element.style.opacity = 1; }, 300);
+        }
 
-      function displayProject(index) {
-        const proj = projects[index];
-        currentProjectKey = proj.key;
+        function displayProject(index) {
+          const proj = projects[index];
+          currentProjectKey = proj.key;
 
-        fadeOutIn(cardTitle, () => cardTitle.textContent = proj.title);
-        fadeOutIn(cardDesc, () => cardDesc.innerHTML = proj.desc);
-        fadeOutIn(cardImg, () => cardImg.src = proj.img);
-        fadeOutIn(cardVideo, () => {
-          const srcEl = cardVideo.querySelector("source");
-          srcEl.src = proj.video;
-          cardVideo.load();
+          fadeOutIn(cardTitle, () => cardTitle.textContent = proj.title);
+          fadeOutIn(cardDesc, () => cardDesc.innerHTML = proj.desc);
+          fadeOutIn(cardImg, () => cardImg.src = proj.img);
+          fadeOutIn(cardVideo, () => {
+            const srcEl = cardVideo.querySelector("source");
+            srcEl.src = proj.video;
+            cardVideo.load();
+          });
+
+          mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
+          mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
+          cardLink.href = proj.link;
+
+          loadLikesForProject(proj.key);
+        }
+
+        document.getElementById("refresh-btn").addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % projects.length;
+          mediaIndex = 1;
+          displayProject(currentIndex);
         });
 
-        mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
-        mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
-        cardLink.href = proj.link;
+        function toggleMedia(next = true) {
+          mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
+          mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
+          mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
+        }
 
-        loadLikesForProject(proj.key);
-      }
+        document.getElementById("toggle-left").addEventListener("click", e => { e.preventDefault(); toggleMedia(false); });
+        document.getElementById("toggle-right").addEventListener("click", e => { e.preventDefault(); toggleMedia(true); });
+        likeBtn.addEventListener("click", e => { e.preventDefault(); addLikeForProject(projects[currentIndex].key); });
 
-      document.getElementById("refresh-btn").addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % projects.length;
-        mediaIndex = 1;
         displayProject(currentIndex);
-      });
+      </script>
+    </div>
 
-      function toggleMedia(next = true) {
-        mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
-        mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
-        mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
-      }
-
-      document.getElementById("toggle-left").addEventListener("click", e => { e.preventDefault(); toggleMedia(false); });
-      document.getElementById("toggle-right").addEventListener("click", e => { e.preventDefault(); toggleMedia(true); });
-      likeBtn.addEventListener("click", e => { e.preventDefault(); addLikeForProject(projects[currentIndex].key); });
-
-      displayProject(currentIndex);
-    </script>
-    <footer>
-      <div style="display: flex; justify-content: space-between">
+    <footer style="background:rgb(56, 25, 1);margin-top:45px;padding:0;">
+      <div style="display: flex; justify-content: space-between;padding: 0 20px;">
         <p>
           <span id="visits"></span>
-          <span class="emoji">👀</span>
+
         </p>
         <p>
           &copy; 2025 <span id="currentYear"></span>
@@ -1364,20 +1621,18 @@
           </a>
         </p>
       </div>
+      <img src="src/mylogo.svg" style="width:100vw;">
+      <div style="height:120px;"></div>
+
     </footer>
   </div>
   <script src="js/techstack.js"></script>
   <script src="js/index.js"></script>
   <script type>
-    function openAI() {
-
-    };
-
-
     /** LOGO.js **/
     document.getElementById("currentYear").innerText =
       new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
-    animateText("Eldiiar Bekbolotov");
+    //animateText("Eldiiar Bekbolotov");
 
     document.getElementById("logo-scene").style.display = "none";
 
@@ -1400,7 +1655,7 @@
 
     function updateTotal(newValue) {
       totalVisits += newValue;
-      document.getElementById("visits").innerText = totalVisits;
+      document.getElementById("visits").innerHTML = totalVisits + '<span class="emoji">👀</span>';
     }
 
     function countgh(response) {
@@ -1444,6 +1699,7 @@
             dot.className = "dot";
             dot.textContent = ".";
             timerEl.appendChild(dot);
+            digits.push(null); // placeholder to keep indices aligned
           } else {
             const container = createDigitStack(Number(char));
             timerEl.appendChild(container);
@@ -1459,22 +1715,21 @@
       function updateAge() {
         const now = new Date();
         const ageInMs = now - birthDate;
-        const ageInYears = (
-          ageInMs /
-          (1000 * 60 * 60 * 24 * 365.2425)
-        ).toFixed(12);
+        const ageInYears = (ageInMs / (1000 * 60 * 60 * 24 * 365.2425)).toFixed(12);
 
-        if (!prevAgeStr) {
+        // Rebuild if first run or length changes
+        if (!prevAgeStr || ageInYears.length !== prevAgeStr.length) {
           digitStacks = createAgeDisplay(ageInYears);
         } else {
           ageInYears.split("").forEach((char, i) => {
-            if (char !== prevAgeStr[i] && char !== ".") {
+            if (char !== prevAgeStr[i] && char !== "." && digitStacks[i]) {
               const digit = Number(char);
               digitStacks[i].style.transform = `translateY(-${digit}em)`;
               digitStacks[i].style.color = `var(--primary)`;
             }
           });
         }
+
         prevAgeStr = ageInYears;
       }
 

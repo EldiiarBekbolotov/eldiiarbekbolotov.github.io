@@ -28,7 +28,7 @@ function letterchunk(letter, index, totalLetters, nChunks = 5) {
       span.style.left = `${finalX}px`;
       span.style.top = `${finalY}px`;
       span.style.color =
-        i % 2 === 0 ? "rgb(158, 205, 255)" : "rgb(159, 161, 159)";
+        i % 2 === 0 ? "rgba(213, 163, 89, 1)" : "rgba(122, 104, 75, 1)";
     }, i * 150 + index * 100);
 
     setTimeout(() => {
@@ -125,7 +125,7 @@ function MurkyPond() {
     },
   ];
   this.sediments = [];
-  this.numSediments = 1000; // 300
+  this.numSediments = 0; // 300
   this.initParticles();
   this.initSediments();
 }

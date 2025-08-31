@@ -3,10 +3,14 @@
   --primary-hover: rgb(135, 101, 73);
   --primary: rgb(51, 214, 138);
   --primary-hover: rgb(32, 155, 87);
-  --primary: #72e276; /* Electric pink-red */
+  --primary: rgb(231, 232, 133); /* Electric pink-red */
   --primary-hover: #58b55b; /* Deeper, moodier shade */
+
+  --primary: rgb(208, 136, 77);
+  --primary-hover: rgb(254, 176, 112);
   --primary-color: #000;
-  --navbar-shadow: 0 20px 120px rgba(6, 243, 57, 0.55);
+  --shadow: rgba(242, 152, 88, 0.2);
+  --navbar-shadow: 0 20px 220px rgba(242, 152, 88, 0.25);
   --big-font: "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
   --small-font: "Roboto", "Roboto", "Noto Sans", arial, helvetica, sans-serif;
   --mono: "Roboto Mono", monospace;
@@ -27,6 +31,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--small-font);
+  overflow-x: hidden;
 }
 .emoji {
   font-family: "noto color emoji";
@@ -61,7 +66,31 @@ canvas {
   display: block;
   z-index: -1;
 }
+.underline-link {
+  position: relative;
+  color: var(--primary);
+  text-decoration: none;
+}
+.underline-link:hover {
+  text-decoration: none;
+}
+.underline-link:focus {
+  border: 2px solid var(--primary);
+}
+.underline-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px; /* underline thickness */
+  background-color: var(--primary); /* underline color */
+  transition: width 0.3s ease;
+}
 
+.underline-link:hover::after {
+  width: 100%;
+}
 .no-select {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -210,8 +239,20 @@ footer p {
   width: 100%;
   margin: 0;
   display: block;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+#pfp {
+  width: 300px;
+  box-shadow: 0px 4px 3px rgba(251, 21, 21, 0.5);
+  border-radius: 0%;
+}
+@media (max-width: 600px) {
+  #pfp {
+    width: 150px;
+  }
+}
 #about {
   padding: 45px;
 }
@@ -260,9 +301,9 @@ footer {
   float: right;
   margin-top: 30px;*/
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 10px;
+  left: 20px;
+  right: 20px;
   height: 72px;
   line-height: 72px;
   display: flex;
@@ -271,8 +312,20 @@ footer {
   align-items: center;
   z-index: 1000;
   padding: 0 15px;
-  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(30px);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  #social-links {
+    left: 0px;
+    bottom: 0px;
+    border-radius: 0px;
+    right: 0px;
+  }
 }
 
 .social-link {
@@ -346,6 +399,7 @@ footer {
   border-radius: 8px;
   outline: none;
   transition: color 0.4s;
+  z-index: 2;
 }
 .rp-button:focus {
   outline: 2px solid var(--primary);
@@ -425,7 +479,7 @@ nav a.active {
   gap: 20px;
 }
 .skill-card {
-  background: linear-gradient(rgba(0, 45, 43, 0.9), rgba(0, 0, 0, 0.5));
+  background: linear-gradient(rgba(45, 28, 0, 0.9), rgba(0, 0, 0, 0.5));
   border-radius: 10px;
   padding: 10px;
   font-family: var(--small-font);
@@ -435,7 +489,7 @@ nav a.active {
   transition: all 0.4s;
 }
 .skill-card:hover {
-  box-shadow: inset 0 40px 60px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 40px 60px rgba(255, 255, 255, 0.2);
 }
 .skill-card:hover svg,
 .skill-card:hover img {
