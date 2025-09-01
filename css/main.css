@@ -45,6 +45,14 @@ body {
   font-weight: 100;
   font-style: italic;
 }
+.slideshow-refresh-btn svg {
+  position: relative;
+  top: 7px;
+  fill: var(--primary);
+}
+.slideshow-refresh-btn:hover svg {
+  fill: var(--primary-color);
+}
 h1 .emoji {
   font-size: 45px;
   text-shadow: 0px 0px 20px var(--primary);
@@ -167,7 +175,7 @@ a:hover {
   text-decoration: underline;
 }
 
-#web-content h1,
+h1,
 h2,
 h3,
 h4,
@@ -197,7 +205,7 @@ h3 {
   font-size: 1.5rem;
 }
 
-#web-content p {
+p {
   font-family: var(--small-font);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -206,7 +214,7 @@ h3 {
   line-height: 30px;
   color: rgba(255, 255, 255, 0.7);
 }
-#web-content p b {
+p b {
   font-weight: 600;
   font-style: italic;
   color: rgb(255, 255, 255);
@@ -251,6 +259,13 @@ footer p {
 @media (max-width: 600px) {
   #pfp {
     width: 150px;
+  }
+  .hidemobile {
+    display: none;
+  }
+
+  footer {
+    margin-top: 0px !important;
   }
 }
 #about {
