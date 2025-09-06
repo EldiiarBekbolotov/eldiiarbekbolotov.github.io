@@ -332,6 +332,7 @@ footer {
   backdrop-filter: blur(30px);
   max-width: 1000px;
   margin: 0 auto;
+  mix-blend-mode: difference;
 }
 
 @media (max-width: 600px) {

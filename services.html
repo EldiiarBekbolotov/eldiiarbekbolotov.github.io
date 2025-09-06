@@ -27,38 +27,213 @@
     <link rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
     <link rel="manifest" href="site.webmanifest" />
     <title>Eldiiar Bekbolotov | Services</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Noto+Color+Emoji&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Tulpen+One&display=swap"
-        rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Electrolize&family=Geist+Mono:wght@100..900&family=Iceberg&family=Noto+Color+Emoji&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap"
-        rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="\css/main.css" />
     <style>
         html {
-            background: black;
-            padding: 20px;
+            background: #000;
+            scroll-behavior: smooth;
+        }
+
+        .skills-list {
+            display: flex;
+            list-style-position: inside;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        ul li:first-child {
+            list-style-type: none;
+        }
+
+        .skills-list li {
+            padding-left: 0;
+            list-style-position: inside;
+            margin-right: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .card-icon {
+            margin-bottom: 10px;
+        }
+
+        .card-icon svg {
+            display: block;
+            width: 42px !important;
+            height: 42px !important;
+            fill: #FFF;
+        }
+
+        .card-title {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            line-height: 1.3;
+            color: #FFF;
+        }
+
+        .card-text {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
         }
     </style>
 </head>
 
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <nav>
+        <a href="index.html">Portfolio</a>
+        <a href="services.html" class="active">Services</a>
+        <!--<a href="services.html">LeaferStudios</a>-->
+    </nav>
+    <div style="height: 100%;">
 
-    <h1>Coming soon.</h1>
 
-    <h1><a class="underline-link" href="index.html">Go Back</a></h1>
+        <div style="margin: 0 auto;max-width: 800px;padding:0 15px;margin-top:80px;">
+            <div style="text-align:center;padding-top:100px;padding-bottom:100px;">
+
+                <h1>Transform your digital identity</h1>
+                <p>World-class design and development services
+                </p>
+
+                <!--<img src="\src/finrise.png" style="width: 100%;box-shadow: 0px -90px 100px rgba(126, 167, 243, 0.3);">-->
+            </div>
+            <div>
+
+            </div>
+            <!--stats-->
+            <div id="overview">
+                <h2>Overview</h2>
+
+
+                <p>I handle the technical side of bringing your
+                    product to life. Using modern frameworks and best practices, I develop fast, scalable, and
+                    secure applications.</p>
+                <h2>Launch with Confidence</h2>
+                <p>At delivery, you’ll receive a live, fully functional product, complete
+                    documentation, and ongoing support option.</p>
+
+
+
+            </div>
+            <div id="features">
+
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#FFFFFF">
+                                <path
+                                    d="M149-140q-36.72 0-61.36-24.64Q63-189.27 63-226v-38q0-36.73 24.64-61.36Q112.28-350 149-350h194q36.73 0 61.36 24.64Q429-300.73 429-264v38q0 36.73-24.64 61.36Q379.73-140 343-140H149Zm467 0q-36.72 0-61.36-24.64Q530-189.27 530-226v-508q0-36.72 24.64-61.36T616-820h196q36.72 0 61.36 24.64T898-734v508q0 36.73-24.64 61.36Q848.72-140 812-140H616Zm-468-53h196q14 0 23-9t9-23v-40q0-14-9-23t-23-9H148q-14 0-23 9t-9 23v40q0 14 9 23t23 9Zm467 0h198q14 0 23-9t9-23v-510q0-14-9-23t-23-9H615q-14 0-23 9t-9 23v510q0 14 9 23t23 9Zm99-60q14.4 0 24.2-9.8 9.8-9.8 9.8-24.2 0-13.4-9.8-23.7Q728.4-321 714-321q-13.4 0-23.7 10.3Q680-300.4 680-287q0 14.4 10.3 24.2 10.3 9.8 23.7 9.8ZM149-450q-36.72 0-61.36-24.64Q63-499.27 63-536v-198q0-36.72 24.64-61.36T149-820h195q36.73 0 61.36 24.64Q430-770.72 430-734v198q0 36.73-24.64 61.36Q380.73-450 344-450H149Zm142.02-197q13.98 0 24.48-11t10.5-24q0-14-10.5-24t-24.48-10q-13.98 0-23.5 9.8T258-682q0 13 9.52 24t23.5 11ZM117-537l70-95 97 128h60q14 0 23-9t9-23v-198q0-14-9-23t-23-9H149q-14 0-23 9t-9 23v197Zm130 292Zm468-235ZM247-635Z" />
+                            </svg>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">UI/UX Design</h3>
+                        <p class="card-text"></p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#FFFFFF">
+                                <path
+                                    d="M42-160v-72q0-33 17-62t47-44q51-26 115-44t141-18q77 0 141 18t115 44q30 15 47 44t17 62v72q0 17-11.5 28.5T642-120H82q-17 0-28.5-11.5T42-160Zm80-40h480v-32q0-11-5.5-20T582-266q-36-18-92.5-36T362-320q-71 0-127.5 18T142-266q-9 5-14.5 14t-5.5 20v32Zm240-240q-66 0-113-47t-47-113h-10q-9 0-14.5-5.5T172-620q0-9 5.5-14.5T192-640h10q0-45 22-81t58-57v38q0 9 5.5 14.5T302-720q9 0 14.5-5.5T322-740v-54q9-3 19-4.5t21-1.5q11 0 21 1.5t19 4.5v54q0 9 5.5 14.5T422-720q9 0 14.5-5.5T442-740v-38q36 21 58 57t22 81h10q9 0 14.5 5.5T552-620q0 9-5.5 14.5T532-600h-10q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T442-600H282q0 33 23.5 56.5T362-520Zm297 144-3-14q-6-2-11.5-4.5T634-402l-12 4q-7 2-13.5 0t-10.5-9l-4-7q-4-6-2.5-13t6.5-12l10-9v-24l-10-9q-5-5-6.5-12t2.5-13l4-7q4-7 10.5-9t13.5 0l12 4q4-4 10-7t12-5l3-14q2-7 7-11.5t12-4.5h8q7 0 12 4.5t7 11.5l3 14q6 2 12 5t10 7l12-4q7-2 13.5 0t10.5 9l4 7q4 6 2.5 13t-6.5 12l-10 9v24l10 9q5 5 6.5 12t-2.5 13l-4 7q-4 7-10.5 9t-13.5 0l-12-4q-5 5-10.5 7.5T708-390l-3 14q-2 7-7 11.5t-12 4.5h-8q-7 0-12-4.5t-7-11.5Zm23-54q12 0 21-9t9-21q0-12-9-21t-21-9q-12 0-21 9t-9 21q0 12 9 21t21 9Zm68-152-4-20q-9-3-16.5-7.5T716-620l-21 7q-9 3-18-.5T663-625l-6-10q-5-8-3.5-17.5T663-669l17-15q-2-5-2-8v-16q0-3 2-8l-17-15q-8-7-9.5-16.5T657-765l6-10q5-8 14-11.5t18-.5l21 7q6-6 13.5-10.5T746-798l4-20q2-10 9.5-16t17.5-6h10q10 0 17.5 6t9.5 16l4 20q9 3 16.5 7.5T848-780l21-7q9-3 18 .5t14 11.5l6 10q5 8 3.5 17.5T901-731l-17 15q2 5 2 8v16q0 3-2 8l17 15q8 7 9.5 16.5T907-635l-6 10q-5 8-14 11.5t-18 .5l-21-7q-6 6-13.5 10.5T818-602l-4 20q-2 10-9.5 16t-17.5 6h-10q-10 0-17.5-6t-9.5-16Zm32-68q21 0 35.5-14.5T832-700q0-21-14.5-35.5T782-750q-21 0-35.5 14.5T732-700q0 21 14.5 35.5T782-650ZM362-200Z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Full Stack Development</h3>
+                        <p class="card-text"></p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#FFFFFF">
+                                <path
+                                    d="M323-160q-11 0-20.5-5.5T288-181l-78-139h58l29 58q5 11 15 16.5t21 5.5h47q8 0 14-6t6-14q0-8-6-14t-14-6h-48l-29-58q-5-11-15-16.5t-21-5.5h-79l-57-100q-2-5-3.5-10t-1.5-10q0-4 5-20l57-100h79q11 0 21-5.5t15-16.5l29-58h48q8 0 14-6t6-14q0-8-6-14t-14-6h-47q-11 0-21 5.5T297-698l-29 58h-58l78-139q5-10 14.5-15.5T323-800h97q17 0 28.5 11.5T460-760v160h-60q-8 0-14 6t-6 14q0 8 6 14t14 6h60v120h-88l-29-58q-5-11-15-16.5t-21-5.5h-67q-8 0-14 6t-6 14q0 8 6 14t14 6h68l29 58q5 11 15 16.5t21 5.5h87v200q0 17-11.5 28.5T420-160h-97Zm237 0q-33 0-56.5-23.5T480-240q0-23 11-40.5t29-28.5v-342q-18-11-29-28.5T480-720q0-33 23.5-56.5T560-800q33 0 56.5 23.5T640-720q0 23-11 40.5T600-651v101l80-48q0-34 23.5-58t56.5-24q33 0 56.5 23.5T840-600q0 33-23.5 56.5T760-520q-11 0-20.5-2.5T721-530l-91 55 101 80q7-3 14-4t15-1q33 0 56.5 23.5T840-320q0 33-23.5 56.5T760-240q-37 0-60.5-28T681-332l-81-65v89q18 11 28.5 28.5T639-240q0 33-23 56.5T560-160Z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">AI/ML Integration</h3>
+                        <p class="card-text"></p>
+                    </div>
+
+
+                </div>
+
+                <div>
+                    <h1 style="text-align:center;">10<br><span style="font-size:30px;color:rgba(255,255,255,0.6)">paying
+                            clients</span></h1>
+
+                    <h1 style="text-align:center;">17 days<br><span
+                            style="font-size:30px;color:rgba(255,255,255,0.6)">avg. project duration</span></h1>
+
+                    <h1 style="text-align:center;">100%<br><span
+                            style="font-size:30px;color:rgba(255,255,255,0.6)">satisfaction rate</span></h1>
+
+                </div>
+
+
+            </div>
+
+            <div>
+                <h2>Technical Consulting</h2>
+                <p>I've helped dozens of startups refine their digital presence,
+                    transforming crude
+                    ideas into
+                    award-winning,
+                    high-performing websites that stand out and win attention.</p>
+            </div>
+
+            <!--<div style="padding-bottom: 100px;">
+                <h1>Project overview is under construction</h1>
+
+                <h1><a class="underline-link" href="\index.html">Go Back</a></h1>
+            </div>-->
+        </div>
+
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget"
+            data-url="https://calendly.com/eldiiarbekbolotov/30min?background_color=000000&text_color=bdbdbd&primary_color=ff9600"
+            style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly inline widget end -->
+
+        <footer style="background:rgb(56, 25, 1);margin-top:45px;padding:0;">
+            <div style="display: flex; justify-content: space-between;padding: 0 20px;">
+                <p>
+                </p>
+                <p style="display:none;">
+                    &copy; 2025 <span id="currentYear"></span>
+                    <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+                </p>
+                <p>
+
+                </p>
+            </div>
+            <img src="\src/mylogo.svg" style="width:100vw;" onclick='window.scrollTo({top: 0,behavior: "smooth"});'>
+            <div style="height:120px;"></div>
+
+        </footer>
+    </div>
+
+
 </body>
 
 </html>
