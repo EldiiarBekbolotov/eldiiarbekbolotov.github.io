@@ -62,7 +62,7 @@
 
     <script>
         async function sendMessage(message) {
-            const response = await fetch("/chatWithGroq", {
+            const response = await fetch("https://eldiiar.netlify.app/.netlify/functions/chatWithGroq", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message })
