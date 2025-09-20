@@ -1,5 +1,4 @@
 exports.handler = async (event) => {
-  // Handle preflight OPTIONS request (CORS)
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 204,
@@ -14,8 +13,6 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
-
-    // body.messages should be an array of messages: [{role, content}]
     if (!body.messages || !Array.isArray(body.messages)) {
       return {
         statusCode: 400,
@@ -24,36 +21,33 @@ exports.handler = async (event) => {
       };
     }
 
-    const response = await fetch(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "llama3-8b-8192",
-          messages: [
-            {
-              role: "system",
-              content: "You are EldiiarGPT, a helpful AI assistant.",
-            },
-            ...body.messages, // send full chat history for context
-          ],
-        }),
-      }
-    );
+    const { Groq } = require("groq-sdk");
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-    const data = await response.json();
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content: "You are EldiiarGPT, a helpful AI assistant.",
+        },
+        ...body.messages,
+      ],
+      model: "gemma2-9b-it",
+      temperature: 1,
+      max_completion_tokens: 1024,
+      top_p: 1,
+      stream: false,
+    });
+
+    const reply = chatCompletion.choices[0]?.message?.content || "No response";
 
     return {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ reply }),
     };
-  } catch (error) {
-    console.error("Error:", error);
+  } catch (err) {
+    console.error(err);
     return {
       statusCode: 500,
       headers: { "Access-Control-Allow-Origin": "*" },
