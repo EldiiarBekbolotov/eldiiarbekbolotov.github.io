@@ -47,7 +47,7 @@
     <link rel="stylesheet" type="text/css" href="\css/main.css" />
     <style>
         html {
-            background: #011f24;
+            background: #281701;
             scroll-behavior: smooth;
         }
 
@@ -105,6 +105,38 @@
             font-size: 16px;
             line-height: 1.5;
         }
+
+        .element-parent {
+            border-top: 1px solid rgb(107, 107, 107);
+            border-bottom: 1px solid rgb(107, 107, 107);
+            padding: 20px 0px;
+            margin-bottom: -1px;
+        }
+
+        .element-flex {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .year-span {
+            margin-right: 15px;
+        }
+
+        .rating {
+            margin-right: 15px;
+            color: var(--primary)
+        }
+
+        .big-f {
+            font-family: var(--big-font);
+            font-size: 10vw;
+            margin-bottom: 0;
+            letter-spacing: 2px;
+            border: 1px solid var(--primary);
+            border-radius: 22px 22px 2px 2px;
+            padding-left: 20px;
+            transform: scale(1, 1.2);
+        }
     </style>
 </head>
 
@@ -140,45 +172,45 @@
         <div style="margin: 0 auto;max-width: 800px;padding:0 15px;padding-top:90px;">
 
             <div id="overview">
-                <h1 style="font-family:var(--small-font);font-size:10vw;margin-bottom:0;">Archive</h1>
+                <h1 class="big-f">Featured</h1>
+                <p>To see featured projects, go to <a href="/index.html" class="underline-link">Eldiiar's Portfolio</a>.
+                </p>
+                <h1 class="big-f">Archive</h1>
                 <p>A collection of projects I've built over the years.</p>
 
 
                 <div style="margin-bottom: 40px;">
-                    <div
-                        style="border-top: 1px solid rgba(255,255,255,0.25);border-bottom: 1px solid rgba(255,255,255,0.25);padding:20px 0px;">
-                        <div style="display:flex;justify-content:space-between;">
+                    <div class="element-parent">
+                        <div class="element-flex">
                             <a href="https://sanjyratree.web.app/" target="_blank" class="underline-link"
                                 style="font-size:20px;">SanjyraTree</a>
                             <div>
-                                <span style="margin-right:15px;">2024</span>
-                                <span style="margin-right:15px;color:var(--primary)">5.2/10</span>
+                                <span class="year-span">2024</span>
+                                <span class="rating">5.2/10</span>
                             </div>
                         </div>
                         <p style="margin-top:10px;margin-bottom:0;">Intuitive family tree editor for the
                             web</p>
                     </div>
-                    <div
-                        style="border-top: 1px solid rgba(255,255,255,0.25);border-bottom: 1px solid rgba(255,255,255,0.25);padding:20px 0px;">
-                        <div style="display:flex;justify-content:space-between;">
+                    <div class="element-parent">
+                        <div class="element-flex">
                             <a href="https://leaferstudios.web.app/" target="_blank" class="underline-link"
                                 style="font-size:20px;">LeaferStudios</a>
                             <div>
-                                <span style="margin-right:15px;">2024</span>
-                                <span style="margin-right:15px;color:var(--primary)">8.0/10</span>
+                                <span class="year-span">2024</span>
+                                <span class="rating">8.0/10</span>
                             </div>
                         </div>
                         <p style="margin-top:10px;margin-bottom:0;">700+ websites, games, and other programs I've built
-                            on Khan Academy</p>
+                            for the Khan Academy Computer Programming community</p>
                     </div>
-                    <div
-                        style="border-top: 1px solid rgba(255,255,255,0.25);border-bottom: 1px solid rgba(255,255,255,0.25);padding:20px 0px;">
-                        <div style="display:flex;justify-content:space-between;">
+                    <div class="element-parent">
+                        <div class="element-flex">
                             <a href="https://mathstudy23.netlify.app/" target="_blank" class="underline-link"
                                 style="font-size:20px;">MathStudy</a>
                             <div>
-                                <span style="margin-right:15px;">2023</span>
-                                <span style="margin-right:15px;color:var(--primary)">5.0/10</span>
+                                <span class="year-span">2023</span>
+                                <span class="rating">5.0/10</span>
                             </div>
                         </div>
                         <p style="margin-top:10px;margin-bottom:0;">Personal math website for school</p>
