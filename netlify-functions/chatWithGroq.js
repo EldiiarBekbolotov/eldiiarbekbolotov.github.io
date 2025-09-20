@@ -1,10 +1,8 @@
-const fetch = require("node-fetch");
-
 exports.handler = async (event) => {
-  // Handle CORS preflight
+  // Handle preflight OPTIONS request (CORS)
   if (event.httpMethod === "OPTIONS") {
     return {
-      statusCode: 200,
+      statusCode: 204,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -17,12 +15,21 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
 
+    // body.messages should be an array of messages: [{role, content}]
+    if (!body.messages || !Array.isArray(body.messages)) {
+      return {
+        statusCode: 400,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: "Missing messages array" }),
+      };
+    }
+
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`, // set in Netlify
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -32,7 +39,7 @@ exports.handler = async (event) => {
               role: "system",
               content: "You are EldiiarGPT, a helpful AI assistant.",
             },
-            { role: "user", content: body.message },
+            ...body.messages, // send full chat history for context
           ],
         }),
       }
