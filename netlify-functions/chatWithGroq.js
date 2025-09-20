@@ -13,6 +13,7 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
+
     if (!body.messages || !Array.isArray(body.messages)) {
       return {
         statusCode: 400,
@@ -20,6 +21,12 @@ exports.handler = async (event) => {
         body: JSON.stringify({ error: "Missing messages array" }),
       };
     }
+
+    // Keep only valid roles and last 25 messages
+    const validRoles = ["user", "assistant", "system"];
+    const recentMessages = body.messages
+      .filter((msg) => validRoles.includes(msg.role))
+      .slice(-25);
 
     const { Groq } = require("groq-sdk");
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
@@ -30,7 +37,7 @@ exports.handler = async (event) => {
           role: "system",
           content: "You are EldiiarGPT, a helpful AI assistant.",
         },
-        ...body.messages,
+        ...recentMessages,
       ],
       model: "gemma2-9b-it",
       temperature: 1,
