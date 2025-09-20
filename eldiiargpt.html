@@ -2,31 +2,78 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FLRPR7R7LT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FLRPR7R7LT');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png>
+    <link rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
+    <link rel="manifest" href="site.webmanifest" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>EldiiarGPT</title>
-    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Include a lightweight markdown renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+        * {
+            --primary2: var(--primary);
+            --primary-color2: var(--primary-color);
+        }
+
         html,
         body {
+            background: #000000;
+            color: #FFF;
             height: 100%;
-            margin: 0;
-            background: black;
-            font-family: 'Roboto', sans-serif;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: var(--small-font);
+        }
+
+        #chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chat-messages::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        #chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        #chat-messages {
+            scrollbar-width: thin;
+            scrollbar-color: #555 #1a1a1a;
         }
 
         .chat-container {
-            width: 90%;
-            max-width: 600px;
-            background: #111;
-            border-radius: 10px;
+            background: #000;
+
+            max-width: 760px;
             display: flex;
+            width: 80vw;
+            height: calc(100% - 80px);
             flex-direction: column;
-            height: 80vh;
             overflow: hidden;
         }
 
@@ -43,23 +90,66 @@
             padding: 10px 15px;
             border-radius: 15px;
             max-width: 80%;
+            font-family: var(--small-font);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            font-weight: 400;
+            word-break: break-all;
             word-wrap: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        .message pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: anywhere;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+        }
+
+        .message p {
+            font-size: inherit;
+            font-weight: inherit;
+        }
+
+        li {
+            font-size: inherit;
+            color: inherit;
         }
 
         .user {
             align-self: flex-end;
-            background: #0b84ff;
+            background: var(--primary2);
+            border-radius: 24px 4px 24px 24px;
+            padding: 12px;
+        }
+
+        .user p {
+            color: var(--primary-color2) !important;
+
+            padding: 0px;
+            margin: 0;
         }
 
         .assistant {
             align-self: flex-start;
-            background: #333;
+            background: rgba(255, 253, 253, 0.13);
+
+            border-radius: 24px 24px 24px 4px;
+            padding: 0 12px;
         }
 
         .input-container {
+            width: 100%;
             display: flex;
             border-top: 1px solid #444;
         }
+
+
 
         #chat-input {
             flex: 1;
@@ -69,28 +159,150 @@
             background: #222;
             color: white;
             font-size: 16px;
+            border-radius: 100px 0px 0px 100px;
         }
 
         #send-btn {
-            padding: 10px 20px;
+            padding: 0px 20px;
             border: none;
+            border-radius: 0px 100px 100px 0px;
             background: #0b84ff;
             color: white;
+            font-family: var(--small-font);
+            font-weight: 400;
             cursor: pointer;
+            height: 72px;
+            transition: background 0.2s, opacity 0.2s;
         }
 
         #send-btn:hover {
             background: #006fce;
         }
+
+        /* Disabled state styling */
+        #send-btn:disabled {
+            background: #555;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            opacity: 1;
+        }
+
+        #send-btn:disabled svg {
+            fill: rgba(255, 255, 255, 0.5);
+        }
+
+
+        #prompt-buttons {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 1px solid #444;
+        }
+
+        .prompt-btn {
+            background: #0b84ff;
+
+            border: none;
+            padding: 5px 10px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .prompt-btn:hover {
+            background: #006fce;
+        }
+
+        .typing {
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        #back {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            height: 72px;
+            width: 72px;
+            line-height: 72px;
+            transform: scale(0.7);
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            border-radius: 100px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            max-width: 1000px;
+            margin: 0 auto;
+            mix-blend-mode: difference;
+        }
+
+        @media only screen and (max-width: 480px) {
+            #back {
+                top: -2px;
+                left: -2px;
+            }
+        }
+
+        @media only screen and (min-width: 481px) and (max-width: 1024px) {
+            #back {
+                left: 2px;
+                top: 2px;
+
+            }
+
+            .chat-container {
+                width: 90vw;
+            }
+        }
+
+        @media only screen and (min-width: 1000px) {
+            #back {
+                left: 20px;
+                top: 20px;
+            }
+
+            .chat-container {
+                width: 80vw;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="chat-container">
-        <div id="chat-messages"></div>
+    <div id="back">
+        <a href="\index.html" class="social-link" style="font-size: 16px;margin:0;">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"
+                style="margin:0;padding:0;margin-left:-4px;margin-top:-4px;">
+                <path
+                    d="m382-480 294 294q15 15 14.5 35T675-116q-15 15-35 15t-35-15L297-423q-12-12-18-27t-6-30q0-15 6-30t18-27l308-308q15-15 35.5-14.5T676-844q15 15 15 35t-15 35L382-480Z" />
+            </svg>
+        </a>
+    </div>
+    <div id="social-links" style="justify-content:space-between;background:rgba(81, 77, 73, 0.8);padding:0;">
+
         <div class="input-container">
-            <input id="chat-input" placeholder="Type your message..." />
-            <button id="send-btn">Send</button>
+            <input id="chat-input" placeholder="Message" />
+            <button id="send-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                    width="24px" fill="#FFFFFF">
+                    <path
+                        d="M792-443 176-183q-20 8-38-3.5T120-220v-520q0-22 18-33.5t38-3.5l616 260q25 11 25 37t-25 37ZM200-280l474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
+                </svg></button>
+        </div>
+    </div>
+    <div style="justify-content:center;display:flex;height:100%;">
+        <div class="chat-container">
+            <div id="chat-messages"></div>
+
+            <div id="prompt-buttons">
+                <button class="prompt-btn" data-msg="Who is Eldiiar?">Who is Eldiiar?</button>
+                <button class="prompt-btn" data-msg="Eldiiar's Projects">Eldiiar's Projects</button>
+                <button class="prompt-btn" data-msg="Connect with Eldiiar">Connect</button>
+            </div>
+
+
         </div>
     </div>
 
@@ -98,6 +310,7 @@
         const chatMessages = document.getElementById('chat-messages');
         const chatInput = document.getElementById('chat-input');
         const sendBtn = document.getElementById('send-btn');
+        const promptButtons = document.querySelectorAll('.prompt-btn');
         const STORAGE_KEY = 'eldiiarGPTChat';
 
         let messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -107,14 +320,14 @@
             messages.forEach(msg => {
                 const div = document.createElement('div');
                 div.classList.add('message', msg.role);
-                div.textContent = msg.content;
+                div.innerHTML = marked.parse(msg.content);
                 chatMessages.appendChild(div);
             });
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         async function sendMessage(content) {
-            if (!content) return;
+            if (!content.trim()) return; // Prevent sending empty messages
 
             // Add user message
             messages.push({ role: 'user', content });
@@ -122,15 +335,24 @@
             renderMessages();
             chatInput.value = '';
 
+            // Add typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.classList.add('message', 'assistant', 'typing');
+            typingDiv.textContent = 'EldiiarGPT is typing...';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
             try {
                 const res = await fetch('https://eldiiar.netlify.app/.netlify/functions/chatWithGroq', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ messages })
                 });
-
                 const data = await res.json();
                 const botReply = data.reply || 'No response';
+
+                // Remove typing indicator
+                typingDiv.remove();
 
                 // Add AI reply
                 messages.push({ role: 'assistant', content: botReply });
@@ -139,6 +361,7 @@
                 saveMessages();
             } catch (err) {
                 console.error(err);
+                typingDiv.remove();
                 messages.push({ role: 'assistant', content: 'Error: Could not reach AI' });
                 trimMessages();
                 renderMessages();
@@ -156,7 +379,23 @@
 
         // Event listeners
         sendBtn.addEventListener('click', () => sendMessage(chatInput.value));
-        chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(chatInput.value); });
+
+        chatInput.addEventListener('input', () => {
+            sendBtn.disabled = !chatInput.value.trim(); // disable if input is empty or whitespace
+        });
+
+        chatInput.addEventListener('keypress', e => {
+            if (e.key === 'Enter') sendMessage(chatInput.value);
+        });
+
+        // Initialize button state on load
+        sendBtn.disabled = !chatInput.value.trim();
+
+
+        // Prompt buttons
+        promptButtons.forEach(btn => {
+            btn.addEventListener('click', () => sendMessage(btn.dataset.msg));
+        });
 
         renderMessages();
     </script>
