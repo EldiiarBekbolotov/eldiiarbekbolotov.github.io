@@ -59,6 +59,30 @@
     <h1>AI Mode is under construction</h1>
 
     <h1><a class="underline-link" href="index.html">Go Back</a></h1>
+
+    <script>
+        async function sendMessage(message) {
+            const response = await fetch("/chatWithGroq", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await response.json();
+            console.log("Groq reply:", data);
+
+            // Display the reply
+            document.getElementById("chat-output").innerText = data.choices[0].message.content;
+        }
+
+        // Example: send a test message on load
+        window.onload = () => {
+            sendMessage("Hello, EldiiarGPT!");
+        };
+    </script>
+
+    <div id="chat-output" style="color:white; margin-top:20px;"></div>
+
 </body>
 
 </html>

@@ -443,8 +443,7 @@ nav {
   line-height: 62px;
   display: flex;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(30px);
+  background-color: rgba(0, 0, 0, 1);
   box-shadow: var(--navbar-shadow);
   z-index: 999;
 }
@@ -453,20 +452,23 @@ nav a {
   color: white;
   height: 60px;
   line-height: 60px;
-  transition: all 0.15s;
+  transition: all 0.3s;
   border-top: 2px solid transparent;
   font-family: var(--small-font);
-  border-bottom: 2px solid transparent;
+  font-weight: 400;
+  width: 200px;
+  text-align: center;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid transparent;
   color: rgba(255, 255, 255, 0.5);
 }
 nav a:hover {
   color: white;
   text-decoration: none;
-  border-top: 2px solid white;
 }
 nav a.active {
   color: var(--primary);
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
 }
 
 .filters {
