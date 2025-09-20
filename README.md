@@ -1,6 +1,12 @@
-# eldiiarbekbolotov.github.io
+# Hi, my name is Eldiiar Bekbolotov.
 
-<p>Hi, my name is Eldiiar Bekbolotov. Welcome to my developer portfolio, hosted on Firebase.</p>
+<p>Welcome to my developer portfolio, hosted on Firebase, Netlify, and GitHub Pages.</p>
+
+<ul>
+    <li>Firebase (production)</li>
+    <li>Netlify (beta)</li>
+    <li>GitHub Pages (beta)</li>
+</ul>
 
 <img src='https://avatars.githubusercontent.com/u/75341047?s=96&v=4' style='height:100px'>
 
