@@ -26,8 +26,7 @@
     <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png>
     <link rel=icon type=image/png sizes=16x16 href=favicon-16x16.png>
     <link rel="manifest" href="site.webmanifest" />
-    <title>Eldiiar Bekbolotov | Blog</title>
-
+    <title>Eldiiar Bekbolotov</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -66,6 +65,16 @@
             padding-left: 0;
             list-style-position: inside;
             margin-right: 10px;
+        }
+
+        #overview {
+            border-top: 1px solid rgb(255, 255, 255, 0.15);
+            padding: 20px 20px;
+            margin-bottom: 0;
+        }
+
+        #overview p {
+            color: #FFF;
         }
 
         .grid {
@@ -150,72 +159,91 @@
             padding: 3px 6px;
             font-size: 14px;
         }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        #content-div {
+            background: #000;
+            max-width: 760px;
+            padding: 40px 20px;
+        }
+
+        #content-div img {
+            width: 100%;
+
+        }
+
+        #content-div p {
+            font-size: 18px;
+            line-height: 28px;
+            font-family: var(--big-font);
+            font-weight: 400;
+        }
     </style>
 </head>
 
 <body>
     <div id="social-links" style="justify-content:space-between;background:rgba(81, 77, 73, 0.8);">
-        <a href="\index.html" class="social-link" style="font-size: 16px;">
+        <a href="\blog.html" class="social-link" style="font-size: 16px;">
             Back</a>
         <div style="display:flex;">
 
 
-            <!-- <a class="ai no-select" href="github.com" target="_blank" style="margin-right: 15px;">
 
-                <span style="margin-left:5px;font-size:16px;">GitHub</span>
-                <svg style="width: 24px; height: 24px;margin-left:10px;" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16" fill="currentColor" class="h-6 w-6" aria-hidden="true">
-                    <path
-                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-                    </path>
-                </svg>
-            </a>
-            <a class="ai no-select" target="_blank" href="https://eldiiarcodes.web.app">
+            <a class="ai no-select" target="_blank" href="https://medium.com/@eldiiarbekbolotov">
 
-                <span style="margin-right:5px;margin-left:5px;font-size:16px;">Website</span>
+                <span style="margin-right:5px;margin-left:5px;font-size:16px;">View on Medium</span>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                     fill="#FFFFFF">
                     <path
                         d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z" />
                 </svg>
-            </a>-->
+            </a>
         </div>
     </div>
     <div style="height: 100%;">
-        <div style="margin: 0 auto;max-width: 800px;padding:0 15px;padding-top:90px;">
+        <div style="margin: 0 auto;max-width: 800px;">
+            <div style="padding: 0 25px;">
 
-            <div id="overview">
-                <h1 class="big-f">Eldiiar's Blog</h1>
-
-                <p>What would a developer portfolio be without a personal blog?</p>
-
-                <div style="margin-bottom: 40px;">
-                    <div class="element-parent">
-                        <div class="element-flex">
-                            <a href="blog/launch-announcement.html" class="underline-link"
-                                style="font-size:20px;">Launching Blog: The First Post</a>
-                            <div>
-                                <span class="year-span">20 Sep 2025</span>
-                            </div>
-                        </div>
-                        <p class="badges-place">
-                            <span>announcement</span>
-                            <span>website</span>
-                        </p>
-                    </div>
-
-                </div>
-
-                <p>View more of my writing on Medium: <a href="https://medium.com/@eldiiarbekbolotov" target="_blank"
-                        class="underline-link">@eldiiarbekbolotov</a>
-                </p>
+                <h1>Launching Blog: The First Post</h1>
             </div>
-
-            <!--<div style="padding-bottom: 100px;">
-                <h1>Project overview is under construction</h1>
-
-                <h1><a class="underline-link" href="\index.html">Go Back</a></h1>
-            </div>-->
+            <div id="overview">
+                <p class="badges-place">
+                    <span>announcement</span>
+                    <span>website</span>
+                </p>
+                <p>Posted 20 Sep 2025 by Eldiiar Bekbolotov<br />Last updated 20 Sep 2025 by Eldiiar Bekbolotov</p>
+            </div>
+            <div id="content-div">
+                <img
+                    src="https://images.unsplash.com/photo-1757495361144-0c2bfba62b9e?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <p>Hello! Welcome to the first ever post in my blog. It is a simple demonstration.</p>
+                <p>I'm going to launch my portfolio soon. I've spent the past few weeks building a brand new website,
+                    and have been adding small features every few days. The interesting part is that I didn't use any
+                    CSS or JavaScript libraries. Everything is written in vanilla CSS and vanilla JavaScript.</p>
+                <p>After looking at countless developer portfolios, I noticed one thing in common. They usually used
+                    both Tailwind and React. This is not an issue if done creatively, but a lot of them were vibecoded
+                    after analyzing the design and code analysis.
+                </p>
+                <p>Anyways, this will not be a story about the intricacies of the design process, nor will it be a
+                    documentation of the development process. This is simply a test article.</p>
+            </div>
         </div>
 
         <footer style="background:rgb(56, 25, 1);margin-top:45px;padding:0;">
