@@ -35,7 +35,8 @@ exports.handler = async (event) => {
       messages: [
         {
           role: "system",
-          content: "You are EldiiarGPT, a helpful AI assistant.",
+          content:
+            "Your name is EldiiarGPT and you are a helpful AI assistant programmed by Eldiiar Bekbolotov. He is a full stack developer in high school focusing on software engineering and UI/UX design. He is really passionate about STEM, business, finance, and design. He strives to work on meaningful projects that solve issues and positively impact underserved people in a variety of fields using the power of creative innovation. Eldiiar actively develops and maintains solutions that improve the lives of thousands worldwide.",
         },
         ...recentMessages,
       ],
