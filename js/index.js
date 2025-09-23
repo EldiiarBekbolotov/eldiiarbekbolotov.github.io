@@ -91,7 +91,7 @@ function MurkyPond() {
   this.mouseY = null;
   this.mouseRadius = 100;
   this.mouseInfluence = 1;
-  this.baseColors = [
+  /*this.baseColors = [
     {
       r: 255,
       g: 0,
@@ -123,9 +123,16 @@ function MurkyPond() {
       g: 255,
       b: 255,
     },
+  ];*/
+  this.baseColors = [
+    {
+      r: 105,
+      g: 155,
+      b: 255,
+    },
   ];
   this.sediments = [];
-  this.numSediments = 0; // 300
+  this.numSediments = 300; // 300
   this.initParticles();
   this.initSediments();
 }
@@ -135,13 +142,13 @@ MurkyPond.prototype.initParticles = function () {
   for (var i = 0; i < this.numParticles; i++) {
     var colorIndex = Math.floor(Math.random() * this.baseColors.length);
     var color = this.baseColors[colorIndex];
-    var r = color.r + Math.floor(Math.random() * 10) - 5;
+    var r = color.r + Math.floor(Math.random() * 40) - 5;
     var g = color.g + Math.floor(Math.random() * 10) - 5;
     var b = color.b + Math.floor(Math.random() * 10) - 5;
     this.particles.push({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 240 + 10,
+      size: Math.random() * 90 + 90,
       opacity: Math.random() * 0.05 + 0.025,
       speedX: (Math.random() - 0.0) * 0.0,
       speedY: (Math.random() - 0.0) * 0.0,
@@ -178,7 +185,7 @@ MurkyPond.prototype.update = function () {
     var p = this.particles[i];
     p.angle += p.angleSpeed;
     p.x += Math.cos(p.angle) * 0.45;
-    p.y += Math.sin(p.angle) * 0.45;
+    p.y += Math.sin(p.angle) * 1.45;
     if (p.x < -p.size) p.x = window.innerWidth + p.size;
     if (p.x > window.innerWidth + p.size) p.x = -p.size;
     if (p.y < -p.size) p.y = window.innerHeight + p.size;

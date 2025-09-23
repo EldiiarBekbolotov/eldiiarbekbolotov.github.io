@@ -18,6 +18,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description"
+        content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa." />
+    <meta property="og:image" content="apple-touch-icon.png" />
+    <meta property="og:description"
+        content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa." />
+    <meta property="og:title" content="Eldiiar Bekbolotov" />
     <title>EldiiarGPT</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -223,6 +229,9 @@
             margin: 0 5px;
             color: var(--primary-color2);
             border-radius: 100px;
+            font-weight: 500;
+            font-family: var(--small-font);
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -352,7 +361,9 @@
     </div>
     <div style="justify-content:center;display:flex;height:100%;">
         <div class="chat-container">
-            <div id="chat-messages"></div>
+            <div id="chat-messages" style="padding-top:100px;">
+
+            </div>
 
             <div id="prompt-buttons">
                 <button class="prompt-btn" data-msg="Who is Eldiiar?">Who is Eldiiar?</button>
@@ -385,15 +396,13 @@
         }
 
         async function sendMessage(content, type = 'ai') {
-            if (!content.trim()) return; // Prevent sending empty messages
+            if (!content.trim()) return;
 
-            // Add user message
             messages.push({ role: 'user', content });
             trimMessages();
             renderMessages();
             chatInput.value = '';
 
-            // Add typing indicator
             const typingDiv = document.createElement('div');
             typingDiv.classList.add('message', 'assistant', 'typing');
             typingDiv.textContent = 'EldiiarGPT is typing...';
@@ -409,10 +418,9 @@
                     const data = await res.json();
                     const botReply = data.reply || 'No response';
 
-                    // Remove typing indicator
+
                     typingDiv.remove();
 
-                    // Add AI reply
                     messages.push({ role: 'assistant', content: botReply });
                     trimMessages();
                     renderMessages();
@@ -472,7 +480,6 @@
             if (e.key === 'Enter') sendMessage(chatInput.value);
         });
 
-        // Initialize button state on load
         sendBtn.disabled = !chatInput.value.trim();
 
 

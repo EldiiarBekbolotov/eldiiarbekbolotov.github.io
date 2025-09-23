@@ -10,7 +10,7 @@
   --primary-hover: rgb(254, 176, 112);
   --primary-color: #000;
   --shadow: rgba(242, 152, 88, 0.2);
-  --navbar-shadow: 0 20px 220px rgba(242, 152, 88, 0.25);
+  --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
   --big-font: "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
   --small-font: "Roboto", "Roboto", "Noto Sans", arial, helvetica, sans-serif;
   --mono: "Roboto Mono", monospace;
