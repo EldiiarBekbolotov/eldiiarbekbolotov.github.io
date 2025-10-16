@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EldiiarGPT — Netlify function tester</title>
+    <style>
+        body {
+            background: #0b0b0b;
+            color: #e6eef8;
+            font-family: system-ui, Segoe UI, Roboto, Arial;
+            padding: 24px
+        }
+
+        .card {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #071017;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.03)
+        }
+
+        label {
+            display: block;
+            margin: 8px 0 6px;
+            font-size: 13px;
+            color: #9fb3c8
+        }
+
+        input[type=text],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: #061018;
+            color: #e6eef8
+        }
+
+        button {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: none;
+            background: #0a84ff;
+            color: #fff;
+            cursor: pointer
+        }
+
+        pre {
+            background: #031018;
+            padding: 12px;
+            border-radius: 8px;
+            overflow: auto;
+            color: #dbefff
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        .muted {
+            color: #6f8ea3;
+            font-size: 13px
+        }
+
+        .small {
+            font-size: 13px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>EldiiarGPT — Netlify function tester</h2>
+        <p class="muted">Enter your deployed Netlify function URL (example:
+            https://yoursite.netlify.app/.netlify/functions/chatWithGroq). This page will POST a prompt and show the
+            reply. Uses GROQ_API_KEY stored in Netlify environment.</p>
+
+        <label for="fn">Function URL</label>
+        <input id="fn" type="text" placeholder="https://eldiiar.netlify.app/.netlify/functions/chatWithGroq" />
+
+        <div style="margin-top:10px">
+            <label for="prompt">Prompt</label>
+            <textarea id="prompt" rows="4" placeholder="Write a short poem about Ottawa..."></textarea>
+        </div>
+
+        <div style="margin-top:12px" class="row">
+            <button id="send">Send</button>
+            <button id="options">Preflight (OPTIONS)</button>
+            <button id="clear">Clear output</button>
+        </div>
+
+        <h3 style="margin-top:16px">Reply</h3>
+        <div id="replyArea">
+            <pre id="reply">(no reply yet)</pre>
+        </div>
+
+        <h3 style="margin-top:12px">Raw response</h3>
+        <pre id="raw">(no response yet)</pre>
+
+        <p class="small muted">Tip: If you get 400 Missing API key, make sure GROQ_API_KEY is set in Netlify site env
+            and redeploy.</p>
+    </div>
+
+    <script>
+        const fnInput = document.getElementById('fn');
+        const promptEl = document.getElementById('prompt');
+        const sendBtn = document.getElementById('send');
+        const optionsBtn = document.getElementById('options');
+        const clearBtn = document.getElementById('clear');
+        const replyEl = document.getElementById('reply');
+        const rawEl = document.getElementById('raw');
+
+        // Load saved function url
+        const STORAGE_KEY = 'eldiiar_fn_url_v1';
+        fnInput.value = localStorage.getItem(STORAGE_KEY) || '';
+
+        function setStatus(text) { replyEl.textContent = text; }
+
+        async function doOptions(url) {
+            try {
+                const res = await fetch(url, { method: 'OPTIONS' });
+                rawEl.textContent = res.status + ' ' + res.statusText + '\n' + JSON.stringify([...res.headers], null, 2);
+                setStatus('(OPTIONS returned ' + res.status + ')');
+            } catch (e) { rawEl.textContent = 'OPTIONS error: ' + e.message; setStatus('Error'); }
+        }
+
+        async function doPrompt(url, prompt) {
+            setStatus('Sending...');
+            rawEl.textContent = '';
+            try {
+                const payload = { prompt, model: 'openai/gpt-oss-120b' };
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const text = await res.text();
+                rawEl.textContent = res.status + ' ' + res.statusText + '\n\n' + text;
+
+                let json = null;
+                try { json = JSON.parse(text); } catch (e) { /* not JSON */ }
+
+                if (!res.ok) {
+                    setStatus('Error ' + res.status);
+                    if (json && json.error) setStatus('Error: ' + (json.error.message || JSON.stringify(json.error)));
+                    return;
+                }
+
+                const reply = (json && (json.reply || (json.raw && json.raw.choices && json.raw.choices[0] && (json.raw.choices[0].message?.content || json.raw.choices[0].content)))) || (json && JSON.stringify(json)) || text;
+                setStatus('OK');
+                replyEl.textContent = reply;
+            } catch (err) { rawEl.textContent = 'Fetch error: ' + err.message; setStatus('Fetch error'); }
+        }
+
+        sendBtn.addEventListener('click', () => {
+            const url = fnInput.value.trim();
+            if (!url) { alert('Enter function URL'); return; }
+            localStorage.setItem(STORAGE_KEY, url);
+            const p = promptEl.value.trim();
+            if (!p) { alert('Enter a prompt'); return; }
+            doPrompt(url, p);
+        });
+
+        optionsBtn.addEventListener('click', () => {
+            const url = fnInput.value.trim();
+            if (!url) { alert('Enter function URL'); return; }
+            doOptions(url);
+        });
+
+        clearBtn.addEventListener('click', () => { replyEl.textContent = '(no reply yet)'; rawEl.textContent = '(no response yet)'; });
+
+        // Allow Enter to send when focus in textarea with Ctrl/Cmd+Enter
+        promptEl.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { sendBtn.click(); } });
+    </script>
+</body>
+
+</html>

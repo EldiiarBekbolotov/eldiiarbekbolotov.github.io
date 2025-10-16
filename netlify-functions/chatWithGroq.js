@@ -48,7 +48,7 @@ exports.handler = async (event) => {
         "You are EldiiarGPT, a helpful assistant created by Eldiiar Bekbolotov. Be concise and friendly.",
     };
 
-    const model = body.model || "gemma2-9b-it";
+    const model = body.model || "openai/gpt-oss-120b";
     const temperature =
       typeof body.temperature === "number" ? body.temperature : 1;
     const max_completion_tokens =
