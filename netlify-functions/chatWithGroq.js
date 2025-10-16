@@ -1,65 +1,92 @@
 exports.handler = async (event) => {
+  const CORS_HEADERS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
   if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 204,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-      body: "",
-    };
+    return { statusCode: 204, headers: CORS_HEADERS, body: "" };
   }
 
   try {
-    const body = JSON.parse(event.body);
+    const body = event.body ? JSON.parse(event.body) : {};
 
-    if (!body.messages || !Array.isArray(body.messages)) {
+    // Accept either messages array or prompt string
+    let messages = [];
+    if (Array.isArray(body.messages) && body.messages.length) {
+      messages = body.messages;
+    } else if (typeof body.prompt === "string" && body.prompt.trim()) {
+      messages = [{ role: "user", content: body.prompt.trim() }];
+    } else {
       return {
         statusCode: 400,
-        headers: { "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({ error: "Missing messages array" }),
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: "Provide messages[] or prompt" }),
       };
     }
 
     // Keep only valid roles and last 25 messages
-    const validRoles = ["user", "assistant", "system"];
-    const recentMessages = body.messages
-      .filter((msg) => validRoles.includes(msg.role))
-      .slice(-25);
+    const validRoles = new Set(["user", "assistant", "system"]);
+    messages = messages.filter((m) => m && validRoles.has(m.role)).slice(-25);
+
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      return {
+        statusCode: 500,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: "Missing GROQ_API_KEY env var" }),
+      };
+    }
 
     const { Groq } = require("groq-sdk");
-    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    const groq = new Groq({ apiKey });
+
+    const systemMsg = {
+      role: "system",
+      content:
+        "You are EldiiarGPT, a helpful assistant created by Eldiiar Bekbolotov. Be concise and friendly.",
+    };
+
+    const model = body.model || "gemma2-9b-it";
+    const temperature =
+      typeof body.temperature === "number" ? body.temperature : 1;
+    const max_completion_tokens =
+      typeof body.max_tokens === "number" ? body.max_tokens : 1024;
+    const top_p = typeof body.top_p === "number" ? body.top_p : 1;
 
     const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "Your name is EldiiarGPT and you are a helpful AI assistant programmed by Eldiiar Bekbolotov. He is a full stack developer in high school focusing on software engineering and UI/UX design. He is really passionate about STEM, business, finance, and design. He strives to work on meaningful projects that solve issues and positively impact underserved people in a variety of fields using the power of creative innovation. Eldiiar actively develops and maintains solutions that improve the lives of thousands worldwide.",
-        },
-        ...recentMessages,
-      ],
-      model: "openai/gpt-oss-120b",
-      temperature: 1,
-      max_completion_tokens: 1024,
-      top_p: 1,
+      messages: [systemMsg, ...messages],
+      model,
+      temperature,
+      max_completion_tokens,
+      top_p,
       stream: false,
     });
 
-    const reply = chatCompletion.choices[0]?.message?.content || "No response";
+    const reply =
+      chatCompletion?.choices?.[0]?.message?.content ||
+      chatCompletion?.choices?.[0]?.content ||
+      chatCompletion?.choices?.[0]?.text ||
+      chatCompletion?.reply ||
+      null;
 
     return {
       statusCode: 200,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({ reply }),
+      headers: CORS_HEADERS,
+      body: JSON.stringify({ ok: true, reply, raw: chatCompletion }),
     };
   } catch (err) {
-    console.error(err);
+    console.error("chatWithGroq error:", err);
     return {
       statusCode: 500,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({ error: "Error calling Groq API" }),
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        error: "Internal server error",
+        detail: err.message,
+      }),
     };
   }
 };
