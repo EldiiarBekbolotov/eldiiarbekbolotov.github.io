@@ -40,7 +40,7 @@ exports.handler = async (event) => {
         },
         ...recentMessages,
       ],
-      model: "gemma2-9b-it",
+      model: "openai/gpt-oss-120b",
       temperature: 1,
       max_completion_tokens: 1024,
       top_p: 1,
