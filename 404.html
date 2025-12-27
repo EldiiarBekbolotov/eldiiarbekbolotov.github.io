@@ -35,14 +35,17 @@
       font-family: Roboto, Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
+      overflow: hidden;
     }
 
     #message {
-      background: rgb(20, 20, 20);
+      background: rgb(20, 20, 20, 0.5);
       max-width: 360px;
       margin: 100px auto 16px;
       padding: 32px 24px 16px;
       border-radius: 3px;
+      position: relative;
+      z-index: 10;
     }
 
     #message h3 {
@@ -108,6 +111,26 @@
       font-size: 13px;
     }
 
+    #fps {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 2px 2px 2px #000;
+      z-index: 10;
+    }
+
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     @media (max-width: 600px) {
 
       body,
@@ -125,6 +148,7 @@
 </head>
 
 <body>
+  <div id="fps">FPS: --</div>
   <div id="message">
     <h2>404</h2>
     <h1>Page Not Found</h1>
@@ -133,6 +157,246 @@
   </div>
 
   <div id="load">Eldiiar Bekbolotov</div>
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js';
+
+    /** --- SHADERS --- **/
+    const EDGE_VERT = `
+    varying vec2 vUv;
+    void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+`;
+
+    const EDGE_FRAG = `
+    precision highp float;
+    uniform float uTime;
+    uniform vec3 uColor;
+    varying vec2 vUv;
+    #define W_LANES 5
+    float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+34.123);return fract(p.x*p.y);}
+    void main() {
+        vec2 uvc = vec2((vUv.x - 0.5) * 2.0, vUv.y * 10.0);
+        float yf = (uvc.y + uTime * 15.0) / 8.0;
+        float energy = 0.0;
+        for(int i=0; i<W_LANES; ++i) {
+            float fi = float(i);
+            float xOff = sin(uvc.y * 0.5 + uTime * 5.0 + fi) * 0.4;
+            float dx = abs(uvc.x - xOff);
+            float pattern = smoothstep(0.3, 0.0, dx) * exp(-fi * 0.5);
+            float seed = h21(vec2(fi, 1.0));
+            energy += pattern * step(h21(vec2(floor(yf+seed), fi)), 0.7);
+        }
+        float coreDist = abs(uvc.x);
+        float core = exp(-coreDist * 18.0) * 2.5;
+        float glow = exp(-coreDist * 4.2) * 2.5;
+        gl_FragColor = vec4((vec3(1.0) * core + uColor * (glow + energy * 2.5)), 1.0);
+    }
+`;
+
+    /** --- SETUP --- **/
+    const scene = new THREE.Scene();
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.5;
+    document.body.appendChild(renderer.domElement);
+
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 25, 60);
+    camera.lookAt(0, 0, 0);
+
+    // Environment
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    const drawEnv = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512; canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#050505'; ctx.fillRect(0, 0, 512, 256);
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(100, 50, 40, 120);
+      return new THREE.CanvasTexture(canvas);
+    };
+    scene.environment = pmremGenerator.fromEquirectangular(drawEnv()).texture;
+
+    /** --- LIGHTING --- **/
+    // Fixed light in world space to cast shadows on the internal walls
+    const light = new THREE.SpotLight(0xffffff, 2000);
+    light.position.set(20, 40, 30);
+    light.castShadow = true;
+    light.angle = 0.6;
+    light.penumbra = 0.5;
+    light.shadow.mapSize.set(2048, 2048);
+    light.shadow.camera.near = 10;
+    light.shadow.camera.far = 200;
+    scene.add(light);
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.15);
+    scene.add(ambient);
+
+    const worldGroup = new THREE.Group();
+    scene.add(worldGroup);
+    const dim = { x: 12, y: 12, z: 12 };
+
+    /** --- ASSETS --- **/
+    const glassMat = new THREE.MeshPhysicalMaterial({
+      transmission: 0.9, roughness: 0.1, thickness: 2.0, ior: 1.5,
+      transparent: true, opacity: 0.2, side: THREE.DoubleSide
+    });
+
+    const createWall = (pos, rot) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(dim.x * 2, 0.5, dim.z * 2), glassMat);
+      m.position.copy(pos); m.rotation.copy(rot);
+      m.receiveShadow = true;
+      worldGroup.add(m);
+    };
+    createWall(new THREE.Vector3(0, dim.y, 0), new THREE.Euler(0, 0, 0));
+    createWall(new THREE.Vector3(0, -dim.y, 0), new THREE.Euler(0, 0, 0));
+    createWall(new THREE.Vector3(dim.x, 0, 0), new THREE.Euler(0, 0, Math.PI / 2));
+    createWall(new THREE.Vector3(-dim.x, 0, 0), new THREE.Euler(0, 0, Math.PI / 2));
+    createWall(new THREE.Vector3(0, 0, dim.z), new THREE.Euler(Math.PI / 2, 0, 0));
+    createWall(new THREE.Vector3(0, 0, -dim.z), new THREE.Euler(Math.PI / 2, 0, 0));
+
+    const saberUniforms = [];
+    function createSaber(p1, p2) {
+      const curve = new THREE.LineCurve3(p1, p2);
+      const mat = new THREE.ShaderMaterial({
+        uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(0x00aaff) } },
+        vertexShader: EDGE_VERT, fragmentShader: EDGE_FRAG,
+        transparent: true, blending: THREE.AdditiveBlending
+      });
+      const mesh = new THREE.Mesh(new THREE.TubeGeometry(curve, 20, 0.5, 8, false), mat);
+      worldGroup.add(mesh);
+      saberUniforms.push(mat.uniforms);
+    }
+
+    const pts = [
+      new THREE.Vector3(-dim.x, -dim.y, -dim.z), new THREE.Vector3(dim.x, -dim.y, -dim.z),
+      new THREE.Vector3(dim.x, dim.y, -dim.z), new THREE.Vector3(-dim.x, dim.y, -dim.z),
+      new THREE.Vector3(-dim.x, -dim.y, dim.z), new THREE.Vector3(dim.x, -dim.y, dim.z),
+      new THREE.Vector3(dim.x, dim.y, dim.z), new THREE.Vector3(-dim.x, dim.y, dim.z)
+    ];
+    const pairs = [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
+    pairs.forEach(p => createSaber(pts[p[0]], pts[p[1]]));
+
+    const balls = [];
+    const ballRadius = 2.2;
+    for (let i = 0; i < 6; i++) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512; canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+      const h = Math.random() * 360;
+      ctx.fillStyle = `hsl(${h}, 60%, 20%)`; ctx.fillRect(0, 0, 512, 512);
+      for (let j = 0; j < 40; j++) {
+        ctx.strokeStyle = `rgba(255,255,255,${Math.random() * 0.3})`; ctx.lineWidth = Math.random() * 15;
+        ctx.beginPath(); ctx.arc(Math.random() * 512, Math.random() * 512, Math.random() * 200, 0, Math.PI * 2); ctx.stroke();
+      }
+      const ball = new THREE.Mesh(
+        new THREE.SphereGeometry(ballRadius, 48, 48),
+        new THREE.MeshPhysicalMaterial({ map: new THREE.CanvasTexture(canvas), roughness: 0.05, clearcoat: 1.0 })
+      );
+      ball.castShadow = true;
+      ball.receiveShadow = true;
+      ball.position.set((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
+      ball.userData = {
+        vel: new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(0.15),
+        rotVel: new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(0.01)
+      };
+      balls.push(ball); worldGroup.add(ball);
+    }
+
+    /** --- INTERACTION --- **/
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      // Normalize mouse position -0.5 to 0.5
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    const fpsEl = document.getElementById('fps');
+    let lastTime = performance.now();
+
+    /** --- ANIMATION & PHYSICS --- **/
+    function animate() {
+      requestAnimationFrame(animate);
+      const now = performance.now();
+      const dt = (now - lastTime) / 1000;
+      lastTime = now;
+      if (dt > 0) fpsEl.innerText = `FPS: ${Math.round(1 / dt)}`;
+
+      // Cube Rotation: Tumbles based on mouse direction
+      // Mouse X moves rotation around Y axis, Mouse Y moves rotation around X axis
+      const tumbleSpeed = 0.025;
+      worldGroup.rotation.y += mouseX * tumbleSpeed;
+      worldGroup.rotation.x += mouseY * tumbleSpeed;
+
+      saberUniforms.forEach(u => u.uTime.value = now / 1000);
+
+      const subSteps = 8;
+      for (let s = 0; s < subSteps; s++) {
+        balls.forEach((b1, i) => {
+          const v = b1.userData.vel;
+          const rV = b1.userData.rotVel;
+
+          // SLOWER GRAVITY: Normalized to cube rotation
+          const grav = new THREE.Vector3(0, -0.003, 0).applyQuaternion(worldGroup.quaternion.clone().invert());
+          v.add(grav);
+          b1.position.add(v.clone().divideScalar(subSteps));
+
+          // Eternal Wall Collisions (Restitution = 1.0)
+          ['x', 'y', 'z'].forEach(a => {
+            const limit = dim[a] - ballRadius;
+            if (Math.abs(b1.position[a]) > limit) {
+              b1.position[a] = Math.sign(b1.position[a]) * limit;
+              v[a] *= -1.0;
+              rV.add(new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(0.002));
+            }
+          });
+
+          // Ball-to-Ball Collisions
+          for (let j = i + 1; j < balls.length; j++) {
+            const b2 = balls[j];
+            const delta = b1.position.clone().sub(b2.position);
+            const dist = delta.length();
+            if (dist < ballRadius * 2) {
+              const n = delta.normalize();
+              const relV = v.clone().sub(b2.userData.vel);
+              if (relV.dot(n) < 0) {
+                const impulse = n.multiplyScalar(relV.dot(n));
+                v.sub(impulse);
+                b2.userData.vel.add(impulse);
+                const overlap = (ballRadius * 2 - dist) * 0.5;
+                b1.position.add(n.clone().multiplyScalar(overlap));
+                b2.position.sub(n.clone().multiplyScalar(overlap));
+                rV.add(relV.clone().multiplyScalar(0.002));
+              }
+            }
+          }
+        });
+      }
+
+      balls.forEach(ball => {
+        const rV = ball.userData.rotVel;
+        rV.clampScalar(-0.02, 0.02);
+        ball.rotation.x += rV.x;
+        ball.rotation.y += rV.y;
+        ball.rotation.z += rV.z;
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+  </script>
 </body>
 
 </html>
