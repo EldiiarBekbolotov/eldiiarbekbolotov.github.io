@@ -2,7 +2,7 @@ function letterchunk(letter, index, totalLetters, nChunks = 5) {
   let container = document.getElementsByClassName("network")[0];
   let totalDuration =
     4000 + (nChunks - 1) * 150 + (totalLetters - 1) * 100 + 1500;
-
+ 
   for (let i = 0; i < nChunks; i++) {
     let span = document.createElement("span");
     span.classList.add("chunk");

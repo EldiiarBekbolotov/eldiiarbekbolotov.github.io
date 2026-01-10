@@ -8,10 +8,10 @@ exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: CORS_HEADERS, body: "" };
   }
-
+ 
   try {
     const body = event.body ? JSON.parse(event.body) : {};
-
+ 
     // Accept either messages array or prompt string
     let messages = [];
     if (Array.isArray(body.messages) && body.messages.length) {
