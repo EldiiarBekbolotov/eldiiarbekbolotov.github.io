@@ -361,6 +361,36 @@ footer {
   -webkit-backdrop-filter: blur(30px);
   max-width: 1000px;
   margin: 0 auto;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  isolation: isolate;
+}
+
+/* Safari fix: use pseudo-element when backdrop-filter needs isolation from mix-blend-mode */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  #social-links {
+    background-color: transparent;
+  }
+  
+  #social-links::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+#social-links > * {
+  position: relative;
+  z-index: 1;
   mix-blend-mode: difference;
 }
 
@@ -370,6 +400,9 @@ footer {
     bottom: 0px;
     border-radius: 0px;
     right: 0px;
+  }
+  #social-links::before {
+    border-radius: 0px;
   }
 }
 
