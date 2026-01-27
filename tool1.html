@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tool1</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #111;
+            --accent: #b50502;
+            --grid: #ff3e3e;
+            --text: #eee;
+        }
+
+        body {
+            margin: 0; padding: 10px; font-family: sans-serif;
+            background: var(--bg); color: var(--text);
+            display: flex; flex-direction: column; align-items: center;
+            height: 100vh; overflow: hidden; user-select: none;
+        }
+
+        .header { text-align: center; margin-bottom: 10px; }
+        .score-val { font-size: 4rem; font-weight: 900; color: var(--accent); font-family: monospace; line-height: 1; }
+        .score-label { font-size: 0.7rem; letter-spacing: 2px; color: #666; text-transform: uppercase; }
+
+        .viewport {
+            position: relative; width: 100%; height: 55vh;
+            background: #000; border-radius: 12px; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            border: 1px solid #222; touch-action: none;
+        }
+
+        video { width: 100%; height: 100%; object-fit: contain; }
+
+        #delayOverlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 5; display: none;
+            object-fit: contain; object-position: center;
+        }
+
+        /* Full Viewport Grid Lines */
+        .grid-line {
+            position: absolute; background: var(--grid);
+            display: none; pointer-events: none; z-index: 10; opacity: 0.5;
+        }
+        #grid-v { width: 1px; height: 100%; left: 50%; top: 0; }
+        #grid-h { height: 1px; width: 100%; top: 50%; left: 0; }
+
+        #analysisBox {
+            position: absolute; border: 2px solid var(--accent);
+            background: rgba(0, 242, 255, 0.05); z-index: 50; cursor: move;
+        }
+
+        #analysisBox::after {
+            content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 1px; background: rgba(0, 242, 255, 0.5); transform: translateX(-50%);
+        }
+
+        .handle {
+            position: absolute; width: 24px; height: 24px; 
+            background: var(--accent); border-radius: 4px;
+        }
+        .br { right: -12px; bottom: -12px; cursor: nwse-resize; }
+        .tl { left: -12px; top: -12px; cursor: nwse-resize; }
+
+        .controls {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px; width: 100%; max-width: 900px; margin-top: 15px;
+            background: var(--panel); padding: 15px; border-radius: 12px;
+        }
+
+        .group { display: flex; flex-direction: column; gap: 5px; align-items: center; }
+        label { font-size: 0.6rem; color: #555; font-weight: bold; text-transform: uppercase; }
+
+        button {
+            width: 100%; padding: 10px; border: none; border-radius: 6px;
+            background: #222; color: #fff; cursor: pointer; font-weight: bold; font-size: 0.8rem;
+        }
+        button.active { background: #333; border: 1px solid var(--accent); color: var(--accent); }
+        .capture { background: #00ff88 !important; color: #000; }
+
+        canvas:not(#delayOverlay) { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="score-label">Live Symmetry Index</div>
+        <div id="score" class="score-val">--.-</div>
+    </div>
+
+    <div class="viewport" id="stage">
+        <video id="web" autoplay playsinline></video>
+        <canvas id="delayOverlay"></canvas>
+        <div id="grid-v" class="grid-line"></div>
+        <div id="grid-h" class="grid-line"></div>
+
+        <div id="analysisBox">
+            <div class="handle tl"></div>
+            <div class="handle br"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="group">
+            <label>Mirror</label>
+            <button id="flipBtn" class="active" tabindex="0" type="button" onclick="toggleFlip()" aria-pressed="true">ON</button>
+        </div>
+        <div class="group">
+            <label>Guides</label>
+            <button id="gridBtn" tabindex="0" type="button" onclick="toggleGrid()" aria-pressed="false">GRID</button>
+        </div>
+        <div class="group">
+            <label>Camera</label>
+            <select id="camList" style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:5px; font-size: 0.7rem;"></select>
+        </div>
+        <div class="group">
+            <label>Timer</label>
+            <input type="number" id="tDelay" value="3" style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:5px; text-align:center;">
+        </div>
+        <div class="group">
+            <label>Delay</label>
+            <input type="number" id="viewDelay" value="0" min="0" max="30" step="1" placeholder="0" style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:5px; text-align:center;" title="Seconds of delay for video only (0 = live video; symmetry always uses live feed)">
+        </div>
+        <div class="group">
+            <label>Actions</label>
+            <button class="capture" onclick="takeShot()">PHOTO</button>
+        </div>
+    </div>
+
+    <canvas id="buffer"></canvas>
+
+    <script>
+        const video = document.getElementById('web');
+        const box = document.getElementById('analysisBox');
+        const stage = document.getElementById('stage');
+        const scoreEl = document.getElementById('score');
+        const buffer = document.getElementById('buffer');
+        const btx = buffer.getContext('2d', { willReadFrequently: true });
+
+        let flipped = true;
+        let showGrid = false;
+        let boxData = { t: 15, l: 40, w: 20, h: 50 };
+        let smoothedScore = 100;
+
+        // Video-only delay: buffer full-view frames for display (symmetry always uses live feed)
+        const videoDelayBuffer = [];
+        const MAX_BUFFER_SEC = 30;
+        const VIDEO_DELAY_CAPTURE_MS = 50; // capture every 50ms for smooth delay
+        let lastVideoCaptureTime = 0;
+        const DELAY_CAPTURE_W = 320, DELAY_CAPTURE_H = 180;
+        const delayCaptureCanvas = document.createElement('canvas');
+        delayCaptureCanvas.width = DELAY_CAPTURE_W;
+        delayCaptureCanvas.height = DELAY_CAPTURE_H;
+        const delayCaptureCtx = delayCaptureCanvas.getContext('2d', { willReadFrequently: true });
+        const delayOverlay = document.getElementById('delayOverlay');
+
+        function updateUI() {
+            box.style.top = boxData.t + "%";
+            box.style.left = boxData.l + "%";
+            box.style.width = boxData.w + "%";
+            box.style.height = boxData.h + "%";
+        }
+
+        // --- Interaction Logic ---
+        let mode = null, startX, startY, startBox;
+        box.addEventListener('mousedown', (e) => {
+            mode = e.target.classList.contains('handle') ? (e.target.classList.contains('br') ? 'br' : 'tl') : 'move';
+            startX = e.clientX; startY = e.clientY;
+            startBox = {...boxData};
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!mode) return;
+            const dx = ((e.clientX - startX) / stage.clientWidth) * 100;
+            const dy = ((e.clientY - startY) / stage.clientHeight) * 100;
+
+            if (mode === 'move') {
+                boxData.l = Math.max(0, Math.min(100 - startBox.w, startBox.l + dx));
+                boxData.t = Math.max(0, Math.min(100 - startBox.h, startBox.t + dy));
+            } else if (mode === 'br') {
+                boxData.w = Math.max(5, startBox.w + dx);
+                boxData.h = Math.max(5, startBox.h + dy);
+            } else if (mode === 'tl') {
+                boxData.l = Math.max(0, startBox.l + dx);
+                boxData.t = Math.max(0, startBox.t + dy);
+                boxData.w = Math.max(5, startBox.w - dx);
+                boxData.h = Math.max(5, startBox.h - dy);
+            }
+            updateUI();
+        });
+        window.addEventListener('mouseup', () => mode = null);
+
+        // --- Core Engine ---
+        async function start() {
+            updateUI();
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280 } });
+                video.srcObject = stream;
+                const devs = await navigator.mediaDevices.enumerateDevices();
+                document.getElementById('camList').innerHTML = devs.filter(d => d.kind === 'videoinput')
+                    .map(d => `<option value="${d.deviceId}">${d.label || 'Camera'}</option>`).join('');
+                requestAnimationFrame(loop);
+            } catch(e) { alert("Camera access required."); }
+        }
+
+        function loop() {
+            if (video.readyState === 4) {
+                const vw = video.videoWidth, vh = video.videoHeight;
+                const sRect = stage.getBoundingClientRect();
+                const vRatio = vw / vh, sRatio = sRect.width / sRect.height;
+                
+                let curW, curH, ox = 0, oy = 0;
+                if (sRatio > vRatio) {
+                    curH = sRect.height; curW = curH * vRatio;
+                    ox = (sRect.width - curW) / 2;
+                } else {
+                    curW = sRect.width; curH = curW / vRatio;
+                    oy = (sRect.height - curH) / 2;
+                }
+
+                const bRect = box.getBoundingClientRect();
+                const sx = ((bRect.left - sRect.left - ox) / curW) * vw;
+                const sy = ((bRect.top - sRect.top - oy) / curH) * vh;
+                const sw = (bRect.width / curW) * vw;
+                const sh = (bRect.height / curH) * vh;
+
+                const delaySec = Math.max(0, Math.min(MAX_BUFFER_SEC, parseFloat(document.getElementById('viewDelay').value) || 0));
+                const now = performance.now() / 1000;
+
+                // Video-only delay: always buffer full-view frames for display
+                if (now - lastVideoCaptureTime >= VIDEO_DELAY_CAPTURE_MS / 1000) {
+                    delayCaptureCtx.drawImage(video, 0, 0, DELAY_CAPTURE_W, DELAY_CAPTURE_H);
+                    videoDelayBuffer.push({ time: now, data: delayCaptureCtx.getImageData(0, 0, DELAY_CAPTURE_W, DELAY_CAPTURE_H) });
+                    lastVideoCaptureTime = now;
+                    while (videoDelayBuffer.length > 0 && now - videoDelayBuffer[0].time > MAX_BUFFER_SEC)
+                        videoDelayBuffer.shift();
+                }
+
+                // Video-only delay: show delayed video on overlay when delay > 0 (symmetry always uses live)
+                if (delaySec <= 0) {
+                    delayOverlay.style.display = 'none';
+                } else if (videoDelayBuffer.length > 0 && (now - videoDelayBuffer[0].time) >= delaySec - 0.05) {
+                    const targetTime = now - delaySec;
+                    let best = videoDelayBuffer[0];
+                    for (let i = 1; i < videoDelayBuffer.length; i++) {
+                        if (Math.abs(videoDelayBuffer[i].time - targetTime) < Math.abs(best.time - targetTime))
+                            best = videoDelayBuffer[i];
+                    }
+                    delayOverlay.width = sRect.width;
+                    delayOverlay.height = sRect.height;
+                    const dCtx = delayOverlay.getContext('2d');
+                    const tmp = dCtx.createImageData(DELAY_CAPTURE_W, DELAY_CAPTURE_H);
+                    tmp.data.set(best.data.data);
+                    const tmpCan = document.createElement('canvas');
+                    tmpCan.width = DELAY_CAPTURE_W;
+                    tmpCan.height = DELAY_CAPTURE_H;
+                    tmpCan.getContext('2d').putImageData(tmp, 0, 0);
+                    dCtx.save();
+                    dCtx.fillStyle = '#000';
+                    dCtx.fillRect(0, 0, sRect.width, sRect.height);
+                    if (flipped) { dCtx.translate(sRect.width, 0); dCtx.scale(-1, 1); }
+                    dCtx.drawImage(tmpCan, 0, 0, DELAY_CAPTURE_W, DELAY_CAPTURE_H, ox, oy, curW, curH);
+                    dCtx.restore();
+                    delayOverlay.style.display = 'block';
+                }
+
+                // Symmetry always uses live frame (current crop)
+                if (sw > 10) {
+                    buffer.width = 80; buffer.height = 80;
+                    btx.drawImage(video, sx, sy, sw, sh, 0, 0, 80, 80);
+                    const img = btx.getImageData(0, 0, 80, 80).data;
+                    let diffSum = 0;
+                    for (let y = 0; y < 80; y++) {
+                        for (let x = 0; x < 40; x++) {
+                            const p1 = (y * 80 + x) * 4;
+                            const p2 = (y * 80 + (79 - x)) * 4;
+                            const d = Math.abs(img[p1] - img[p2]) + Math.abs(img[p1+1] - img[p2+1]) + Math.abs(img[p1+2] - img[p2+2]);
+                            if (d > 30) diffSum += d;
+                        }
+                    }
+                    const avgDiff = diffSum / (80 * 40);
+                    let rawScore = 100 - (avgDiff * 0.7);
+                    rawScore = 100 * Math.pow(Math.max(0, rawScore) / 100, 0.5);
+                    smoothedScore = (smoothedScore * 0.8) + (rawScore * 0.2);
+                    scoreEl.innerText = smoothedScore.toFixed(1);
+                    scoreEl.style.color = smoothedScore > 85 ? '#00f2ff' : (smoothedScore > 70 ? '#ffea00' : '#ff3e3e');
+                }
+            }
+            requestAnimationFrame(loop);
+        }
+
+        function toggleFlip() {
+            flipped = !flipped;
+            video.style.transform = flipped ? 'scaleX(-1)' : 'scaleX(1)';
+            const btn = document.getElementById('flipBtn');
+            btn.innerText = flipped ? 'ON' : 'OFF';
+            btn.classList.toggle('active', flipped);
+            btn.setAttribute('aria-pressed', flipped);
+        }
+
+        function toggleGrid() {
+            showGrid = !showGrid;
+            document.querySelectorAll('.grid-line').forEach(l => l.style.display = showGrid ? 'block' : 'none');
+            const btn = document.getElementById('gridBtn');
+            btn.classList.toggle('active', showGrid);
+            btn.setAttribute('aria-pressed', showGrid);
+        }
+
+        // Tab + Space/Enter to activate Mirror and Guides when focused
+        document.getElementById('flipBtn').addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleFlip(); }
+        });
+        document.getElementById('gridBtn').addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleGrid(); }
+        });
+
+        function takeShot() {
+            const c = document.createElement('canvas');
+            c.width = video.videoWidth; c.height = video.videoHeight;
+            const ctx = c.getContext('2d');
+            if (flipped) { ctx.translate(c.width, 0); ctx.scale(-1, 1); }
+            ctx.drawImage(video, 0, 0);
+            const a = document.createElement('a');
+            a.download = `symmetry_${scoreEl.innerText}.png`;
+            a.href = c.toDataURL(); a.click();
+        }
+
+        start();
+    </script>
+</body>
+</html>

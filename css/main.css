@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 :root {
   --primary: rgb(201, 146, 102);
   --primary-hover: rgb(135, 101, 73);
@@ -10,9 +11,10 @@
   --primary-hover: rgb(254, 176, 112);
   --primary-color: #000;
   --shadow: rgba(242, 152, 88, 0.2);
+
   --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
-  --big-font: "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
-  --small-font: "Roboto", "Roboto", "Noto Sans", arial, helvetica, sans-serif;
+  --big-font: "Google Sans", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
+  --small-font: "Google Sans Flex", "Roboto", "Roboto", "Noto Sans", arial, helvetica, sans-serif;
   --mono: "Roboto Mono", monospace;
 
   --colora: rgb(255, 86, 80);

@@ -24,7 +24,7 @@
     <meta property="og:description"
         content="Eldiiar Bekbolotov is an entrepreneur, software engineer, and high school student, currently based in Ottawa." />
     <meta property="og:title" content="Eldiiar Bekbolotov" />
-    <title>EldiiarGPT</title>
+    <title>Eldiiar Bekbolotov</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,18 +41,14 @@
             --primary-color2: var(--primary-color);
             --primary-hover2: var(--primary-hover);
 
-            --primary2: #1B8AFC;
+            --primary2: rgb(208, 136, 77);
             --primary-color2: #000000bc;
-            --primary-hover2: #62a9ef;
-
-            --primary2: #fcd31b;
-            --primary-color2: #000000bc;
-            --primary-hover2: #d3af1d;
+            --primary-hover2: rgb(254, 176, 112);
         }
 
         html,
         body {
-            background: #000000;
+            background: #000e12;
             color: #FFF;
             height: 100%;
             font-family: var(--small-font);
@@ -103,6 +99,7 @@
         #chat-messages {
             flex: 1;
             padding: 15px;
+            padding-bottom: 150px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -165,46 +162,129 @@
         .assistant {
             align-self: flex-start;
             background: transparent;
-
             border-radius: 24px 24px 24px 4px;
             padding: 0 12px;
+        }
+
+        .message-wrapper.assistant {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            max-width: 100%;
+            gap: 6px;
+        }
+
+        .copy-btn {
+            align-self: flex-start;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copy-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .copy-btn.copied {
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.15);
         }
 
         .input-container {
             width: 100%;
             display: flex;
+            flex-direction: column;
+            background: #222;
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 120px;
+            position: relative;
         }
-
-
 
         #chat-input {
             flex: 1;
-            padding: 10px;
-            padding-left: 30px;
+            min-height: 72px;
+            max-height: 200px;
+            padding: 12px 16px 8px 16px;
             border: none;
             outline: none;
-            background: #222;
+            background: transparent;
             color: white;
             font-size: 16px;
             font-family: var(--small-font);
-            border-radius: 100px 0px 0px 100px;
+            border-radius: 0;
+            resize: none;
+            overflow-y: auto;
+            line-height: 1.4;
+            box-sizing: border-box;
         }
 
         #send-btn {
-            padding: 0px 20px;
+            padding: 0 20px;
             border: none;
-            border-radius: 0px 100px 100px 0px;
-            background: #0b84ff;
+            border-radius: 0 0 12px 12px;
+            background: var(--primary2);
             color: white;
             font-family: var(--small-font);
             font-weight: 400;
             cursor: pointer;
-            height: 72px;
+            height: 48px;
+            align-self: stretch;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background 0.2s, opacity 0.2s;
         }
 
+        /* Desktop: circle button bottom-right inside input area */
+        @media only screen and (min-width: 601px) {
+            .input-container {
+                flex-direction: row;
+                align-items: flex-end;
+                min-height: 72px;
+            }
+
+            #chat-input {
+                padding-right: 64px;
+                padding-bottom: 12px;
+                border-radius: 12px 0 0 12px;
+            }
+
+            #send-btn {
+                position: absolute;
+                right: 8px;
+                bottom: 8px;
+                width: 48px;
+                height: 48px;
+                min-width: 48px;
+                min-height: 48px;
+                padding: 0;
+                border-radius: 50%;
+                align-self: auto;
+            }
+        }
+
         #send-btn:hover {
-            background: #006fce;
+            background: var(--primary-hover2);
         }
 
         /* Disabled state styling */
@@ -219,39 +299,6 @@
             fill: rgba(255, 255, 255, 0.5);
         }
 
-
-        #prompt-buttons {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .prompt-btn {
-            background: var(--primary2);
-            border: none;
-            padding: 12px 16px;
-            margin: 0 5px;
-            color: var(--primary-color2);
-            border-radius: 100px;
-            font-weight: 500;
-            font-family: var(--small-font);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .prompt-btn:hover {
-            background: var(--primary-hover2);
-        }
-
-        .prompt-btn:active {
-
-            transform: scale(0.97);
-        }
-
-        .prompt-btn:focus {
-            outline: 2px solid rgba(255, 255, 255, 0.2) !important;
-        }
 
         .typing {
             font-style: italic;
@@ -283,13 +330,26 @@
         @media only screen and (max-width: 480px) {}
 
         @media only screen and (max-width: 600px) {
-            #chat-input {
+            .input-container {
+                border-radius: 0;
+                flex-direction: column;
+                min-height: 120px;
+            }
 
-                border-radius: 0px 0px 0px 0px;
+            #chat-input {
+                padding-right: 16px;
+                padding-bottom: 8px;
+                border-radius: 0;
             }
 
             #send-btn {
-                border-radius: 0px 0px 0px 0px;
+                position: static;
+                width: auto;
+                height: 48px;
+                min-width: auto;
+                min-height: 48px;
+                border-radius: 0 0 0 0;
+                align-self: stretch;
             }
         }
 
@@ -306,23 +366,6 @@
 
             .chat-container {
                 width: 80vw;
-            }
-        }
-
-        @keyframes swipd {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 1;
-                transform: translate(0, -10px);
-            }
-
-            100% {
-                opacity: 0;
-                display: none;
-                transform: scale(0)translate(0, -10px);
             }
         }
 
@@ -348,16 +391,15 @@
                 </svg>
             </a>
         </div>
-        <img src="src/eldiiargptpng.png" style="border-radius:50%;width:40px;height:40px;margin-right:15px;">
-        <h1 style="font-size:16px;font-family:var(--small-font);font-weight:300;" class="no-select">EldiiarGPT</h1>
+        <img src="android-chrome-512x512.png" style="border-radius:50%;width:40px;height:40px;margin-right:15px;">
+        <h1 style="font-size:19px;font-family:var(--big-font);font-weight:400;" class="no-select">Eldiiar Bekbolotov</h1>
     </div>
-    <div id=""
-        style="
-  position:fixed;bottom:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;background:transparent;padding:0;">
-        <div class="input-container" style="max-width: 1000px;margin:0 auto;">
-            <input id="chat-input" placeholder="Message" autocomplete="off" />
+    <div class="bottom-area"
+        style="position:fixed;bottom:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;background:transparent;padding:0 20px 10px 20px;">
+        <div class="input-container" style="width:100%;max-width:1000px;margin:0 auto;">
+            <textarea id="chat-input" placeholder="Message" autocomplete="off" rows="1"></textarea>
             <button id="send-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                    width="24px" fill="#FFFFFF">
+                    width="24px" fill="#000000">
                     <path
                         d="M792-443 176-183q-20 8-38-3.5T120-220v-520q0-22 18-33.5t38-3.5l616 260q25 11 25 37t-25 37ZM200-280l474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
                 </svg></button>
@@ -368,12 +410,6 @@
             <div id="chat-messages" style="padding-top:100px;">
 
             </div>
-
-            <div id="prompt-buttons">
-                <button class="prompt-btn" data-msg="Who is Eldiiar?">Who is Eldiiar?</button>
-                <button class="prompt-btn" data-msg="What are some of Eldiiar's projects?">Eldiiar's projects</button>
-                <button class="prompt-btn" data-msg="How can I connect with Eldiiar?">Connect</button>
-            </div>
         </div>
     </div>
 
@@ -381,82 +417,98 @@
         const chatMessages = document.getElementById('chat-messages');
         const chatInput = document.getElementById('chat-input');
         const sendBtn = document.getElementById('send-btn');
-        const promptButtons = document.querySelectorAll('.prompt-btn');
         const STORAGE_KEY = 'eldiiarGPTChat';
 
         let messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
+        const copyIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+        const checkIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
         function renderMessages() {
             chatMessages.innerHTML = '';
             messages.forEach(msg => {
-                const div = document.createElement('div');
-                div.classList.add('message', msg.role);
-                div.innerHTML = marked.parse(msg.content);
-                chatMessages.appendChild(div);
+                if (msg.role === 'assistant') {
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('message-wrapper', 'assistant');
+                    const div = document.createElement('div');
+                    div.classList.add('message', 'assistant');
+                    div.innerHTML = marked.parse(msg.content);
+                    const copyBtn = document.createElement('button');
+                    copyBtn.type = 'button';
+                    copyBtn.className = 'copy-btn';
+                    copyBtn.title = 'Copy';
+                    copyBtn.setAttribute('aria-label', 'Copy response');
+                    copyBtn.innerHTML = copyIconSvg;
+                    copyBtn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(msg.content).then(() => {
+                            copyBtn.innerHTML = checkIconSvg;
+                            copyBtn.title = 'Copied!';
+                            copyBtn.classList.add('copied');
+                            copyBtn.setAttribute('aria-label', 'Copied');
+                            setTimeout(() => {
+                                copyBtn.innerHTML = copyIconSvg;
+                                copyBtn.title = 'Copy';
+                                copyBtn.classList.remove('copied');
+                                copyBtn.setAttribute('aria-label', 'Copy response');
+                            }, 2000);
+                        }).catch(() => {});
+                    });
+                    wrapper.appendChild(div);
+                    wrapper.appendChild(copyBtn);
+                    chatMessages.appendChild(wrapper);
+                } else {
+                    const div = document.createElement('div');
+                    div.classList.add('message', msg.role);
+                    div.innerHTML = marked.parse(msg.content);
+                    chatMessages.appendChild(div);
+                }
             });
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        async function sendMessage(content, type = 'ai') {
+        const INPUT_MAX_HEIGHT = 200;
+
+        function growInput() {
+            chatInput.style.height = 'auto';
+            chatInput.style.height = Math.min(chatInput.scrollHeight, INPUT_MAX_HEIGHT) + 'px';
+        }
+
+        function resetInputHeight() {
+            chatInput.style.height = 'auto';
+        }
+
+        async function sendMessage(content) {
             if (!content.trim()) return;
 
             messages.push({ role: 'user', content });
             trimMessages();
             renderMessages();
             chatInput.value = '';
+            resetInputHeight();
 
             const typingDiv = document.createElement('div');
             typingDiv.classList.add('message', 'assistant', 'typing');
             typingDiv.textContent = 'EldiiarGPT is typing...';
             chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            if (type === 'ai') {
-                try {
-                    const res = await fetch('https://eldiiar.netlify.app/.netlify/functions/chatWithGroq', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ messages })
-                    });
-                    const data = await res.json();
-                    const botReply = data.reply || 'No response';
+            try {
+                const res = await fetch('https://eldiiar.netlify.app/.netlify/functions/chatWithGroq', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages })
+                });
+                const data = await res.json();
+                const botReply = data.reply || 'No response';
 
-
-                    typingDiv.remove();
-
-                    messages.push({ role: 'assistant', content: botReply });
-                    trimMessages();
-                    renderMessages();
-                    saveMessages();
-                } catch (err) {
-                    console.error(err);
-                    typingDiv.remove();
-                    messages.push({ role: 'assistant', content: 'Error: Could not reach AI' });
-                    trimMessages();
-                    renderMessages();
-                    saveMessages();
-                }
-            }
-            else if (type === 'who') {
                 typingDiv.remove();
-                messages.push({ role: 'assistant', content: "Eldiiar Bekbolotov is a high school developer focusing on software engineering and UI/UX design. He is really passionate about STEM, business, finance, and design. He strives to work on meaningful projects that solve issues and positively impact underserved people in a variety of fields using the power of creative innovation. Eldiiar actively develops and maintains solutions that improve the lives of thousands worldwide." });
+                messages.push({ role: 'assistant', content: botReply });
                 trimMessages();
                 renderMessages();
                 saveMessages();
-            } else if (type === 'projects') {
+            } catch (err) {
+                console.error(err);
                 typingDiv.remove();
-                messages.push({ role: 'assistant', content: 'You can see his programming projects here: https://eldiiarcodes.web.app/' });
-                trimMessages();
-                renderMessages();
-                saveMessages();
-            } else if (type === 'connect') {
-                typingDiv.remove();
-                messages.push({ role: 'assistant', content: '<h3>Connect with Eldiiar Bekbolotov via LinkedIn:</h3><br/> https://linkedin.com/in/eldiiar<br/><br/>' });
-                trimMessages();
-                renderMessages();
-                saveMessages();
-            } else {
-                typingDiv.remove();
-                messages.push({ role: 'assistant', content: "Listen, I'm still being trained, so I don't know the answer to your question... Why don't you try asking Eldiiar himself?<br/><br/> https://linkedin.com/in/eldiiar" });
+                messages.push({ role: 'assistant', content: 'Error: Could not reach AI' });
                 trimMessages();
                 renderMessages();
                 saveMessages();
@@ -472,35 +524,23 @@
         }
 
         // Event listeners
-        sendBtn.addEventListener('click', () => sendMessage(chatInput.value));
-
-        chatInput.addEventListener('input', () => {
-            sendBtn.disabled = !chatInput.value.trim(); // disable if input is empty or whitespace
+        sendBtn.addEventListener('click', () => {
+            sendMessage(chatInput.value);
+            sendBtn.disabled = true;
         });
 
-        chatInput.addEventListener('keypress', e => {
-            if (e.key === 'Enter') sendMessage(chatInput.value);
+        chatInput.addEventListener('input', () => {
+            sendBtn.disabled = !chatInput.value.trim();
+            growInput();
+        });
+
+        chatInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+            }
         });
 
         sendBtn.disabled = !chatInput.value.trim();
-
-
-        // Prompt buttons
-        promptButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (btn.dataset.msg === 'Who is Eldiiar?') {
-                    sendMessage(btn.dataset.msg, 'who');
-                } else if (btn.dataset.msg === "What are some of Eldiiar's projects?") {
-                    sendMessage(btn.dataset.msg, 'projects');
-                } else if (btn.dataset.msg === "How can I connect with Eldiiar?") {
-                    sendMessage(btn.dataset.msg, 'connect');
-                } else {
-                    sendMessage(btn.dataset.msg);
-                }
-
-                btn.style.animation = '0.5s forwards swipd';
-            });
-        });
 
         renderMessages();
     </script>
