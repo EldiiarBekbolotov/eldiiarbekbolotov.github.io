@@ -561,7 +561,7 @@ nav a.active {
   gap: 20px;
 }
 .skill-card {
-  background: linear-gradient(rgba(45, 28, 0, 0.9), rgba(0, 0, 0, 0.5));
+  background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(45, 28, 0, 0.5));
   border-radius: 10px;
   padding: 10px;
   font-family: var(--small-font);
