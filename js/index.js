@@ -91,7 +91,7 @@ function MurkyPond() {
   this.mouseY = null;
   this.mouseRadius = 100;
   this.mouseInfluence = 1;
-  // Sophisticated multicolored palette including primary theme color
+  // palette including primary theme color
   this.baseColors = [
     { r: 208, g: 136, b: 77 },   // Primary theme color (orange/peach)
     { r: 254, g: 176, b: 112 },  // Primary hover (lighter orange)
