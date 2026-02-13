@@ -679,12 +679,9 @@ There is no scrollbar on my iMac, and it looks better that way.
             deaths: 0,
             kdr: 0,
             highscore: [],
-            gems: 1000,
+            gems: 0,
             trophies: 0,
             timePlayed: 0,
-            diamondsSpent: 0,
-            diamondArmory: {},
-            equippedDiamondGun: '',
         };
         var fontss = ['Bakbak One', 'Freeman', 'Lilita One'];
         var subscribe = false; // open with HTML
@@ -764,7 +761,7 @@ There is no scrollbar on my iMac, and it looks better that way.
             enableContextMenu();
 
             var delag = false;
-            var testing = !false;
+            var testing = false;
 
             // do not repeat these
             var d = day();
@@ -914,7 +911,6 @@ There is no scrollbar on my iMac, and it looks better that way.
             var gamemode = 0;
 
             var playerShopIndex = 'traits';
-            var inGameShopTab = 'resources';
 
             var msg = '';
             //size(window.innerWidth, window.innerHeight, P2D);
@@ -2374,274 +2370,6 @@ There is no scrollbar on my iMac, and it looks better that way.
                     [26, 120, 65, 22] // Level 5
                 ],
             };
-            var diamondGunCatalog = [{
-                id: 'ember_falcon',
-                name: 'Ember Falcon',
-                weapon: 'pistol',
-                classLabel: 'Sidearm',
-                cost: 75,
-                upgradeBaseCost: 45,
-                upgradeStep: 28,
-                maxLevel: 5,
-                damageGain: 2,
-                rangeGain: 1,
-                reloadGain: -1,
-                colors: [255, 132, 74],
-            },
-            {
-                id: 'glacier_9',
-                name: 'Glacier-9',
-                weapon: 'pistol',
-                classLabel: 'Sidearm',
-                cost: 130,
-                upgradeBaseCost: 58,
-                upgradeStep: 36,
-                maxLevel: 5,
-                damageGain: 3,
-                rangeGain: 1,
-                reloadGain: 0,
-                colors: [98, 211, 255],
-            },
-            {
-                id: 'obsidian_revolver',
-                name: 'Obsidian Revolver',
-                weapon: 'pistol',
-                classLabel: 'Hand Cannon',
-                cost: 230,
-                upgradeBaseCost: 78,
-                upgradeStep: 44,
-                maxLevel: 5,
-                damageGain: 4,
-                rangeGain: 1,
-                reloadGain: 1,
-                colors: [172, 151, 240],
-            },
-            {
-                id: 'hunter_longshot',
-                name: 'Hunter Longshot',
-                weapon: 'musket',
-                classLabel: 'Marksman',
-                cost: 185,
-                upgradeBaseCost: 64,
-                upgradeStep: 39,
-                maxLevel: 5,
-                damageGain: 4,
-                rangeGain: 4,
-                reloadGain: 0,
-                colors: [95, 203, 129],
-            },
-            {
-                id: 'thunder_pike',
-                name: 'Thunder Pike',
-                weapon: 'musket',
-                classLabel: 'Marksman',
-                cost: 305,
-                upgradeBaseCost: 86,
-                upgradeStep: 51,
-                maxLevel: 5,
-                damageGain: 5,
-                rangeGain: 4,
-                reloadGain: -1,
-                colors: [255, 186, 84],
-            },
-            {
-                id: 'atlas_arx',
-                name: 'Atlas ARX',
-                weapon: 'AR',
-                classLabel: 'Rifle',
-                cost: 250,
-                upgradeBaseCost: 72,
-                upgradeStep: 42,
-                maxLevel: 5,
-                damageGain: 3,
-                rangeGain: 2,
-                reloadGain: -1,
-                colors: [88, 171, 255],
-            },
-            {
-                id: 'pulse_carbine',
-                name: 'Pulse Carbine',
-                weapon: 'AR',
-                classLabel: 'Rifle',
-                cost: 340,
-                upgradeBaseCost: 90,
-                upgradeStep: 55,
-                maxLevel: 5,
-                damageGain: 4,
-                rangeGain: 3,
-                reloadGain: -1,
-                colors: [105, 228, 218],
-            },
-            {
-                id: 'sandstorm_rifle',
-                name: 'Sandstorm Rifle',
-                weapon: 'AR',
-                classLabel: 'Rifle',
-                cost: 430,
-                upgradeBaseCost: 108,
-                upgradeStep: 61,
-                maxLevel: 5,
-                damageGain: 5,
-                rangeGain: 2,
-                reloadGain: 0,
-                colors: [246, 183, 102],
-            },
-            {
-                id: 'viper_smg',
-                name: 'Viper SMG',
-                weapon: 'SMG',
-                classLabel: 'SMG',
-                cost: 390,
-                upgradeBaseCost: 95,
-                upgradeStep: 58,
-                maxLevel: 5,
-                damageGain: 2,
-                rangeGain: 2,
-                reloadGain: -1,
-                colors: [148, 228, 95],
-            },
-            {
-                id: 'nova_smg_x',
-                name: 'Nova SMG-X',
-                weapon: 'SMG',
-                classLabel: 'SMG',
-                cost: 520,
-                upgradeBaseCost: 122,
-                upgradeStep: 70,
-                maxLevel: 5,
-                damageGain: 3,
-                rangeGain: 2,
-                reloadGain: -1,
-                colors: [254, 129, 189],
-            },
-            ];
-            var getDiamondGunById = function (id) {
-                for (var i = 0; i < diamondGunCatalog.length; i++) {
-                    if (diamondGunCatalog[i].id === id) {
-                        return diamondGunCatalog[i];
-                    }
-                }
-                return null;
-            };
-            var ensureDiamondArmoryData = function () {
-                if (!pl.diamondArmory || typeof pl.diamondArmory !== 'object') {
-                    pl.diamondArmory = {};
-                }
-                if (typeof pl.equippedDiamondGun !== 'string') {
-                    pl.equippedDiamondGun = '';
-                }
-                if (typeof pl.diamondsSpent !== 'number' || isNaN(pl.diamondsSpent)) {
-                    pl.diamondsSpent = 0;
-                }
-
-                for (var i = 0; i < diamondGunCatalog.length; i++) {
-                    var gun = diamondGunCatalog[i];
-                    if (!pl.diamondArmory[gun.id] || typeof pl.diamondArmory[gun.id] !== 'object') {
-                        pl.diamondArmory[gun.id] = {
-                            bought: false,
-                            level: 0,
-                        };
-                    } else {
-                        pl.diamondArmory[gun.id].bought = !!pl.diamondArmory[gun.id].bought;
-                        if (typeof pl.diamondArmory[gun.id].level !== 'number' || isNaN(pl.diamondArmory[gun.id].level)) {
-                            pl.diamondArmory[gun.id].level = 0;
-                        }
-                        pl.diamondArmory[gun.id].level = Math.max(0, Math.min(gun.maxLevel, ~~pl.diamondArmory[gun.id].level));
-                    }
-                }
-
-                if (pl.equippedDiamondGun !== '') {
-                    if (!pl.diamondArmory[pl.equippedDiamondGun] || !pl.diamondArmory[pl.equippedDiamondGun].bought) {
-                        pl.equippedDiamondGun = '';
-                    }
-                }
-            };
-            var getWeaponTypeIndex = function (weaponName) {
-                switch (weaponName) {
-                    case 'pistol':
-                        return 0;
-                    case 'musket':
-                        return 1;
-                    case 'AR':
-                        return 2;
-                    case 'SMG':
-                        return 3;
-                    default:
-                        return -1;
-                }
-            };
-            var getDiamondUpgradeCost = function (gun, level) {
-                return Math.round(gun.upgradeBaseCost + (level * gun.upgradeStep));
-            };
-            var getPlayerWeaponStats = function (weaponName) {
-                var typeIndex = getWeaponTypeIndex(weaponName);
-                var fallback = {
-                    damage: 1,
-                    reload: 50,
-                    range: 10,
-                    armoryBoosted: false,
-                    armoryGunName: 'Stock',
-                    armoryLevel: 0,
-                };
-                if (typeIndex < 0 || !p || !p.weaponDamage || !p.weaponDamage[p.weaponLevel]) {
-                    return fallback;
-                }
-                var stats = {
-                    damage: p.weaponDamage[p.weaponLevel][typeIndex],
-                    reload: p.weaponReload[p.weaponLevel][typeIndex],
-                    range: p.weaponRange[p.weaponLevel][typeIndex],
-                    armoryBoosted: false,
-                    armoryGunName: 'Stock',
-                    armoryLevel: 0,
-                };
-                ensureDiamondArmoryData();
-                if (pl.equippedDiamondGun !== '') {
-                    var equippedGun = getDiamondGunById(pl.equippedDiamondGun);
-                    var equippedState = pl.diamondArmory[pl.equippedDiamondGun];
-                    if (equippedGun && equippedState && equippedState.bought && equippedGun.weapon === weaponName) {
-                        var level = Math.max(0, Math.min(equippedGun.maxLevel, equippedState.level));
-                        stats.damage += equippedGun.damageGain * level;
-                        stats.reload += equippedGun.reloadGain * level;
-                        stats.range += equippedGun.rangeGain * level;
-                        stats.armoryBoosted = true;
-                        stats.armoryGunName = equippedGun.name;
-                        stats.armoryLevel = level;
-                    }
-                }
-                stats.damage = Math.max(1, stats.damage);
-                stats.reload = Math.max(2, stats.reload);
-                stats.range = Math.max(5, stats.range);
-                return stats;
-            };
-            var getCurrentWeaponDamage = function () {
-                switch (p.weapon) {
-                    case 'pistol':
-                        return getPlayerWeaponStats('pistol').damage;
-                    case 'musket':
-                        return getPlayerWeaponStats('musket').damage;
-                    case 'AR':
-                        return getPlayerWeaponStats('AR').damage;
-                    case 'SMG':
-                        return getPlayerWeaponStats('SMG').damage;
-                    default:
-                        return 0;
-                }
-            };
-            var getEquippedDiamondGunLabel = function () {
-                ensureDiamondArmoryData();
-                if (pl.equippedDiamondGun === '') {
-                    return 'None';
-                }
-                var equippedGun = getDiamondGunById(pl.equippedDiamondGun);
-                var equippedState = pl.diamondArmory[pl.equippedDiamondGun];
-                if (!equippedGun || !equippedState || !equippedState.bought) {
-                    return 'None';
-                }
-                return equippedGun.name + ' Lv.' + equippedState.level;
-            };
-            var pointInRect = function (px, py, x, y, rw, rh) {
-                return px >= x && px <= x + rw && py >= y && py <= y + rh;
-            };
             var U = function (data) {
                 this.trait = ''; // scout, juggernaut, bounty hunter, engineer? (building)
                 this.traitlevel = 0;
@@ -2928,7 +2656,6 @@ There is no scrollbar on my iMac, and it looks better that way.
                         }
                         break;
                     case "pistol":
-                        var pistolCombatStats = getPlayerWeaponStats('pistol');
                         this.rnum++;
 
                         if (rpe >= 1) {
@@ -2937,9 +2664,9 @@ There is no scrollbar on my iMac, and it looks better that way.
                                 rpe = 0;
                             }
                         } else {
-                            rpe = this.rnum / pistolCombatStats.reload;
+                            rpe = this.rnum / this.weaponReload[this.weaponLevel][0];
                         }
-                        if (this.rnum >= pistolCombatStats.reload) {
+                        if (this.rnum >= this.weaponReload[this.weaponLevel][0]) {
                             if (mouseIsPressed) {
                                 this.reload = true;
                                 this.rnum = 0;
@@ -2961,7 +2688,6 @@ There is no scrollbar on my iMac, and it looks better that way.
                         }
                         break;
                     case "musket":
-                        var musketCombatStats = getPlayerWeaponStats('musket');
                         this.rnum++;
 
                         if (rpe >= 1) {
@@ -2970,9 +2696,9 @@ There is no scrollbar on my iMac, and it looks better that way.
                                 rpe = 0;
                             }
                         } else {
-                            rpe = this.rnum / musketCombatStats.reload;
+                            rpe = this.rnum / this.weaponReload[this.weaponLevel][1];
                         }
-                        if (this.rnum >= musketCombatStats.reload) {
+                        if (this.rnum >= this.weaponReload[this.weaponLevel][1]) {
 
 
                             if (mouseIsPressed) {
@@ -2995,9 +2721,8 @@ There is no scrollbar on my iMac, and it looks better that way.
                         }
                         break;
                     case "AR":
-                        var arCombatStats = getPlayerWeaponStats('AR');
                         this.rnum++;
-                        if (this.rnum >= arCombatStats.reload) {
+                        if (this.rnum >= this.weaponReload[this.weaponLevel][2]) {
                             this.reload = true;
                             this.rnum = 0;
                             shooting = 20;
@@ -3005,9 +2730,8 @@ There is no scrollbar on my iMac, and it looks better that way.
                         }
                         break;
                     case "SMG":
-                        var smgCombatStats = getPlayerWeaponStats('SMG');
                         this.rnum++;
-                        if (this.rnum >= smgCombatStats.reload) {
+                        if (this.rnum >= this.weaponReload[this.weaponLevel][3]) {
                             this.reload = true;
                             this.rnum = 0;
                             shooting = 25;
@@ -5715,21 +5439,19 @@ There is no scrollbar on my iMac, and it looks better that way.
                 if (mouseIsPressed) {
                     if (p.reload === true) {
                         if (p.weapon === "pistol") {
-                            var pistolShotStats = getPlayerWeaponStats('pistol');
                             bullets.push(new Blt({
                                 x: p.x,
                                 y: p.y,
                                 angle: p.angle - 90,
                                 speed: weaponSpeed.pistol + random(-3, 3),
                                 who: "player",
-                                range: pistolShotStats.range
+                                range: p.weaponRange[p.weaponLevel][0]
                             }));
                             doSound(getSound("retro/laser1"));
                             p.shotsFired.push({
                                 weapon: "pistol"
                             });
                         } else if (p.weapon === "musket") {
-                            var musketShotStats = getPlayerWeaponStats('musket');
                             doSound(getSound("retro/boom2"));
                             bullets.push(new Blt({
                                 x: p.x,
@@ -5737,14 +5459,13 @@ There is no scrollbar on my iMac, and it looks better that way.
                                 angle: p.angle - 90,
                                 speed: weaponSpeed.musket,
                                 who: "player",
-                                range: musketShotStats.range
+                                range: p.weaponRange[p.weaponLevel][1]
                             }));
                             p.shotsFired.push({
                                 weapon: "musket"
                             });
 
                         } else if (p.weapon === "AR") {
-                            var arShotStats = getPlayerWeaponStats('AR');
                             doSound(getSound("retro/hit2"));
                             bullets.push(new Blt({
                                 x: p.x,
@@ -5752,14 +5473,13 @@ There is no scrollbar on my iMac, and it looks better that way.
                                 angle: p.angle - 90 + random(3, -3),
                                 speed: weaponSpeed.ar,
                                 who: "player",
-                                range: arShotStats.range
+                                range: p.weaponRange[p.weaponLevel][2]
                             }));
 
                             p.shotsFired.push({
                                 weapon: "AR"
                             });
                         } else if (p.weapon === "SMG") {
-                            var smgShotStats = getPlayerWeaponStats('SMG');
                             doSound(getSound("retro/hit2"));
                             bullets.push(new Blt({
                                 x: p.x,
@@ -5767,7 +5487,7 @@ There is no scrollbar on my iMac, and it looks better that way.
                                 angle: p.angle - 90 + random(-3, 3),
                                 speed: weaponSpeed.smg,
                                 who: "player",
-                                range: smgShotStats.range, //[9,35,23,15]
+                                range: p.weaponRange[p.weaponLevel][3], //[9,35,23,15]
                             }));
                             p.shotsFired.push({
                                 weapon: "SMG"
@@ -6244,7 +5964,6 @@ There is no scrollbar on my iMac, and it looks better that way.
                     rocks[rock].collide(enemies, 0);
                 }
 
-                var currentWeaponDamage = getCurrentWeaponDamage();
                 for (var b = bullets.length - 1; b >= 0; b--) {
                     for (var j = zombs.length - 1; j >= 0; j--) {
                         if (zombs[j].hit === true) {
@@ -6254,7 +5973,20 @@ There is no scrollbar on my iMac, and it looks better that way.
                                 booms.push(new boom(zombs[j].x, zombs[j].y, "zomb", 200, color(100, 0, 17, 150), random(-10, 10), random(-10, 10)));
 
                             }
-                            zombs[j].hp -= currentWeaponDamage;
+                            switch (p.weapon) {
+                                case "pistol":
+                                    zombs[j].hp -= p.weaponDamage[p.weaponLevel][0];
+                                    break;
+                                case "musket":
+                                    zombs[j].hp -= p.weaponDamage[p.weaponLevel][1];
+                                    break;
+                                case "AR":
+                                    zombs[j].hp -= p.weaponDamage[p.weaponLevel][2];
+                                    break;
+                                case "SMG":
+                                    zombs[j].hp -= p.weaponDamage[p.weaponLevel][3];
+                                    break;
+                            }
                             zombs[j].hit = false;
                         } else {
 
@@ -6271,7 +6003,20 @@ There is no scrollbar on my iMac, and it looks better that way.
 
                             }
 
-                            enemies[q].hp -= currentWeaponDamage;
+                            switch (p.weapon) {
+                                case "pistol":
+                                    enemies[q].hp -= p.weaponDamage[p.weaponLevel][0];
+                                    break;
+                                case "musket":
+                                    enemies[q].hp -= p.weaponDamage[p.weaponLevel][1];
+                                    break;
+                                case "AR":
+                                    enemies[q].hp -= p.weaponDamage[p.weaponLevel][2];
+                                    break;
+                                case "SMG":
+                                    enemies[q].hp -= p.weaponDamage[p.weaponLevel][3];
+                                    break;
+                            }
                             enemies[q].hit = false;
                         }
                     }
@@ -6425,27 +6170,6 @@ There is no scrollbar on my iMac, and it looks better that way.
                 fill(255, 255, 255);
                 text("$ " + (~~p.money), 0, 0);
                 popMatrix();
-
-                pushMatrix();
-                translate(25, 300 - 5);
-                noStroke();
-                fill(0, 0, 0, 80);
-                rect(-5, -25, 80, 37, 4);
-                fill(255, 255, 255);
-                text("D " + (~~pl.gems), 0, 0);
-                popMatrix();
-
-                if (pl.equippedDiamondGun !== '') {
-                    pushMatrix();
-                    noStroke();
-                    fill(0, 0, 0, 80);
-                    rect(20, 325, 185, 18, 4);
-                    fill(197, 239, 255);
-                    textFont(createFont(fontss[1]), 11);
-                    textAlign(LEFT, CENTER);
-                    text("Armory: " + getEquippedDiamondGunLabel(), 24, 334);
-                    popMatrix();
-                }
 
 
                 popMatrix();
@@ -7291,179 +7015,7 @@ There is no scrollbar on my iMac, and it looks better that way.
                 woodCost.tradeIn = 100;
                 rockCost.tradeIn = 100;
             }
-            var drawShopTabButton = function (x, y, w, h, label, tabId) {
-                var isActive = inGameShopTab === tabId;
-                var hovering = pointInRect(mouseX, mouseY, x, y, w, h);
-                pushStyle();
-                noStroke();
-                if (isActive) {
-                    fill(25, 138, 227, hovering ? 250 : 210);
-                } else {
-                    fill(44, 44, 44, hovering ? 240 : 200);
-                }
-                rect(x, y, w, h, 8);
-                textAlign(CENTER, CENTER);
-                textFont(createFont(fontss[0]), 13);
-                fill(255, 255, 255);
-                text(label, x + w / 2, y + h / 2 + 1);
-                popStyle();
-                if (hovering && click) {
-                    inGameShopTab = tabId;
-                }
-            };
-            var drawDiamondArmory = function () {
-                ensureDiamondArmoryData();
-                var panelX = 6;
-                var panelY = 88;
-                var panelW = width - 12;
-                var panelH = 213;
-                var cardW = 110;
-                var cardH = 72;
-                var gapX = 8;
-                var gapY = 12;
-                var startX = 9;
-                var startY = 128;
-
-                pushStyle();
-                noStroke();
-                fill(9, 24, 46, 200);
-                rect(panelX, panelY, panelW, panelH, 12);
-                fill(12, 56, 98, 180);
-                rect(10, 92, width - 20, 30, 9);
-
-                textAlign(LEFT, CENTER);
-                textFont(createFont(fontss[0]), 14);
-                fill(234, 246, 255);
-                text("Diamond Armory", 20, 106);
-                textFont(createFont(fontss[1]), 11);
-                fill(179, 228, 255);
-                text("Equipped: " + getEquippedDiamondGunLabel(), 150, 106);
-                fill(153, 196, 229);
-                text("Boosts apply when the gun class matches your active weapon.", 20, 118);
-
-                for (var i = 0; i < diamondGunCatalog.length; i++) {
-                    var gun = diamondGunCatalog[i];
-                    var state = pl.diamondArmory[gun.id];
-                    var col = i % 5;
-                    var row = Math.floor(i / 5);
-                    var x = startX + col * (cardW + gapX);
-                    var y = startY + row * (cardH + gapY);
-                    var equipped = pl.equippedDiamondGun === gun.id && state.bought;
-                    var hoveringCard = pointInRect(mouseX, mouseY, x, y, cardW, cardH);
-
-                    fill(gun.colors[0], gun.colors[1], gun.colors[2], hoveringCard ? 75 : 48);
-                    rect(x, y, cardW, cardH, 10);
-                    fill(12, 19, 34, hoveringCard ? 250 : 220);
-                    rect(x + 1, y + 1, cardW - 2, cardH - 2, 9);
-                    fill(gun.colors[0], gun.colors[1], gun.colors[2], 180);
-                    rect(x + 1, y + 1, cardW - 2, 16, 9, 9, 0, 0);
-
-                    if (equipped) {
-                        stroke(181, 233, 255);
-                        strokeWeight(2);
-                        noFill();
-                        rect(x + 1, y + 1, cardW - 2, cardH - 2, 9);
-                        noStroke();
-                    }
-
-                    textAlign(LEFT, TOP);
-                    textFont(createFont(fontss[1]), 9);
-                    fill(255, 255, 255);
-                    text(gun.name, x + 5, y + 4);
-                    fill(176, 214, 240);
-                    text(gun.classLabel, x + 5, y + 20);
-                    fill(165, 245, 215);
-                    text("Lv " + state.level + "/" + gun.maxLevel, x + 5, y + 31);
-
-                    var buyX = x + 4;
-                    var buyY = y + 53;
-                    var buyW = 50;
-                    var buyH = 15;
-                    var upX = x + cardW - 54;
-                    var upY = buyY;
-                    var upW = 50;
-                    var upH = 15;
-                    var hoverBuy = pointInRect(mouseX, mouseY, buyX, buyY, buyW, buyH);
-                    var hoverUp = pointInRect(mouseX, mouseY, upX, upY, upW, upH);
-
-                    var buyLabel = '';
-                    var buyEnabled = true;
-                    if (!state.bought) {
-                        buyLabel = "BUY " + gun.cost + "D";
-                        buyEnabled = pl.gems >= gun.cost;
-                    } else if (equipped) {
-                        buyLabel = "UNEQUIP";
-                    } else {
-                        buyLabel = "EQUIP";
-                    }
-
-                    fill(buyEnabled ? (hoverBuy ? color(46, 159, 112) : color(33, 132, 94)) : color(84, 84, 84));
-                    rect(buyX, buyY, buyW, buyH, 4);
-                    textAlign(CENTER, CENTER);
-                    textFont(createFont(fontss[1]), 8);
-                    fill(255, 255, 255);
-                    text(buyLabel, buyX + buyW / 2, buyY + buyH / 2 + 1);
-
-                    var upLabel = 'LOCKED';
-                    var upEnabled = false;
-                    if (state.bought) {
-                        if (state.level >= gun.maxLevel) {
-                            upLabel = 'MAXED';
-                        } else {
-                            var nextCost = getDiamondUpgradeCost(gun, state.level);
-                            upLabel = "+" + nextCost + "D";
-                            upEnabled = pl.gems >= nextCost;
-                        }
-                    }
-
-                    fill(upEnabled ? (hoverUp ? color(157, 123, 42) : color(128, 97, 31)) : color(66, 66, 66));
-                    rect(upX, upY, upW, upH, 4);
-                    fill(255, 255, 255);
-                    text(upLabel, upX + upW / 2, upY + upH / 2 + 1);
-
-                    if (click && hoverBuy) {
-                        if (!state.bought) {
-                            if (pl.gems >= gun.cost) {
-                                pl.gems -= gun.cost;
-                                pl.diamondsSpent += gun.cost;
-                                state.bought = true;
-                                pl.equippedDiamondGun = gun.id;
-                                notif(gun.name + ' purchased!', 'center, bottom', 150, 'green');
-                            } else {
-                                notif('Not enough diamonds!', 'center, bottom', 150, 'red');
-                            }
-                        } else {
-                            if (equipped) {
-                                pl.equippedDiamondGun = '';
-                                notif('Armory gun unequipped.', 'center, bottom', 150, 'blue');
-                            } else {
-                                pl.equippedDiamondGun = gun.id;
-                                notif(gun.name + ' equipped!', 'center, bottom', 150, 'green');
-                            }
-                        }
-                    }
-                    if (click && hoverUp) {
-                        if (!state.bought) {
-                            notif('Buy this gun first.', 'center, bottom', 150, 'red');
-                        } else if (state.level >= gun.maxLevel) {
-                            notif('Upgrade maxed out.', 'center, bottom', 150, 'blue');
-                        } else {
-                            var upgradeCost = getDiamondUpgradeCost(gun, state.level);
-                            if (pl.gems >= upgradeCost) {
-                                pl.gems -= upgradeCost;
-                                pl.diamondsSpent += upgradeCost;
-                                state.level++;
-                                notif(gun.name + ' upgraded!', 'center, bottom', 150, 'green');
-                            } else {
-                                notif('Not enough diamonds!', 'center, bottom', 150, 'red');
-                            }
-                        }
-                    }
-                }
-                popStyle();
-            };
             var shop = function () {
-                ensureDiamondArmoryData();
 
                 noStroke();
                 //background(255,255,255);
@@ -7498,7 +7050,7 @@ There is no scrollbar on my iMac, and it looks better that way.
                 popMatrix();
 
                 pushMatrix();
-                translate(205, 40 - 5);
+                translate(width - 90, 40 - 5);
                 noStroke();
                 fill(0, 0, 0, 100);
                 rect(-5, -25, 80, 37, 4);
@@ -7506,75 +7058,58 @@ There is no scrollbar on my iMac, and it looks better that way.
                 text("$ " + (~~p.money), 0, 0);
                 popMatrix();
 
-                pushMatrix();
-                translate(295, 40 - 5);
-                noStroke();
-                fill(0, 0, 0, 100);
-                rect(-5, -25, 95, 37, 4);
-                fill(255, 255, 255);
-                image(imgs.gem, -2, -19, 16, 16);
-                text("D " + (~~pl.gems), 18, 0);
-                popMatrix();
+                uiButton(110, 100, 200, 80, 'Weapon Upgrade', function () {
+                    if (p.weaponLevel < p.weaponDamage.length - 1) {
+                        if (p.wood >= woodCost.upgradeTierCost && p.rock >= rockCost.upgradeTierCost) {
+                            p.weaponLevel++;
+                            p.wood -= woodCost.upgradeTierCost;
+                            p.rock -= rockCost.upgradeTierCost;
+                            notif('Tier upgraded!', 'center, bottom', 150, 'green');
+                        } else {
+                            notif('Not enough resources!', 'center, bottom', 150, 'red');
+                        }
+                    } else {
+                        notif('Tier maxed out.', 'center, bottom', 150, 'blue');
+                    }
+                }, false, 'mode', 0, 18, 'Upgrade tier of all weapons. \nCurrent tier: ' + (p.weaponLevel + 1) + '\nUpgrade Cost: W ' + woodCost.upgradeTierCost + ' + R ' + rockCost.upgradeTierCost);
 
-                drawShopTabButton(95, 56, 190, 24, 'Resource Desk', 'resources');
-                drawShopTabButton(315, 56, 190, 24, 'Diamond Armory', 'armory');
-
-                if (inGameShopTab === 'resources') {
-                    uiButton(110, 132, 200, 90, 'Weapon Upgrade', function () {
-                        if (p.weaponLevel < p.weaponDamage.length - 1) {
-                            if (p.wood >= woodCost.upgradeTierCost && p.rock >= rockCost.upgradeTierCost) {
-                                p.weaponLevel++;
-                                p.wood -= woodCost.upgradeTierCost;
-                                p.rock -= rockCost.upgradeTierCost;
-                                notif('Tier upgraded!', 'center, bottom', 150, 'green');
+                uiButton(320, 100, 200, 80, 'Trait Level Up', function () {
+                    if (p.trait !== '') {
+                        if (p.traitlevel < 6 - 1) {
+                            if (p.wood >= woodCost.upgradeTraitCost && p.rock >= rockCost.upgradeTraitCost) {
+                                p.traitlevel++;
+                                p.wood -= woodCost.upgradeTraitCost;
+                                p.rock -= rockCost.upgradeTraitCost;
+                                notif('Trait level upgraded!', 'center, bottom', 150, 'green');
                             } else {
                                 notif('Not enough resources!', 'center, bottom', 150, 'red');
                             }
                         } else {
-                            notif('Tier maxed out.', 'center, bottom', 150, 'blue');
+                            notif('Trait level maxed out.', 'center, bottom', 150, 'blue');
                         }
-                    }, false, 'mode', 0, 18, 'Upgrade tier of all weapons. \nCurrent tier: ' + (p.weaponLevel + 1) + '\nUpgrade Cost: W ' + woodCost.upgradeTierCost + ' + R ' + rockCost.upgradeTierCost);
+                    } else {
+                        notif('No trait equipped!', 'center, bottom', 150, 'red');
+                    }
+                }, false, 'mode', 0, 18, 'Equiped trait: ' + (p.trait !== '' ? p.trait : 'None') + '\nCurrent level: ' + (p.traitlevel) + '\nUpgrade Cost: W ' + woodCost.upgradeTraitCost + ' + R ' + rockCost.upgradeTraitCost);
 
-                    uiButton(320, 132, 200, 90, 'Trait Level Up', function () {
-                        if (p.trait !== '') {
-                            if (p.traitlevel < 6 - 1) {
-                                if (p.wood >= woodCost.upgradeTraitCost && p.rock >= rockCost.upgradeTraitCost) {
-                                    p.traitlevel++;
-                                    p.wood -= woodCost.upgradeTraitCost;
-                                    p.rock -= rockCost.upgradeTraitCost;
-                                    notif('Trait level upgraded!', 'center, bottom', 150, 'green');
-                                } else {
-                                    notif('Not enough resources!', 'center, bottom', 150, 'red');
-                                }
-                            } else {
-                                notif('Trait level maxed out.', 'center, bottom', 150, 'blue');
-                            }
-                        } else {
-                            notif('No trait equipped!', 'center, bottom', 150, 'red');
-                        }
-                    }, false, 'mode', 0, 18, 'Equiped trait: ' + (p.trait !== '' ? p.trait : 'None') + '\nCurrent level: ' + (p.traitlevel) + '\nUpgrade Cost: W ' + woodCost.upgradeTraitCost + ' + R ' + rockCost.upgradeTraitCost);
-
-                    uiButton(110, 238, 200, 90, 'Wood Trade-In', function () {
-                        if (p.wood >= woodCost.tradeIn) {
-                            p.wood -= woodCost.tradeIn;
-                            p.money += woodCost.tradeIn;
-                            notif('Trade in successful!', 'center, bottom', 150, 'green');
-                        } else {
-                            notif('Not enough wood!', 'center, bottom', 150, 'red');
-                        }
-                    }, false, 'mode', 0, 18, 'Trade wood for money ($)\nEarn $' + woodCost.tradeIn + ' per W ' + woodCost.tradeIn);
-                    uiButton(320, 238, 200, 90, 'Rock Trade-In', function () {
-                        if (p.rock >= rockCost.tradeIn) {
-                            p.rock -= rockCost.tradeIn;
-                            p.money += rockCost.tradeIn;
-                            notif('Trade in successful!', 'center, bottom', 150, 'green');
-                        } else {
-                            notif('Not enough rocks!', 'center, bottom', 150, 'red');
-                        }
-                    }, false, 'mode', 0, 18, 'Trade rocks for money ($)\nEarn $' + rockCost.tradeIn + ' per R ' + rockCost.tradeIn);
-                } else {
-                    drawDiamondArmory();
-                }
+                uiButton(110, 200, 200, 80, 'Wood Trade-In', function () {
+                    if (p.wood >= woodCost.tradeIn) {
+                        p.wood -= woodCost.tradeIn;
+                        p.money += woodCost.tradeIn;
+                        notif('Trade in successful!', 'center, bottom', 150, 'green');
+                    } else {
+                        notif('Not enough wood!', 'center, bottom', 150, 'red');
+                    }
+                }, false, 'mode', 0, 18, 'Trade wood for money ($)\nEarn $' + woodCost.tradeIn + ' per W ' + woodCost.tradeIn);
+                uiButton(320, 200, 200, 80, 'Rock Trade-In', function () {
+                    if (p.rock >= rockCost.tradeIn) {
+                        p.rock -= rockCost.tradeIn;
+                        p.money += rockCost.tradeIn;
+                        notif('Trade in successful!', 'center, bottom', 150, 'green');
+                    } else {
+                        notif('Not enough rocks!', 'center, bottom', 150, 'red');
+                    }
+                }, false, 'mode', 0, 18, 'Trade rocks for money ($)\nEarn $' + rockCost.tradeIn + ' per R ' + rockCost.tradeIn);
 
                 pushMatrix();
 
@@ -7795,7 +7330,6 @@ There is no scrollbar on my iMac, and it looks better that way.
                 } else {
                     pl.kdr = ((pl.kills / pl.deaths)).toFixed(2);
                 }
-                ensureDiamondArmoryData();
                 switch (scene) {
                     case "load":
                         loadImages();
