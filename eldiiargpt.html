@@ -174,6 +174,137 @@
             gap: 6px;
         }
 
+        .message-wrapper.is-user {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-end;
+            max-width: 100%;
+            gap: 6px;
+        }
+
+        .token-meter {
+            min-width: 180px;
+            max-width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 6px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .token-meter.is-user {
+            align-self: flex-end;
+            border-color: rgba(0, 0, 0, 0.28);
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .token-meter.is-assistant {
+            align-self: flex-start;
+        }
+
+        .token-meter-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            letter-spacing: 0.2px;
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        .token-meter .token-count {
+            font-family: var(--mono), monospace;
+        }
+
+        .token-meter .token-budget {
+            opacity: 0.75;
+        }
+
+        .token-track {
+            width: 100%;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .token-track::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.06) 0 8px,
+                    transparent 8px 14px);
+            pointer-events: none;
+        }
+
+        .token-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.25s ease;
+            background: #45d483;
+        }
+
+        .token-fill.warn {
+            background: #f8a75e;
+        }
+
+        .token-fill.danger {
+            background: #ff6b6b;
+        }
+
+        .token-note {
+            font-size: 11px;
+            line-height: 1.2;
+            color: rgba(255, 255, 255, 0.67);
+        }
+
+        .token-cutoff {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: #ffd5a8;
+            background: rgba(255, 136, 0, 0.12);
+            border: 1px solid rgba(255, 168, 87, 0.3);
+            padding: 2px 6px;
+            border-radius: 999px;
+            width: fit-content;
+        }
+
+        .context-horizon {
+            align-self: stretch;
+            margin: 8px 0;
+            border: 1px dashed rgba(255, 204, 153, 0.4);
+            border-radius: 12px;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255, 165, 92, 0.2), transparent 60%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            padding: 10px 12px;
+        }
+
+        .context-horizon-title {
+            margin: 0 0 4px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            color: rgba(255, 216, 178, 0.95);
+        }
+
+        .context-horizon-text {
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.35;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
         .copy-btn {
             align-self: flex-start;
             width: 32px;
@@ -213,22 +344,35 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            background: #222;
+            background: rgba(20, 20, 20, 0.68);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 12px;
             overflow: hidden;
             min-height: 120px;
             position: relative;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .input-editor {
+            position: relative;
+            flex: 1;
+            min-height: 72px;
+            overflow: hidden;
         }
 
         #chat-input {
+            position: relative;
+            z-index: 2;
             flex: 1;
             min-height: 72px;
             max-height: 200px;
-            padding: 12px 16px 8px 16px;
+            padding: 12px 16px 84px 16px;
             border: none;
             outline: none;
             background: transparent;
-            color: white;
+            color: transparent;
+            caret-color: #fff;
             font-size: 16px;
             font-family: var(--small-font);
             border-radius: 0;
@@ -236,6 +380,143 @@
             overflow-y: auto;
             line-height: 1.4;
             box-sizing: border-box;
+            width: 100%;
+        }
+
+        #chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        #chat-input-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            padding: 12px 16px 84px 16px;
+            font-size: 16px;
+            font-family: var(--small-font);
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: anywhere;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #chat-input-overlay .input-kept {
+            color: #fff;
+        }
+
+        #chat-input-overlay .input-cut {
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .composer-meter {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            pointer-events: none;
+            padding: 8px 72px 10px 12px;
+            background: rgba(18, 18, 18, 0.76);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.24);
+            z-index: 4;
+            isolation: isolate;
+        }
+
+        .composer-meter::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(to top,
+                    rgba(8, 8, 8, 0.74) 0%,
+                    rgba(10, 10, 10, 0.58) 45%,
+                    rgba(14, 14, 14, 0.28) 100%);
+            backdrop-filter: blur(28px) saturate(120%);
+            -webkit-backdrop-filter: blur(28px) saturate(120%);
+        }
+
+        .composer-meter>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .input-container {
+                background: rgba(20, 20, 20, 0.56);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+            }
+
+            .composer-meter {
+                background: rgba(18, 18, 18, 0.38);
+                backdrop-filter: blur(22px);
+                -webkit-backdrop-filter: blur(22px);
+            }
+
+            .composer-meter::before {
+                backdrop-filter: blur(32px) saturate(125%);
+                -webkit-backdrop-filter: blur(32px) saturate(125%);
+                background: linear-gradient(to top,
+                        rgba(8, 8, 8, 0.66) 0%,
+                        rgba(10, 10, 10, 0.5) 45%,
+                        rgba(14, 14, 14, 0.22) 100%);
+            }
+        }
+
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .input-container {
+                background: rgba(12, 12, 12, 0.9);
+            }
+
+            .composer-meter {
+                background: rgba(8, 8, 8, 0.82);
+            }
+
+            .composer-meter::before {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: rgba(8, 8, 8, 0.82);
+            }
+        }
+
+        .composer-meter-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            line-height: 1.1;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .composer-meter #composer-token-estimate {
+            font-family: var(--mono), monospace;
+        }
+
+        .composer-meter #composer-token-note {
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .composer-overflow {
+            font-size: 11px;
+            line-height: 1.2;
+            color: rgba(255, 255, 255, 0.45);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            padding-top: 4px;
+            display: none;
+        }
+
+        .composer-overflow.active {
+            display: block;
         }
 
         #send-btn {
@@ -253,6 +534,7 @@
             align-items: center;
             justify-content: center;
             transition: background 0.2s, opacity 0.2s;
+            z-index: 5;
         }
 
         /* Desktop: circle button bottom-right inside input area */
@@ -265,7 +547,13 @@
 
             #chat-input {
                 padding-right: 64px;
-                padding-bottom: 12px;
+                padding-bottom: 84px;
+                border-radius: 12px 0 0 12px;
+            }
+
+            #chat-input-overlay {
+                padding-right: 64px;
+                padding-bottom: 84px;
                 border-radius: 12px 0 0 12px;
             }
 
@@ -305,6 +593,75 @@
             opacity: 0.7;
         }
 
+        .thinking-state {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        .thinking-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            width: min(420px, 90%);
+        }
+
+        .thinking-progress {
+            width: 100%;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .thinking-progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: 999px;
+            background: #6be2ff;
+            transition: width 0.12s linear;
+        }
+
+        .thinking-eta {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.2px;
+        }
+
+        .thinking-dots span {
+            opacity: 0.25;
+            animation: thinkingPulse 1s infinite;
+        }
+
+        .thinking-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .thinking-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes thinkingPulse {
+            0% { opacity: 0.25; }
+            50% { opacity: 1; }
+            100% { opacity: 0.25; }
+        }
+
+        .assistant-reveal {
+            opacity: 0;
+            transform: translateY(3px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .assistant-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         #back {
             position: fixed;
             left: 2px;
@@ -340,6 +697,24 @@
                 padding-right: 16px;
                 padding-bottom: 8px;
                 border-radius: 0;
+            }
+
+            #chat-input-overlay {
+                padding-right: 16px;
+                padding-bottom: 8px;
+                border-radius: 0;
+            }
+
+            .composer-meter {
+                position: static;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                margin: 0;
+                padding: 8px 12px 10px 12px;
+                pointer-events: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.14);
+                box-shadow: none;
             }
 
             #send-btn {
@@ -397,7 +772,20 @@
     <div class="bottom-area"
         style="position:fixed;bottom:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;background:transparent;padding:0 20px 10px 20px;">
         <div class="input-container" style="width:100%;max-width:1000px;margin:0 auto;">
-            <textarea id="chat-input" placeholder="Message" autocomplete="off" rows="1"></textarea>
+            <div class="input-editor">
+                <div id="chat-input-overlay" aria-hidden="true"></div>
+                <textarea id="chat-input" placeholder="Message" autocomplete="off" rows="1"></textarea>
+            </div>
+            <div class="composer-meter">
+                <div class="composer-meter-top">
+                    <span id="composer-token-estimate">~0 tokens</span>
+                    <span id="composer-token-note">0% of per-message budget</span>
+                </div>
+                <div class="token-track">
+                    <div id="composer-token-fill" class="token-fill"></div>
+                </div>
+                <div id="composer-overflow-preview" class="composer-overflow"></div>
+            </div>
             <button id="send-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
                     width="24px" fill="#000000">
                     <path
@@ -416,51 +804,413 @@
     <script>
         const chatMessages = document.getElementById('chat-messages');
         const chatInput = document.getElementById('chat-input');
+        const chatInputOverlay = document.getElementById('chat-input-overlay');
         const sendBtn = document.getElementById('send-btn');
+        const composerTokenEstimate = document.getElementById('composer-token-estimate');
+        const composerTokenNote = document.getElementById('composer-token-note');
+        const composerTokenFill = document.getElementById('composer-token-fill');
+        const composerOverflowPreview = document.getElementById('composer-overflow-preview');
         const STORAGE_KEY = 'eldiiarGPTChat';
+        const PERF_KEY = 'eldiiarGPTPerf';
+        const MAX_CONTEXT_MESSAGES = 25;
+        const MAX_STORED_MESSAGES = 120;
+        const MAX_USER_MESSAGE_TOKENS = 700;
+        const MAX_OUTPUT_TOKENS = 1024;
 
-        let messages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let messages = normalizeMessages(JSON.parse(localStorage.getItem(STORAGE_KEY)) || []);
+        let perfStats = normalizePerfStats(JSON.parse(localStorage.getItem(PERF_KEY)) || { samples: [] });
 
         const copyIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
         const checkIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        const REVEAL_STEPS = 36;
+        const REVEAL_DELAY_MS = 18;
+
+        function normalizeMessages(raw) {
+            if (!Array.isArray(raw)) return [];
+            return raw
+                .filter(msg => msg && typeof msg.content === 'string' && (msg.role === 'user' || msg.role === 'assistant'))
+                .map(msg => ({
+                    role: msg.role,
+                    content: msg.content,
+                    tokenEstimate: typeof msg.tokenEstimate === 'number' ? msg.tokenEstimate : estimateTokens(msg.content),
+                    tokenSource: msg.tokenSource === 'usage' ? 'usage' : 'estimate',
+                    cutoffReason: typeof msg.cutoffReason === 'string' ? msg.cutoffReason : '',
+                    promptTokenEstimate: typeof msg.promptTokenEstimate === 'number' ? msg.promptTokenEstimate : null,
+                    finishReason: typeof msg.finishReason === 'string' ? msg.finishReason : ''
+                }));
+        }
+
+        function normalizePerfStats(raw) {
+            if (!raw || !Array.isArray(raw.samples)) return { samples: [] };
+            const samples = raw.samples
+                .filter(s => s && typeof s.durationMs === 'number' && Number.isFinite(s.durationMs))
+                .map(s => ({
+                    durationMs: Math.max(200, Math.min(30000, Math.round(s.durationMs))),
+                    completionTokens: typeof s.completionTokens === 'number' && Number.isFinite(s.completionTokens)
+                        ? Math.max(1, Math.round(s.completionTokens))
+                        : null
+                }))
+                .slice(-30);
+            return { samples };
+        }
+
+        function savePerfStats() {
+            localStorage.setItem(PERF_KEY, JSON.stringify(perfStats));
+        }
+
+        function estimateTokens(text) {
+            const source = text || '';
+            if (!source.length) return 0;
+            const chars = source.length;
+            const words = source.trim().length ? source.trim().split(/\s+/).length : 0;
+            const punctuation = (source.match(/[.,!?;:()[\]{}"']/g) || []).length;
+            return Math.max(1, Math.ceil(chars / 4 + words * 0.15 + punctuation * 0.1));
+        }
+
+        function isOverInputBudget(text) {
+            return estimateTokens(text) > MAX_USER_MESSAGE_TOKENS;
+        }
+
+        function classifyTokenFill(fillEl, percent) {
+            fillEl.classList.remove('warn', 'danger');
+            if (percent >= 100) {
+                fillEl.classList.add('danger');
+            } else if (percent >= 75) {
+                fillEl.classList.add('warn');
+            }
+        }
+
+        function splitByTokenBudget(text, maxTokens) {
+            const source = text || '';
+            if (!source.length) return { kept: '', overflow: '' };
+            if (estimateTokens(source) <= maxTokens) return { kept: source, overflow: '' };
+
+            // Exact deterministic cutoff index: max prefix whose estimated tokens fit budget.
+            let low = 0;
+            let high = source.length;
+            while (low < high) {
+                const mid = Math.ceil((low + high) / 2);
+                const prefix = source.slice(0, mid);
+                if (estimateTokens(prefix) <= maxTokens) {
+                    low = mid;
+                } else {
+                    high = mid - 1;
+                }
+            }
+
+            const cutoffIndex = Math.max(0, Math.min(source.length, low));
+            return {
+                kept: source.slice(0, cutoffIndex),
+                overflow: source.slice(cutoffIndex)
+            };
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function syncInputOverlay() {
+            chatInputOverlay.scrollTop = chatInput.scrollTop;
+            chatInputOverlay.scrollLeft = chatInput.scrollLeft;
+        }
+
+        function updateInputOverlay(rawInput) {
+            const { kept, overflow } = splitByTokenBudget(rawInput, MAX_USER_MESSAGE_TOKENS);
+            const keptSafe = escapeHtml(kept);
+            const cutSafe = escapeHtml(overflow);
+            const trailingNewline = /\n$/.test(rawInput) ? '\n' : '';
+
+            chatInputOverlay.innerHTML = `<span class="input-kept">${keptSafe || ''}</span><span class="input-cut">${cutSafe || ''}</span>${trailingNewline}`;
+            syncInputOverlay();
+        }
+
+        function updateComposerEstimator() {
+            const rawInput = chatInput.value;
+            const estimate = estimateTokens(rawInput);
+            const percent = Math.min(100, Math.round((estimate / MAX_USER_MESSAGE_TOKENS) * 100));
+            composerTokenEstimate.textContent = `~${estimate} tokens`;
+            composerTokenNote.textContent = estimate > MAX_USER_MESSAGE_TOKENS
+                ? `Will be cut at ${MAX_USER_MESSAGE_TOKENS} tokens`
+                : `${percent}% of per-message budget`;
+            composerTokenFill.style.width = `${percent}%`;
+            classifyTokenFill(composerTokenFill, percent);
+
+            const { overflow } = splitByTokenBudget(rawInput, MAX_USER_MESSAGE_TOKENS);
+            if (overflow) {
+                composerOverflowPreview.classList.add('active');
+                composerOverflowPreview.textContent = 'Max tokens exceeded. Please delete all gray text to send message.';
+            } else {
+                composerOverflowPreview.classList.remove('active');
+                composerOverflowPreview.textContent = '';
+            }
+
+            updateInputOverlay(rawInput);
+        }
+
+        function refreshComposerState() {
+            sendBtn.disabled = !chatInput.value.trim() || isOverInputBudget(chatInput.value);
+            growInput();
+            updateComposerEstimator();
+        }
+
+        function trimToApproxTokenBudget(text, maxTokens) {
+            const source = text || '';
+            const fullEstimate = estimateTokens(source);
+            const { kept, overflow } = splitByTokenBudget(source, maxTokens);
+            if (!overflow) {
+                return {
+                    content: kept,
+                    tokenEstimate: fullEstimate,
+                    wasTruncated: false,
+                    originalTokenEstimate: fullEstimate,
+                    overflowContent: ''
+                };
+            }
+
+            return {
+                content: kept,
+                tokenEstimate: estimateTokens(kept),
+                wasTruncated: true,
+                originalTokenEstimate: fullEstimate,
+                overflowContent: overflow
+            };
+        }
+
+        function predictResponseDurationMs(contextTokens, lastUserTokens) {
+            const base = 1800;
+            const heuristic = base + contextTokens * 2.6 + lastUserTokens * 3.8;
+            if (!perfStats.samples.length) {
+                return Math.max(1400, Math.min(14000, Math.round(heuristic)));
+            }
+
+            const avgDuration = perfStats.samples.reduce((sum, s) => sum + s.durationMs, 0) / perfStats.samples.length;
+            const withTokens = perfStats.samples.filter(s => s.completionTokens && s.completionTokens > 0);
+            let tpsBased = null;
+            if (withTokens.length) {
+                const tps = withTokens
+                    .map(s => s.completionTokens / Math.max(0.2, s.durationMs / 1000))
+                    .reduce((sum, v) => sum + v, 0) / withTokens.length;
+                const predictedCompletion = Math.min(
+                    MAX_OUTPUT_TOKENS,
+                    Math.max(80, Math.round(120 + lastUserTokens * 0.35 + contextTokens * 0.06))
+                );
+                tpsBased = 500 + (predictedCompletion / Math.max(1, tps)) * 1000;
+            }
+
+            const blended = tpsBased == null
+                ? avgDuration * 0.7 + heuristic * 0.3
+                : avgDuration * 0.45 + heuristic * 0.2 + tpsBased * 0.35;
+            return Math.max(1200, Math.min(18000, Math.round(blended)));
+        }
+
+        function startThinkingProgress(typingDiv, estimatedMs) {
+            const fill = typingDiv.querySelector('.thinking-progress-fill');
+            const eta = typingDiv.querySelector('.thinking-eta');
+            if (!fill || !eta) {
+                return { stop: () => {} };
+            }
+
+            const start = performance.now();
+            let rafId = 0;
+
+            const tick = () => {
+                const elapsed = performance.now() - start;
+                const rawProgress = elapsed / Math.max(800, estimatedMs);
+                const clamped = Math.min(0.93, rawProgress);
+                fill.style.width = `${(clamped * 100).toFixed(1)}%`;
+
+                if (elapsed < estimatedMs) {
+                    const secondsLeft = Math.max(1, Math.ceil((estimatedMs - elapsed) / 1000));
+                    eta.textContent = `Estimated ${secondsLeft}s remaining`;
+                } else {
+                    eta.textContent = 'Finalizing response...';
+                }
+
+                rafId = requestAnimationFrame(tick);
+            };
+
+            rafId = requestAnimationFrame(tick);
+
+            return {
+                stop: (elapsedMs) => {
+                    if (rafId) cancelAnimationFrame(rafId);
+                    fill.style.width = '100%';
+                    eta.textContent = `Completed in ${(elapsedMs / 1000).toFixed(1)}s`;
+                }
+            };
+        }
+
+        function createContextHorizonNode(archivedCount) {
+            const node = document.createElement('div');
+            node.className = 'context-horizon';
+            node.innerHTML = `
+                <h4 class="context-horizon-title">Memory Horizon Reached</h4>
+                <p class="context-horizon-text">
+                    ${archivedCount} older message${archivedCount === 1 ? '' : 's'} are out of active AI context.
+                    Only the latest ${MAX_CONTEXT_MESSAGES} messages are sent for new replies.
+                </p>
+            `;
+            return node;
+        }
+
+        function createTokenMeter(msg) {
+            const meter = document.createElement('div');
+            meter.className = `token-meter ${msg.role === 'assistant' ? 'is-assistant' : 'is-user'}`;
+
+            const budget = msg.role === 'assistant' ? MAX_OUTPUT_TOKENS : MAX_USER_MESSAGE_TOKENS;
+            const estimate = typeof msg.tokenEstimate === 'number' ? msg.tokenEstimate : estimateTokens(msg.content);
+            const percent = Math.min(100, Math.round((estimate / budget) * 100));
+            const approxPrefix = msg.tokenSource === 'usage' ? '' : '~';
+
+            const top = document.createElement('div');
+            top.className = 'token-meter-top';
+
+            const count = document.createElement('span');
+            count.className = 'token-count';
+            count.textContent = `${approxPrefix}${estimate} tokens`;
+
+            const budgetText = document.createElement('span');
+            budgetText.className = 'token-budget';
+            budgetText.textContent = `${percent}% of ${budget}`;
+
+            top.appendChild(count);
+            top.appendChild(budgetText);
+
+            const track = document.createElement('div');
+            track.className = 'token-track';
+
+            const fill = document.createElement('div');
+            fill.className = 'token-fill';
+            fill.style.width = `${percent}%`;
+            classifyTokenFill(fill, percent);
+            track.appendChild(fill);
+
+            meter.appendChild(top);
+            meter.appendChild(track);
+
+            if (msg.promptTokenEstimate && msg.role === 'assistant') {
+                const promptNote = document.createElement('div');
+                promptNote.className = 'token-note';
+                promptNote.textContent = `Context consumed: ~${msg.promptTokenEstimate} prompt tokens`;
+                meter.appendChild(promptNote);
+            }
+
+            if (msg.cutoffReason) {
+                const cutoffTag = document.createElement('div');
+                cutoffTag.className = 'token-cutoff';
+                cutoffTag.textContent = msg.cutoffReason;
+                meter.appendChild(cutoffTag);
+            }
+
+            return meter;
+        }
+
+        function createAssistantMessageNode(msg, renderedContent = msg.content) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('message-wrapper', 'assistant');
+
+            const div = document.createElement('div');
+            div.classList.add('message', 'assistant');
+            div.innerHTML = marked.parse(renderedContent);
+
+            const meter = createTokenMeter(msg);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.type = 'button';
+            copyBtn.className = 'copy-btn';
+            copyBtn.title = 'Copy';
+            copyBtn.setAttribute('aria-label', 'Copy response');
+            copyBtn.innerHTML = copyIconSvg;
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(msg.content).then(() => {
+                    copyBtn.innerHTML = checkIconSvg;
+                    copyBtn.title = 'Copied!';
+                    copyBtn.classList.add('copied');
+                    copyBtn.setAttribute('aria-label', 'Copied');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = copyIconSvg;
+                        copyBtn.title = 'Copy';
+                        copyBtn.classList.remove('copied');
+                        copyBtn.setAttribute('aria-label', 'Copy response');
+                    }, 2000);
+                }).catch(() => {});
+            });
+
+            wrapper.appendChild(div);
+            wrapper.appendChild(meter);
+            wrapper.appendChild(copyBtn);
+            return { wrapper, div, meter };
+        }
+
+        function createUserMessageNode(msg) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('message-wrapper', 'is-user');
+            const div = document.createElement('div');
+            div.classList.add('message', 'user');
+            div.innerHTML = marked.parse(msg.content);
+
+            wrapper.appendChild(div);
+            wrapper.appendChild(createTokenMeter(msg));
+            return wrapper;
+        }
+
+        function splitIntoQuickChunks(text, steps = REVEAL_STEPS) {
+            const normalized = text || '';
+            if (!normalized.length) return [''];
+            const approxSize = Math.max(20, Math.ceil(normalized.length / steps));
+            const chunks = [];
+            let i = 0;
+
+            while (i < normalized.length) {
+                let end = Math.min(i + approxSize, normalized.length);
+                while (end < normalized.length && !/\s/.test(normalized[end])) end++;
+                chunks.push(normalized.slice(i, end));
+                i = end;
+            }
+            return chunks;
+        }
+
+        async function revealAssistantMessage(msg) {
+            const { wrapper, div } = createAssistantMessageNode(msg, '');
+            div.classList.add('assistant-reveal');
+            chatMessages.appendChild(wrapper);
+
+            const chunks = splitIntoQuickChunks(msg.content);
+            let built = '';
+            for (const chunk of chunks) {
+                built += chunk;
+                div.classList.remove('visible');
+                div.innerHTML = marked.parse(built);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                void div.offsetWidth;
+                div.classList.add('visible');
+                await new Promise(resolve => setTimeout(resolve, REVEAL_DELAY_MS));
+            }
+
+            div.innerHTML = marked.parse(msg.content);
+            div.classList.add('visible');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
         function renderMessages() {
             chatMessages.innerHTML = '';
-            messages.forEach(msg => {
+            const contextStart = Math.max(0, messages.length - MAX_CONTEXT_MESSAGES);
+
+            messages.forEach((msg, idx) => {
+                if (idx === contextStart && contextStart > 0) {
+                    chatMessages.appendChild(createContextHorizonNode(contextStart));
+                }
+
                 if (msg.role === 'assistant') {
-                    const wrapper = document.createElement('div');
-                    wrapper.classList.add('message-wrapper', 'assistant');
-                    const div = document.createElement('div');
-                    div.classList.add('message', 'assistant');
-                    div.innerHTML = marked.parse(msg.content);
-                    const copyBtn = document.createElement('button');
-                    copyBtn.type = 'button';
-                    copyBtn.className = 'copy-btn';
-                    copyBtn.title = 'Copy';
-                    copyBtn.setAttribute('aria-label', 'Copy response');
-                    copyBtn.innerHTML = copyIconSvg;
-                    copyBtn.addEventListener('click', () => {
-                        navigator.clipboard.writeText(msg.content).then(() => {
-                            copyBtn.innerHTML = checkIconSvg;
-                            copyBtn.title = 'Copied!';
-                            copyBtn.classList.add('copied');
-                            copyBtn.setAttribute('aria-label', 'Copied');
-                            setTimeout(() => {
-                                copyBtn.innerHTML = copyIconSvg;
-                                copyBtn.title = 'Copy';
-                                copyBtn.classList.remove('copied');
-                                copyBtn.setAttribute('aria-label', 'Copy response');
-                            }, 2000);
-                        }).catch(() => {});
-                    });
-                    wrapper.appendChild(div);
-                    wrapper.appendChild(copyBtn);
+                    const { wrapper } = createAssistantMessageNode(msg);
                     chatMessages.appendChild(wrapper);
                 } else {
-                    const div = document.createElement('div');
-                    div.classList.add('message', msg.role);
-                    div.innerHTML = marked.parse(msg.content);
-                    chatMessages.appendChild(div);
+                    chatMessages.appendChild(createUserMessageNode(msg));
                 }
             });
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -477,38 +1227,111 @@
             chatInput.style.height = 'auto';
         }
 
+        function getActiveContextMessages() {
+            return messages.slice(-MAX_CONTEXT_MESSAGES);
+        }
+
         async function sendMessage(content) {
             if (!content.trim()) return;
 
-            messages.push({ role: 'user', content });
+            const preparedUser = trimToApproxTokenBudget(content, MAX_USER_MESSAGE_TOKENS);
+            const userTokenEstimate = preparedUser.tokenEstimate;
+            messages.push({
+                role: 'user',
+                content: preparedUser.content,
+                tokenEstimate: userTokenEstimate,
+                tokenSource: 'estimate',
+                cutoffReason: preparedUser.wasTruncated
+                    ? `Cut off: max ${MAX_USER_MESSAGE_TOKENS} input tokens reached`
+                    : '',
+                promptTokenEstimate: null,
+                finishReason: ''
+            });
             trimMessages();
             renderMessages();
             chatInput.value = '';
             resetInputHeight();
+            updateComposerEstimator();
+            updateInputOverlay('');
 
             const typingDiv = document.createElement('div');
             typingDiv.classList.add('message', 'assistant', 'typing');
-            typingDiv.textContent = 'EldiiarGPT is typing...';
+            const activeContextPreRequest = getActiveContextMessages();
+            const contextTokenEstimatePre = activeContextPreRequest.reduce((sum, msg) => sum + estimateTokens(msg.content), 0);
+            const predictedMs = predictResponseDurationMs(contextTokenEstimatePre, userTokenEstimate);
+            typingDiv.innerHTML = `
+                <div class="thinking-wrap">
+                    <div class="thinking-state">
+                        <span>Thinking</span>
+                        <span class="thinking-dots"><span>.</span><span>.</span><span>.</span></span>
+                    </div>
+                    <div class="thinking-progress">
+                        <div class="thinking-progress-fill"></div>
+                    </div>
+                    <div class="thinking-eta">Estimating...</div>
+                </div>
+            `;
             chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+            const thinkingProgress = startThinkingProgress(typingDiv, predictedMs);
+            const requestStartedAt = performance.now();
             try {
+                const activeContext = getActiveContextMessages();
+                const contextTokenEstimate = activeContext.reduce((sum, msg) => sum + estimateTokens(msg.content), 0);
                 const res = await fetch('https://eldiiar.netlify.app/.netlify/functions/chatWithGroq', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ messages })
+                    body: JSON.stringify({
+                        messages: activeContext.map(msg => ({ role: msg.role, content: msg.content })),
+                        max_tokens: MAX_OUTPUT_TOKENS
+                    })
                 });
                 const data = await res.json();
                 const botReply = data.reply || 'No response';
+                const finishReason = data?.raw?.choices?.[0]?.finish_reason || '';
+                const completionTokens = data?.raw?.usage?.completion_tokens;
+                const promptTokens = data?.raw?.usage?.prompt_tokens;
+                const assistantMsg = {
+                    role: 'assistant',
+                    content: botReply,
+                    tokenEstimate: typeof completionTokens === 'number' ? completionTokens : estimateTokens(botReply),
+                    tokenSource: typeof completionTokens === 'number' ? 'usage' : 'estimate',
+                    cutoffReason: finishReason === 'length'
+                        ? `Cut off: max ${MAX_OUTPUT_TOKENS} output tokens reached`
+                        : '',
+                    promptTokenEstimate: typeof promptTokens === 'number' ? promptTokens : contextTokenEstimate,
+                    finishReason
+                };
+                const elapsedMs = performance.now() - requestStartedAt;
+                thinkingProgress.stop(elapsedMs);
+                perfStats.samples.push({
+                    durationMs: elapsedMs,
+                    completionTokens: typeof completionTokens === 'number'
+                        ? completionTokens
+                        : estimateTokens(botReply)
+                });
+                perfStats.samples = perfStats.samples.slice(-30);
+                savePerfStats();
 
                 typingDiv.remove();
-                messages.push({ role: 'assistant', content: botReply });
+                messages.push(assistantMsg);
                 trimMessages();
-                renderMessages();
+                await revealAssistantMessage(assistantMsg);
                 saveMessages();
             } catch (err) {
                 console.error(err);
+                const elapsedMs = performance.now() - requestStartedAt;
+                thinkingProgress.stop(elapsedMs);
                 typingDiv.remove();
-                messages.push({ role: 'assistant', content: 'Error: Could not reach AI' });
+                messages.push({
+                    role: 'assistant',
+                    content: 'Error: Could not reach AI',
+                    tokenEstimate: estimateTokens('Error: Could not reach AI'),
+                    tokenSource: 'estimate',
+                    cutoffReason: '',
+                    promptTokenEstimate: null,
+                    finishReason: ''
+                });
                 trimMessages();
                 renderMessages();
                 saveMessages();
@@ -516,7 +1339,7 @@
         }
 
         function trimMessages() {
-            if (messages.length > 25) messages = messages.slice(-25);
+            if (messages.length > MAX_STORED_MESSAGES) messages = messages.slice(-MAX_STORED_MESSAGES);
         }
 
         function saveMessages() {
@@ -529,18 +1352,25 @@
             sendBtn.disabled = true;
         });
 
-        chatInput.addEventListener('input', () => {
-            sendBtn.disabled = !chatInput.value.trim();
-            growInput();
+        chatInput.addEventListener('input', refreshComposerState);
+        chatInput.addEventListener('paste', () => requestAnimationFrame(refreshComposerState));
+        chatInput.addEventListener('cut', () => requestAnimationFrame(refreshComposerState));
+        chatInput.addEventListener('keyup', refreshComposerState);
+        chatInput.addEventListener('compositionend', refreshComposerState);
+
+        chatInput.addEventListener('scroll', () => {
+            syncInputOverlay();
         });
 
         chatInput.addEventListener('keydown', e => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === 'Enter' && isOverInputBudget(chatInput.value)) {
                 e.preventDefault();
             }
         });
 
-        sendBtn.disabled = !chatInput.value.trim();
+        sendBtn.disabled = !chatInput.value.trim() || isOverInputBudget(chatInput.value);
+        updateComposerEstimator();
+        updateInputOverlay(chatInput.value);
 
         renderMessages();
     </script>

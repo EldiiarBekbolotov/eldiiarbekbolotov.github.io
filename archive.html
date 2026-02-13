@@ -136,6 +136,95 @@
             border-radius: 22px 22px 2px 2px;
             padding-left: 20px;
         }
+
+        .archive-featured {
+            margin-bottom: 48px;
+        }
+
+        .archive-featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .archive-featured-grid a {
+            text-decoration: none;
+        }
+
+        .archive-featured-grid a:hover {
+            text-decoration: none;
+        }
+
+        .archive-featured-grid .card {
+            background-color: #010101;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .archive-featured-grid .card:hover {
+            transform: translateY(0px);
+            box-shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
+        }
+
+        .archive-featured-grid .card:hover h2 span {
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .archive-featured-grid .card img {
+            background: linear-gradient(30deg, rgb(75, 75, 75), rgb(2, 22, 38));
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+        }
+
+        .archive-featured-grid .card-content {
+            padding: 1.5rem;
+        }
+
+        .archive-featured-grid .card h2 {
+            display: inline-block;
+            font-family: var(--big-font);
+            font-size: 24px !important;
+            margin-bottom: 0.5rem;
+            color: #b0b0b0;
+            border-bottom: 1px solid transparent;
+            line-height: 30px;
+        }
+
+        .archive-featured-grid .card h2 span {
+            color: var(--primary);
+        }
+
+        .archive-featured-grid .card p {
+            font-size: 16px !important;
+            line-height: 23px !important;
+            margin-bottom: 1rem;
+            color: #b0b0b0;
+        }
+
+        .archive-featured-grid .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .archive-featured-grid .tag {
+            background-color: #2a2a2a;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #e0e0e0;
+        }
+
+        @media (max-width: 600px) {
+            .archive-featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -175,6 +264,91 @@
                 <h1 class="big-f">Archive</h1>
                 <p>A collection of projects I've built over the years.</p>
 
+                <div class="archive-featured">
+                    <div class="archive-featured-grid">
+                        <a href="projects/finrise.html">
+                            <div class="card">
+                                <img src="src/finrise-splash.png" alt="Operation FinRise" />
+                                <div class="card-content">
+                                    <h2><span>Operation FinRise</span> — 2025</h2>
+                                    <p>
+                                        Developed the official website of a now-defunct finance blog for Gen Z
+                                    </p>
+                                    <div class="card-tags">
+                                        <span class="tag">Website</span>
+                                        <span class="tag">Non-Profit</span>
+                                        <span class="tag">Full Stack</span>
+                                        <span class="tag"
+                                            style="box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);">+3
+                                            more</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="projects/propnote.html">
+                            <div class="card">
+                                <img src="src/propnoteai.png" alt="PropNote AI" />
+                                <div class="card-content">
+                                    <h2><span>PropNote AI</span> — 2025</h2>
+                                    <p>
+                                        AI powered real estate app for property tours.
+                                    </p>
+                                    <div class="card-tags">
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">Groq</span>
+                                        <span class="tag">Real Estate</span>
+                                        <span class="tag"
+                                            style="box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);">+2
+                                            more</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://eldiiarbot.onrender.com" target="_blank">
+                            <div class="card">
+                                <img src="src/eldiiarbotpr.png" alt="EldiiarBot" />
+                                <div class="card-content">
+                                    <h2><span>EldiiarBot</span> — 2025</h2>
+                                    <p>
+                                        AI chatbot has 6 different modes like Scientist, Socratic Tutor, Gym Coach,
+                                        and more.
+                                    </p>
+                                    <div class="card-tags">
+                                        <span class="tag">Python</span>
+                                        <span class="tag">Groq</span>
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag"
+                                            style="box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);">+2
+                                            more</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://khanprofileviewer.web.app/" target="_blank">
+                            <div class="card">
+                                <img src="src/khanprofileviewer.png" alt="Khan Profile Viewer" />
+                                <div class="card-content">
+                                    <h2><span>Khan Profile Viewer</span> — 2025</h2>
+                                    <p>
+                                        Tool to turn any Khan Academy Computer Programming profile into an interactive
+                                        portfolio.
+                                    </p>
+                                    <div class="card-tags">
+                                        <span class="tag">API</span>
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">Tool</span>
+                                        <span class="tag"
+                                            style="box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);">+3
+                                            more</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
 
                 <div style="margin-bottom: 40px;">
                     <div class="element-parent">
