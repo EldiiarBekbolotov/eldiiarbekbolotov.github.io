@@ -762,7 +762,12 @@ smooth();
 enableContextMenu();
 
 var delag = false;
-var testing = false;
+/*admin67*/
+var testing = !true;
+var loadScene = 0;
+var gamemode = 0;
+var scene = 'load';
+var prevKeys = [];
 
 // do not repeat these
 var d = day();
@@ -782,7 +787,6 @@ November 11
 December 12
 */
 var y = year();
-var loadScene = 0; //lol
 
 var sa = 0;
 
@@ -915,7 +919,6 @@ var gamemodes = [{
 },
 ];
 //gamemodes[gamemode]
-var gamemode = 0;
 
 var playerShopIndex = 'traits';
 
@@ -938,28 +941,28 @@ function formatTimePlayed(seconds) {
     timeString += remainingSeconds + "s";
     return timeString;
 }
+
 function characterIsSupported(
-    character, font = getComputedStyle(document.body).fontFamily, recursion = false
+character, font = getComputedStyle(document.body).fontFamily, recursion = false
 ) {
-    let testCanvas = document.createElement("canvas");
-    let referenceCanvas = document.createElement("canvas");
-    testCanvas.width = referenceCanvas.width = testCanvas.height = referenceCanvas.height = 150;
-    let testContext = testCanvas.getContext("2d");
-    let referenceContext = referenceCanvas.getContext("2d");
-    testContext.font = referenceContext.font = "100px " + font;
-    testContext.fillStyle = referenceContext.fillStyle = "black";
-    testContext.fillText(character, 0, 100);
-    referenceContext.fillText('\uffff', 0, 100);
+let testCanvas = document.createElement("canvas");
+let referenceCanvas = document.createElement("canvas");
+testCanvas.width = referenceCanvas.width = testCanvas.height = referenceCanvas.height = 150;
+let testContext = testCanvas.getContext("2d");
+let referenceContext = referenceCanvas.getContext("2d");
+testContext.font = referenceContext.font = "100px " + font;
+testContext.fillStyle = referenceContext.fillStyle = "black";
+testContext.fillText(character, 0, 100);
+referenceContext.fillText('\uffff', 0, 100);
 
-    if (!recursion && characterIsSupported('\ufffe', font, true)) {
-        testContext.fillStyle = referenceContext.fillStyle = "black";
-        testContext.fillRect(10, 10, 80, 80);
-        referenceContext.fillRect(10, 10, 80, 80);
-    }
-    return testCanvas.toDataURL() != referenceCanvas.toDataURL();
-    return true;
+if (!recursion && characterIsSupported('\ufffe', font, true)) {
+testContext.fillStyle = referenceContext.fillStyle = "black";
+testContext.fillRect(10, 10, 80, 80);
+referenceContext.fillRect(10, 10, 80, 80);
 }
-
+return testCanvas.toDataURL() != referenceCanvas.toDataURL();
+return true;
+}
 
 // for backgrounds
 var bgColors = [
@@ -984,7 +987,6 @@ mouseClicked = function () {
     click = true;
 };
 var keys = [];
-var scene = "load";
 var playerShopIndex = "skins";
 var killText = ["2+ Score", "Double Kill!", "Triple Kill!", "Quadruple Kill", "Penta Kill!", "Multi Kill!", "Mega Kill!"];
 var names = [
@@ -1147,15 +1149,15 @@ var Transitions = function () {
     this.c = 255;
 };
 Transitions.prototype.create = function () {
-    fill(255, 255, 255, this.c);
+    fill(0, 0, 0,this.c);
     rect(0, 0, width, height);
     if (this.t === 1) {
         scene = to;
     }
     if (this.t < 30) {
-        this.c -= 10;
+        this.c -= 30;
     }
-    if (this.t > 30) {
+    if (this.t > 10) {
         this.c = 255;
         this.t = 0;
         intransition = false;
@@ -2320,8 +2322,8 @@ Harvest.prototype.display = function () {
     pushStyle();
     translate(this.x, this.y);
     rectMode(CENTER);
-    fill(39, 255, 15, this.y);
-    rect(0, 0, 150, 90, 0, 0, 0, 0);
+    fill(39, 0, 15, this.y);
+    rect(0, 0, 150, 90, 0, 0, 10, 10);
     textFont(createFont(fontss[0], 16));
     textAlign(LEFT, LEFT);
     fill(0);
@@ -2731,6 +2733,11 @@ var U = function (data) {
     this.weapons = ["pistol", "musket", "AR", "SMG"];
     this.recoil = 0;
     this.cosmetic = 0;
+    
+    this.punchT = 0;
+this.punchHand = 0; // 0 = left, 1 = right
+this.punching = false;
+this.punchFired = false;
 };
 U.prototype.display = function () {
     pushMatrix();
@@ -2843,11 +2850,38 @@ U.prototype.display = function () {
             this.weapon = "SMG";
         }
     } else {
-        ellipse(-14, -15, 20, 20);
-        ellipse(14, -15, 20, 20);
+var leftPunch = this.punchHand === 0 ? sin(this.punchT) * 22 : 0;
+var leftPunchX = this.punchHand === 0 ? sin(this.punchT) * 16 : 0;
+var rightPunch = this.punchHand === 1 ? sin(this.punchT) * 22 : 0;
+var rightPunchX = this.punchHand === 1 ? sin(this.punchT) * 16 : 0;
 
-        this.weapon = "fists";
-    }
+pushStyle();
+stroke(190, 140, 75);
+strokeWeight(10);
+noFill();
+// left arm
+line(-14, 5, -14 + leftPunchX, -15 - leftPunch);
+// right arm
+line(14, 5, 14 - rightPunchX, -15 - rightPunch);
+popStyle();
+
+// fists on top
+ellipse(-14 + leftPunchX, -15 - leftPunch, 20, 20);
+ellipse(14 - rightPunchX, -15 - rightPunch, 20, 20);
+// draw fists on top
+ellipse(-14 + leftPunchX, -15 - leftPunch, 20, 20);
+ellipse(14 - rightPunchX, -15 - rightPunch, 20, 20);
+
+if (this.punching) {
+this.punchT = min(this.punchT + 19, 180);
+if (this.punchT >= 180) {
+this.punchT = 0;
+this.punching = false;
+}
+}
+
+this.weapon = "fists";
+}
 
 
 
@@ -2923,14 +2957,20 @@ U.prototype.fight = function () {
 
     switch (this.weapon) {
         case "fists":
-            this.rnum++;
-            if (this.rnum >= 50) {
-                this.reload = true;
-                this.rnum = 0;
-                shooting = 20;
-
-            }
-            break;
+this.rnum++;
+this.punchFired = false;
+if (this.rnum >= 30) {
+if (mouseIsPressed) {
+this.reload = true;
+this.rnum = 0;
+this.punching = true;
+this.punchT = 0;
+this.punchHand = this.punchHand === 0 ? 1 : 0;
+shooting = 20;
+this.punchFired = true;
+}
+}
+break;
         case "pistol":
             this.rnum++;
 
@@ -4166,74 +4206,80 @@ var Rock = function (data) {
 
     this.replayTime = 0;
     this.graphicalRotation = random(0, 360);
+    this.jiggle = 0;
+    this.opacity  = 0;
 };
 Rock.prototype.display = function () {
     pushMatrix();
     pushStyle();
-    translate(this.x, this.y);
+    tint(255, 255, 255, this.opacity);
+translate(this.x + sin(frameCount * 30) * this.jiggle, this.y);
     scale(1);
 
     //randomSeed(1);
 
-    switch (this.type) {
-        case 0:
-
-            stroke(0, 0, 0);
-            strokeWeight(2);
-
-            fill(125, 94, 0);
-            ellipse(0, 0, this.rad, this.rad);
-
-            noStroke();
-            fill(112, 75, 19);
-            ellipse(0, 0, this.rad / 1.5, this.rad / 1.5);
-
-            fill(77, 53, 0);
-
-            fill(0, 82, 1, this.treeOn);
-            ellipse(0, 0, this.treeRad, this.treeRad / 2);
-            ellipse(0, 0, this.treeRad / 2, this.treeRad);
-            ellipse(0, -50, this.treeRad / 1.5, this.treeRad / 2);
-            ellipse(0, 50, this.treeRad / 1.5, this.treeRad / 2);
-            //rect(-this.treeRad/2, -this.treeRad/2, this.treeRad, this.treeRad, 15);
-            break;
-        case 1:
-            pushMatrix();
-            rotate(this.graphicalRotation);
-            stroke(52, 51, 52);
-            strokeWeight(5);
-
-            fill(71, 73, 77);
-            fill(69, 76, 84);
-            ellipse(0, 0, this.rad, this.rad);
-
-            noStroke();
-            fill(89, 89, 89);
-            fill(101, 108, 115);
-            ellipse(0, 0, this.rad / 1.5, this.rad / 1.5);
-            //rock
-
-            //rgb(109, 129, 150)
-            //rgb(68, 88, 110)
-            //rgb(52, 51, 52)
-            fill(97, 97, 97);
-            fill(58, 63, 69, 90);
-            ellipse(10, 10, 10, 10);
-            ellipse(-5, 10, 10, 10);
-            ellipse(10, -10, 10, 10);
-
-            ellipse(15, 10, 10, 10);
-            ellipse(-5, 10, 10, 10);
-            ellipse(10, -10, 10, 10);
-            popMatrix();
-            break;
-        case 2:
-
-            break;
-    }
-
+switch (this.type) {
+case 0:
+stroke(0, 0, 0, this.opacity);
+strokeWeight(2);
+fill(125, 94, 0, this.opacity);
+ellipse(0, 0, this.rad, this.rad);
+noStroke();
+fill(112, 75, 19, this.opacity);
+ellipse(0, 0, this.rad / 1.5, this.rad / 1.5);
+fill(0, 82, 1, min(this.treeOn, this.opacity));
+var r = this.treeRad / 2;
+var rp = r * 1.05;
+var rv = r * 0.95;
+beginShape();
+curveVertex(rv * cos(337.5), rv * sin(337.5));
+vertex(rp, 0);
+curveVertex(rv * cos(22.5), rv * sin(22.5));
+curveVertex(rp * cos(45), rp * sin(45));
+curveVertex(rv * cos(67.5), rv * sin(67.5));
+curveVertex(rp * cos(90), rp * sin(90));
+curveVertex(rv * cos(112.5), rv * sin(112.5));
+curveVertex(rp * cos(135), rp * sin(135));
+curveVertex(rv * cos(157.5), rv * sin(157.5));
+curveVertex(rp * cos(180), rp * sin(180));
+curveVertex(rv * cos(202.5), rv * sin(202.5));
+curveVertex(rp * cos(225), rp * sin(225));
+curveVertex(rv * cos(247.5), rv * sin(247.5));
+curveVertex(rp * cos(270), rp * sin(270));
+curveVertex(rv * cos(292.5), rv * sin(292.5));
+curveVertex(rp * cos(315), rp * sin(315));
+curveVertex(rv * cos(337.5), rv * sin(337.5));
+vertex(rp, 0);
+endShape(CLOSE);
+break;
+case 1:
+pushMatrix();
+rotate(this.graphicalRotation);
+stroke(52, 51, 52, this.opacity);
+strokeWeight(5);
+fill(69, 76, 84, this.opacity);
+ellipse(0, 0, this.rad, this.rad);
+noStroke();
+fill(101, 108, 115, this.opacity);
+ellipse(0, 0, this.rad / 1.5, this.rad / 1.5);
+fill(58, 63, 69, min(90, this.opacity));
+ellipse(10, 10, 10, 10);
+ellipse(-5, 10, 10, 10);
+ellipse(10, -10, 10, 10);
+ellipse(15, 10, 10, 10);
+ellipse(-5, 10, 10, 10);
+ellipse(10, -10, 10, 10);
+popMatrix();
+break;
+case 2:
+break;
+}if (this.jiggle > 0) {
+this.jiggle = lerp(this.jiggle, 0, 0.2);
+}
     popStyle();
     popMatrix();
+    
+    
 };
 Rock.prototype.collide = function (obj, t) {
     if (t === 0) {
@@ -4248,46 +4294,74 @@ Rock.prototype.collide = function (obj, t) {
                 //}
             }
         }
-    } else if (t === 1) {
-        if (dist(this.x, this.y, obj.x, obj.y) <= (this.rad / 2 + obj.rad / 2)) {
-            obj.x -= cos(atan2(obj.y - this.y, obj.x - this.x)) * (dist(this.x, this.y, obj.x, obj.y) - this.rad / 2 - obj.rad / 2);
-            obj.y -= sin(atan2(obj.y - this.y, obj.x - this.x)) * (dist(this.x, this.y, obj.x, obj.y) - this.rad / 2 - obj.rad / 2);
-            harvest.show = true;
-            if (this.type === 0) {
-                harvest.id = "Basic Tree\n" + this.resources + "/25\n\n'E' to Harvest";
-                if (keys[69] && this.resources >= 1) {
-                    this.resources -= p.axe;
-                    p.wood++;
-                }
-            }
-            if (this.type === 1) {
-                harvest.id = "Basic Rock\n" + this.resources + "/25\n\n'E' to Harvest";
-                if (keys[69] && this.resources >= 1) {
-                    this.resources -= p.axe;
-                    p.rock++;
-                }
-            }
-        } else {
-            //harvest.show = false;
-        }
-    }
-};
-Rock.prototype.run = function () {
-    if (this.resources === 0) {
-        this.replayTime += 0.01;
-        //harvest.id = "Basic "+(this.type===1?"Rock":"Tree")+"\n0/25\nReloading..\n\n🔃"+~~this.replayTime + "%";
-        if (this.replayTime >= 100) {
-            this.resources = 25;
-            this.replayTime = 0;
-        }
-    }
-    if (dist(p.x, p.y, this.x, this.y) <= this.treeRad / 2) {
-        this.treeOn = lerp(this.treeOn, 20, 0.25);
-    } else {
-        this.treeOn = lerp(this.treeOn, 100, 0.25);
-    }
+} else if (t === 1) {
+var dx = this.x - obj.x;
+var dy = this.y - obj.y;
+var len = dist(0, 0, dx, dy);
+var facingX = sin(obj.angle);
+var facingY = -cos(obj.angle);
+var dot = (dx / len) * facingX + (dy / len) * facingY;
+var facing = dot > 0.5;
+var d = dist(this.x, this.y, obj.x, obj.y);
 
-    this.display();
+// physics collision at normal radius
+if (d <= (this.rad / 2 + obj.rad / 2)) {
+obj.x -= cos(atan2(obj.y - this.y, obj.x - this.x)) * (d - this.rad / 2 - obj.rad / 2);
+obj.y -= sin(atan2(obj.y - this.y, obj.x - this.x)) * (d - this.rad / 2 - obj.rad / 2);
+}
+
+// interaction at extended radius
+if (d <= (this.rad / 2 + obj.rad / 2 + 30)) {
+harvest.show = true;
+if (this.type === 0) {
+harvest.id = "Basic Tree\n" + this.resources + "/25";
+if ((p.punchFired) && this.resources >= 1 && facing) {
+    this.resources -= p.axe;
+    p.wood++;
+    this.jiggle = 10;
+}
+}
+if (this.type === 1) {
+harvest.id = "Basic Rock\n" + this.resources + "/25";
+if ((p.punchFired) && this.resources >= 1 && facing) {
+    this.resources -= p.axe;
+    p.rock++;
+    this.jiggle = 10;
+}
+}
+}
+}            };
+Rock.prototype.run = function () {
+if (this.resources === 0) {
+this.replayTime += 0.01;
+if (this.replayTime >= 100) {
+this.resources = 25;
+this.replayTime = 0;
+}
+}
+
+// opacity based on replayTime
+if (this.resources === 0) {
+if (this.replayTime <= 20) {
+this.opacity = 51;       // 0.2 * 255
+} else if (this.replayTime <= 50) {
+this.opacity = 102;      // 0.4 * 255
+} else if (this.replayTime <= 70) {
+this.opacity = 153;      // 0.6 * 255
+} else {
+this.opacity = 204;      // 0.8 * 255
+}
+} else {
+this.opacity = 255;
+}
+
+if (dist(p.x, p.y, this.x, this.y) <= this.treeRad / 2) {
+this.treeOn = lerp(this.treeOn, 20, 0.25);
+} else {
+this.treeOn = lerp(this.treeOn, 150, 0.25);
+}
+
+this.display();
 };
 
 var rectRect = function (x1, y1, w1, h1, x2, y2, w2, h2) {
@@ -4547,6 +4621,7 @@ var AI = function (data) {
     this.dead = false;
     this.killProcessed = false;
     this.realName = names[data.id];
+    this.cosmetic = Math.floor(Math.random() * 12);
 };
 AI.prototype.display = function () {
     pushMatrix();
@@ -4587,12 +4662,14 @@ AI.prototype.display = function () {
         ellipse(0, 0, this.rad, this.rad);
 
         // barret
-        noStroke();
+        /*noStroke();
         fill(24, 66, 4);
         ellipse(0, 10, 30, 35);
 
         fill(41, 105, 6);
-        ellipse(0, 5, 10, 35);
+        ellipse(0, 5, 10, 35);*/
+        
+skins(this.cosmetic, 0, 0, 1, 1, 0);
     } else {
         this.angle = 0;
         fill(this.skin, 50);
@@ -4638,7 +4715,8 @@ AI.prototype.findNearestAI = function (ais) {
     return nearestAI;
 };
 
-AI.prototype.move = function (ais) {
+AI.prototype.move = function(ais) {
+    var aiming = false;
     // can remove this, testing...
     // Yeah this might work if I remove earlier version
     //if(gamemodes[gamemode].totalBots===undefined){
@@ -4708,6 +4786,7 @@ AI.prototype.move = function (ais) {
                         this.reload = false;
                     }
                     this.angle = atan2(p.y - this.y, p.x - this.x) + 90;
+                    aiming = true;
                 } else {
                     if (target && target.dead === false) {
                         if (this.reload === true && this.id !== 'default') {
@@ -4726,6 +4805,7 @@ AI.prototype.move = function (ais) {
                             this.reload = false;
                         }
                         this.angle = atan2(target.y - this.y, target.x - this.x) + 90;
+                        aiming = true;
 
                         /*if ((dist(this.x, this.y, target.x, target.y) <= this.attackDist) ) {
 if (target.x > this.x) {
@@ -4745,8 +4825,9 @@ if (target.y < this.y) {
                     }
                 }
                 this.dir = atan2(this.ry - this.y, this.rx - this.x) + 90;
-                this.angle = lerp(this.angle, this.dir, 0.05);
-
+                if (aiming) {
+                    this.angle = lerp(this.angle, this.dir, 0.1);
+                }
                 if (this.rx > this.x) {
                     this.x += this.speed;
                 }
@@ -4837,8 +4918,10 @@ if (target.y < this.y) {
                     }
                 } else {
                     this.dir = atan2(this.ry - this.y, this.rx - this.x) + 90;
-                    this.angle = lerp(this.angle, this.dir, 0.05);
+                    if (!aiming) {
 
+                        this.angle = lerp(this.angle, this.dir, 0.05);
+                    }
                     if (this.rx > this.x) {
                         this.x += this.speed;
                     }
@@ -5330,7 +5413,9 @@ Button.prototype.run = function () {
     if (this.a) {
         switch (this.a) {
             case "action":
-                textFont(createFont(fontss[1]), 20);
+                if (this.t === "Shop"){
+                textFont(createFont(fontss[1]), 10);}else{
+                textFont(createFont(fontss[1]), 20);}
                 fill(255);
                 _text(this.t, 0, 0, 1, 1, !true, color(0, 0, 0), color(255, 255, 255), 0.5);
                 break;
@@ -5355,7 +5440,7 @@ var btns = [
     new Button(50, 15, 100, 30, "Home", 0, false),
     new Button(w / 2, h - 35, 300, 45, "Home", 0, true), // laste one means reset player
     new Button(w - 65, h - 82, 120, 40, "Modes", 6, false, "action"),
-    new Button(w - 70 / 2, h - 50 / 2, 60, 40, "Shop", 5, false, 'action', 0),
+    new Button(w - 70 / 2, h  / 2, 40, 20, "Shop", 5, false, 'action', 0),
     new Button(w - 100 / 2, h - 50 / 2, 100, 30, "Back", 1, false, "action"),
     new Button(353, 15, 100, 30, "Lead", 3, false),
 ];
@@ -5534,8 +5619,8 @@ var qweclr = color(255, 247, 0, 250);
 var groups = {
     a: [0, 0, 0, ''],
     b: [0, 0, 1, '<'],
-    c: [0, 0, 0, '='],
-};
+    c: [-350, 0, 0, '='],
+}
 
 //p.x = 0;
 //p.y = gd.gH - 10;
@@ -5571,8 +5656,8 @@ function drawgamelead() {
         pushMatrix();
         pushStyle();
         translate(0, groups.c[0]);
-        fill(0, 0, 0, 200);
-        rect(width / 4, 50, width - 300, height - 100);
+        fill(2, 30, 54, 200);
+        rect(width / 4, 50, width - 300, height - 100, 20);
         // Display the gamelead
         textSize(20);
         textAlign(LEFT, LEFT);
@@ -5778,7 +5863,7 @@ var game = function () {
     // removed in production for better performance
     // try {
 
-    background(66, 66, 66);
+    background(4, 90, 146);
     harvest.show = false;
     // player gun shoots when mouse is pressed
     if (mouseIsPressed) {
@@ -5901,10 +5986,10 @@ var game = function () {
     }
 
     //    fill(212, 192, 106);
-    fill(18, 79, 6);
+    fill(92, 92, 92);
     rect(0, 0, gd.gW, gd.gH);
     //fill(212, 175, 106);
-    fill(166, 63, 166);
+    fill(77, 77, 77);
 
     rect(gd.gW / 2, 0, gd.gW / 2, gd.gH);
 
@@ -6200,37 +6285,37 @@ var game = function () {
 
                             p.kills++;
                             p.killData.push("kill");
-                            switch (p.killData.length) {
-                                case 0:
-                                    break;
-                                case 1:
-                                    p.score += 10;
-                                    break;
-                                case 2:
-                                    p.score += 25;
-                                    break;
-                                case 3:
-                                    p.score += 35;
-                                    break;
-                                case 4:
-                                    p.score += 45;
-                                    break;
-                                case 5:
-                                    p.score += 55;
-                                    break;
-                                case 6:
-                                    p.score += 65;
-                                    break;
-                                case 7:
-                                    p.score += 80;
-                                    break;
-                                case 8:
-                                    p.score += 95;
-                                    break;
-                                case 9:
-                                    p.score += 100;
-                                    break;
-                            }
+                switch (p.killData.length) {
+                    case 0:
+                        break;
+                    case 1:
+                        p.score += 2;
+                        break;
+                    case 2:
+                        p.score += 15;
+                        break;
+                    case 3:
+                        p.score += 20;
+                        break;
+                    case 4:
+                        p.score += 25;
+                        break;
+                    case 5:
+                        p.score += 30;
+                        break;
+                    case 6:
+                        p.score += 35;
+                        break;
+                    case 7:
+                        p.score += 40;
+                        break;
+                    case 8:
+                        p.score += 45;
+                        break;
+                    case 9:
+                        p.score += 50;
+                        break;
+                }
 
                             enemies[i].killProcessed = true;
                         }
@@ -6262,31 +6347,31 @@ var game = function () {
                     case 0:
                         break;
                     case 1:
-                        p.score += 10;
+                        p.score += 2;
                         break;
                     case 2:
-                        p.score += 25;
+                        p.score += 15;
                         break;
                     case 3:
-                        p.score += 35;
+                        p.score += 20;
                         break;
                     case 4:
-                        p.score += 45;
+                        p.score += 25;
                         break;
                     case 5:
-                        p.score += 55;
+                        p.score += 30;
                         break;
                     case 6:
-                        p.score += 65;
+                        p.score += 35;
                         break;
                     case 7:
-                        p.score += 80;
+                        p.score += 40;
                         break;
                     case 8:
-                        p.score += 95;
+                        p.score += 45;
                         break;
                     case 9:
-                        p.score += 100;
+                        p.score += 50;
                         break;
                 }
             }
@@ -6385,7 +6470,7 @@ var game = function () {
     //println(hitReload);
     if (mouseIsPressed) {
         // crude but works :P
-        if (p.reload === true && p.weapon === 'fists') {
+        /*if (p.reload === true && p.weapon === 'fists') {
             if (p.rock >= 25) {
                 p.rock -= 25;
                 rocks.push(new Rock({
@@ -6395,7 +6480,7 @@ var game = function () {
                     type: 1,
                 }));
             }
-        }
+        }*/
     }
 
     // overlay for night mode
@@ -6513,7 +6598,7 @@ var game = function () {
     fill(0, 0, 0, 80);
     rect(-5, -25, 80, 37, 4);
     fill(255, 255, 255);
-    text("$ " + (~~p.money), 0, 0);
+    text("$" + (~~p.money), 0, 0);
     popMatrix();
 
 
@@ -6555,14 +6640,13 @@ var game = function () {
             groups.b[2] = 2;
         }
     }
-    if (keys[81]) {
-        if (groups.c[2] === 0) {
-
-            groups.c[2] = 1;
-        } else if (groups.c[2] === 1) {
-            groups.c[2] = 2;
-        }
-    }
+   if (keys[81] && !prevKeys[81]) {
+if (groups.c[2] === 0) {
+groups.c[2] = 1;
+} else if (groups.c[2] === 1) {
+groups.c[2] = 2;
+}
+}
     if (groups.c[2] % 2 === 0) {
         groups.c[0] = lerp(groups.c[0], -350, 0.15);
         if (characterIsSupported('\ufffe')) {
@@ -6587,7 +6671,7 @@ var game = function () {
         groups.b[2]++;
         //for testing nightmode
         if(groups.b[2]%2===0){
-           // night.on=true; REMOVE IN PROD (AFTER ACTUALLY AMKING NIGHT MODE)
+            night.on=true;
         }else{night.on=false;}
     }, false, 'action', 0, 9);
     if (gamemodes[gamemode].totalBots !== undefined) {
@@ -6689,7 +6773,7 @@ var game = function () {
 
     if (gamemode === 6) {
         if (ga.msg_t <= 300) {
-            msg = 'Welcome to NATUWARS!\nGo near trees and rocks and press E to harvest them.';
+            msg = 'Welcome to NATUWARS!\nPunch trees and rocks with fists to harvest them.';
         } else if (ga.msg_t <= 600) {
             msg = 'Use number keys 1-' + inv.total + ' to cycle through your inventory.\nWhen a gun is selected, click to fire.';
         } else if (ga.msg_t <= 900) {
@@ -6861,7 +6945,7 @@ var game = function () {
             stroke(0, 0, 0);
             pushMatrix();
             translate(mouseX, mouseY);
-            scale(0.7);
+            scale(0.4);
             stroke(0, 0, 0);
             strokeWeight(0.5);
             fill(255);
@@ -6875,7 +6959,7 @@ var game = function () {
             if (hitCursor === true) {
                 pushMatrix();
                 translate(mouseX, mouseY);
-                scale(0.7);
+                scale(0.4);
                 translate(1, 0);
                 rotate(45);
                 noStroke();
@@ -7093,14 +7177,12 @@ var home = function () {
     popStyle();
     textFont(createFont(fontss[1]), 45);
     textAlign(CENTER, CENTER);
-    fill(23, 46, 1, 2170);
+    fill(0, 0, 0);
     rect(0, 31, width, 55);
     pushMatrix();
     scale(0.5);
-    //_text("NATUWARS™", 163, 140, 1, 1, !true, color(0, 0, 0), color(54, 227, 158), 1);
-    game_logo(-32, 40, 1, 1, 0, color(132, 232, 93), color(23, 46, 1), color(132, 232, 93), color(53, 150, 15));
-    textSize(30);
-    _text("by LeaferStudios", 130, 110 + 25, 1, 1, !true, color(0, 0, 0), color(158, 224, 255), 0.3);
+    _text("Season Zero", 163, 140, 0.9, 0.7, !true, color(0, 0, 0), color(255, 242, 0), 1);
+    game_logo(-32, 40, 1, 1, 0, color(14, 217, 11), color(0, 0, 0), color(132, 232, 93), color(53, 150, 15));
     popMatrix();
     textFont(createFont(fontss[1]), 8);
     fill(204, 204, 204);
@@ -7867,7 +7949,7 @@ sa = constrain(sa, slimit, 0);
     }
     click = false;
     if (intransition) {
-        // goto.create();
+         //goto.create();
     }
 
     if (inNotif) {
@@ -7903,6 +7985,7 @@ sa = constrain(sa, slimit, 0);
         document.getElementById('change-name-screen').style.display = 'none';
     }
     
+    
  
 if (scroll_shown === true) {
 say = map(sa, slimit - 28, 0, h, 1);
@@ -7916,6 +7999,8 @@ textSize(15);
 }
 }
 scroll_shown=false;
+
+prevKeys = keys.slice();
 
 // REMOVE IN PROD
 var window = (function(w) { return this[w]; })("window");
@@ -7938,7 +8023,7 @@ mouseScrolled = function() {
 sa += mouseScroll * 15;
 };
 // pause/unpause
-//UNCOMMENT THIS IN PROD
+//  UNCOMMENT THIS IN PROD
 mouseOut = function () {
     noLoop();
     pushStyle();
