@@ -2,7 +2,7 @@ function letterchunk(letter, index, totalLetters, nChunks = 5) {
   let container = document.getElementsByClassName("network")[0];
   let totalDuration =
     4000 + (nChunks - 1) * 150 + (totalLetters - 1) * 100 + 1500;
- 
+
   for (let i = 0; i < nChunks; i++) {
     let span = document.createElement("span");
     span.classList.add("chunk");
@@ -23,42 +23,48 @@ function letterchunk(letter, index, totalLetters, nChunks = 5) {
     span.style.left = `${startX}px`;
     span.style.top = `${startY}px`;
 
-    setTimeout(() => {
-      span.style.opacity = 0.9;
-      span.style.left = `${finalX}px`;
-      span.style.top = `${finalY}px`;
-      span.style.color =
-        i % 2 === 0 ? "rgba(213, 163, 89, 1)" : "rgba(122, 104, 75, 1)";
-    }, i * 150 + index * 100);
+    setTimeout(
+      () => {
+        span.style.opacity = 0.9;
+        span.style.left = `${finalX}px`;
+        span.style.top = `${finalY}px`;
+        span.style.color =
+          i % 2 === 0 ? "rgb(255, 255, 255, 0.5)" : "rgb(255, 255, 255,0.5)";
+      },
+      i * 150 + index * 100,
+    );
 
-    setTimeout(() => {
-      let scatterX = finalX + (Math.random() - 0.5) * 1000;
-      let scatterY = finalY + (Math.random() - 0.5) * 1000;
+    setTimeout(
+      () => {
+        let scatterX = finalX + (Math.random() - 0.5) * 1000;
+        let scatterY = finalY + (Math.random() - 0.5) * 1000;
 
-      span.style.transition = "all 1.5s ease-out";
-      span.style.left = `${scatterX}px`;
-      span.style.top = `${scatterY}px`;
-      span.style.opacity = 0;
-      span.style.transform = `rotate(${
-        (Math.random() - 0.5) * 360
-      }deg) scale(0)`;
+        span.style.transition = "all 1.5s ease-out";
+        span.style.left = `${scatterX}px`;
+        span.style.top = `${scatterY}px`;
+        span.style.opacity = 0;
+        span.style.transform = `rotate(${
+          (Math.random() - 0.5) * 360
+        }deg) scale(0)`;
 
-      setTimeout(() => {
-        span.remove();
-        if (container.children.length === 1) {
-          setTimeout(() => {
-            document.getElementById("logo-scene").style.opacity = 0;
-            document.getElementById("web-content").style.display = "block";
+        setTimeout(() => {
+          span.remove();
+          if (container.children.length === 1) {
             setTimeout(() => {
-              document.getElementById("web-content").style.opacity = 1;
+              document.getElementById("logo-scene").style.opacity = 0;
+              document.getElementById("web-content").style.display = "block";
               setTimeout(() => {
-                document.getElementById("logo-scene").style.display = "none";
-              }, 100);
+                document.getElementById("web-content").style.opacity = 1;
+                setTimeout(() => {
+                  document.getElementById("logo-scene").style.display = "none";
+                }, 100);
+              }, 50);
             }, 50);
-          }, 50);
-        }
-      }, 1500);
-    }, 4000 + i * 150 + index * 100);
+          }
+        }, 1500);
+      },
+      4000 + i * 150 + index * 100,
+    );
   }
 }
 
@@ -68,255 +74,272 @@ function animateText(text) {
   }
 }
 
-var canvas = document.getElementById("pondCanvas");
-var ctx = canvas.getContext("2d");
-var brightnessRadius = 100;
+// Pixelated Murky Pond - drop this into your page
+// Requires a <canvas id="pondCanvas"> element
+
+const PIXEL = 6; // pixel block size — increase for chunkier, decrease for finer
+
+const canvas = document.getElementById("pondCanvas");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+
+// Low-res offscreen canvas — everything is drawn here then scaled up
+const lo = document.createElement("canvas");
+const loCtx = lo.getContext("2d");
+loCtx.imageSmoothingEnabled = false;
+
+// Grain texture canvas (128x128, regenerated every frame)
+const gCanvas = document.createElement("canvas");
+gCanvas.width = gCanvas.height = 128;
+const gCtx = gCanvas.getContext("2d");
+let gData = gCtx.createImageData(128, 128);
+
+let W = 0,
+  H = 0,
+  LW = 0,
+  LH = 0;
+let mouseX = null,
+  mouseY = null;
 
 function initCanvas() {
-  var dpr = window.devicePixelRatio || 1;
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
+  const dpr = window.devicePixelRatio || 1;
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
   ctx.scale(dpr, dpr);
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
+  ctx.imageSmoothingEnabled = false;
+
+  LW = Math.ceil(W / PIXEL);
+  LH = Math.ceil(H / PIXEL);
+  lo.width = LW;
+  lo.height = LH;
+  loCtx.imageSmoothingEnabled = false;
 }
 
 initCanvas();
 window.addEventListener("resize", initCanvas);
 
-function MurkyPond() {
-  this.particles = [];
-  this.numParticles = 140;
-  this.mouseX = null;
-  this.mouseY = null;
-  this.mouseRadius = 100;
-  this.mouseInfluence = 1;
-  // palette including primary theme color
-  this.baseColors = [
-    { r: 208, g: 136, b: 77 },   // Primary theme color (orange/peach)
-    { r: 254, g: 176, b: 112 },  // Primary hover (lighter orange)
-    { r: 255, g: 86, b: 80 },    // Accent red (colora)
-    { r: 109, g: 220, b: 64 },   // Accent green (colorb)
-    { r: 0, g: 183, b: 255 },    // Accent blue (colorc)
-    { r: 138, g: 43, b: 226 },   // Purple
-    { r: 255, g: 20, b: 147 },   // Deep pink
-    { r: 64, g: 224, b: 208 },   // Turquoise
-    { r: 255, g: 215, b: 0 },    // Gold
-     
-    { r: 147, g: 112, b: 219 },  // Medium slate blue
+// Colour palette — matches your original
+const palette = [
+  [208, 136, 77], // orange/peach (primary)
+  [254, 176, 112], // lighter orange (hover)
+  [138, 43, 226], // purple
+  [64, 224, 208], // turquoise
+];
 
-     
-    ];
-  this.sediments = [];
-  this.numSediments = 0; // Stars removed
-  this.initParticles();
-  this.initSediments();
+// Particles
+const NUM = 140;
+const parts = [];
+for (let i = 0; i < NUM; i++) {
+  const ci = (Math.random() * palette.length) | 0;
+  const [r, g, b] = palette[ci];
+  const vr = 35;
+  const pr = Math.max(
+    0,
+    Math.min(255, r + ((Math.random() * vr * 2 - vr) | 0)),
+  );
+  const pg = Math.max(
+    0,
+    Math.min(255, g + ((Math.random() * vr * 2 - vr) | 0)),
+  );
+  const pb = Math.max(
+    0,
+    Math.min(255, b + ((Math.random() * vr * 2 - vr) | 0)),
+  );
+  const ti = (Math.random() * palette.length) | 0;
+  const [tr, tg, tb] = palette[ti];
+  parts.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    size: Math.random() * 90 + 90,
+    opacity: Math.random() * 0.05 + 0.025,
+    baseR: pr,
+    baseG: pg,
+    baseB: pb,
+    targetR: tr,
+    targetG: tg,
+    targetB: tb,
+    colorProgress: Math.random(),
+    colorSpeed: Math.random() * 0.003 + 0.001,
+    angle: Math.random() * Math.PI * 2,
+    angleSpeed: (Math.random() - 0.5) * 0.002,
+    r: pr,
+    g: pg,
+    b: pb,
+  });
 }
 
-MurkyPond.prototype.initParticles = function () {
-  this.particles = [];
-  for (var i = 0; i < this.numParticles; i++) {
-    var colorIndex = Math.floor(Math.random() * this.baseColors.length);
-    var color = this.baseColors[colorIndex];
-    // More sophisticated color variation with wider range
-    var variation = 35;
-    var r = Math.max(0, Math.min(255, color.r + Math.floor(Math.random() * variation * 2) - variation));
-    var g = Math.max(0, Math.min(255, color.g + Math.floor(Math.random() * variation * 2) - variation));
-    var b = Math.max(0, Math.min(255, color.b + Math.floor(Math.random() * variation * 2) - variation));
-    
-    // Add color transition properties for dynamic color changes
-    var targetColorIndex = Math.floor(Math.random() * this.baseColors.length);
-    var targetColor = this.baseColors[targetColorIndex];
-    
-    this.particles.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      size: Math.random() * 90 + 90,
-      opacity: Math.random() * 0.05 + 0.025,
-      speedX: (Math.random() - 0.0) * 0.0,
-      speedY: (Math.random() - 0.0) * 0.0,
-      color: "rgba(" + r + ", " + g + ", " + b + ", ",
-      baseR: r,
-      baseG: g,
-      baseB: b,
-      targetR: targetColor.r,
-      targetG: targetColor.g,
-      targetB: targetColor.b,
-      colorProgress: Math.random(), // Random starting point in color transition
-      colorSpeed: (Math.random() * 0.003 + 0.001), // Slow color transition speed
-      angle: Math.random() * Math.PI * 2,
-      angleSpeed: (Math.random() - 0.5) * 0.002,
-    });
+// Regenerate film grain texture every frame
+function updateGrain() {
+  const d = gData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    if (Math.random() > 0.55) {
+      const bright = Math.random();
+      if (bright > 0.85) {
+        // Warm-tinted bright grain
+        d[i] = 220 + Math.random() * 35;
+        d[i + 1] = 180 + Math.random() * 40;
+        d[i + 2] = 100 + Math.random() * 80;
+        d[i + 3] = Math.random() * 28 + 6;
+      } else if (bright > 0.6) {
+        // Neutral grain
+        const v = Math.random() * 180;
+        d[i] = v;
+        d[i + 1] = v;
+        d[i + 2] = v;
+        d[i + 3] = Math.random() * 18 + 4;
+      } else {
+        // Dark grain
+        d[i] = 0;
+        d[i + 1] = 0;
+        d[i + 2] = 0;
+        d[i + 3] = Math.random() * 22 + 5;
+      }
+    } else {
+      d[i + 3] = 0;
+    }
   }
-};
+  gCtx.putImageData(gData, 0, 0);
+}
 
-MurkyPond.prototype.initSediments = function () {
-  this.sediments = [];
-  for (var i = 0; i < this.numSediments; i++) {
-    var size = Math.random() * 0.3 + 0.1;
-    var opacity = Math.random() * 0.1 + 0.3;
-    var brownShade = Math.floor(Math.random() * 50) + 50;
-    var greenShade = Math.floor(Math.random() * 20) + brownShade - 15;
-    this.sediments.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      size: size,
-      opacity: opacity,
-      //color: 'rgba(' + brownShade + ', ' + greenShade + ', ' + brownShade * 0.5 + ', ' + opacity + ')',
-      color: `rgba(255,255, 255, ${(Math.random() + 2) * 1})`,
-      speedX: (Math.random() - 0.5) * 0.1,
-      speedY: (Math.random() - 0.5) * 0.1,
-      angle: Math.random() * Math.PI * 2,
-    });
-  }
-};
+function update() {
+  for (let i = 0; i < parts.length; i++) {
+    const p = parts[i];
 
-MurkyPond.prototype.update = function () {
-  for (var i = 0; i < this.particles.length; i++) {
-    var p = this.particles[i];
-    
-    // Update color transition
+    // Smooth colour transition between palette entries
     p.colorProgress += p.colorSpeed;
     if (p.colorProgress >= 1) {
       p.colorProgress = 0;
-      // Pick new target color
-      var newTargetIndex = Math.floor(Math.random() * this.baseColors.length);
-      var newTarget = this.baseColors[newTargetIndex];
+      const ni = (Math.random() * palette.length) | 0;
       p.baseR = p.targetR;
       p.baseG = p.targetG;
       p.baseB = p.targetB;
-      p.targetR = newTarget.r;
-      p.targetG = newTarget.g;
-      p.targetB = newTarget.b;
+      p.targetR = palette[ni][0];
+      p.targetG = palette[ni][1];
+      p.targetB = palette[ni][2];
     }
-    
-    // Interpolate between base and target color using smooth easing
-    var easeProgress = 0.5 - 0.5 * Math.cos(p.colorProgress * Math.PI); // Smooth sine wave transition
-    var currentR = Math.floor(p.baseR + (p.targetR - p.baseR) * easeProgress);
-    var currentG = Math.floor(p.baseG + (p.targetG - p.baseG) * easeProgress);
-    var currentB = Math.floor(p.baseB + (p.targetB - p.baseB) * easeProgress);
-    p.color = "rgba(" + currentR + ", " + currentG + ", " + currentB + ", ";
-    
-    // Update position
+    const t = 0.5 - 0.5 * Math.cos(p.colorProgress * Math.PI);
+    p.r = (p.baseR + (p.targetR - p.baseR) * t) | 0;
+    p.g = (p.baseG + (p.targetG - p.baseG) * t) | 0;
+    p.b = (p.baseB + (p.targetB - p.baseB) * t) | 0;
+
+    // Movement
     p.angle += p.angleSpeed;
     p.x += Math.cos(p.angle) * 0.45;
     p.y += Math.sin(p.angle) * 1.45;
-    if (p.x < -p.size) p.x = window.innerWidth + p.size;
-    if (p.x > window.innerWidth + p.size) p.x = -p.size;
-    if (p.y < -p.size) p.y = window.innerHeight + p.size;
-    if (p.y > window.innerHeight + p.size) p.y = -p.size;
-    
-    // Mouse interaction
-    if (this.mouseX !== null && this.mouseY !== null) {
-      var dx = this.mouseX - p.x;
-      var dy = this.mouseY - p.y;
-      var distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < this.mouseRadius) {
-        var influenceFactor =
-          (1 - distance / this.mouseRadius) * this.mouseInfluence;
-        p.x += dx * influenceFactor * 0.05;
-        p.y += dy * influenceFactor * 0.05;
+    if (p.x < -p.size) p.x = W + p.size;
+    if (p.x > W + p.size) p.x = -p.size;
+    if (p.y < -p.size) p.y = H + p.size;
+    if (p.y > H + p.size) p.y = -p.size;
+
+    // Mouse attraction
+    if (mouseX !== null) {
+      const dx = mouseX - p.x,
+        dy = mouseY - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const mRad = 100;
+      if (dist < mRad) {
+        const f = 1 - dist / mRad;
+        p.x += dx * f * 0.05;
+        p.y += dy * f * 0.05;
       }
     }
   }
-};
-
-MurkyPond.prototype.draw = function () {
-  ctx.fillStyle = "rgba(0, 0, 0, 1)";
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width / (window.devicePixelRatio || 1),
-    canvas.height / (window.devicePixelRatio || 1)
-  );
-  for (var i = 0; i < this.particles.length; i++) {
-    var p = this.particles[i];
-    var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-    var brightnessFactor = 1;
-    
-    // Enhanced mouse interaction with color intensity
-    if (this.mouseX !== null && this.mouseY !== null) {
-      var dx = p.x - this.mouseX;
-      var dy = p.y - this.mouseY;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < brightnessRadius) {
-        brightnessFactor = 2.5 - (dist / brightnessRadius) * 0.4;
-        // Add slight color shift near mouse for more sophistication
-        var colorIntensity = 1 + (1 - dist / brightnessRadius) * 0.3;
-        brightnessFactor *= colorIntensity;
-      }
-    }
-    
-    // Create more sophisticated gradient with multiple color stops
-    var centerOpacity = p.opacity * brightnessFactor;
-    var midOpacity = centerOpacity * 0.6;
-    gradient.addColorStop(0, p.color + centerOpacity + ")");
-    gradient.addColorStop(0.4, p.color + midOpacity + ")");
-    gradient.addColorStop(0.7, p.color + (midOpacity * 0.3) + ")");
-    gradient.addColorStop(1, p.color + "0)");
-    
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, -Math.PI, Math.PI);
-    ctx.fillStyle = gradient;
-    ctx.fill();
-  }
-  // Stars/sediments removed
-  // for (var j = 0; j < this.sediments.length; j++) {
-  //   var s = this.sediments[j];
-  //   ctx.beginPath();
-  //   ctx.arc(s.x, s.y, s.size, -Math.PI, Math.PI);
-  //   ctx.fillStyle = s.color;
-  //   ctx.fill();
-  // }
-};
-
-MurkyPond.prototype.setMousePosition = function (x, y) {
-  this.mouseX = x;
-  this.mouseY = y;
-};
-
-MurkyPond.prototype.clearMousePosition = function () {
-  this.mouseX = null;
-  this.mouseY = null;
-};
-var pond = new MurkyPond();
-// Attach mouse events to document instead of canvas so they work even when canvas has low z-index
-document.addEventListener("mousemove", function (e) {
-  pond.setMousePosition(e.clientX, e.clientY);
-});
-document.addEventListener("mouseout", function (e) {
-  // Only clear if mouse actually left the window
-  if (!e.relatedTarget && e.target === document.documentElement) {
-    pond.clearMousePosition();
-  }
-});
-// Also clear when mouse leaves the window
-document.addEventListener("mouseleave", function () {
-  pond.clearMousePosition();
-});
-if (window.pondAnimationFrame) {
-  cancelAnimationFrame(window.pondAnimationFrame);
 }
-const buttons = document.querySelectorAll(".rp-button");
 
+function draw() {
+  // 1. Draw blobs onto the low-res canvas
+  loCtx.fillStyle = "rgb(0,0,0)";
+  loCtx.fillRect(0, 0, LW, LH);
+
+  const scaleX = LW / W;
+  const scaleY = LH / H;
+  const brightnessR = 100;
+
+  for (let i = 0; i < parts.length; i++) {
+    const p = parts[i];
+    const px = p.x * scaleX;
+    const py = p.y * scaleY;
+    const ps = p.size * Math.min(scaleX, scaleY);
+
+    let bf = 1;
+    if (mouseX !== null) {
+      const dx = p.x - mouseX,
+        dy = p.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < brightnessR) {
+        bf = 2.5 - (dist / brightnessR) * 0.4;
+        bf *= 1 + (1 - dist / brightnessR) * 0.3;
+      }
+    }
+
+    const co = p.opacity * bf;
+    const col = `rgba(${p.r},${p.g},${p.b},`;
+    const grad = loCtx.createRadialGradient(px, py, 0, px, py, ps);
+    grad.addColorStop(0, col + co + ")");
+    grad.addColorStop(0.4, col + co * 0.6 + ")");
+    grad.addColorStop(0.7, col + co * 0.18 + ")");
+    grad.addColorStop(1, col + "0)");
+
+    loCtx.beginPath();
+    loCtx.arc(px, py, ps, 0, Math.PI * 2);
+    loCtx.fillStyle = grad;
+    loCtx.fill();
+  }
+
+  // 2. Scale low-res canvas up to full size (no smoothing = hard pixel blocks)
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(lo, 0, 0, LW, LH, 0, 0, W, H);
+
+  // 3. Tile film grain over the top
+  updateGrain();
+  for (let gx = 0; gx < W; gx += 128) {
+    for (let gy = 0; gy < H; gy += 128) {
+      ctx.drawImage(gCanvas, gx, gy);
+    }
+  }
+
+  // 4. Scanlines — darkens every other pixel-row band for CRT feel
+  ctx.fillStyle = "rgba(0,0,0,0.18)";
+  for (let sy = 0; sy < H; sy += PIXEL * 2) {
+    ctx.fillRect(0, sy, W, PIXEL);
+  }
+}
+
+// Mouse events
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+document.addEventListener("mouseout", (e) => {
+  if (!e.relatedTarget && e.target === document.documentElement) {
+    mouseX = null;
+    mouseY = null;
+  }
+});
+document.addEventListener("mouseleave", () => {
+  mouseX = null;
+  mouseY = null;
+});
+
+// Button ripple effect (your original code, untouched)
+const buttons = document.querySelectorAll(".rp-button");
 buttons.forEach((button) => {
   const rp = document.createElement("div");
   rp.classList.add("rp");
   button.appendChild(rp);
-
   button.addEventListener("mousemove", (e) => {
     const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    rp.style.left = `${x}px`;
-    rp.style.top = `${y}px`;
+    rp.style.left = `${e.clientX - rect.left}px`;
+    rp.style.top = `${e.clientY - rect.top}px`;
     rp.style.transform = "translate(-50%, -50%) scale(1)";
     rp.style.opacity = "1";
     rp.style.borderRadius = "20%";
     button.style.color = "#000";
   });
-
   button.addEventListener("mouseleave", () => {
     rp.style.transform = "translate(-50%, -50%) scale(0)";
     rp.style.opacity = "1";
@@ -324,3 +347,12 @@ buttons.forEach((button) => {
     button.style.color = "#FFF";
   });
 });
+
+// Animation loop
+if (window.pondAnimationFrame) cancelAnimationFrame(window.pondAnimationFrame);
+function loop() {
+  update();
+  draw();
+  window.pondAnimationFrame = requestAnimationFrame(loop);
+}
+loop();

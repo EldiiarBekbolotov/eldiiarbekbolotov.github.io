@@ -235,9 +235,6 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: repeating-linear-gradient(90deg,
-                    rgba(255, 255, 255, 0.06) 0 8px,
-                    transparent 8px 14px);
             pointer-events: none;
         }
 
@@ -246,7 +243,7 @@
             height: 100%;
             border-radius: 999px;
             transition: width 0.25s ease;
-            background: #45d483;
+            background: #277b29;
         }
 
         .token-fill.warn {
@@ -282,11 +279,8 @@
         .context-horizon {
             align-self: stretch;
             margin: 8px 0;
-            border: 1px dashed rgba(255, 204, 153, 0.4);
+            border: 1px solid rgba(255, 204, 153, 0.4);
             border-radius: 12px;
-            background:
-                radial-gradient(circle at 10% 20%, rgba(255, 165, 92, 0.2), transparent 60%),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
             padding: 10px 12px;
         }
 
@@ -622,7 +616,7 @@
             width: 0%;
             height: 100%;
             border-radius: 999px;
-            background: #6be2ff;
+            background: var(--primary);
             transition: width 0.12s linear;
         }
 
@@ -646,9 +640,17 @@
         }
 
         @keyframes thinkingPulse {
-            0% { opacity: 0.25; }
-            50% { opacity: 1; }
-            100% { opacity: 0.25; }
+            0% {
+                opacity: 0.25;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.25;
+            }
         }
 
         .assistant-reveal {
@@ -767,7 +769,8 @@
             </a>
         </div>
         <img src="android-chrome-512x512.png" style="border-radius:50%;width:40px;height:40px;margin-right:15px;">
-        <h1 style="font-size:19px;font-family:var(--big-font);font-weight:400;" class="no-select">Eldiiar Bekbolotov</h1>
+        <h1 style="font-size:19px;font-family:var(--big-font);font-weight:400;" class="no-select">Eldiiar Bekbolotov
+        </h1>
     </div>
     <div class="bottom-area"
         style="position:fixed;bottom:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;background:transparent;padding:0 20px 10px 20px;">
@@ -778,7 +781,7 @@
             </div>
             <div class="composer-meter">
                 <div class="composer-meter-top">
-                    <span id="composer-token-estimate">~0 tokens</span>
+                    <span id="composer-token-estimate">0 tokens</span>
                     <span id="composer-token-note">0% of per-message budget</span>
                 </div>
                 <div class="token-track">
@@ -933,7 +936,7 @@
             const rawInput = chatInput.value;
             const estimate = estimateTokens(rawInput);
             const percent = Math.min(100, Math.round((estimate / MAX_USER_MESSAGE_TOKENS) * 100));
-            composerTokenEstimate.textContent = `~${estimate} tokens`;
+            composerTokenEstimate.textContent = `${estimate} tokens`;
             composerTokenNote.textContent = estimate > MAX_USER_MESSAGE_TOKENS
                 ? `Will be cut at ${MAX_USER_MESSAGE_TOKENS} tokens`
                 : `${percent}% of per-message budget`;
@@ -1012,7 +1015,7 @@
             const fill = typingDiv.querySelector('.thinking-progress-fill');
             const eta = typingDiv.querySelector('.thinking-eta');
             if (!fill || !eta) {
-                return { stop: () => {} };
+                return { stop: () => { } };
             }
 
             const start = performance.now();
@@ -1065,7 +1068,7 @@
             const budget = msg.role === 'assistant' ? MAX_OUTPUT_TOKENS : MAX_USER_MESSAGE_TOKENS;
             const estimate = typeof msg.tokenEstimate === 'number' ? msg.tokenEstimate : estimateTokens(msg.content);
             const percent = Math.min(100, Math.round((estimate / budget) * 100));
-            const approxPrefix = msg.tokenSource === 'usage' ? '' : '~';
+            const approxPrefix = msg.tokenSource === 'usage' ? '' : '';
 
             const top = document.createElement('div');
             top.className = 'token-meter-top';
@@ -1096,7 +1099,7 @@
             if (msg.promptTokenEstimate && msg.role === 'assistant') {
                 const promptNote = document.createElement('div');
                 promptNote.className = 'token-note';
-                promptNote.textContent = `Context consumed: ~${msg.promptTokenEstimate} prompt tokens`;
+                promptNote.textContent = `Context consumed: ${msg.promptTokenEstimate} prompt tokens`;
                 meter.appendChild(promptNote);
             }
 
@@ -1138,7 +1141,7 @@
                         copyBtn.classList.remove('copied');
                         copyBtn.setAttribute('aria-label', 'Copy response');
                     }, 2000);
-                }).catch(() => {});
+                }).catch(() => { });
             });
 
             wrapper.appendChild(div);

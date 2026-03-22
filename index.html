@@ -45,7 +45,11 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Libertinus+Mono&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css" />
   <style>
     #visits svg {
@@ -638,7 +642,7 @@
       --card-bg: #010101;
       --text-color: #e0e0e0;
       --accent-color: var(--primary);
-      --shadow:  0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
+      --shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
     }
 
     .grid-container {
@@ -791,6 +795,7 @@
     #card-link:hover #card-title {
       border-bottom: 1px solid var(--primary);
     }
+
     .card-media {
       border-radius: 8px;
       margin: 0 auto;
@@ -926,7 +931,7 @@
   min-height: 100%;">
 
     <canvas id="pondCanvas"></canvas>
-    <nav id="tnav">
+    <nav id="tnav" style="display:none;">
       <a href="index.html" class="active">Portfolio</a>
       <a href="services.html">Services</a>
       <!--<a href="services.html">LeaferStudios</a>-->
@@ -986,94 +991,43 @@
       </a>
     </div>
 
-    <!--<div style="padding-top:40px;display:flex;align-items:center;justify-content:center;">
-      <h1
-        style="font-size:10vw;font-family:var(--small-font);font-weight:1000;transform:scale(1,1);letter-spacing:3px;color:rgb(150,150,150)">
-        Eldiiar<br /><span style="color:rgb(242, 185, 14)">Bekbolotov</span></h1>
-    </div>-->
+
     <div style="height: 80vh;display: flex;
   align-items: center; 
-  justify-content: center;">
-  <div style="display:block;text-align:cenwter;"><h1 style="text-align:center;">
-            Eldiiar Bekbolotov
-          </h1>
-          
-          <p style="display:block;font-size:2rem;color:rgba(255,255,255,0.5);font-weight:400;">Developer Portfolio</p>
-          </div>
-      <!--<div class=" zzq no-select">
-        <div class=" zzq-one">
-          <h4 class="zzq-h4-one">
-            <span class="one-span">1</span>
-            user.<span style="color: var(--colora)">greeting</span> =
-          </h4>
-          <h1 class="zzq-greeting">
-            Hello
-          </h1>
-        </div>
-        <div class="zzq-two">
-          <h4 class="zzq-h4-two">
-            <span class="two-span">2</span>
-            author.<span style="color: var(--colorb)">name</span> =
-          </h4>
+  justify-content: center;" id="logo-scene">
+      <div style="display:block;text-align:cenwter;">
 
-          <h1 class="zzq-name">
-            Eldiiar Bekbolotov
-          </h1>
-        </div>
-        <div class="zzq-three">
-          <h4 class="zzq-h4-three">
-            <span class="three-span">3</span>
-            author.<span style="color: var(--colorc)">age</span> =
-          </h4>
-          <div id="age-timer"></div>
-        </div>
-      </div>-->
+        <div class="network no-select"></div>
+        <p style="display:none;font-size:2rem;color:rgba(255,255,255,0.5);font-weight:400;">Developer Portfolio</p>
+      </div>
     </div>
-
-    <div style="
-  background-color: var(--card-bg);">
-      <!--work on card-->
-      <div id="wrapper">
-        <div id="about">
-          <h1 style="text-align: center;font-size:3rem;font-family:var(--big-font);">About me</h1>
-          <p>
-            Hey, my name is <b style='font-style:normal;'>Eldiiar Bekbolotov</b>.<br /><br /> I'm a high
-            school developer focusing on software engineering and
-            UI/UX
-            design. I strive to work on meaningful projects
-            that solve issues and positively impact underserved people in a
-            variety of fields using the power of creative innovation.<!--As
-            a high school student (graduating 2027), I balance a healthy
-            school/work/life balance. In my spare time, I enjoy playing chess,
-            running, and writing stories.-->
-          </p>
-          <p>
-
-            You can connect with me on LinkedIn, view my open source projects
-            on GitHub, or send a message via email.
-          </p>
-        </div>
-
-        <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
-          <div style="margin:0 auto;">
-            <img src="android-chrome-512x512.png" id="pfp" />
-          </div>
-        </div>
-
-      </div>
-      <!--<div class="annon">
-        <h2>About me</h2>
-        <img
-          src="https://media.licdn.com/dms/image/v2/D4E16AQGU1dpop0lRWg/profile-displaybackgroundimage-shrink_350_1400/B4EZjIJcv7HgAY-/0/1755704579274?e=1758758400&v=beta&t=_y61JQ-kxvefRvqgJpAk9rcfbRkwMNhyLg-73R7Cln8" />
-
-
-
-      </div>
-  -->
-      <!-- EXPERIENCE SHOWCASE START -->
-
-
+    <div id="web-content">
       <div style="
+  background-color: var(--card-bg);">
+        <div id="wrapper">
+          <div id="about">
+            <h1 style="text-align: center;font-size:2rem;font-family:var(--big-font);padding-top:55px;"> Hi, my name is
+              <br><b style='font-style:normal;'>Eldiiar Bekbolotov</b>.
+            </h1>
+            <p>
+              I am a software entrepreneur working on meaningful projects
+              that solve issues and positively impact people in a
+              variety of fields.
+            </p>
+          </div>
+
+          <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
+            <div style="margin:0 auto;">
+              <img src="android-chrome-512x512.png" id="pfp" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- EXPERIENCE SHOWCASE START -->
+
+
+        <div style="
           line-height: 1.6;
           color: #e0e0e0;
           margin: 0;
@@ -1081,169 +1035,67 @@
           overflow-x: hidden;
           width: 100%;
         ">
-        <section class="experience-section">
-          <h1 class="section-title">Experience</h1>
+          <section class="experience-section">
+            <h1 class="section-title">Experience</h1>
 
-          <p>
-
-            For resume inquiries, please contact me via LinkedIn or email.
-          </p>
-          <div class="timeline">
-            <div class="job">
-              <div class="timeline-date">September 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">Founder & CEO</h3>
-                  <a href="https://univadev.com/" target="_blank">
-                    <div class="company-name">Univa Dev</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Ottawa</div>
-                  <div class="job-summary">
-                    Empowering the next generation of STEM leaders.
-                  </div>
-                  <!--<button class="toggle-btn" onclick="toggleDescription('desc1')">
+            <p>
+              For resume inquiries, please contact me via LinkedIn or email.
+            </p>
+            <div class="timeline">
+              <div class="job">
+                <div class="timeline-date">September 2025 - Present</div>
+                <div class="job-header">
+                  <div class="job-info">
+                    <h3 class="job-title">Founder & CEO</h3>
+                    <a href="https://univadev.com/" target="_blank">
+                      <div class="company-name">Univa Dev</div>
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                      </svg>
+                    </a>
+                    <div class="job-meta">Canada</div>
+                    <div class="job-summary">
+                      Empowering the next generation of STEM leaders.
+                    </div>
+                    <!--<button class="toggle-btn" onclick="toggleDescription('desc3')">
                     Show more
                   </button>-->
-                  <ul id="desc1" class="job-description">
-                    <li>Fostered an environment of rapid growth, becoming the largest student-led financial literacy
-                      initiative in Central Asia and expanding globally in the process.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b>.
-                    </li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="FinBilim logo (dark mode)" class="job-image" />
-                      <img src="src/finbilim-stock.png" alt="FinBilim stock page screenshot" class="job-image" />
-                    </div>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="job">
-              <div class="timeline-date">October 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">
-                    Software Engineering Lead
-                  </h3>
-                  <a href="https://golucid.app/" target="_blank">
-                    <div class="company-name">Lucid</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Remote</div>
-                  <div class="job-summary">
-                    Design, develop software, and help monetize Lucid, the DECA exam preperation app with 18,000+ users.
-                  </div>
-                  <!--<button class="toggle-btn" onclick="toggleDescription('desc2')">
-                    Show more
-                  </button>
-                  <ul id="desc2" class="job-description">
-                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
-                      a
-                      global organization.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
-                      <b>10,000 visitors</b> per month.
-                    </li><br />
-                    <li></li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                    </div>
-                  </ul>-->
-                </div>
-              </div>
-            </div>
-            <div class="job">
-              <div class="timeline-date">June 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">Founder & CEO</h3>
-                  <a href="https://finbilim.com/" target="_blank">
-                    <div class="company-name">FinBilim</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Ottawa · Bishkek · Hybrid</div>
-                  <div class="job-summary">
-                    Launched FinBilim FinTech Hackathon 2025 with 150+ virtual and 40+ in-person participants.
-                  </div>
-                  <!--<button class="toggle-btn" onclick="toggleDescription('desc1')">
-                    Show more
-                  </button>-->
-                  <ul id="desc1" class="job-description">
-                    <li>Fostered an environment of rapid growth, becoming the largest student-led financial literacy
-                      initiative in Central Asia and expanding globally in the process.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b>.
-                    </li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="FinBilim logo (dark mode)" class="job-image" />
-                      <img src="src/finbilim-stock.png" alt="FinBilim stock page screenshot" class="job-image" />
-                    </div>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            
-            <div class="job">
-              <div class="timeline-date">September 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <a href="https://hackunited.org/" target="_blank" class="job-company-link">
-                    <span class="company-name">Hack United</span>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Remote</div>
-                  <div class="job-roles">
-                    <div class="job-role">
-                      <h3 class="job-title">Head of Technology</h3>
-                      <div class="timeline-date">February 2026 - Present</div>
-                      <div class="job-summary"></div>
-                    </div>
-                    <div class="job-role">
-                      <h3 class="job-title">Lead Web Developer</h3>
-                      <div class="timeline-date">September 2025 - February 2026</div>
-                      <div class="job-summary">
-                        Led development of the official website for United Hacks V6, with 1,200+ participants and 20,000+ monthly views.
+                    <ul id="desc3" class="job-description">
+                      <li>Fostered an environment of rapid growth, becoming the largest student-led financial literacy
+                        initiative in Central Asia and expanding globally in the process.</li>
+                      <li>Developed the official website totaling <b>2,100,000 lines of code</b>.
+                      </li>
+                      <div class="job-images">
+                        <img src="src/finbilim-logo.svg" alt="FinBilim logo (dark mode)" class="job-image" />
+                        <img src="src/finbilim-stock.png" alt="FinBilim stock page screenshot" class="job-image" />
                       </div>
-                    </div>
+                    </ul>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="job">
-              <div class="timeline-date">December 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">
-                    Software Developer
-                  </h3>
-                  <a href="https://usaeo.org/" target="_blank">
-                    <div class="company-name">USAEO</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Remote</div>
-                  <div class="job-summary">
-                    Developed the website and internal tools for the premier economics olympiad for high school students in the United States.
-                  </div>
-                  <!--<button class="toggle-btn" onclick="toggleDescription('desc2')">
+              <div class="job">
+                <div class="timeline-date">October 2025 - Present</div>
+                <div class="job-header">
+                  <div class="job-info">
+                    <h3 class="job-title">
+                      Software Engineering Lead
+                    </h3>
+                    <a href="https://golucid.app/" target="_blank">
+                      <div class="company-name">Lucid</div>
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                      </svg>
+                    </a>
+                    <div class="job-meta">Remote</div>
+                    <div class="job-summary">
+                      Design, develop software, and help monetize Lucid, the DECA exam preperation app with 18,000+
+                      users.
+                    </div>
+                    <!--<button class="toggle-btn" onclick="toggleDescription('desc2')">
                     Show more
                   </button>
                   <ul id="desc2" class="job-description">
@@ -1259,511 +1111,373 @@
                       <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
                     </div>
                   </ul>-->
-                </div>
-              </div>
-            </div>
-            
-            <div class="job" style="display: none;">
-              <div class="timeline-date">August 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">
-                    Co-Founder & CTO</h3>
-                  <a href="https://www.linkedin.com/company/finrise-blogs/" target="_blank">
-                    <div class="company-name">FinRise Blogs</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Remote</div>
-                  <div class="job-summary">
-                    <!--Build, style, and ship full-stack websites and tools to increase financial literacy among Gen Z.
-                    Developed the official website featuring education content, financial tools, weekly newsletter, and
-                    an AI assistant.-->
                   </div>
-                  <!--<button class="toggle-btn" onclick="toggleDescription('desc2')">
-                    Show more
-                  </button>
-                  <ul id="desc2" class="job-description">
-                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
-                      a
-                      global organization.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
-                      <b>10,000 visitors</b> per month.
-                    </li><br />
-                    <li></li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                    </div>
-                  </ul>-->
                 </div>
               </div>
-            </div>
-            <div class="job" style="display: none;">
-              <div class="timeline-date">August 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">Co-Founder & CTO</h3>
-                  <a href="https://linkedin.com/company/propnote" target="_blank">
-                    <div class="company-name">PropNote AI</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Remote</div>
-                  <div class="job-summary">
-                    <!--Develop and maintain a responsive AI powered real estate tool for smoother property tours.-->
+              <div class="job">
+                <div class="timeline-date">June 2025 - Present</div>
+                <div class="job-header">
+                  <div class="job-info">
+                    <h3 class="job-title">Founder & CEO</h3>
+                    <a href="https://finbilim.com/" target="_blank">
+                      <div class="company-name">FinBilim</div>
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                      </svg>
+                    </a>
+                    <div class="job-meta">Kyrgyzstan</div>
+                    <div class="job-summary">
+                      Launched FinBilim FinTech Hackathon 2025 with 150+ virtual and 40+ in-person participants.
+                    </div>
+                    <!--<button class="toggle-btn" onclick="toggleDescription('desc1')">
+                    Show more
+                  </button>-->
+                    <ul id="desc1" class="job-description">
+                      <li>Fostered an environment of rapid growth, becoming the largest student-led financial literacy
+                        initiative in Central Asia and expanding globally in the process.</li>
+                      <li>Developed the official website totaling <b>2,100,000 lines of code</b>.
+                      </li>
+                      <div class="job-images">
+                        <img src="src/finbilim-logo.svg" alt="FinBilim logo (dark mode)" class="job-image" />
+                        <img src="src/finbilim-stock.png" alt="FinBilim stock page screenshot" class="job-image" />
+                      </div>
+                    </ul>
                   </div>
-                  <!--
-                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
-                    Show more
-                  </button>
-                  <ul id="desc3" class="job-description">
-                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
-                      a
-                      global organization.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
-                      <b>10,000 visitors</b> per month.
-                    </li><br />
-                    <li></li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                    </div>
-                  </ul>-->
                 </div>
               </div>
-            </div>
 
-            <div class="job">
-              <div class="timeline-date">August 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">CTO</h3>
-                  <a href="https://www.linkedin.com/company/openscopeteam" target="_blank">
-                    <div class="company-name">OpenScope Initiative</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Remote</div>
-                  <div class="job-summary">
-                    <!--Develop a beautiful, responsive, full-stack website to a science communications platform.-->
-                  </div>
-                  <!--
-                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
-                    Show more
-                  </button>
-                  <ul id="desc3" class="job-description">
-                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
-                      a
-                      global organization.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
-                      <b>10,000 visitors</b> per month.
-                    </li><br />
-                    <li></li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                    </div>
-                  </ul>-->
-                </div>
-              </div>
-            </div>
-            <div class="job" style="display:none;">
-              <div class="timeline-date">August 2025 - Present</div>
-              <div class="job-header">
-                <div class="job-info">
-                  <h3 class="job-title">Director of Technology</h3>
-                  <a href="https://www.linkedin.com/company/ecoacion-magazine" target="_blank">
-                    <div class="company-name">EcoAction Magazine</div>
-                    <?xml version="1.0" encoding="utf-8"?>
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
-                    </svg>
-                  </a>
-                  <div class="job-meta">Ottawa · Remote</div>
-                  <div class="job-summary">
-                    <!--Transform a static Wix site into a real, full-stack website to advance the organization's digital
-                    presence.-->
-                  </div>
-                  <!--
-                  <button class="toggle-btn" onclick="toggleDescription('desc3')">
-                    Show more
-                  </button>
-                  <ul id="desc3" class="job-description">
-                    <li>Founded the largest student-led financial literacy initiative in Central Asia, expanded it into
-                      a
-                      global organization.</li>
-                    <li>Developed the official website totaling <b>2,100,000 lines of code</b> receiving
-                      <b>10,000 visitors</b> per month.
-                    </li><br />
-                    <li></li>
-                    <div class="job-images">
-                      <img src="src/finbilim-logo.svg" alt="Project Screenshot 1" class="job-image" />
-                      <img src="android-chrome-192x192.png" alt="Project Screenshot 2" class="job-image" />
-                    </div>
-                  </ul>-->
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
 
-      <!--EXPERIENCE SHOWCASE END-->
-      <!-- PROJECT SHOWCASE START -->
 
-      <div style="padding: 30px;text-align: center;">
-        <h1>Projects</h1>
-        <div class="grid-container">
-          <a href="https://doppel-eight.vercel.app" target="_blank">
-            <div class="card">
-              <img src="src/doppel.png" alt="Lucid" />
-              <div class="card-content">
-                <h2><span>Doppel</span> — 2026</h2>
-                <p>
-                  AI social network built to eliminate cold DMs. Top 5 & Best Design @ McHacks 2025.
-                </p>
-                <div class="card-tags">
-                  <span class="tag">Design</span>
-                  <span class="tag">Full Stack</span>
-                  <span class="tag">Social</span>
-                  <span class="tag" style="
-                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                ">+2 more</span>
-                </div>
-              </div>
+
+
+
             </div>
-          </a>
-          <a href="https://golucid.app" target="_blank">
-            <div class="card">
-              <img src="src/lucid.png" alt="Lucid" />
-              <div class="card-content">
-                <h2><span>Lucid</span> — 2025</h2>
-                <p>
-                  DECA exam preperation app with 18,000+ users.
-                </p>
-                <div class="card-tags">
-                  <span class="tag">React</span>
-                  <span class="tag">Full Stack</span>
-                  <span class="tag">Design</span>
-                  <span class="tag" style="
-                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                ">+2 more</span>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="https://univadev.com">
-            <div class="card">
-              <img src="src/univadev.png" alt="Univa Dev" />
-              <div class="card-content">
-                <h2><span>Univa Dev</span> — 2025</h2>
-                <p>
-                  Designed and developed the offical website for Univa Dev.
-                </p>
-                <div class="card-tags">
-                  <span class="tag">Website</span>
-                  <span class="tag">Non-Profit</span>
-                  <span class="tag">Full Stack</span>
-                  <span class="tag" style="
-                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                    ">+3 more</span>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="https://finbilim.com">
-            <div class="card">
-              <img src="src/finbilim.png" alt="FinBilim" />
-              <div class="card-content">
-                <h2><span>FinBilim</span> — 2025</h2>
-                <p>
-                  Designed and developed the offical website for FinBilim.
-                </p>
-                <div class="card-tags">
-                  <span class="tag">Website</span>
-                  <span class="tag">Non-Profit</span>
-                  <span class="tag">Full Stack</span>
-                  <span class="tag" style="
-                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                    ">+3 more</span>
-                </div>
-              </div>
-            </div>
-          </a>
+          </section>
         </div>
-        <p><a href="archive.html" class="underline-link">View Project Archive</a></p>
-      </div>
-      <!--  PROJECT SHOWCASE END  -->
 
-      <div style="
+        <!--EXPERIENCE SHOWCASE END-->
+        <!-- PROJECT SHOWCASE START -->
+
+        <div style="padding: 30px;text-align: center;">
+          <h1>Projects</h1>
+          <div class="grid-container">
+            <a href="https://doppel-eight.vercel.app" target="_blank">
+              <div class="card">
+                <img src="src/doppel.png" alt="Lucid" />
+                <div class="card-content">
+                  <h2><span>Doppel</span> — 2026</h2>
+                  <p>
+                    AI social network built to eliminate cold DMs. Top 5 & Best Design @ McHacks 2025.
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">Design</span>
+                    <span class="tag">Full Stack</span>
+                    <span class="tag">Social</span>
+                    <span class="tag" style="
+                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                ">+2 more</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a href="https://golucid.app" target="_blank">
+              <div class="card">
+                <img src="src/lucid.png" alt="Lucid" />
+                <div class="card-content">
+                  <h2><span>Lucid</span> — 2025</h2>
+                  <p>
+                    DECA exam preperation app with 18,000+ users.
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Full Stack</span>
+                    <span class="tag">Design</span>
+                    <span class="tag" style="
+                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                ">+2 more</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a href="https://univadev.com">
+              <div class="card">
+                <img src="src/univadev.png" alt="Univa Dev" />
+                <div class="card-content">
+                  <h2><span>Univa Dev</span> — 2025</h2>
+                  <p>
+                    Designed and developed the offical website for Univa Dev.
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">Website</span>
+                    <span class="tag">Non-Profit</span>
+                    <span class="tag">Full Stack</span>
+                    <span class="tag" style="
+                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                    ">+3 more</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a href="https://finbilim.com">
+              <div class="card">
+                <img src="src/finbilim.png" alt="FinBilim" />
+                <div class="card-content">
+                  <h2><span>FinBilim</span> — 2025</h2>
+                  <p>
+                    Designed and developed the offical website for FinBilim.
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">Website</span>
+                    <span class="tag">Non-Profit</span>
+                    <span class="tag">Full Stack</span>
+                    <span class="tag" style="
+                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                    ">+3 more</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <p><a href="archive.html" class="underline-link">View Project Archive</a></p>
+        </div>
+        <!--  PROJECT SHOWCASE END  -->
+
+        <div style="
           padding: 30px;
           text-align: center;
           max-width: 80vw;
           margin: 0 auto;
+          display:none;
         ">
-        <h1>
+          <h1>
 
-          Technical Skills
-        </h1>
-        <p style="text-align: left;max-width:950px;margin:0 auto;">
-          I am a full-stack developer and UI/UX designer with a deep technical foundation acquired since I began front-end development at the age of eight. Today, my passion for building efficient,
-          scalable, and user-focused solutions drives me to continually learn
-          new languages and technologies. <!--My journey began in the 3rd grade with
-          web development, providing me with a strong foundation in front-end
-          design and development. Today, my passion for building efficient,
-          scalable, and user-focused solutions drives me to continually learn
-          new languages and technologies. More recently, I have shifted into
-          AI/ML app development as well as competitive programming.-->
-        </p>
-        <div class="filters" style="margin-top:35px;">
-          <div class="filter active" data-category="all">All</div>
-          <div class="filter" data-category="language">Languages</div>
-          <div class="filter" data-category="frontend">Frontend</div>
-          <div class="filter" data-category="backend">Backend</div>
-          <div class="filter" data-category="tool">Tools</div>
-          <div class="filter" data-category="design">Design</div>
+            Technical Skills
+          </h1>
+          <p style="text-align: left;max-width:950px;margin:0 auto;">
+            I am a full-stack developer and UI/UX designer with a deep technical foundation acquired since I began
+            front-end development at the age of eight. Today, my passion for building efficient,
+            scalable, and user-focused solutions drives me to continually learn
+            new languages and technologies.
+          </p>
+          <div class="filters" style="margin-top:35px;">
+            <div class="filter active" data-category="all">All</div>
+            <div class="filter" data-category="language">Languages</div>
+            <div class="filter" data-category="frontend">Frontend</div>
+            <div class="filter" data-category="backend">Backend</div>
+            <div class="filter" data-category="tool">Tools</div>
+            <div class="filter" data-category="design">Design</div>
+          </div>
+
+          <div class="grid" id="skillsGrid"></div>
         </div>
 
-        <div class="grid" id="skillsGrid"></div>
-      </div>
-
-      <div style="
+        <div style="
           padding: 30px;
           text-align: center;
           max-width: 80vw;
           margin: 0 auto;
           padding-bottom: 50px;
+          display:none;
         ">
-        <h1>My writing</h1>
+          <h1>My writing</h1>
 
-        <p>
-          Read cool ideas and level up.
-        </p>
-        <a href="blog.html"><button class="rp-button">View Blog</button></a>
-        <!--<a href="https://medium.com/@eldiiarbekbolotov" class="social-link" target="_blank">
-          <?xml version="1.0" encoding="UTF-8"?>
-          <svg width="30px" height="30px" viewBox="0 -55 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-            <g>
-              <path
-                d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
-                fill="#ffffff"></path>
-            </g>
-          </svg>
-        </a>-->
+          <p>
+            Read cool ideas and level up.
+          </p>
+          <a href="blog.html"><button class="rp-button">View Blog</button></a>
+
+        </div>
+
       </div>
-
-    </div>
-    <div style="
+      <div style="
           padding: 30px;
           text-align: center;
           max-width: 80vw;
           margin: 0 auto;
+          display:none;
         " class="hidemobile">
-      <h2>What's inside?
-      </h2>
-      <p id="ty">
-        As a thank-you for making it to the end, click the gift box to reveal your mystery prize!
-      </p>
+        <h2>What's inside?
+        </h2>
+        <p id="ty">
+          As a thank-you for making it to the end, click the gift box to reveal your mystery prize!
+        </p>
 
-    </div>
-    <div style="margin: 0 auto;text-align:center;" class="hidemobile">
-      <svg id="giftBox" version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 512 512"
-      xml:space="preserve"
-      fill="#EFE6D8"
-      stroke="#EFE6D8"
-      stroke-width="0.00512">
-    
-      <g id="SVGRepo_iconCarrier">
-        <g>
-    
-          <!-- Box body -->
-          <path fill="#8B5E3C"
-            d="M448.424,198.784v293.948c0,10.577-8.609,19.268-19.268,19.268H45.261
+      </div>
+      <div style="margin: 0 auto;text-align:center;display:none;" class="hidemobile">
+        <svg id="giftBox" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 512 512" xml:space="preserve" fill="#EFE6D8" stroke="#EFE6D8" stroke-width="0.00512">
+
+          <g id="SVGRepo_iconCarrier">
+            <g>
+
+              <!-- Box body -->
+              <path fill="#8B5E3C" d="M448.424,198.784v293.948c0,10.577-8.609,19.268-19.268,19.268H45.261
             c-10.659,0-19.268-8.691-19.268-19.268V198.784
             c0-10.577,8.609-19.269,19.268-19.269h383.895
-            C439.815,179.515,448.424,188.206,448.424,198.784z"/>
-    
-          <!-- Box lid -->
-          <path fill="#C4A484"
-            d="M474.416,157.623v73.221c0,16.235-13.283,29.6-29.6,29.6H29.6
+            C439.815,179.515,448.424,188.206,448.424,198.784z" />
+
+              <!-- Box lid -->
+              <path fill="#C4A484" d="M474.416,157.623v73.221c0,16.235-13.283,29.6-29.6,29.6H29.6
             C13.283,260.444,0,247.079,0,230.843v-73.221
             c0-16.235,13.283-29.6,29.6-29.6h415.217
-            C461.133,128.023,474.416,141.388,474.416,157.623z"/>
-    
-          <!-- Ribbon vertical -->
-          <rect x="189.054" y="259.145" width="96.309" height="252.643" fill="#5A3A2E"/>
-          <rect x="189.078" y="127.695" width="96.261" height="132.748" fill="#8B5E3C"/>
-    
-          <!-- Gradients -->
-          <defs>
-            <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse"
-              x1="188.4222" y1="135.2383" x2="285.9946" y2="135.2383">
-              <stop offset="0.03" stop-color="#8B5E3C"/>
-              <stop offset="1" stop-color="#5A3A2E"/>
-            </linearGradient>
-    
-            <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse"
-              x1="68.6858" y1="63.7493" x2="228.107" y2="63.7493">
-              <stop offset="0.03" stop-color="#C4A484"/>
-              <stop offset="1" stop-color="#8B5E3C"/>
-            </linearGradient>
-    
-            <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse"
-              x1="246.3099" y1="63.7815" x2="405.731" y2="63.7815">
-              <stop offset="0.03" stop-color="#C4A484"/>
-              <stop offset="1" stop-color="#8B5E3C"/>
-            </linearGradient>
-          </defs>
-    
-          <!-- Bow center -->
-          <path fill="url(#SVGID_1_)"
-            d="M285.995,135.239c0,18.12-21.54,31.485-48.786,31.485
+            C461.133,128.023,474.416,141.388,474.416,157.623z" />
+
+              <!-- Ribbon vertical -->
+              <rect x="189.054" y="259.145" width="96.309" height="252.643" fill="#5A3A2E" />
+              <rect x="189.078" y="127.695" width="96.261" height="132.748" fill="#8B5E3C" />
+
+              <!-- Gradients -->
+              <defs>
+                <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="188.4222" y1="135.2383" x2="285.9946"
+                  y2="135.2383">
+                  <stop offset="0.03" stop-color="#8B5E3C" />
+                  <stop offset="1" stop-color="#5A3A2E" />
+                </linearGradient>
+
+                <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="68.6858" y1="63.7493" x2="228.107"
+                  y2="63.7493">
+                  <stop offset="0.03" stop-color="#C4A484" />
+                  <stop offset="1" stop-color="#8B5E3C" />
+                </linearGradient>
+
+                <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="246.3099" y1="63.7815" x2="405.731"
+                  y2="63.7815">
+                  <stop offset="0.03" stop-color="#C4A484" />
+                  <stop offset="1" stop-color="#8B5E3C" />
+                </linearGradient>
+              </defs>
+
+              <!-- Bow center -->
+              <path fill="url(#SVGID_1_)" d="M285.995,135.239c0,18.12-21.54,31.485-48.786,31.485
             c-27.246,0-48.786-13.365-48.786-31.485
             c0-18.119,21.54-31.485,48.786-31.485
-            C264.455,103.754,285.995,117.12,285.995,135.239z"/>
-    
-          <!-- Bow left -->
-          <path fill="url(#SVGID_2_)"
-            d="M228.107,116.298c0,7.625-6.559,11.971-18.039,11.397
+            C264.455,103.754,285.995,117.12,285.995,135.239z" />
+
+              <!-- Bow left -->
+              <path fill="url(#SVGID_2_)" d="M228.107,116.298c0,7.625-6.559,11.971-18.039,11.397
             l-118.363-6.363c-15.251-0.82-24.27-13.529-18.039-26.156
             l38.291-74.697c8.609-16.891,25.418-18.612,37.307-3.853
             l74.286,92.407
-            C226.549,111.294,228.107,113.996,228.107,116.298z"/>
-    
-          <!-- Bow right -->
-          <path fill="url(#SVGID_3_)"
-            d="M246.31,116.298c0,7.625,6.559,11.971,18.039,11.397
+            C226.549,111.294,228.107,113.996,228.107,116.298z" />
+
+              <!-- Bow right -->
+              <path fill="url(#SVGID_3_)" d="M246.31,116.298c0,7.625,6.559,11.971,18.039,11.397
             l118.363-6.363c15.251-0.82,24.27-13.529,18.039-26.156
             l-38.291-74.697c-8.609-16.891-25.418-18.612-37.307-3.853
             l-74.286,92.407
-            C247.868,111.294,246.31,113.996,246.31,116.298z"/>
-    
-        </g>
-      </g>
-    </svg>
-    
-      <p style="padding: 30px;max-width:80vw;margin:0 auto;margin-top:-40px;text-align:center;" id="msg1">Here's a
-        (hopefully
-        entertaining)
-        game I made just for you:</p>
+            C247.868,111.294,246.31,113.996,246.31,116.298z" />
+
+            </g>
+          </g>
+        </svg>
+
+        <p style="padding: 30px;max-width:80vw;margin:0 auto;margin-top:-40px;text-align:center;" id="msg1"></p>
 
 
 
 
-      <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
-      <div class="slideshow-container">
-        <div class="slideshow-card-wrapper">
-          <a id="card-link" href="">
-            <div class="slideshow-card" id="game-card">
-              <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
-              <img src="" alt="Game Image" class="card-media" id="card-img">
-              <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
-                <source src="" type="video/mp4">
-                Your browser does not support video.
-              </video>
-              <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
-              <h2 id="card-title"></h2>
-              <p id="card-desc"></p>
+        <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
+        <div class="slideshow-container">
+          <div class="slideshow-card-wrapper">
+            <a id="card-link" href="">
+              <div class="slideshow-card" id="game-card">
+                <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
+                <img src="" alt="Game Image" class="card-media" id="card-img">
+                <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
+                  <source src="" type="video/mp4">
+                  Your browser does not support video.
+                </video>
+                <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
+                <h2 id="card-title"></h2>
+                <p id="card-desc"></p>
 
 
-            </div>
-          </a>
+              </div>
+            </a>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button id="like-btn" class="slideshow-refresh-btn">
+              <span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                  viewBox="0 -960 960 960" width="24px">
+                  <path
+                    d="M479-186q-17 0-31.5-6T421-209l-54-49q-102-93-184.5-186T100-642q0-83 57.5-139.5T298-838q47 0 94.5 23.5T480-736q40-55 87.5-78.5T662-838q83 0 140.5 56.5T860-642q0 108-87.5 202.5T594-260l-56 51q-12 11-27 17t-32 6Z" />
+                </svg></span> <span id="like-count">0</span>
+            </button>
+            <button class="slideshow-refresh-btn" id="refresh-btn">
+              <span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                  viewBox="0 -960 960 960" width="24px">
+                  <path
+                    d="M160-80v-440H80v-240h208q-5-9-6.5-19t-1.5-21q0-50 35-85t85-35q23 0 43 8.5t37 23.5q17-16 37-24t43-8q50 0 85 35t35 85q0 11-2 20.5t-6 19.5h208v240h-80v440H160Zm400-760q-17 0-28.5 11.5T520-800q0 17 11.5 28.5T560-760q17 0 28.5-11.5T600-800q0-17-11.5-28.5T560-840Zm-200 40q0 17 11.5 28.5T400-760q17 0 28.5-11.5T440-800q0-17-11.5-28.5T400-840q-17 0-28.5 11.5T360-800ZM160-680v80h280v-80H160Zm280 520v-360H240v360h200Zm80 0h200v-360H520v360Zm280-440v-80H520v80h280Z" />
+                </svg></span> New Prize</button>
+          </div>
         </div>
-        <div style="display:flex; gap:8px;">
-          <button id="like-btn" class="slideshow-refresh-btn">
-            <span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                viewBox="0 -960 960 960" width="24px">
-                <path
-                  d="M479-186q-17 0-31.5-6T421-209l-54-49q-102-93-184.5-186T100-642q0-83 57.5-139.5T298-838q47 0 94.5 23.5T480-736q40-55 87.5-78.5T662-838q83 0 140.5 56.5T860-642q0 108-87.5 202.5T594-260l-56 51q-12 11-27 17t-32 6Z" />
-              </svg></span> <span id="like-count">0</span>
-          </button>
-          <button class="slideshow-refresh-btn" id="refresh-btn">
-            <span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                viewBox="0 -960 960 960" width="24px">
-                <path
-                  d="M160-80v-440H80v-240h208q-5-9-6.5-19t-1.5-21q0-50 35-85t85-35q23 0 43 8.5t37 23.5q17-16 37-24t43-8q50 0 85 35t35 85q0 11-2 20.5t-6 19.5h208v240h-80v440H160Zm400-760q-17 0-28.5 11.5T520-800q0 17 11.5 28.5T560-760q17 0 28.5-11.5T600-800q0-17-11.5-28.5T560-840Zm-200 40q0 17 11.5 28.5T400-760q17 0 28.5-11.5T440-800q0-17-11.5-28.5T400-840q-17 0-28.5 11.5T360-800ZM160-680v80h280v-80H160Zm280 520v-360H240v360h200Zm80 0h200v-360H520v360Zm280-440v-80H520v80h280Z" />
-              </svg></span> New Prize</button>
-        </div>
+
       </div>
 
+      <footer style="background:rgb(56, 25, 1);padding-top:45px;padding:0;">
+        <div style="display: flex; justify-content: space-between;padding: 0 20px;">
+          <p>
+            <span id="visits"></span>
+          </p>
+          <p>
+            &copy; 2025 <span id="currentYear"></span>
+            <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+          </p>
+          <p>
+            <a href="https://github.com/EldiiarBekbolotov" target="_blank">
+              <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
+                class="h-6 w-6" aria-hidden="true">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                </path>
+              </svg>
+            </a>
+          </p>
+        </div>
+        <img src="src/mylogo.svg" style="width:100vw;">
+        <p style="text-align:center;">
+          Last updated:
+          <span id="commit-date">Loading...</span>
+
+        </p>
+
+        <script>
+          const owner = 'EldiiarBekbolotov';
+          const repo = 'eldiiarbekbolotov.github.io';
+
+          const apiURL = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`;
+
+          fetch(apiURL)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('GitHub API error');
+              }
+              return response.json();
+            })
+            .then(data => {
+              const latestCommit = data[0];
+
+              const commitDate = new Date(latestCommit.commit.author.date);
+              const authorName = latestCommit.commit.author.name;
+              const commitMessage = latestCommit.commit.message;
+
+              const formattedDate = commitDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              });
+
+              document.getElementById('commit-date').textContent = formattedDate;
+            })
+            .catch(error => {
+              console.error(error);
+              document.getElementById('commit-date').textContent = 'Error loading data';
+            });</script>
+        <div style="height:120px;"></div>
+      </footer>
     </div>
-
-    <footer style="background:rgb(56, 25, 1);margin-top:45px;padding:0;">
-      <div style="display: flex; justify-content: space-between;padding: 0 20px;">
-        <p>
-          <span id="visits"></span>
-        </p>
-        <p>
-          &copy; 2025 <span id="currentYear"></span>
-          <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
-        </p>
-        <p>
-          <a href="https://github.com/EldiiarBekbolotov" target="_blank">
-            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
-              class="h-6 w-6" aria-hidden="true">
-              <path
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-              </path>
-            </svg>
-          </a>
-        </p>
-      </div>
-      <img src="src/mylogo.svg" style="width:100vw;">
-      <p style="text-align:center;">
-        Last updated:
-        <span id="commit-date">Loading...</span>
-
-      </p>
-
-      <script>
-        const owner = 'EldiiarBekbolotov';
-        const repo = 'eldiiarbekbolotov.github.io';
-
-        const apiURL = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`;
-
-        fetch(apiURL)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('GitHub API error');
-            }
-            return response.json();
-          })
-          .then(data => {
-            const latestCommit = data[0];
-
-            const commitDate = new Date(latestCommit.commit.author.date);
-            const authorName = latestCommit.commit.author.name;
-            const commitMessage = latestCommit.commit.message;
-
-            const formattedDate = commitDate.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric'
-            });
-
-            document.getElementById('commit-date').textContent = formattedDate;
-          })
-          .catch(error => {
-            console.error(error);
-            document.getElementById('commit-date').textContent = 'Error loading data';
-          });</script>
-      <div style="height:120px;"></div>
-    </footer>
   </div>
   <script src="js/techstack.js"></script>
   <script src="js/index.js"></script>
@@ -1832,13 +1546,19 @@
     document.getElementById("currentYear").innerText =
       new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
     /* pond */
+    animateText("Eldiiar Bekbolotov");
+    document.getElementById("logo-scene").style.display = "block";
 
+    document.getElementById("web-content").style.display = "none";
+    document.getElementById("web-content").style.opacity = 0;
     function animate() {
       pond.update();
       pond.draw();
       window.pondAnimationFrame = requestAnimationFrame(animate);
     }
     animate();
+
+
   </script>
 
   <script>

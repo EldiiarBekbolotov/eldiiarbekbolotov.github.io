@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
 :root {
   --primary: rgb(201, 146, 102);
   --primary-hover: rgb(135, 101, 73);
@@ -13,8 +13,11 @@
   --shadow: rgba(242, 152, 88, 0.2);
 
   --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
-  --big-font: "Google Sans", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
-  --small-font: "Google Sans Flex", "Roboto", "Roboto", "Noto Sans", arial, helvetica, sans-serif;
+  --big-font:
+    "Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
+  --small-font:
+    "Roboto", "Spake Grotesk", "Roboto", "Noto Sans", arial, helvetica,
+    sans-serif;
   --mono: "Roboto Mono", monospace;
 
   --colora: rgb(255, 86, 80);
@@ -131,7 +134,7 @@ canvas {
 .network {
   display: flex;
   position: absolute;
-  font-family: monospace;
+  font-family: "Libertinus Mono", monospace;
   font-size: 42px;
   z-index: 1;
   width: 100%;
@@ -178,7 +181,7 @@ canvas {
 }
 
 #logo-scene {
-  background-color: #000;
+  background-color: transparent;
   display: block;
   opacity: 1;
   transition: opacity 1s ease-in-out;
@@ -373,9 +376,9 @@ footer {
   #social-links {
     background-color: transparent;
   }
-  
+
   #social-links::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -462,7 +465,9 @@ footer {
   transform: translateY(0px);
 }
 .social-link:active {
-  box-shadow: 0px 0px 10px var(--primary), inset -2px -20px 10px var(--primary);
+  box-shadow:
+    0px 0px 10px var(--primary),
+    inset -2px -20px 10px var(--primary);
   transform: translateY(0px) scale(0.9);
 }
 
@@ -495,7 +500,9 @@ footer {
   pointer-events: none;
   z-index: -1;
   opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
 }
 
 nav {
@@ -561,7 +568,7 @@ nav a.active {
   gap: 20px;
 }
 .skill-card {
-  background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(45, 28, 0, 0.5));
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(45, 28, 0, 0.5));
   border-radius: 10px;
   padding: 10px;
   font-family: var(--small-font);
