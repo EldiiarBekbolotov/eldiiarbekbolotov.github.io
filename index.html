@@ -53,7 +53,7 @@
   <link rel="stylesheet" type="text/css" href="css/main.css" />
   <style>
     #visits svg {
-      fill: var(--primary);
+      fill: #FFF;
       position: relative;
       top: 7px;
       margin-right: 5px;
@@ -1006,16 +1006,14 @@
             <h1 style="color:var(--white);text-align: center;font-size:2rem;font-family:var(--big-font);padding-top:55px;"> Hi, my name is
               <br><b style='font-style:normal;'>Eldiiar Bekbolotov</b>.
             </h1>
-            <p>
-              I am a software entrepreneur working on meaningful projects
-              that solve issues and positively impact people in a
-              variety of fields.
+            <p style="text-align:center;">
+            
             </p>
           </div>
 
           <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
             <div style="margin:0 auto;">
-              <img src="android-chrome-512x512.png" id="pfp" />
+              <img src="android-chrome-512x512.png" id="pfp" onclick="toggleTheme();" />
             </div>
           </div>
 
@@ -1035,7 +1033,7 @@
           <section class="experience-section">
             <h1 class="section-title">Experience</h1>
 
-            <p>
+            <p style="display:none;">
               For resume inquiries, please contact me via LinkedIn or email.
             </p>
             <div class="timeline">
@@ -1191,7 +1189,7 @@
         <!-- PROJECT SHOWCASE START -->
 
         <div style="padding: 30px;text-align: center;">
-          <h1>Projects</h1>
+          <h1 class="section-title">Projects</h1>
           <div class="grid-container">
             <a href="https://doppels.vercel.app/" target="_blank">
               <div class="card">
@@ -1449,11 +1447,11 @@
       <footer style="background:var(--bg-footer);padding-top:45px;padding:0;">
         <div style="display: flex; justify-content: space-between;padding: 0 20px;">
           <p>
-            <span id="visits"></span>
+            <span id="visits"style="color:#FFF !important;"></span>
           </p>
-          <p>
+          <p style="color:#FFF !important;text-align:center;font-family:arial;">
             &copy; 2025 <span id="currentYear"></span>
-            <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a>
+          
           </p>
           <p>
             <a href="https://github.com/EldiiarBekbolotov" target="_blank">
@@ -1467,9 +1465,9 @@
           </p>
         </div>
         <img src="src/mylogo.svg" style="width:100vw;">
-        <p style="text-align:center;">
-          Last updated:
-          <span id="commit-date">Loading...</span>
+        <p style="text-align:center;"style="color:#FFF !important;">
+          <span style="color:#FFF !important;font-family:arial;">Last updated on</span>
+          <span id="commit-date"style="color:#FFF !important;">Loading...</span>
 
         </p>
 

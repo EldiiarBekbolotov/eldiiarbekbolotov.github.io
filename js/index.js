@@ -356,3 +356,25 @@ function loop() {
   window.pondAnimationFrame = requestAnimationFrame(loop);
 }
 loop();
+
+var theme = 2;
+function toggleTheme() {
+  const root = document.body;
+  if (theme === 0) {
+    theme=1;
+    document.body.className = "theme0";
+  } else if (theme === 1) {
+    theme=2;
+    document.body.className = "theme1";
+  }else if (theme === 2) {
+    theme=3;
+    document.body.className = "theme2";
+  }else if (theme === 3) {
+    theme=0;
+    document.body.className = "theme3";
+  }else {
+    theme = 0;
+    document.body.className = "theme4";
+  }
+}
+toggleTheme();

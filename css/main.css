@@ -1,12 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
 :root {
-  --primary: rgb(201, 146, 102);
-  --primary-hover: rgb(135, 101, 73);
-  --primary: rgb(51, 214, 138);
-  --primary-hover: rgb(32, 155, 87);
-  --primary: rgb(231, 232, 133); /* Electric pink-red */
-  --primary-hover: #58b55b; /* Deeper, moodier shade */
+  --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
+  --big-font:
+   "Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
+  --small-font:
+    "Roboto Mono",serif, arial, helvetica,
+    sans-serif;
+  --mono: "Roboto Mono", monospace;
 
+  --colora: rgb(255, 86, 80);
+  --colorb: rgb(109, 220, 64);
+  --colorc: rgb(0, 183, 255);
+}
+
+.theme0 {
   --primary: rgb(208, 136, 77);
   --primary-hover: rgb(254, 176, 112);
   --primary-color: #000;
@@ -15,27 +22,60 @@
 
   --white: #f7f3f3;
       --card-bg: #000000;
-      --text-color: #ffffff;
+      --text-color: #bbbbbb;
       --accent-color: var(--primary);
+       --card-shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
       --shadow: var(--card-shadow);
-  --card-shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
+      --glass-color: rgba(255, 255, 255, 0.1);
+      
+}
 
+.theme1 {
+ --primary: rgb(211, 167, 250);
+  --primary-hover: rgb(254, 176, 112);
+  --primary-color: #000;
+  --shadow: rgba(242, 152, 88, 0.2);
+  --bg-footer: rgb(66, 4, 111);
 
-  --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
-  --big-font:
-     "Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
-  --small-font:
-   "Roboto",arial, "Bitter",serif, arial, helvetica,
-    sans-serif;
-  --mono: "Roboto Mono", monospace;
-
-  --colora: rgb(255, 86, 80);
-  --colorb: rgb(109, 220, 64);
-  --colorc: rgb(0, 183, 255);
-
+  --white: #f7f3f3;
+      --card-bg: #22014c90;
+      --text-color: #d0d0d0;
+      --accent-color: var(--primary);
+       --card-shadow: 0 -40px 200px rgba(255, 255, 255, 0.3);
+      --shadow: var(--card-shadow);
+      --glass-color: rgba(233, 177, 255, 0.1);
+}
+.theme2 {
+ --primary: #ff6600;
+  --primary-hover: rgb(255, 255, 255);
+  --primary-color: #fa3636;
+  --bg-footer:linear-gradient(#FF6602, white);
+  
+ --white: var(--primary);
+      --card-bg: #f0eee7;
+      --text-color: #272727;
+      --accent-color: var(--primary);
+       --card-shadow: inset 0 -40px 200px rgba(0, 0, 0, 0.2);
+      --shadow: var(--card-shadow);
+      --glass-color: rgba(28, 28, 31, 0.1);
+}
+.theme3 {
+--primary: rgb(5, 62, 234);
+  --primary-hover: rgb(255, 255, 255);
+  --primary-color: #fa3636;
+  --bg-footer:linear-gradient(rgb(7, 7, 65), white);
+  
+ --white: var(--primary);
+      --card-bg: #fbfbfbf3;
+      --text-color: #272727;
+      --accent-color: var(--primary);
+       --card-shadow: inset 0 -40px 200px rgba(0, 0, 0, 0.2);
+      --shadow: var(--card-shadow);
+      --glass-color: rgba(178, 242, 208, 0.1);
 }
 
 * {
+  transition: all 0.2s ease-in-out !important;
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: #555 #1a1a1a;
@@ -371,7 +411,7 @@ footer {
   z-index: 1000;
   padding: 0 15px;
   border-radius: 100px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--glass-color);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   max-width: 1000px;
@@ -428,7 +468,7 @@ footer {
   text-align: center;
   background: transparent;
   border-radius: 82px;
-  color: #fff;
+  color: var(--white);
   text-decoration: underline;
   font-family: var(--small-font);
   font-weight: 400;
@@ -437,7 +477,7 @@ footer {
   text-decoration: none;
 }
 .ai {
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid var(--text-color);
   margin-left: auto;
   width: fit-content !important;
   font-size: 14px;
@@ -451,17 +491,20 @@ footer {
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: rgb(216, 216, 216);
+  color: var(--text-color);
 }
 .ai svg {
   width: 24px;
-  fill: rgb(255, 255, 255);
+  fill: var(--text-color);
   margin-right: 5px;
 }
 .ai:hover {
-  color: rgb(255, 255, 255);
+  color: var(--white);
   text-decoration: none;
   border: 2px solid var(--primary);
+}
+.ai:hover svg {
+  fill: var(--white);
 }
 
 .social-link svg {
@@ -470,7 +513,7 @@ footer {
 
 .social-link:hover {
   box-shadow: inset 0px -10px 10px var(--primary);
-  color: #ffffff;
+  color: var(--white);
   text-decoration: none;
   transform: translateY(0px);
 }
