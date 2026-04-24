@@ -11,18 +11,28 @@
   --primary-hover: rgb(254, 176, 112);
   --primary-color: #000;
   --shadow: rgba(242, 152, 88, 0.2);
+  --bg-footer: rgb(56, 25, 1);
+
+  --white: #f7f3f3;
+      --card-bg: #000000;
+      --text-color: #ffffff;
+      --accent-color: var(--primary);
+      --shadow: var(--card-shadow);
+  --card-shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
+
 
   --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
   --big-font:
-    "Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
+     "Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
   --small-font:
-    "Roboto", "Spake Grotesk", "Roboto", "Noto Sans", arial, helvetica,
+   "Roboto",arial, "Bitter",serif, arial, helvetica,
     sans-serif;
   --mono: "Roboto Mono", monospace;
 
   --colora: rgb(255, 86, 80);
   --colorb: rgb(109, 220, 64);
   --colorc: rgb(0, 183, 255);
+
 }
 
 * {
@@ -34,7 +44,7 @@ html,
 body {
   width: 100%;
   height: 100%;
-  color: #fff;
+  color: #000000;
   margin: 0;
   padding: 0;
   font-family: var(--small-font);
@@ -237,12 +247,12 @@ p {
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.2rem;
   line-height: 30px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-color);
 }
 p b {
   font-weight: 600;
   font-style: italic;
-  color: rgb(255, 255, 255);
+  color: var(--white);
 }
 
 #tech {

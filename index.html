@@ -311,7 +311,7 @@
     }
 
     .section-title {
-      color: #fff;
+      color: var(--white);
       text-align: center;
     }
 
@@ -328,6 +328,7 @@
       width: 4px;
       height: 100%;
       background: linear-gradient(to bottom, rgb(189, 189, 189), rgb(55, 55, 55), transparent);
+     background:var(--primary);
       border-radius: 2px;
     }
 
@@ -365,15 +366,14 @@
       height: 12px;
       background: var(--primary);
       border-radius: 50%;
-      border: 1px solid #ffffff;
-      box-shadow: 0 0px 10px var(--primary);
+    
       transition: transform 0.3s ease;
     }
 
     .job:hover::before {
       transform: scale(1.2);
 
-      box-shadow: 0 0px 10px var(--primary-hover);
+     
     }
 
     .job:last-child {
@@ -467,7 +467,7 @@
     .job-title {
       font-size: 20px;
       font-weight: 600;
-      color: #ffffff;
+      color: var(--white);
       margin: 0;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
     }
@@ -639,13 +639,7 @@
   </style>
 
   <style>
-    :root {
-      --card-bg: #010101;
-      --text-color: #e0e0e0;
-      --accent-color: var(--primary);
-      --shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
-    }
-
+  
     .grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -707,7 +701,7 @@
       font-family: var(--big-font);
       font-size: 24px !important;
       margin-bottom: 0.5rem;
-      color: #b0b0b0;
+      color: var(--text-color);
       border-bottom: 1px solid transparent;
       line-height: 30px;
     }
@@ -720,7 +714,7 @@
       font-size: 16px !important;
       line-height: 23px !important;
       margin-bottom: 1rem;
-      color: #b0b0b0;
+      color: var(--text-color);
     }
 
     .card-tags {
@@ -1009,7 +1003,7 @@
   background-color: var(--card-bg);">
         <div id="wrapper">
           <div id="about">
-            <h1 style="text-align: center;font-size:2rem;font-family:var(--big-font);padding-top:55px;"> Hi, my name is
+            <h1 style="color:var(--white);text-align: center;font-size:2rem;font-family:var(--big-font);padding-top:55px;"> Hi, my name is
               <br><b style='font-style:normal;'>Eldiiar Bekbolotov</b>.
             </h1>
             <p>
@@ -1032,7 +1026,7 @@
 
         <div style="
           line-height: 1.6;
-          color: #e0e0e0;
+          color: var(--text-color);
           margin: 0;
           padding: 40px;
           overflow-x: hidden;
@@ -1452,7 +1446,7 @@
 
       </div>
 
-      <footer style="background:rgb(56, 25, 1);padding-top:45px;padding:0;">
+      <footer style="background:var(--bg-footer);padding-top:45px;padding:0;">
         <div style="display: flex; justify-content: space-between;padding: 0 20px;">
           <p>
             <span id="visits"></span>
@@ -1583,10 +1577,10 @@
       new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
     /* pond */
     animateText("Eldiiar Bekbolotov");
-    document.getElementById("logo-scene").style.display = "block";
+    document.getElementById("logo-scene").style.display = "none";
 
-    document.getElementById("web-content").style.display = "none";
-    document.getElementById("web-content").style.opacity = 0;
+    document.getElementById("web-content").style.display = "block";
+    document.getElementById("web-content").style.opacity = 1;
     function animate() {
       pond.update();
       pond.draw();
