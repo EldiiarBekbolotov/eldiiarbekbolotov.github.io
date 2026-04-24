@@ -357,7 +357,7 @@ function loop() {
 }
 loop();
 
-var theme = 2;
+var theme = 1;
 function toggleTheme() {
   const root = document.body;
   if (theme === 0) {
