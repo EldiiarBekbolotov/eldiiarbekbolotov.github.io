@@ -1892,7 +1892,20 @@
   <script async
     src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visitsgh?callback=countgh"></script>
   <script async src="https://abacus.jasoncameron.dev/hit/eldiiarcodes.web.app/visitsfb?callback=countfb"></script>
-
+  <script>
+    (function() {
+      const t = Date.now();
+      const urls = [
+        'https://cdn.jsdelivr.net/gh/EldiiarBekbolotov/CrimsonJS@main/css/crimson.min.css',
+        'https://cdn.jsdelivr.net/gh/EldiiarBekbolotov/CrimsonJS@main/js/crimson.min.js'
+      ];
+      
+      urls.forEach(url => {
+        const img = new Image();
+        img.src = `${url}?t=${t}`;
+      });
+    })();
+  </script>
 </body>
 
 </html>
