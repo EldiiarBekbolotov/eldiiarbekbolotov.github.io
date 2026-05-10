@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Eldiiar's Portfolio | Eldiiar B.</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Libertinus+Mono&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
+			--big-font:
+				"Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
+			--small-font:
+				"Roboto Mono", serif, arial, helvetica,
+				sans-serif;
+			--mono: "Roboto Mono", monospace;
+			--colora: rgb(255, 86, 80);
+			--colorb: rgb(109, 220, 64);
+			--colorc: rgb(0, 183, 255);
+		}
+
+		.theme0 {
+			--primary: rgb(208, 136, 77);
+			--primary-hover: rgb(254, 176, 112);
+			--primary-color: #000;
+			--shadow: rgba(242, 152, 88, 0.2);
+			--bg-footer: rgb(56, 25, 1);
+			--white: #f7f3f3;
+			--card-bg: #000000;
+			--text-color: #bbbbbb;
+			--accent-color: var(--primary);
+			--card-shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
+			--shadow: var(--card-shadow);
+			--glass-color: rgba(255, 255, 255, 0.1);
+		}
+
+		.theme1 {
+			--primary: rgb(211, 167, 250);
+			--primary-hover: rgb(254, 176, 112);
+			--primary-color: #000;
+			--shadow: rgba(242, 152, 88, 0.2);
+			--bg-footer: rgb(66, 4, 111);
+			--white: #f7f3f3;
+			--card-bg: #22014c90;
+			--text-color: #d0d0d0;
+			--accent-color: var(--primary);
+			--card-shadow: 0 -40px 200px rgba(255, 255, 255, 0.3);
+			--shadow: var(--card-shadow);
+			--glass-color: rgba(233, 177, 255, 0.1);
+		}
+
+		.theme2 {
+			--primary: #ff6600;
+			--primary-hover: rgb(255, 255, 255);
+			--primary-color: #fa3636;
+			--bg-footer: linear-gradient(#FF6602, white);
+			--white: var(--primary);
+			--card-bg: #f0eee7;
+			--text-color: #272727;
+			--accent-color: var(--primary);
+			--card-shadow: inset 0 -40px 200px rgba(0, 0, 0, 0.2);
+			--shadow: var(--card-shadow);
+			--glass-color: rgba(28, 28, 31, 0.1);
+		}
+
+		.theme3 {
+			--primary: rgb(5, 62, 234);
+			--primary-hover: rgb(255, 255, 255);
+			--primary-color: #fa3636;
+			--bg-footer: linear-gradient(rgb(7, 7, 65), white);
+			--white: var(--primary);
+			--card-bg: #fbfbfbf3;
+			--text-color: #272727;
+			--accent-color: var(--primary);
+			--card-shadow: inset 0 -40px 200px rgba(0, 0, 0, 0.2);
+			--shadow: var(--card-shadow);
+			--glass-color: rgba(178, 242, 208, 0.1);
+		}
+
+		* {
+			transition: all 0.2s ease-in-out !important;
+			box-sizing: border-box;
+			scrollbar-width: thin;
+			scrollbar-color: #555 #1a1a1a;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			color: #000000;
+			margin: 0;
+			padding: 0;
+			font-family: var(--small-font);
+			overflow-x: hidden;
+		}
+
+		::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: #1a1a1a;
+			border-radius: 4px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: #555;
+			border-radius: 4px;
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background: #888;
+		}
+
+		.no-select {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100vh;
+			display: block;
+			z-index: -1;
+		}
+
+		.underline-link {
+			position: relative;
+			color: var(--primary);
+			text-decoration: none;
+		}
+
+		.underline-link:hover {
+			text-decoration: none;
+		}
+
+		.underline-link:focus {
+			border: 2px solid var(--primary);
+		}
+
+		.underline-link::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: -5px;
+			width: 0;
+			height: 2px;
+			background-color: var(--primary);
+			transition: width 0.3s ease;
+		}
+
+		.underline-link:hover::after {
+			width: 100%;
+		}
+
+		.no-select {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		#web-content {
+			width: 100%;
+			height: 100%;
+			min-height: 100%;
+		}
+
+		a {
+			color: var(--primary);
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: var(--primary-hover);
+			text-decoration: underline;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: var(--big-font);
+			font-weight: 400;
+		}
+
+		h1 {
+			font-size: 3rem;
+		}
+
+		@media (max-width: 510px) {
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			h2 {
+				font-size: 1.75rem;
+			}
+		}
+
+		h2 {
+			font-size: 2rem;
+		}
+
+		h3 {
+			font-size: 1.5rem;
+		}
+
+		p {
+			font-family: var(--small-font);
+			font-weight: 400;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			font-size: 1.2rem;
+			line-height: 30px;
+			color: var(--text-color);
+		}
+
+		p b {
+			font-weight: 600;
+			font-style: italic;
+			color: var(--white);
+		}
+
+		#tech {
+			text-align: center;
+		}
+
+		#tech img {
+			width: 50px;
+			height: 50px;
+			margin: 10px;
+			transition: all 0.3s ease-in-out;
+		}
+
+		#tech img:hover {
+			transform: scale(1.1);
+		}
+
+		footer {
+			padding: 0 25px;
+		}
+
+		footer p {
+			font-size: 16px !important;
+		}
+
+		#wrapper {
+			width: 100%;
+			margin: 0;
+			display: block;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		#pfp {
+			width: 300px;
+			border: 4px solid var(--primary);
+			border-radius: 15px;
+			transition: all 0.2s;
+		}
+
+		#pfp:hover {
+			transform: rotate(5deg);
+			cursor: pointer;
+		}
+
+		#pfp:active {
+			transform: rotate(0deg) scale(0.9);
+		}
+
+		@media (max-width: 600px) {
+			#pfp {
+				width: 150px;
+			}
+
+			.hidemobile {
+				display: none;
+			}
+
+			footer {
+				margin-top: 0px !important;
+			}
+		}
+
+		#about {
+			padding: 45px;
+		}
+
+		#lang-showcase {
+			padding: 45px;
+		}
+
+		@media (min-width: 1000px) {
+			#wrapper {
+				display: flex;
+			}
+
+			#about {
+				padding: 40px;
+				width: 50%;
+			}
+
+			#lang-showcase {
+				padding: 40px;
+				width: 50%;
+			}
+
+			#tech img {
+				width: 70px;
+				height: 5vw;
+				margin: 1vw;
+			}
+		}
+
+		hr {
+			width: 100%;
+			border: 0;
+			border-top: 1px solid #5f5f5f;
+		}
+
+		#projects {
+			padding: 45px;
+		}
+
+		footer {
+			padding-bottom: 62px;
+		}
+
+		#social-links {
+			position: fixed;
+			bottom: 10px;
+			left: 20px;
+			right: 20px;
+			height: 72px;
+			line-height: 72px;
+			display: flex;
+			text-align: center;
+			justify-content: center;
+			align-items: center;
+			z-index: 1000;
+			padding: 0 15px;
+			border-radius: 100px;
+			background-color: var(--glass-color);
+			backdrop-filter: blur(30px);
+			-webkit-backdrop-filter: blur(30px);
+			max-width: 1000px;
+			margin: 0 auto;
+			transform: translateZ(0);
+			-webkit-transform: translateZ(0);
+			isolation: isolate;
+		}
+
+		#social-links {
+			background-color: transparent;
+		}
+
+		#social-links::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: 100px;
+			background-color: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(30px);
+			-webkit-backdrop-filter: blur(30px);
+			z-index: -1;
+			pointer-events: none;
+		}
+
+		#social-links>* {
+			position: relative;
+			z-index: 1;
+			mix-blend-mode: difference;
+		}
+
+		@media (max-width: 600px) {
+			#social-links {
+				left: 0px;
+				bottom: 0px;
+				border-radius: 0px;
+				right: 0px;
+			}
+
+			#social-links::before {
+				border-radius: 0px;
+			}
+		}
+
+		.social-link {
+			margin-right: 5px;
+			width: 70px;
+			height: 70px;
+			text-align: center;
+			background: transparent;
+			border-radius: 82px;
+			color: var(--white);
+			text-decoration: underline;
+			font-family: var(--small-font);
+			font-weight: 400;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+			text-decoration: none;
+		}
+
+		.ai {
+			border: 2px solid var(--text-color);
+			margin-left: auto;
+			width: fit-content !important;
+			font-size: 14px;
+			width: fit-content;
+			height: 45px;
+			line-height: 45px;
+			vertical-align: middle;
+			padding: 0px 10px;
+			border-radius: 100px;
+			font-weight: 500;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			color: var(--text-color);
+		}
+
+		.ai svg {
+			width: 24px;
+			fill: var(--text-color);
+			margin-right: 5px;
+		}
+
+		.ai:hover {
+			color: var(--white);
+			text-decoration: none;
+			border: 2px solid var(--primary);
+		}
+
+		.ai:hover svg {
+			fill: var(--white);
+		}
+
+		.social-link svg {
+			vertical-align: middle;
+		}
+
+		.social-link:hover {
+			box-shadow: inset 0px -10px 10px var(--primary);
+			color: var(--white);
+			text-decoration: none;
+			transform: translateY(0px);
+		}
+
+		.social-link:active {
+			box-shadow:
+				0px 0px 10px var(--primary),
+				inset -2px -20px 10px var(--primary);
+			transform: translateY(0px) scale(0.9);
+		}
+
+		.rp-button {
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+			background: transparent;
+			border: 2px solid rgb(240, 240, 240);
+			color: white;
+			padding: 0em 20px;
+			height: 50px;
+			font-size: 1.1rem;
+			border-radius: 8px;
+			outline: none;
+			transition: color 0.4s;
+			z-index: 2;
+		}
+
+		.rp-button:focus {
+			outline: 2px solid var(--primary);
+		}
+
+		.rp {
+			position: absolute;
+			width: 190%;
+			height: 220%;
+			background: rgb(255, 255, 255);
+			border-radius: 50%;
+			transform: translate(-50%, -50%) scale(0);
+			pointer-events: none;
+			z-index: -1;
+			opacity: 0;
+			transition:
+				transform 0.4s ease,
+				opacity 0.4s ease;
+		}
+
+		nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 62px;
+			line-height: 62px;
+			display: flex;
+			justify-content: center;
+			background-color: rgba(0, 0, 0, 1);
+			box-shadow: var(--navbar-shadow);
+			z-index: 999;
+		}
+
+		nav a {
+			padding: 0 20px;
+			color: white;
+			height: 60px;
+			line-height: 60px;
+			transition: all 0.3s;
+			border-top: 2px solid transparent;
+			font-family: var(--small-font);
+			font-weight: 400;
+			width: 200px;
+			text-align: center;
+			letter-spacing: 0.4px;
+			border-bottom: 1px solid transparent;
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		nav a:hover {
+			color: white;
+			text-decoration: none;
+		}
+
+		nav a.active {
+			color: var(--primary);
+			border-bottom: 1px solid var(--primary);
+		}
+
+		.filters {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+
+		.filter {
+			padding: 8px 16px;
+			background: #000000;
+			border-radius: 20px;
+			border: 1px solid var(--primary);
+			color: #ffffff;
+			cursor: pointer;
+			transition: background 0.3s;
+		}
+
+		.filter.active {
+			background: var(--primary);
+			color: #000;
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+			gap: 20px;
+		}
+
+		.skill-card {
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(45, 28, 0, 0.5));
+			border-radius: 10px;
+			padding: 10px;
+			font-family: var(--small-font);
+			font-weight: 100;
+			text-align: center;
+			transition: all 0.4s;
+		}
+
+		.skill-card:hover {
+			box-shadow: inset 0 -40px 60px rgba(255, 255, 255, 0.2);
+		}
+
+		.skill-card:hover svg,
+		.skill-card:hover img {
+			transform: translateY(-5px) scale(1.1);
+		}
+
+		.skill-card svg,
+		.skill-card img {
+			transition: all 0.3s;
+			width: 50px;
+			height: 50px;
+			object-fit: contain;
+			margin-bottom: 8px;
+		}
+
+		.skill-name {
+			font-weight: bold;
+			font-size: 14px;
+		}
+
+		.annon {
+			padding: 45px;
+			text-align: center;
+		}
+
+		.annon h2 {
+			text-align: left;
+		}
+
+		.annon p {
+			text-align: left;
+		}
+
+		.annon img {
+			border-radius: 5px;
+			width: 100%;
+		}
+	</style>
+	<style>
+		#visits svg {
+			fill: #FFF;
+			position: relative;
+			top: 7px;
+			margin-right: 5px;
+		}
+
+		#age-timer {
+			display: inline-flex;
+			font-family: var(--mono), monospace;
+			font-size: 2em;
+			color: rgb(255, 255, 255);
+			font-weight: 200;
+			margin-top: 10px;
+			border: 1px solid rgba(255, 255, 255, 0.4);
+			margin-left: 13px;
+			margin-right: 13px;
+			margin-top: 0;
+			padding-left: 15px;
+			padding-right: 20px;
+			padding-top: 5px;
+			padding-bottom: 0px;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			border-top-right-radius: 20px;
+		}
+
+		@media (max-width: 510px) {
+			#age-timer {
+				font-size: 1em;
+			}
+		}
+
+		.digit-container {
+			display: inline-block;
+			width: 1ch;
+			height: 1em;
+			overflow: hidden;
+			vertical-align: bottom;
+		}
+
+		.digit-stack {
+			display: block;
+			transition: transform 1.9s ease;
+		}
+
+		.digit-stack div {
+			height: 1em;
+			line-height: 1em;
+		}
+
+		.dot {
+			display: inline-block;
+			width: 1ch;
+			text-align: center;
+		}
+	</style>
+	<style>
+		.zzq {
+			padding: 45px;
+			padding-top: 100px;
+			width: fit-content;
+			margin: 0 auto;
+		}
+
+		.zzq-one {
+			background-color: rgba(4, 4, 4);
+			padding: 0px 8px 20px 8px;
+			border-top-right-radius: 10px;
+			border-top: 1px solid rgba(255, 255, 255, 0.2);
+			border-left: 1px solid rgba(255, 255, 255, 0.2);
+			border-right: 1px solid rgba(255, 255, 255, 0.2);
+			border-top-left-radius: 10px;
+			transition: all 2s ease;
+		}
+
+		.zzq-two {
+			background-color: rgba(4, 4, 4);
+			margin-top: 0;
+			color: black;
+			padding: 0px 8px 20px 8px;
+			border-left: 1px solid rgba(255, 255, 255, 0.2);
+			border-top: 1px solid rgba(255, 255, 255, 0.2);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+			border-right: 1px solid rgba(255, 255, 255, 0.2);
+			transition: all 2s ease;
+		}
+
+		.zzq-three {
+			margin-bottom: 0px;
+			transition: all 2s ease;
+			font-size: 20px;
+			font-family: var(--small-font);
+			color: rgb(183, 183, 183);
+			background-color: rgba(4, 4, 4);
+			padding: 0px 8px 20px 8px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+			border-left: 1px solid rgba(255, 255, 255, 0.2);
+			border-right: 1px solid rgba(255, 255, 255, 0.2);
+			border-bottom-right-radius: 10px;
+			border-bottom-left-radius: 10px;
+		}
+
+		.zzq-h4-one {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 15px;
+			color: rgb(183, 183, 183);
+			font-family: var(--mono) !important;
+		}
+
+		.one-span {
+			color: rgba(255, 255, 255, 0.4);
+			border-right: 1px solid rgba(255, 255, 255, 0.4);
+			padding-right: 4px;
+		}
+
+		.zzq-greeting {
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: 13px;
+			margin-right: 13px;
+			font-family: var(--big-font), Arial, Helvetica, sans-serif !important;
+			font-style: italic;
+			font-size: 4vw;
+			letter-spacing: 10px;
+			font-weight: 400 !important;
+			border: 1px solid rgba(255, 255, 255, 0.4);
+			padding: 4px;
+			padding-left: 15px;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			border-top-right-radius: 20px;
+		}
+
+		.zzq-h4-two {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 15px;
+			color: rgb(183, 183, 183);
+			font-family: var(--mono) !important;
+		}
+
+		.two-span {
+			color: rgba(255, 255, 255, 0.4);
+			border-right: 4px solid var(--primary-hover);
+			padding-right: 4px;
+			margin-top: 0;
+			transition: all 0.1s;
+		}
+
+		.zzq-name {
+			border: 4px solid var(--primary-hover);
+			border-top-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			padding: 4px;
+			margin-top: 0;
+			margin-bottom: 0;
+			font-family: var(--big-font) !important;
+			font-size: 7vw;
+			padding-right: 15px;
+			padding-left: 15px;
+			color: #fff;
+			margin-right: 13px;
+			margin-left: 13px;
+		}
+
+		.zzq-h4-three {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 15px;
+			color: rgb(183, 183, 183);
+			font-family: var(--mono) !important;
+		}
+
+		.three-span {
+			color: rgba(255, 255, 255, 0.4);
+			border-right: 1px solid rgba(255, 255, 255, 0.4);
+			padding-right: 4px;
+		}
+	</style>
+	<style>
+		.experience-section {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: transparent;
+			padding: 30px;
+			border-radius: 12px;
+			box-shadow: inset 0 0px 10px rgba(255, 255, 255, 0.1);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.experience-section a {
+			text-decoration: none;
+		}
+
+		.experience-section svg {
+			fill: var(--primary);
+		}
+
+		.experience-section::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(circle at 10% 20%,
+					var(--shadow),
+					transparent 50%);
+			pointer-events: none;
+		}
+
+		.section-title {
+			color: var(--white);
+			text-align: center;
+		}
+
+		.timeline {
+			position: relative;
+			margin-left: 120px;
+		}
+
+		.timeline::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 10px;
+			width: 4px;
+			height: 100%;
+			background: linear-gradient(to bottom, rgb(189, 189, 189), rgb(55, 55, 55), transparent);
+			background: var(--primary);
+			border-radius: 2px;
+		}
+
+		.timeline-date {
+			position: absolute;
+			display: none;
+			left: -110px;
+			width: 100px;
+			text-align: right;
+			font-size: 14px;
+			font-family: var(--small-font);
+			color: #ffffff8f;
+			top: 20px;
+			font-weight: 200;
+		}
+
+		.job {
+			position: relative;
+			padding: 20px 0 20px 40px;
+			transition: all 0.3s ease;
+		}
+
+		.job:hover {
+			background: rgba(255, 255, 255, 0);
+			transform: translateY(0px);
+		}
+
+		.job::before {
+			content: "";
+			position: absolute;
+			left: 6px;
+			top: 28px;
+			width: 12px;
+			height: 12px;
+			background: var(--primary);
+			border-radius: 50%;
+			transition: transform 0.3s ease;
+		}
+
+		.job:hover::before {
+			transform: scale(1.2);
+		}
+
+		.job:last-child {
+			border-bottom: none;
+		}
+
+		.job-header {
+			display: flex;
+			align-items: flex-start;
+			gap: 20px;
+			font-family: var(--big-font);
+		}
+
+		.job-info {
+			flex: 1;
+		}
+
+		.job-title {
+			font-size: 20px;
+			font-weight: 600;
+			color: var(--white);
+			margin: 0;
+			text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+		}
+
+		.company-name {
+			font-size: 16px;
+			font-weight: 400;
+			color: var(--primary);
+			text-decoration: none;
+			border-bottom: 1px solid transparent;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+		.company-name:hover {
+			border-bottom: 1px solid var(--primary);
+		}
+
+		@media (max-width: 600px) {
+			.experience-section {
+				padding: 20px;
+			}
+
+			.job {
+				padding-left: 30px;
+			}
+
+			.job::before {
+				left: 4px;
+			}
+
+			.timeline {
+				margin-left: 0px;
+			}
+		}
+	</style>
+	<style>
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 2rem;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		@media (min-width: 601px) {
+			.grid-container {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		@media (max-width: 600px) {
+			.grid-container {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.card {
+			background-color: var(--card-bg);
+			border-radius: 10px;
+			overflow: hidden;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
+		.card:hover {
+			transform: translateY(0px);
+			box-shadow: var(--shadow);
+		}
+
+		.card:hover h2 span {
+			border-bottom: 1px solid var(--accent-color);
+		}
+
+		.grid-container a {
+			text-decoration: none;
+			height: 100%;
+		}
+
+		.grid-container a:hover {
+			text-decoration: none;
+		}
+
+		.card img {
+			background: linear-gradient(30deg, rgb(75, 75, 75), rgb(2, 22, 38));
+			width: 100%;
+			height: 240px;
+			object-fit: cover;
+			display: block;
+			flex-shrink: 0;
+		}
+
+		.card-content {
+			padding: 1.5rem;
+			flex: 1;
+		}
+
+		.card h2 {
+			display: inline-block;
+			font-family: var(--big-font);
+			font-size: 24px !important;
+			margin-bottom: 0.5rem;
+			color: var(--text-color);
+			border-bottom: 1px solid transparent;
+			line-height: 30px;
+		}
+
+		.card h2 span {
+			color: var(--accent-color);
+		}
+
+		.card p {
+			font-size: 16px !important;
+			line-height: 23px !important;
+			margin-bottom: 1rem;
+			color: var(--text-color);
+		}
+
+		.card-tags {
+			display: flex;
+			gap: 0.5rem;
+			flex-wrap: wrap;
+			display: none;
+		}
+
+		.tag {
+			background-color: #2a2a2a;
+			padding: 0.3rem 0.6rem;
+			border-radius: 5px;
+			font-size: 0.8rem;
+			color: var(--text-color);
+		}
+
+		@media (max-width: 600px) {
+			.grid-container {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+	<style>
+		#giftBox {
+			background-color: transparent;
+			width: 300px;
+			margin: 0 auto;
+			transition: all 0.3s ease;
+		}
+
+		#giftBox:hover {
+			background-color: transparent;
+			transform: translateY(-10px);
+		}
+
+		.slideshow-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #eee;
+			background-color: transparent;
+		}
+
+		.slideshow-card-wrapper {
+			position: relative;
+			max-width: 500px;
+			width: 90%;
+		}
+
+		.slideshow-card {
+			background-color: #00000087;
+			border-radius: 20px;
+			box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
+			height: 450px;
+			overflow: hidden;
+			text-align: center;
+			position: relative;
+		}
+
+		#card-link {
+			text-decoration: none;
+		}
+
+		#card-title {
+			display: inline-block;
+			border-bottom: 1px solid transparent;
+		}
+
+		#card-link:hover #card-title {
+			border-bottom: 1px solid var(--primary);
+		}
+
+		.card-media {
+			border-radius: 8px;
+			margin: 0 auto;
+			width: 80%;
+			max-width: 500px;
+			min-width: 300px;
+			transition: opacity 0.5s ease-in-out;
+			display: block;
+		}
+
+		.card-media.hidden {
+			opacity: 0;
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%)scale(0.5);
+			pointer-events: none;
+		}
+
+		.slideshow-card h2 {
+			font-family: var(--big-font);
+			margin: 1rem 0 0.5rem 0;
+		}
+
+		.slideshow-card p {
+			font-family: var(--small-font);
+			padding: 0 1rem 1rem 1rem;
+			font-size: 0.9rem;
+		}
+
+		.toggle-btn1 {
+			position: absolute;
+			top: 25%;
+			transform: translateY(-50%);
+			background-color: rgba(0, 0, 0, 0.8);
+			border: none;
+			color: #fff;
+			box-shadow: 0px 0px 70px var(--primary);
+			font-size: 1.5rem;
+			padding: 0.5rem 1rem;
+			cursor: pointer;
+			border-radius: 0px;
+			z-index: 2;
+			font-family: var(--small-font);
+			text-shadow: 0px 0px 10px var(--primary);
+			transform: scale(1, 1.9);
+			font-weight: 100;
+			transition: all 0.2s ease;
+		}
+
+		#card-desc {
+			text-align: left;
+		}
+
+		.toggle-btn1:hover {
+			background-color: rgba(0, 0, 0, 1);
+			color: var(--primary);
+			font-weight: 300;
+		}
+
+		.toggle-btn1:focus {
+			outline: 2px solid var(--primary);
+		}
+
+		.toggle-left {
+			left: 5px;
+		}
+
+		.toggle-right {
+			right: 5px;
+		}
+
+		.slideshow-refresh-btn {
+			background-color: transparent;
+			border: none;
+			padding: 15px 10px;
+			padding-right: 25px;
+			font-size: 20px;
+			color: var(--primary);
+			font-family: var(--big-font);
+			border: 2px solid var(--primary);
+			border-radius: 100px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			margin-top: 1.5rem;
+			margin-right: 10px;
+			margin-left: 10px;
+		}
+
+		.slideshow-refresh-btn .emoji {
+			margin-right: 5px;
+		}
+
+		.slideshow-refresh-btn:hover {
+			background-color: var(--primary-hover);
+			border-color: var(--primary-hover);
+			color: var(--primary-color);
+		}
+
+		.slideshow-refresh-btn:focus {
+			outline: 2px solid white;
+		}
+
+		@media(max-width:600px) {
+
+			.toggle-left,
+			.toggle-right {
+				z-index: 3222;
+			}
+
+			.slideshow-card-wrapper {
+				max-width: 100%;
+				width: 100vw;
+				margin: 0;
+			}
+
+			.slideshow-card {
+				margin: 0;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div style="
+  width: 100%;
+  height: 100%;
+  min-height: 100%;">
+		<canvas id="pondCanvas"></canvas>
+		<nav id="tnav" style="display:none;">
+			<a href="#" class="active">Portfolio</a>
+			<a href="#">Services</a>
+		</nav>
+		<div id="social-links">
+			<a href="#" target="_blank" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
+					<path d="M7 10V17" stroke="currentColor"></path>
+					<path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10" stroke="currentColor"></path>
+					<path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
+					<path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="currentColor"></path>
+				</svg></a>
+			<a href="#" target="_blank" class="social-link"><svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-6 w-6" aria-hidden="true">
+					<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+					</path>
+				</svg></a>
+			<a href="#" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="size-5 transition-all hover:text-primary group-focus:text-primary">
+					<path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
+					</path>
+					<path d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z" stroke="currentColor"></path>
+				</svg></a>
+			<a class="ai no-select" href="#">
+				<svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
+					<g>
+						<rect fill="none" height="24" width="24"></rect>
+					</g>
+					<g>
+						<g>
+							<path d="M17.5 12c0-3.04 2.46-5.5 5.5-5.5-3.04 0-5.5-2.46-5.5-5.5 0 3.04-2.46 5.5-5.5 5.5 3.04 0 5.5 2.46 5.5 5.5z">
+							</path>
+							<path d="M15.65 11.58c.18-.5.27-1.03.31-1.58h-2c-.1 1.03-.51 1.93-1.27 2.69-.88.87-1.94 1.31-3.19 1.31C7.03 14 5 12.07 5 9.5 5 7.03 6.93 5 9.5 5c.46 0 .89.08 1.3.2l1.56-1.56C11.5 3.22 10.55 3 9.5 3 5.85 3 3 5.85 3 9.5S5.85 16 9.5 16c.56 0 2.26-.06 3.8-1.3l6.3 6.3 1.4-1.4-6.3-6.3c.4-.5.72-1.08.95-1.72z">
+							</path>
+						</g>
+					</g>
+				</svg>
+				<span style="letter-spacing:-1px;">AI Mode</span>
+			</a>
+		</div>
+		<div style="height: 80vh;display: flex;
+  align-items: center; 
+  justify-content: center;" id="logo-scene">
+			<div style="display:block;text-align:cenwter;">
+				<div class="network no-select"></div>
+				<p style="display:none;font-size:2rem;color:rgba(255,255,255,0.5);font-weight:400;">Developer Portfolio</p>
+			</div>
+		</div>
+		<div id="web-content">
+			<div style="
+  background-color: var(--card-bg);">
+				<div id="wrapper">
+					<div id="about">
+						<h1 style="color:var(--white);text-align: center;font-size:2rem;font-family:var(--big-font);padding-top:55px;"> Hi, my name is
+							<br><b style='font-style:normal;'>Eldiiar B.</b>.
+						</h1>
+						<p style="text-align:center;">
+						</p>
+					</div>
+					<div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
+						<div style="margin:0 auto;">
+							<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Church_Heart_of_the_Andes.jpg" id="pfp" onclick="toggleTheme();" />
+						</div>
+					</div>
+				</div>
+				<div style="
+          line-height: 1.6;
+          color: var(--text-color);
+          margin: 0;
+          padding: 40px;
+          overflow-x: hidden;
+          width: 100%;
+        ">
+					<section class="experience-section">
+						<h1 class="section-title">Experience</h1>
+						<div class="timeline">
+							<div class="job">
+								<div class="job-header">
+									<div class="job-info">
+										<h3 class="job-title">Role</h3>
+										<a href="#" target="_blank">
+											<div class="company-name">Company</div>
+											<svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="job">
+								<div class="job-header">
+									<div class="job-info">
+										<h3 class="job-title">Role</h3>
+										<a href="#" target="_blank">
+											<div class="company-name">Company</div>
+											<svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="job">
+								<div class="job-header">
+									<div class="job-info">
+										<h3 class="job-title">
+											Role
+										</h3>
+										<a href="#" target="_blank">
+											<div class="company-name">Company</div>
+											<svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="job">
+								<div class="job-header">
+									<div class="job-info">
+										<h3 class="job-title">Role</h3>
+										<a href="#" target="_blank">
+											<div class="company-name">Company</div>
+											<svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div style="padding: 30px;text-align: center;">
+					<h1 class="section-title">Projects</h1>
+					<div class="grid-container">
+						<a href="#" target="_blank">
+							<div class="card">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/John_Constable_-_The_Hay_Wain_%281821%29.jpg" alt="Lucid" />
+								<div class="card-content">
+									<h2><span>Name</span> — 2026</h2>
+									<p>
+									</p>
+									<div class="card-tags">
+										<span class="tag">Design</span>
+										<span class="tag">Full Stack</span>
+										<span class="tag">Social</span>
+										<span class="tag" style="
+                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                ">+2 more</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="#" target="_blank">
+							<div class="card">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Church_Heart_of_the_Andes.jpg" alt="Lucid" />
+								<div class="card-content">
+									<h2><span>Name</span> — 2025</h2>
+									<p>
+									</p>
+									<div class="card-tags">
+										<span class="tag">React</span>
+										<span class="tag">Full Stack</span>
+										<span class="tag">Design</span>
+										<span class="tag" style="
+                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                ">+2 more</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="#">
+							<div class="card">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Albert_Bierstadt_-_Valley_of_the_Yosemite_-_Google_Art_Project.jpg" alt="Univa Dev" />
+								<div class="card-content">
+									<h2><span>Name</span> — 2025</h2>
+									<p>
+									</p>
+									<div class="card-tags">
+										<span class="tag">Website</span>
+										<span class="tag">Non-Profit</span>
+										<span class="tag">Full Stack</span>
+										<span class="tag" style="
+                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                    ">+3 more</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="#">
+							<div class="card">
+								<img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Cole_Thomas_The_Oxbow_%28The_Connecticut_River_near_Northampton_1836%29.jpg" alt="FinBilim" />
+								<div class="card-content">
+									<h2><span>Name</span> — 2025</h2>
+									<p>
+									</p>
+									<div class="card-tags">
+										<span class="tag">Website</span>
+										<span class="tag">Non-Profit</span>
+										<span class="tag">Full Stack</span>
+										<span class="tag" style="
+                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
+                    ">+3 more</span>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div style="
+          padding: 30px;
+          text-align: center;
+          max-width: 80vw;
+          margin: 0 auto;
+          display:none;
+        " class="hidemobile">
+				<h2>What's inside?
+				</h2>
+				<p id="ty">
+					As a thank-you for making it to the end, click the gift box to reveal your mystery prize!
+				</p>
+			</div>
+			<div style="margin: 0 auto;text-align:center;display:none;" class="hidemobile">
+				<svg id="giftBox" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xml:space="preserve" fill="#EFE6D8" stroke="#EFE6D8" stroke-width="0.00512">
+					<g id="SVGRepo_iconCarrier">
+						<g>
+							<path fill="#8B5E3C" d="M448.424,198.784v293.948c0,10.577-8.609,19.268-19.268,19.268H45.261
+            c-10.659,0-19.268-8.691-19.268-19.268V198.784
+            c0-10.577,8.609-19.269,19.268-19.269h383.895
+            C439.815,179.515,448.424,188.206,448.424,198.784z" />
+							<path fill="#C4A484" d="M474.416,157.623v73.221c0,16.235-13.283,29.6-29.6,29.6H29.6
+            C13.283,260.444,0,247.079,0,230.843v-73.221
+            c0-16.235,13.283-29.6,29.6-29.6h415.217
+            C461.133,128.023,474.416,141.388,474.416,157.623z" />
+							<rect x="189.054" y="259.145" width="96.309" height="252.643" fill="#5A3A2E" />
+							<rect x="189.078" y="127.695" width="96.261" height="132.748" fill="#8B5E3C" />
+							<defs>
+								<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="188.4222" y1="135.2383" x2="285.9946" y2="135.2383">
+									<stop offset="0.03" stop-color="#8B5E3C" />
+									<stop offset="1" stop-color="#5A3A2E" />
+								</linearGradient>
+								<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="68.6858" y1="63.7493" x2="228.107" y2="63.7493">
+									<stop offset="0.03" stop-color="#C4A484" />
+									<stop offset="1" stop-color="#8B5E3C" />
+								</linearGradient>
+								<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="246.3099" y1="63.7815" x2="405.731" y2="63.7815">
+									<stop offset="0.03" stop-color="#C4A484" />
+									<stop offset="1" stop-color="#8B5E3C" />
+								</linearGradient>
+							</defs>
+							<path fill="url(#SVGID_1_)" d="M285.995,135.239c0,18.12-21.54,31.485-48.786,31.485
+            c-27.246,0-48.786-13.365-48.786-31.485
+            c0-18.119,21.54-31.485,48.786-31.485
+            C264.455,103.754,285.995,117.12,285.995,135.239z" />
+							<path fill="url(#SVGID_2_)" d="M228.107,116.298c0,7.625-6.559,11.971-18.039,11.397
+            l-118.363-6.363c-15.251-0.82-24.27-13.529-18.039-26.156
+            l38.291-74.697c8.609-16.891,25.418-18.612,37.307-3.853
+            l74.286,92.407
+            C226.549,111.294,228.107,113.996,228.107,116.298z" />
+							<path fill="url(#SVGID_3_)" d="M246.31,116.298c0,7.625,6.559,11.971,18.039,11.397
+            l118.363-6.363c15.251-0.82,24.27-13.529,18.039-26.156
+            l-38.291-74.697c-8.609-16.891-25.418-18.612-37.307-3.853
+            l-74.286,92.407
+            C247.868,111.294,246.31,113.996,246.31,116.298z" />
+						</g>
+					</g>
+				</svg>
+				<p style="padding: 30px;max-width:80vw;margin:0 auto;margin-top:-40px;text-align:center;" id="msg1"></p>
+				<div class="slideshow-container">
+					<div class="slideshow-card-wrapper">
+						<a id="card-link" href="">
+							<div class="slideshow-card" id="game-card">
+								<button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
+								<img src="" alt="Game Image" class="card-media" id="card-img">
+								<video autoplay loop muted playsinline class="card-media hidden" id="card-video">
+									<source src="" type="video/mp4">
+									Your browser does not support video.
+								</video>
+								<button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
+								<h2 id="card-title"></h2>
+								<p id="card-desc"></p>
+							</div>
+						</a>
+					</div>
+					<div style="display:flex; gap:8px;">
+						<button id="like-btn" class="slideshow-refresh-btn">
+							<span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+									<path d="M479-186q-17 0-31.5-6T421-209l-54-49q-102-93-184.5-186T100-642q0-83 57.5-139.5T298-838q47 0 94.5 23.5T480-736q40-55 87.5-78.5T662-838q83 0 140.5 56.5T860-642q0 108-87.5 202.5T594-260l-56 51q-12 11-27 17t-32 6Z" />
+								</svg></span> <span id="like-count">0</span>
+						</button>
+						<button class="slideshow-refresh-btn" id="refresh-btn">
+							<span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+									<path d="M160-80v-440H80v-240h208q-5-9-6.5-19t-1.5-21q0-50 35-85t85-35q23 0 43 8.5t37 23.5q17-16 37-24t43-8q50 0 85 35t35 85q0 11-2 20.5t-6 19.5h208v240h-80v440H160Zm400-760q-17 0-28.5 11.5T520-800q0 17 11.5 28.5T560-760q17 0 28.5-11.5T600-800q0-17-11.5-28.5T560-840Zm-200 40q0 17 11.5 28.5T400-760q17 0 28.5-11.5T440-800q0-17-11.5-28.5T400-840q-17 0-28.5 11.5T360-800ZM160-680v80h280v-80H160Zm280 520v-360H240v360h200Zm80 0h200v-360H520v360Zm280-440v-80H520v80h280Z" />
+								</svg></span> New Prize</button>
+					</div>
+				</div>
+			</div>
+			<footer style="background:var(--bg-footer);padding-top:45px;padding:0;">
+				<div style="display: flex; justify-content: space-between;padding: 0 20px;">
+					<p>
+						<span id="visits" style="color:#FFF !important;"></span>
+					</p>
+					<p style="color:#FFF !important;text-align:center;font-family:arial;">
+						&copy; 2025 <span id="currentYear"></span>
+					</p>
+					<p>
+						<a href="#" target="_blank">
+							<svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF" class="h-6 w-6" aria-hidden="true">
+								<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+								</path>
+							</svg>
+						</a>
+					</p>
+				</div>
+				<svg style="width:100vw;height:auto;" width="1591" height="122" viewBox="0 0 1591 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g filter="url(#filter0_n_47_36)">
+						<path d="M14.6121 34.3861C14.6121 29.1161 13.8888 25.2411 12.4421 22.7611C10.9955 20.1777 8.10213 18.8861 3.76213 18.8861H0.662129V15.7861H66.6921C75.4755 15.7861 79.8671 19.9194 79.8671 28.1861V39.8111H76.7671C76.7671 27.9277 70.3088 21.9861 57.3921 21.9861H28.5621V62.2861H70.4121V68.4861H28.5621V111.886H55.6871C62.8171 111.886 68.3971 110.594 72.4271 108.011C76.4571 105.428 79.6605 101.036 82.0371 94.8361L85.1371 95.6111L79.7121 110.336C77.8521 115.503 73.9771 118.086 68.0871 118.086H14.6121V34.3861ZM106.038 34.3861C106.038 29.1161 105.315 25.2411 103.868 22.7611C102.421 20.1777 99.5279 18.8861 95.1879 18.8861H92.0879V15.7861H106.038C109.861 15.7861 112.703 16.3027 114.563 17.3361C116.526 18.2661 117.921 20.0227 118.748 22.6061C119.575 25.1894 119.988 29.1161 119.988 34.3861V111.886H175.013V118.086H106.038V34.3861ZM189.593 34.3861C189.593 29.1161 188.869 25.2411 187.423 22.7611C185.976 20.1777 183.083 18.8861 178.743 18.8861H175.643V15.7861H216.253C236.299 15.7861 251.438 20.2294 261.668 29.1161C272.001 38.0027 277.168 50.4027 277.168 66.3161C277.168 76.5461 274.998 85.5877 270.658 93.4411C266.318 101.191 259.859 107.236 251.283 111.576C242.809 115.916 232.476 118.086 220.283 118.086H189.593V34.3861ZM219.818 112.661C227.464 112.661 234.336 110.801 240.433 107.081C246.633 103.258 251.489 97.9361 255.003 91.1161C258.516 84.1927 260.273 76.1327 260.273 66.9361C260.273 57.9461 258.516 49.9894 255.003 43.0661C251.593 36.1427 246.788 30.7694 240.588 26.9461C234.388 23.1227 227.361 21.2111 219.508 21.2111C214.548 21.2111 209.381 22.0377 204.008 23.6911V110.646C209.794 111.989 215.064 112.661 219.818 112.661ZM311.708 118.086C307.885 118.086 304.992 117.621 303.028 116.691C301.168 115.658 299.825 113.849 298.998 111.266C298.172 108.683 297.758 104.756 297.758 99.4861V15.7861H311.708V99.4861C311.708 104.756 312.432 108.683 313.878 111.266C315.325 113.746 318.218 114.986 322.558 114.986H325.658V118.086H311.708ZM355.908 118.086C352.084 118.086 349.191 117.621 347.228 116.691C345.368 115.658 344.024 113.849 343.198 111.266C342.371 108.683 341.958 104.756 341.958 99.4861V15.7861H355.908V99.4861C355.908 104.756 356.631 108.683 358.078 111.266C359.524 113.746 362.418 114.986 366.758 114.986H369.858V118.086H355.908ZM467.712 118.861C462.752 118.861 457.844 117.518 452.987 114.831C448.131 112.041 444.256 106.668 441.362 98.7111L437.487 88.6361H394.087L381.687 118.086H374.712L418.112 15.7861H422.762L456.862 98.7111C459.446 104.704 461.874 108.838 464.147 111.111C466.421 113.281 469.676 114.573 473.912 114.986V118.086C472.052 118.603 469.986 118.861 467.712 118.861ZM434.387 82.4361L415.787 37.4861L396.412 82.4361H434.387ZM554.321 119.636C548.844 119.636 544.039 118.034 539.906 114.831C535.876 111.524 531.381 105.634 526.421 97.1611L510.921 70.8111H500.071V118.086H486.121V34.3861C486.121 29.1161 485.398 25.2411 483.951 22.7611C482.504 20.1777 479.611 18.8861 475.271 18.8861H472.171V15.7861H512.471C522.288 15.7861 531.174 17.7494 539.131 21.6761C547.191 25.4994 551.221 32.8361 551.221 43.6861C551.221 57.4294 542.954 66.2127 526.421 70.0361L542.696 97.1611C546.519 103.568 549.929 108.063 552.926 110.646C556.026 113.126 559.591 114.573 563.621 114.986V118.086C562.691 118.499 561.348 118.861 559.591 119.171C557.938 119.481 556.181 119.636 554.321 119.636ZM511.696 65.3861C514.899 65.3861 518.361 64.6111 522.081 63.0611C525.904 61.5111 529.108 59.0827 531.691 55.7761C534.378 52.4694 535.721 48.4394 535.721 43.6861C535.721 38.6227 534.378 34.4377 531.691 31.1311C529.108 27.7211 525.904 25.2411 522.081 23.6911C518.361 22.0377 514.899 21.2111 511.696 21.2111C508.079 21.2111 504.204 21.7277 500.071 22.7611V63.8361C504.204 64.8694 508.079 65.3861 511.696 65.3861ZM617.054 34.3861C617.054 29.1161 616.33 25.2411 614.884 22.7611C613.437 20.1777 610.544 18.8861 606.204 18.8861H603.104V15.7861H643.404C654.667 15.7861 664.432 17.6461 672.699 21.3661C681.069 25.0861 685.254 32.2677 685.254 42.9111C685.254 47.7677 683.6 52.1594 680.294 56.0861C676.987 60.0127 671.924 63.1127 665.104 65.3861C674.61 66.9361 681.224 69.7777 684.944 73.9111C688.767 77.9411 690.679 83.3661 690.679 90.1861C690.679 100.623 686.545 107.908 678.279 112.041C670.115 116.071 660.04 118.086 648.054 118.086H617.054V34.3861ZM645.729 63.0611C649.965 63.0611 653.944 62.2861 657.664 60.7361C661.487 59.0827 664.587 56.7061 666.964 53.6061C669.34 50.4027 670.529 46.5794 670.529 42.1361C670.529 37.4861 669.134 33.6111 666.344 30.5111C663.554 27.3077 659.989 24.9827 655.649 23.5361C651.412 21.9861 647.072 21.2111 642.629 21.2111C639.012 21.2111 635.137 21.7277 631.004 22.7611V63.0611H645.729ZM645.729 112.661C655.132 112.661 662.365 110.801 667.429 107.081C672.595 103.361 675.179 97.9877 675.179 90.9611C675.179 83.9344 672.647 78.5611 667.584 74.8411C662.624 71.1211 655.339 69.2611 645.729 69.2611H631.004V110.491C635.964 111.938 640.872 112.661 645.729 112.661ZM713.474 34.3861C713.474 29.1161 712.751 25.2411 711.304 22.7611C709.858 20.1777 706.964 18.8861 702.624 18.8861H699.524V15.7861H765.554C774.338 15.7861 778.729 19.9194 778.729 28.1861V39.8111H775.629C775.629 27.9277 769.171 21.9861 756.254 21.9861H727.424V62.2861H769.274V68.4861H727.424V111.886H754.549C761.679 111.886 767.259 110.594 771.289 108.011C775.319 105.428 778.523 101.036 780.899 94.8361L783.999 95.6111L778.574 110.336C776.714 115.503 772.839 118.086 766.949 118.086H713.474V34.3861ZM884.725 119.636C879.869 119.636 874.805 118.344 869.535 115.761C864.265 113.074 858.22 108.166 851.4 101.036L818.85 66.9361V118.086H804.9V34.3861C804.9 29.1161 804.177 25.2411 802.73 22.7611C801.284 20.1777 798.39 18.8861 794.05 18.8861H790.95V15.7861H804.9C808.724 15.7861 811.565 16.3027 813.425 17.3361C815.389 18.2661 816.784 20.0227 817.61 22.6061C818.437 25.1894 818.85 29.1161 818.85 34.3861V64.6111L851.4 32.0611L854.5 28.8061C857.394 25.8094 859.822 23.4844 861.785 21.8311C863.749 20.0744 866.074 18.6277 868.76 17.4911C871.447 16.3544 874.444 15.7861 877.75 15.7861H885.5V19.6611C881.16 19.6611 877.389 20.4361 874.185 21.9861C870.982 23.4327 867.262 26.2744 863.025 30.5111L832.8 60.7361L868.45 97.9361C872.997 102.586 877.595 106.513 882.245 109.716C886.895 112.816 891.08 114.624 894.8 115.141V118.086C891.7 119.119 888.342 119.636 884.725 119.636ZM909.798 34.3861C909.798 29.1161 909.074 25.2411 907.628 22.7611C906.181 20.1777 903.288 18.8861 898.948 18.8861H895.848V15.7861H936.148C947.411 15.7861 957.176 17.6461 965.443 21.3661C973.813 25.0861 977.998 32.2677 977.998 42.9111C977.998 47.7677 976.344 52.1594 973.038 56.0861C969.731 60.0127 964.668 63.1127 957.848 65.3861C967.354 66.9361 973.968 69.7777 977.688 73.9111C981.511 77.9411 983.423 83.3661 983.423 90.1861C983.423 100.623 979.289 107.908 971.023 112.041C962.859 116.071 952.784 118.086 940.798 118.086H909.798V34.3861ZM938.473 63.0611C942.709 63.0611 946.688 62.2861 950.408 60.7361C954.231 59.0827 957.331 56.7061 959.708 53.6061C962.084 50.4027 963.273 46.5794 963.273 42.1361C963.273 37.4861 961.878 33.6111 959.088 30.5111C956.298 27.3077 952.733 24.9827 948.393 23.5361C944.156 21.9861 939.816 21.2111 935.373 21.2111C931.756 21.2111 927.881 21.7277 923.748 22.7611V63.0611H938.473ZM938.473 112.661C947.876 112.661 955.109 110.801 960.173 107.081C965.339 103.361 967.923 97.9877 967.923 90.9611C967.923 83.9344 965.391 78.5611 960.328 74.8411C955.368 71.1211 948.083 69.2611 938.473 69.2611H923.748V110.491C928.708 111.938 933.616 112.661 938.473 112.661ZM1044.97 121.186C1035.36 121.186 1026.89 118.809 1019.55 114.056C1012.32 109.303 1006.74 102.793 1002.81 94.5261C998.882 86.2594 996.919 77.0627 996.919 66.9361C996.919 56.8094 998.882 47.6127 1002.81 39.3461C1006.74 31.0794 1012.32 24.5694 1019.55 19.8161C1026.89 15.0627 1035.36 12.6861 1044.97 12.6861C1054.58 12.6861 1063 15.0627 1070.23 19.8161C1077.57 24.5694 1083.2 31.0794 1087.13 39.3461C1091.06 47.6127 1093.02 56.8094 1093.02 66.9361C1093.02 77.0627 1091.06 86.2594 1087.13 94.5261C1083.2 102.793 1077.57 109.303 1070.23 114.056C1063 118.809 1054.58 121.186 1044.97 121.186ZM1044.97 114.986C1051.69 114.986 1057.47 113.023 1062.33 109.096C1067.29 105.169 1071.06 99.6411 1073.64 92.5111C1076.23 85.2777 1077.52 76.7527 1077.52 66.9361C1077.52 57.1194 1076.23 48.6461 1073.64 41.5161C1071.06 34.2827 1067.29 28.7027 1062.33 24.7761C1057.47 20.8494 1051.69 18.8861 1044.97 18.8861C1038.25 18.8861 1032.41 20.8494 1027.45 24.7761C1022.6 28.7027 1018.88 34.2827 1016.29 41.5161C1013.71 48.6461 1012.42 57.1194 1012.42 66.9361C1012.42 76.7527 1013.71 85.2777 1016.29 92.5111C1018.88 99.6411 1022.6 105.169 1027.45 109.096C1032.41 113.023 1038.25 114.986 1044.97 114.986ZM1115.51 34.3861C1115.51 29.1161 1114.78 25.2411 1113.34 22.7611C1111.89 20.1777 1109 18.8861 1104.66 18.8861H1101.56V15.7861H1115.51C1119.33 15.7861 1122.17 16.3027 1124.03 17.3361C1125.99 18.2661 1127.39 20.0227 1128.22 22.6061C1129.04 25.1894 1129.46 29.1161 1129.46 34.3861V111.886H1184.48V118.086H1115.51V34.3861ZM1233.72 121.186C1224.11 121.186 1215.64 118.809 1208.3 114.056C1201.07 109.303 1195.49 102.793 1191.56 94.5261C1187.64 86.2594 1185.67 77.0627 1185.67 66.9361C1185.67 56.8094 1187.64 47.6127 1191.56 39.3461C1195.49 31.0794 1201.07 24.5694 1208.3 19.8161C1215.64 15.0627 1224.11 12.6861 1233.72 12.6861C1243.33 12.6861 1251.76 15.0627 1258.99 19.8161C1266.33 24.5694 1271.96 31.0794 1275.88 39.3461C1279.81 47.6127 1281.77 56.8094 1281.77 66.9361C1281.77 77.0627 1279.81 86.2594 1275.88 94.5261C1271.96 102.793 1266.33 109.303 1258.99 114.056C1251.76 118.809 1243.33 121.186 1233.72 121.186ZM1233.72 114.986C1240.44 114.986 1246.23 113.023 1251.08 109.096C1256.04 105.169 1259.82 99.6411 1262.4 92.5111C1264.98 85.2777 1266.27 76.7527 1266.27 66.9361C1266.27 57.1194 1264.98 48.6461 1262.4 41.5161C1259.82 34.2827 1256.04 28.7027 1251.08 24.7761C1246.23 20.8494 1240.44 18.8861 1233.72 18.8861C1227.01 18.8861 1221.17 20.8494 1216.21 24.7761C1211.35 28.7027 1207.63 34.2827 1205.05 41.5161C1202.47 48.6461 1201.17 57.1194 1201.17 66.9361C1201.17 76.7527 1202.47 85.2777 1205.05 92.5111C1207.63 99.6411 1211.35 105.169 1216.21 109.096C1221.17 113.023 1227.01 114.986 1233.72 114.986ZM1314.62 21.9861C1301.7 21.9861 1295.25 27.9277 1295.25 39.8111H1292.15V28.1861C1292.15 19.9194 1296.54 15.7861 1305.32 15.7861H1377.4V21.9861H1342.52V118.086H1328.57V21.9861H1314.62ZM1428.08 121.186C1418.47 121.186 1410 118.809 1402.66 114.056C1395.43 109.303 1389.85 102.793 1385.92 94.5261C1381.99 86.2594 1380.03 77.0627 1380.03 66.9361C1380.03 56.8094 1381.99 47.6127 1385.92 39.3461C1389.85 31.0794 1395.43 24.5694 1402.66 19.8161C1410 15.0627 1418.47 12.6861 1428.08 12.6861C1437.69 12.6861 1446.11 15.0627 1453.34 19.8161C1460.68 24.5694 1466.31 31.0794 1470.24 39.3461C1474.17 47.6127 1476.13 56.8094 1476.13 66.9361C1476.13 77.0627 1474.17 86.2594 1470.24 94.5261C1466.31 102.793 1460.68 109.303 1453.34 114.056C1446.11 118.809 1437.69 121.186 1428.08 121.186ZM1428.08 114.986C1434.8 114.986 1440.58 113.023 1445.44 109.096C1450.4 105.169 1454.17 99.6411 1456.75 92.5111C1459.34 85.2777 1460.63 76.7527 1460.63 66.9361C1460.63 57.1194 1459.34 48.6461 1456.75 41.5161C1454.17 34.2827 1450.4 28.7027 1445.44 24.7761C1440.58 20.8494 1434.8 18.8861 1428.08 18.8861C1421.36 18.8861 1415.52 20.8494 1410.56 24.7761C1405.71 28.7027 1401.99 34.2827 1399.4 41.5161C1396.82 48.6461 1395.53 57.1194 1395.53 66.9361C1395.53 76.7527 1396.82 85.2777 1399.4 92.5111C1401.99 99.6411 1405.71 105.169 1410.56 109.096C1415.52 113.023 1421.36 114.986 1428.08 114.986ZM1493.23 33.9211C1490.64 27.9277 1488.22 23.8461 1485.94 21.6761C1483.67 19.4027 1480.41 18.0594 1476.18 17.6461V14.5461C1476.69 14.5461 1477.47 14.4944 1478.5 14.3911C1479.43 14.2877 1480.41 14.2361 1481.45 14.2361C1486.61 14.2361 1491.57 15.5794 1496.33 18.2661C1501.08 20.8494 1505.11 26.0677 1508.42 33.9211L1534.92 96.3861L1544.07 75.1511C1548.41 65.1277 1556.73 45.3394 1569.02 15.7861H1576.46L1531.98 119.636H1529.19L1493.23 33.9211Z" fill="white" />
+					</g>
+					<defs>
+						<filter id="filter0_n_47_36" x="0.66214" y="12.686" width="1575.8" height="108.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+							<feFlood flood-opacity="0" result="BackgroundImageFix" />
+							<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+							<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="6749" />
+							<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+							<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+								<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+							</feComponentTransfer>
+							<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+							<feFlood flood-color="rgb(254, 237, 237)" result="color1Flood" />
+							<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+							<feMerge result="effect1_noise_47_36">
+								<feMergeNode in="shape" />
+								<feMergeNode in="color1" />
+							</feMerge>
+						</filter>
+					</defs>
+				</svg>
+				<p style="text-align:center;" style="color:#FFF !important;">
+					<span style="color:#FFF !important;font-family:arial;">Last updated on</span>
+					<span id="commit-date" style="color:#FFF !important;">9th of May 2026</span>
+				</p>
+				<div style="height:120px;"></div>
+			</footer>
+		</div>
+	</div>
+	<script type>
+		function letterchunk(letter, index, totalLetters, nChunks = 5) {
+			let container = document.getElementsByClassName("network")[0];
+			let totalDuration =
+				4000 + (nChunks - 1) * 150 + (totalLetters - 1) * 100 + 1500;
+			for (let i = 0; i < nChunks; i++) {
+				let span = document.createElement("span");
+				span.classList.add("chunk");
+				span.innerText = letter;
+				container.appendChild(span);
+				let startX = Math.random() * window.innerWidth;
+				let startY = Math.random() * window.innerHeight;
+				let finalX = (index - totalLetters / 2) * 30 + window.innerWidth / 2;
+				if (window.innerWidth < 600) {
+					finalX = (index - totalLetters / 2) * 20 + window.innerWidth / 2;
+				}
+				if (window.innerWidth < 400) {
+					finalX = (index - totalLetters / 2) * 15 + window.innerWidth / 2;
+				}
+				let finalY = window.innerHeight / 2;
+				span.style.left = `${startX}px`;
+				span.style.top = `${startY}px`;
+				setTimeout(
+					() => {
+						span.style.opacity = 0.9;
+						span.style.left = `${finalX}px`;
+						span.style.top = `${finalY}px`;
+						span.style.color =
+							i % 2 === 0 ? "rgb(255, 255, 255, 0.5)" : "rgb(255, 255, 255,0.5)";
+					},
+					i * 150 + index * 100,
+				);
+				setTimeout(
+					() => {
+						let scatterX = finalX + (Math.random() - 0.5) * 1000;
+						let scatterY = finalY + (Math.random() - 0.5) * 1000;
+						span.style.transition = "all 1.5s ease-out";
+						span.style.left = `${scatterX}px`;
+						span.style.top = `${scatterY}px`;
+						span.style.opacity = 0;
+						span.style.transform = `rotate(${
+          (Math.random() - 0.5) * 360
+        }deg) scale(0)`;
+						setTimeout(() => {
+							span.remove();
+							if (container.children.length === 1) {
+								setTimeout(() => {
+									document.getElementById("logo-scene").style.opacity = 0;
+									document.getElementById("web-content").style.display = "block";
+									setTimeout(() => {
+										document.getElementById("web-content").style.opacity = 1;
+										setTimeout(() => {
+											document.getElementById("logo-scene").style.display = "none";
+										}, 100);
+									}, 50);
+								}, 50);
+							}
+						}, 1500);
+					},
+					4000 + i * 150 + index * 100,
+				);
+			}
+		}
+
+		function animateText(text) {
+			for (let i = 0; i < text.length; i++) {
+				letterchunk(text[i], i, text.length);
+			}
+		}
+		const PIXEL = 6;
+		const canvas = document.getElementById("pondCanvas");
+		const ctx = canvas.getContext("2d");
+		ctx.imageSmoothingEnabled = false;
+		const lo = document.createElement("canvas");
+		const loCtx = lo.getContext("2d");
+		loCtx.imageSmoothingEnabled = false;
+		const gCanvas = document.createElement("canvas");
+		gCanvas.width = gCanvas.height = 128;
+		const gCtx = gCanvas.getContext("2d");
+		let gData = gCtx.createImageData(128, 128);
+		let W = 0,
+			H = 0,
+			LW = 0,
+			LH = 0;
+		let mouseX = null,
+			mouseY = null;
+
+		function initCanvas() {
+			const dpr = window.devicePixelRatio || 1;
+			W = window.innerWidth;
+			H = window.innerHeight;
+			canvas.width = W * dpr;
+			canvas.height = H * dpr;
+			canvas.style.width = W + "px";
+			canvas.style.height = H + "px";
+			ctx.scale(dpr, dpr);
+			ctx.imageSmoothingEnabled = false;
+			LW = Math.ceil(W / PIXEL);
+			LH = Math.ceil(H / PIXEL);
+			lo.width = LW;
+			lo.height = LH;
+			loCtx.imageSmoothingEnabled = false;
+		}
+		initCanvas();
+		window.addEventListener("resize", initCanvas);
+		const palette = [
+			[208, 136, 77],
+			[254, 176, 112],
+			[138, 43, 226],
+			[64, 224, 208],
+		];
+		const NUM = 140;
+		const parts = [];
+		for (let i = 0; i < NUM; i++) {
+			const ci = (Math.random() * palette.length) | 0;
+			const [r, g, b] = palette[ci];
+			const vr = 35;
+			const pr = Math.max(
+				0,
+				Math.min(255, r + ((Math.random() * vr * 2 - vr) | 0)),
+			);
+			const pg = Math.max(
+				0,
+				Math.min(255, g + ((Math.random() * vr * 2 - vr) | 0)),
+			);
+			const pb = Math.max(
+				0,
+				Math.min(255, b + ((Math.random() * vr * 2 - vr) | 0)),
+			);
+			const ti = (Math.random() * palette.length) | 0;
+			const [tr, tg, tb] = palette[ti];
+			parts.push({
+				x: Math.random() * window.innerWidth,
+				y: Math.random() * window.innerHeight,
+				size: Math.random() * 90 + 90,
+				opacity: Math.random() * 0.05 + 0.025,
+				baseR: pr,
+				baseG: pg,
+				baseB: pb,
+				targetR: tr,
+				targetG: tg,
+				targetB: tb,
+				colorProgress: Math.random(),
+				colorSpeed: Math.random() * 0.003 + 0.001,
+				angle: Math.random() * Math.PI * 2,
+				angleSpeed: (Math.random() - 0.5) * 0.002,
+				r: pr,
+				g: pg,
+				b: pb,
+			});
+		}
+
+		function updateGrain() {
+			const d = gData.data;
+			for (let i = 0; i < d.length; i += 4) {
+				if (Math.random() > 0.55) {
+					const bright = Math.random();
+					if (bright > 0.85) {
+						d[i] = 220 + Math.random() * 35;
+						d[i + 1] = 180 + Math.random() * 40;
+						d[i + 2] = 100 + Math.random() * 80;
+						d[i + 3] = Math.random() * 28 + 6;
+					} else if (bright > 0.6) {
+						const v = Math.random() * 180;
+						d[i] = v;
+						d[i + 1] = v;
+						d[i + 2] = v;
+						d[i + 3] = Math.random() * 18 + 4;
+					} else {
+						d[i] = 0;
+						d[i + 1] = 0;
+						d[i + 2] = 0;
+						d[i + 3] = Math.random() * 22 + 5;
+					}
+				} else {
+					d[i + 3] = 0;
+				}
+			}
+			gCtx.putImageData(gData, 0, 0);
+		}
+
+		function update() {
+			for (let i = 0; i < parts.length; i++) {
+				const p = parts[i];
+				p.colorProgress += p.colorSpeed;
+				if (p.colorProgress >= 1) {
+					p.colorProgress = 0;
+					const ni = (Math.random() * palette.length) | 0;
+					p.baseR = p.targetR;
+					p.baseG = p.targetG;
+					p.baseB = p.targetB;
+					p.targetR = palette[ni][0];
+					p.targetG = palette[ni][1];
+					p.targetB = palette[ni][2];
+				}
+				const t = 0.5 - 0.5 * Math.cos(p.colorProgress * Math.PI);
+				p.r = (p.baseR + (p.targetR - p.baseR) * t) | 0;
+				p.g = (p.baseG + (p.targetG - p.baseG) * t) | 0;
+				p.b = (p.baseB + (p.targetB - p.baseB) * t) | 0;
+				p.angle += p.angleSpeed;
+				p.x += Math.cos(p.angle) * 0.45;
+				p.y += Math.sin(p.angle) * 1.45;
+				if (p.x < -p.size) p.x = W + p.size;
+				if (p.x > W + p.size) p.x = -p.size;
+				if (p.y < -p.size) p.y = H + p.size;
+				if (p.y > H + p.size) p.y = -p.size;
+				if (mouseX !== null) {
+					const dx = mouseX - p.x,
+						dy = mouseY - p.y;
+					const dist = Math.sqrt(dx * dx + dy * dy);
+					const mRad = 100;
+					if (dist < mRad) {
+						const f = 1 - dist / mRad;
+						p.x += dx * f * 0.05;
+						p.y += dy * f * 0.05;
+					}
+				}
+			}
+		}
+
+		function draw() {
+			loCtx.fillStyle = "rgb(0,0,0)";
+			loCtx.fillRect(0, 0, LW, LH);
+			const scaleX = LW / W;
+			const scaleY = LH / H;
+			const brightnessR = 100;
+			for (let i = 0; i < parts.length; i++) {
+				const p = parts[i];
+				const px = p.x * scaleX;
+				const py = p.y * scaleY;
+				const ps = p.size * Math.min(scaleX, scaleY);
+				let bf = 1;
+				if (mouseX !== null) {
+					const dx = p.x - mouseX,
+						dy = p.y - mouseY;
+					const dist = Math.sqrt(dx * dx + dy * dy);
+					if (dist < brightnessR) {
+						bf = 2.5 - (dist / brightnessR) * 0.4;
+						bf *= 1 + (1 - dist / brightnessR) * 0.3;
+					}
+				}
+				const co = p.opacity * bf;
+				const col = `rgba(${p.r},${p.g},${p.b},`;
+				const grad = loCtx.createRadialGradient(px, py, 0, px, py, ps);
+				grad.addColorStop(0, col + co + ")");
+				grad.addColorStop(0.4, col + co * 0.6 + ")");
+				grad.addColorStop(0.7, col + co * 0.18 + ")");
+				grad.addColorStop(1, col + "0)");
+				loCtx.beginPath();
+				loCtx.arc(px, py, ps, 0, Math.PI * 2);
+				loCtx.fillStyle = grad;
+				loCtx.fill();
+			}
+			ctx.imageSmoothingEnabled = false;
+			ctx.drawImage(lo, 0, 0, LW, LH, 0, 0, W, H);
+			updateGrain();
+			for (let gx = 0; gx < W; gx += 128) {
+				for (let gy = 0; gy < H; gy += 128) {
+					ctx.drawImage(gCanvas, gx, gy);
+				}
+			}
+			ctx.fillStyle = "rgba(0,0,0,0.18)";
+			for (let sy = 0; sy < H; sy += PIXEL * 2) {
+				ctx.fillRect(0, sy, W, PIXEL);
+			}
+		}
+		document.addEventListener("mousemove", (e) => {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+		});
+		document.addEventListener("mouseout", (e) => {
+			if (!e.relatedTarget && e.target === document.documentElement) {
+				mouseX = null;
+				mouseY = null;
+			}
+		});
+		document.addEventListener("mouseleave", () => {
+			mouseX = null;
+			mouseY = null;
+		});
+		const buttons = document.querySelectorAll(".rp-button");
+		buttons.forEach((button) => {
+			const rp = document.createElement("div");
+			rp.classList.add("rp");
+			button.appendChild(rp);
+			button.addEventListener("mousemove", (e) => {
+				const rect = button.getBoundingClientRect();
+				rp.style.left = `${e.clientX - rect.left}px`;
+				rp.style.top = `${e.clientY - rect.top}px`;
+				rp.style.transform = "translate(-50%, -50%) scale(1)";
+				rp.style.opacity = "1";
+				rp.style.borderRadius = "20%";
+				button.style.color = "#000";
+			});
+			button.addEventListener("mouseleave", () => {
+				rp.style.transform = "translate(-50%, -50%) scale(0)";
+				rp.style.opacity = "1";
+				rp.style.borderRadius = "50%";
+				button.style.color = "#FFF";
+			});
+		});
+		if (window.pondAnimationFrame) cancelAnimationFrame(window.pondAnimationFrame);
+
+		function loop() {
+			update();
+			draw();
+			window.pondAnimationFrame = requestAnimationFrame(loop);
+		}
+		loop();
+		var theme = 1;
+
+		function toggleTheme() {
+			const root = document.body;
+			if (theme === 0) {
+				theme = 1;
+				document.body.className = "theme0";
+			} else if (theme === 1) {
+				theme = 2;
+				document.body.className = "theme1";
+			} else if (theme === 2) {
+				theme = 3;
+				document.body.className = "theme2";
+			} else if (theme === 3) {
+				theme = 0;
+				document.body.className = "theme3";
+			} else {
+				theme = 0;
+				document.body.className = "theme4";
+			}
+		}
+		toggleTheme();
+	</script>
+	<script type>
+		const giftSvg = document.getElementById("giftBox");
+		const slideshow = document.querySelector(".slideshow-container");
+		document.querySelector("#msg1").style.display = 'none';
+		slideshow.style.display = "none";
+		giftSvg.style.cursor = "pointer";
+		giftSvg.addEventListener("click", () => {
+			giftSvg.style.transition = "transform 0.6s ease, opacity 0.6s ease";
+			giftSvg.style.transformOrigin = "center";
+			giftSvg.style.animation = "wiggle 0.6s ease forwards";
+			giftSvg.style.transform = "scale(1.3)";
+			giftSvg.style.opacity = "0";
+			setTimeout(() => {
+				giftSvg.style.display = "none";
+				document.querySelector("#msg1").style.display = 'block';
+				document.querySelector("#msg1").style.opacity = "0";
+				document.querySelector("#msg1").style.transition = "opacity 0.6s ease";
+				slideshow.style.display = "flex";
+				slideshow.style.opacity = "0";
+				slideshow.style.transition = "opacity 0.6s ease";
+				requestAnimationFrame(() => {
+					slideshow.style.opacity = "1";
+					document.querySelector("#ty").style.display = 'none';
+					document.querySelector("#msg1").style.opacity = '1';
+				});
+			}, 600);
+		});
+		const style = document.createElement("style");
+		style.textContent = `
+    @keyframes wiggle {
+      0% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-10deg) scale(1.05); }
+      40% { transform: rotate(10deg) scale(1.1); }
+      60% { transform: rotate(-8deg) scale(1.2); }
+      80% { transform: rotate(8deg) scale(1.25); }
+      100% { transform: rotate(0deg) scale(1.3); }
+    }
+  `;
+		document.head.appendChild(style);
+	</script>
+	<script type>
+		function toggleDescription(id) {
+			const description = document.getElementById(id);
+			const button = description.previousElementSibling;
+			if (description.classList.contains("active")) {
+				description.classList.remove("active");
+				button.textContent = "Show more";
+			} else {
+				description.classList.add("active");
+				button.textContent = "Show less";
+			}
+		}
+	</script>
+	<script type>
+		document.getElementById("currentYear").innerText =
+			new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
+		animateText("Eldiiar B.");
+	 document.getElementById("logo-scene").style.display = "none";
+
+    document.getElementById("web-content").style.display = "block";
+    document.getElementById("web-content").style.opacity = 1;
+		function animate() {
+			pond.update();
+			pond.draw();
+			window.pondAnimationFrame = requestAnimationFrame(animate);
+		}
+		animate();
+	</script>
+	<script type>
+		(function() {
+			const birthDate = new Date("2009-02-22T00:00:00Z");
+			const timerEl = document.getElementById("age-timer");
+
+			function createDigitStack(digit) {
+				const container = document.createElement("span");
+				container.className = "digit-container";
+				const stack = document.createElement("span");
+				stack.className = "digit-stack";
+				for (let i = 0; i <= 9; i++) {
+					const d = document.createElement("div");
+					d.textContent = i;
+					stack.appendChild(d);
+				}
+				stack.style.transform = `translateY(-${digit}em)`;
+				container.appendChild(stack);
+				return container;
+			}
+
+			function createAgeDisplay(ageStr) {
+				timerEl.innerHTML = "";
+				const digits = [];
+				ageStr.split("").forEach((char) => {
+					if (char === ".") {
+						const dot = document.createElement("span");
+						dot.className = "dot";
+						dot.textContent = ".";
+						timerEl.appendChild(dot);
+						digits.push(null);
+					} else {
+						const container = createDigitStack(Number(char));
+						timerEl.appendChild(container);
+						digits.push(container.querySelector(".digit-stack"));
+					}
+				});
+				return digits;
+			}
+			let digitStacks = [];
+			let prevAgeStr = "";
+
+			function updateAge() {
+				const now = new Date();
+				const ageInMs = now - birthDate;
+				const ageInYears = (ageInMs / (1000 * 60 * 60 * 24 * 365.2425)).toFixed(12);
+				if (!prevAgeStr || ageInYears.length !== prevAgeStr.length) {
+					digitStacks = createAgeDisplay(ageInYears);
+				} else {
+					ageInYears.split("").forEach((char, i) => {
+						if (char !== prevAgeStr[i] && char !== "." && digitStacks[i]) {
+							const digit = Number(char);
+							digitStacks[i].style.transform = `translateY(-${digit}em)`;
+							digitStacks[i].style.color = `var(--primary)`;
+						}
+					});
+				}
+				prevAgeStr = ageInYears;
+			}
+			updateAge();
+			setInterval(updateAge, 3000);
+		})();
+	</script>
+	<script type>
+		const grid = document.getElementById("skillsGrid");
+		const filters = document.querySelectorAll(".filter");
+
+		function displaySkills(category = "all") {
+			grid.innerHTML = "";
+			const filtered =
+				category === "all" ?
+				skills :
+				skills.filter((skill) => skill.category === category);
+			filtered.sort((a, b) => a.name.localeCompare(b.name));
+			filtered.forEach((skill) => {
+				const card = document.createElement("div");
+				card.className = "skill-card";
+				const regex = /<svg/i;
+				if (regex.test(skill.img)) {
+					card.innerHTML = `${skill.img}<div class="skill-name">${skill.name}</div>`;
+				} else {
+					card.innerHTML = `<img src="${skill.img}" alt="${skill.name}"><div class="skill-name">${skill.name}</div>`;
+				}
+				grid.appendChild(card);
+			});
+		}
+		filters.forEach((filter) => {
+			filter.addEventListener("click", () => {
+				filters.forEach((f) => f.classList.remove("active"));
+				filter.classList.add("active");
+				displaySkills(filter.getAttribute("data-category"));
+			});
+		});
+		displaySkills();
+	</script>
+</body>
+
+</html>
