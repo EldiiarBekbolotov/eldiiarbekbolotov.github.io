@@ -21,13 +21,17 @@
   --bg-footer: rgb(56, 25, 1);
 
   --white: #f7f3f3;
-      --card-bg: #000000;
+      --card-bg: rgba(10, 5, 0, 0.6);
       --text-color: #bbbbbb;
       --accent-color: var(--primary);
        --card-shadow: 0 -40px 200px rgba(250, 125, 0, 0.3), inset 0 -40px 200px rgba(250, 125, 0, 0.2);
       --shadow: var(--card-shadow);
       --glass-color: rgba(255, 255, 255, 0.1);
-      
+}
+
+body.theme0 #web-content > div {
+  background: linear-gradient(rgba(5, 3, 0, 0.45), rgba(5, 3, 0, 0.45)),
+    url("https://upload.wikimedia.org/wikipedia/commons/e/e6/Albert_Bierstadt_-_Valley_of_the_Yosemite_-_Google_Art_Project.jpg") fixed top center / cover !important;
 }
 
 .theme1 {

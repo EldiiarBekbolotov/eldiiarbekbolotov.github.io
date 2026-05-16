@@ -1,0 +1,226 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:wght@300;400&display=swap");
+
+:root {
+  --bg: #0e0c0a;
+  --surface: rgba(18, 14, 10, 0.82);
+  --text: #d4cec8;
+  --muted: #6e6660;
+  --accent: rgb(208, 136, 77);
+  --accent-hover: rgb(254, 176, 112);
+  --line: rgba(255,255,255,0.08);
+  --serif: "Bitter", Georgia, serif;
+  --mono: "Roboto Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+
+body {
+  background:
+    linear-gradient(rgba(8,5,2,0.48), rgba(8,5,2,0.48)),
+    url("https://upload.wikimedia.org/wikipedia/commons/e/e6/Albert_Bierstadt_-_Valley_of_the_Yosemite_-_Google_Art_Project.jpg") fixed top center / cover;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  gap: 20px;
+}
+
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 8vw, 6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.hero-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.hero-links a { color: var(--muted); transition: color 0.2s; }
+.hero-links a:hover { color: var(--accent); }
+.hero-links svg { display: block; }
+
+/* ── CONTENT SURFACE ── */
+.surface {
+  background: var(--surface);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ── SECTION ── */
+.section {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 36px;
+}
+
+/* ── EXPERIENCE ── */
+.exp-list {
+  position: relative;
+  padding-left: 28px;
+}
+
+/* the single continuous vertical line */
+.exp-list::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), rgba(208,136,77,0.15));
+}
+
+.exp-item {
+  position: relative;
+  padding-bottom: 40px;
+}
+.exp-item:last-child { padding-bottom: 0; }
+
+/* dot on the line */
+.exp-item::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(208,136,77,0.15);
+}
+
+.exp-role {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.exp-company {
+  color: var(--accent);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.exp-company:hover { color: var(--accent-hover); }
+.exp-company svg { fill: currentColor; flex-shrink: 0; }
+
+/* ── PROJECTS ── */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+}
+
+.proj-card {
+  padding: 28px 24px;
+  border: 1px solid var(--line);
+  transition: background 0.2s;
+}
+.proj-card:hover { background: rgba(255,255,255,0.03); }
+
+.proj-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.85;
+  filter: grayscale(20%);
+}
+
+.proj-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.proj-year {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #0a0603;
+  padding: 0;
+  overflow: hidden;
+}
+
+footer .foot-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-top: 1px solid var(--line);
+}
+
+footer .foot-top p { color: #fff; font-family: arial; font-size: 13px; }
+footer .foot-top a svg { display: block; }
+#visits svg { fill: #fff; position: relative; top: 6px; margin-right: 4px; }
+
+footer img.foot-logo { width: 100%; display: block; }
+
+footer .foot-bottom {
+  text-align: center;
+  padding: 10px;
+  font-family: arial;
+  font-size: 13px;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .section { padding: 60px 20px; }
+  .proj-grid { grid-template-columns: 1fr; }
+}
