@@ -27,15 +27,7 @@
   ]
 }
 </script>
-<script>
-  window.CrimsonConfig = {
-    siteName: "Eldiiar.com",
-    description: "Join Eldiiar Bekbolotov today"
-  };
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/gh/EldiiarBekbolotov/CrimsonJS@main/js/crimson.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="description"
@@ -1902,19 +1894,27 @@
     src="https://abacus.jasoncameron.dev/hit/eldiiarbekbolotov.github.io/visitsgh?callback=countgh"></script>
   <script async src="https://abacus.jasoncameron.dev/hit/eldiiarcodes.web.app/visitsfb?callback=countfb"></script>
   <script>
-    (function() {
-      const t = Date.now();
-      const urls = [
-        'https://cdn.jsdelivr.net/gh/EldiiarBekbolotov/CrimsonJS@main/css/crimson.min.css',
-        'https://cdn.jsdelivr.net/gh/EldiiarBekbolotov/CrimsonJS@main/js/crimson.min.js'
-      ];
-      
-      urls.forEach(url => {
-        const img = new Image();
-        img.src = `${url}?t=${t}`;
-      });
-    })();
+    window.CrimsonConfig = {
+  siteName: "Eldiiar Bekbolotov",
+  pfpURL: "https://eldiiarcodes.web.app/android-chrome-512x512.png",
+  font: "Inter, sans-serif",
+  colors: {
+    introBg: "#130218",
+    introText: "#ffffff",
+    markBg: "#c2c2c2",
+    panelBg: "#fafafa",
+    tabsBg: "#e5d3ee",
+    accent: "#250033",
+    accentHover: "#540570",
+    accentText: "#ffffff",
+    focus: "#460453",
+    focusRing: "#46045340",
+  },
+};
   </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/gh/EldiiarBekbolotov/CrimsonJS@latest/js/crimson.min.js"></script>
 </body>
 
 </html>
