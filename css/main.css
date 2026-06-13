@@ -4,7 +4,7 @@
   --big-font:
    "Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
   --small-font:
-    "Roboto Mono",serif, arial, helvetica,
+    "Google Sans",serif, arial, helvetica,
     sans-serif;
   --mono: "Roboto Mono", monospace;
 
@@ -610,7 +610,7 @@ nav a.active {
   background: transparent;
   border-radius: 20px;
   border: 1px solid var(--primary);
-  color: #ffffff;
+  color: var(--white);
   cursor: pointer;
   transition: background 0.3s;
 }
