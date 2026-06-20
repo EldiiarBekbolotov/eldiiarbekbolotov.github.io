@@ -31,10 +31,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="description"
-    content="" />
+    content="Solving problems by building products with human-centered design." />
   <meta property="og:image" content="apple-touch-icon.png" />
   <meta property="og:description"
-    content="" />
+    content="Solving problems by building products with human-centered design." />
   <meta property="og:title" content="Eldiiar Bekbolotov" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel=icon type=image/png sizes=32x32 href=favicon-32x32.png>
@@ -283,7 +283,6 @@
       background: transparent;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: inset 0 0px 10px rgba(255, 255, 255, 0.1);
       /*backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);*/
       position: relative;
@@ -640,43 +639,62 @@
   </style>
 
   <style>
-  
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+  .grid-container {
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+  /* Mobile first: Default to a single column */
+  grid-template-columns: 1fr; 
+}
 
-    @media (min-width: 601px) {
-      .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+@media (min-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(12, 1fr); 
+    align-items: start;
+  }
 
-    @media (max-width: 600px) {
+  /* Row 1: 70% / 30% split (42 columns and 18 columns) */
+  .grid-container > :nth-child(1) { grid-column: span 5; }
+  .grid-container > :nth-child(2) { grid-column: span 7; }
+
+  /* Row 2: 30% / 70% split (18 columns and 42 columns) */
+  .grid-container > :nth-child(3) { grid-column: span 7; }
+  .grid-container > :nth-child(4) { grid-column: span 5; }
+
+  /* Row 3: 33.33% each for cards 5, 6, and 7 (20 columns each) */
+  .grid-container > :nth-child(5),
+  .grid-container > :nth-child(6),
+  .grid-container > :nth-child(7) {
+    grid-column: span 4;
+  }
+}
+
+ 
+.cardlink {
+  margin-bottom: 50px;
+}
+    .card {
+      background-color: var(--card-bg);
+      overflow: hidden;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    } @media (max-width: 600px) {
       .grid-container {
         grid-template-columns: 1fr;
       }
+      .cardlink {
+        margin-bottom: 30px !important;
+      }
     }
-
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
+    .card img {
+      border-radius: 0px;
     }
 
     .card:hover {
       transform: translateY(0px);
-      box-shadow: var(--shadow);
     }
 
-    .card:hover h2 span {
-      border-bottom: 1px solid var(--accent-color);
-    }
 
     .grid-container a {
       text-decoration: none;
@@ -694,17 +712,21 @@
     }
 
     .card-content {
-      padding: 1.5rem;
+      padding: 0;
+      position: relative;
     }
 
     .card h2 {
       display: inline-block;
-      font-family: var(--big-font);
-      font-size: 24px !important;
-      margin-bottom: 0.5rem;
+      font-family: var(--small-font);
+      font-size: 18px !important;
+      margin-bottom: 0;
+      margin-top: 0;
       color: var(--text-color);
       border-bottom: 1px solid transparent;
       line-height: 30px;
+      font-weight: 500;
+      padding-top: 30px;
     }
 
     .card h2 span {
@@ -715,23 +737,31 @@
       font-size: 16px !important;
       line-height: 23px !important;
       margin-bottom: 1rem;
+      margin-top: 0rem;
       color: var(--text-color);
+      font-family: var(--small-font);
+      font-weight: 400;
     }
 
     .card-tags {
+      float: right;
+      position: absolute;
+      top: 5px;
+      left: 0px;
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
-
-      display:none;
+text-align:center;
     }
 
     .tag {
-      background-color: #2a2a2a;
-      padding: 0.3rem 0.6rem;
-      border-radius: 5px;
+      background-color: transparent;
+      background-color:  rgb(255, 255, 255);
+      padding: 3px 6px;
+      border-radius: 6px;
       font-size: 0.8rem;
-      color: var(--text-color);
+      color: var(--primary-color);
+      font-weight: 500;
     }
 
     @media (max-width: 600px) {
@@ -935,7 +965,7 @@
       <!--<a href="services.html">LeaferStudios</a>-->
     </nav>
 
-    <div id="social-links">
+    <div id="social-links" style="width: 300px;">
       <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
           xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
           stroke-linecap="round" stroke-linejoin="round" color="currentColor"
@@ -968,7 +998,7 @@
 
 
 
-      <a class="ai no-select" href="eldiiargpt.html">
+      <a class="ai no-select" href="eldiiargpt.html" style="display:none;">
         <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
           height="24" viewBox="0 0 24 24" width="24">
           <g>
@@ -1004,17 +1034,17 @@
   background-color: var(--card-bg);">
         <div id="wrapper">
           <div id="about">
-            <h1 style="color:var(--white);text-align: center;font-size:2rem;font-family:var(--big-font);padding-top:55px;"> Hi, my name is
-              <br><b style='font-style:normal;'>Eldiiar Bekbolotov</b>.
+            <h1 style="color:var(--white);text-align: left;font-size:2rem;font-family:var(--big-font);padding-top:55px;">
+              Eldiiar Bekbolotov
             </h1>
-            <p style="text-align:center;">
-          
+            <p style="text-align:left;">
+              Building products with human-centered design
             </p>
           </div>
 
           <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
             <div style="margin:0 auto;">
-              <img src="android-chrome-512x512.png" id="pfp" onclick="toggleTheme();" />
+              <img src="android-chrome-512x512.png" id="pfp"/>
             </div>
           </div>
 
@@ -1030,6 +1060,7 @@
           padding: 40px;
           overflow-x: hidden;
           width: 100%;
+          display:none;
         ">
           <section class="experience-section">
             <h1 class="section-title">Experience</h1>
@@ -1041,6 +1072,39 @@
             Building what's missing.
             </p>
             <div class="timeline">
+              <div class="job">
+                <div class="timeline-date">June 2025 - Present</div>
+                <div class="job-header">
+                  <div class="job-info">
+                    <h3 class="job-title">Chief Technology Officer</h3>
+                    <a href="https://app.clearpolicy.org/" target="_blank">
+                      <div class="company-name">ClearPolicy</div>
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z" />
+                      </svg>
+                    </a>
+                    <div class="job-meta" style="display:none;">Kyrgyzstan</div>
+                    <div class="job-summary" style="display:none;">
+                      Launched FinBilim FinTech Hackathon 2025 with 150+ virtual and 40+ in-person participants.
+                    </div>
+                    <!--<button class="toggle-btn" onclick="toggleDescription('desc1')">
+                    Show more
+                  </button>-->
+                    <ul id="desc1" class="job-description">
+                      <li>Fostered an environment of rapid growth, becoming the largest student-led financial literacy
+                        initiative in Central Asia and expanding globally in the process.</li>
+                      <li>Developed the official website totaling <b>2,100,000 lines of code</b>.
+                      </li>
+                      <div class="job-images">
+                        <img src="src/finbilim-logo.svg" alt="FinBilim logo (dark mode)" class="job-image" />
+                        <img src="src/finbilim-stock.png" alt="FinBilim stock page screenshot" class="job-image" />
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+              </div>
                <div class="job">
                 <div class="timeline-date">June 2025 - Present</div>
                 <div class="job-header">
@@ -1196,80 +1260,112 @@
         <!-- PROJECT SHOWCASE START -->
 
         <div style="padding: 30px;text-align: center;">
-          <h1 class="section-title">Projects</h1>
+          <h1 class="section-title"></h1>
           <div class="grid-container">
-            <a href="https://doppels.vercel.app/" target="_blank">
+            
+              <a href="https://finbilim.com" class="cardlink" target="_blank">
               <div class="card">
-                <img src="src/doppel.png" alt="Lucid" />
+                <img src="src/finbilim2.png" alt="FinBilim" />
                 <div class="card-content">
-                  <h2><span>Doppels</span> — 2026</h2>
+                  <h2><span>FinBilim</span></h2>
                   <p>
-                   
+                  Financial literacy for Central Asia
                   </p>
                   <div class="card-tags">
-                    <span class="tag">Design</span>
-                    <span class="tag">Full Stack</span>
-                    <span class="tag">Social</span>
-                    <span class="tag" style="
-                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                ">+2 more</span>
+                    <span class="tag">Founder & CEO</span>
+                    <span class="tag">Tech Lead</span>
                   </div>
                 </div>
               </div>
             </a>
-            <a href="https://golucid.app" target="_blank">
+        
+            <a href="https://golucid.app"class="cardlink"  target="_blank">
               <div class="card">
                 <img src="src/lucid.png" alt="Lucid" />
                 <div class="card-content">
-                  <h2><span>Lucid</span> — 2025</h2>
+                  <h2><span>Lucid</span></h2>
                   <p>
-                   
+                  Exam preparation platform
                   </p>
                   <div class="card-tags">
-                    <span class="tag">React</span>
-                    <span class="tag">Full Stack</span>
-                    <span class="tag">Design</span>
-                    <span class="tag" style="
-                  box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                ">+2 more</span>
+                    <span class="tag">SWE & Design Lead</span>
+                    <span class="tag">Monetized</span>
                   </div>
                 </div>
               </div>
             </a>
-            <a href="https://univadev.com">
+                 <a href="https://clearpolicy.org"class="cardlink"  target="_blank">
+              <div class="card">
+                <img src="src/clearpolicy.png" alt="ClearPolicy" />
+                <div class="card-content">
+                  <h2><span>ClearPolicy</span></h2>
+                  <p>
+                   Clarity for voters
+                  </p>
+                  <div class="card-tags">
+                   <span class="tag" >CTO & Design Lead</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+               <a href="https://univadev.com"class="cardlink"  target="_blank">
               <div class="card">
                 <img src="src/univadev.png" alt="Univa Dev" />
                 <div class="card-content">
-                  <h2><span>Univa Dev</span> — 2025</h2>
+                  <h2><span>Univa Dev</span></h2>
                   <p>
-                    
+                    Preparing youth for the AI era
                   </p>
                   <div class="card-tags">
-                    <span class="tag">Website</span>
-                    <span class="tag">Non-Profit</span>
-                    <span class="tag">Full Stack</span>
-                    <span class="tag" style="
-                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                    ">+3 more</span>
+                    <span class="tag">Founder & CEO</span>
+                    <span class="tag">Tech Lead</span>
                   </div>
                 </div>
               </div>
             </a>
-            <a href="https://finbilim.com">
+           
+         
+           <a href="https://journality.org"class="cardlink"  target="_blank">
               <div class="card">
-                <img src="src/finbilim.png" alt="FinBilim" />
+                <img src="src/journality.png" alt="Journality" />
                 <div class="card-content">
-                  <h2><span>FinBilim</span> — 2025</h2>
+                  <h2><span>Journality</span></h2>
                   <p>
-                   
+                   Open-access research platform
                   </p>
                   <div class="card-tags">
-                    <span class="tag">Website</span>
-                    <span class="tag">Non-Profit</span>
-                    <span class="tag">Full Stack</span>
-                    <span class="tag" style="
-                      box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.421);
-                    ">+3 more</span>
+                    <span class="tag" >Co-founder</span>
+                    <span class="tag" >SWE & Design Lead</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+             <a href="https://unitedhacks.hackunited.org"class="cardlink"  target="_blank">
+              <div class="card">
+                <img src="src/hackunited.png" alt="Lucid" />
+                <div class="card-content">
+                  <h2><span>Hack United</span></h2>
+                  <p>
+                  1,000+ participant hackathons
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">Head of Technology</span>
+                    <span class="tag">Sponsorships</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+             <a href="https://doppels.vercel.app/"class="cardlink"  target="_blank">
+              <div class="card">
+                <img src="src/doppel.png" alt="Lucid" />
+                <div class="card-content">
+                  <h2><span>Doppels</span></h2>
+                  <p>
+                   AI social network
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">Design Lead</span>
+                    <span class="tag">McHacks 13 Winner</span>
                   </div>
                 </div>
               </div>
@@ -1290,7 +1386,7 @@
             Technical Skills
           </h1>
           <p style="text-align: left;max-width:950px;margin:0 auto;">
-            
+          
           </p>
           <div class="filters" style="margin-top:35px;">
             <div class="filter active" data-category="all">All</div>
