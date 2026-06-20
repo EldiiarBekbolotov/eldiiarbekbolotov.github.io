@@ -588,7 +588,7 @@ nav a.active {
   color: var(--primary);
   border-bottom: 1px solid var(--primary);
 }
-
+ 
 .filters {
   display: flex;
   justify-content: center;
