@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
 :root {
   --navbar-shadow: 0 0px 0px rgba(242, 152, 88, 0);
-  --big-font:
-   "Roboto","Bitter", "Roboto Serif", "Space Grotesk", "Geist Mono", monospace;
+  --big-font: arial, helvetica,
+    sans-serif;
   --small-font:
-  arial,  "Google Sans",serif, arial, helvetica,
+  arial, helvetica,
     sans-serif;
   --mono: "Roboto Mono", monospace;
 
@@ -35,13 +35,13 @@ body.theme0 #web-content > div {
 }
 
 .theme1 {
- --primary: #fefefe;
+ --primary: #000000;
   --primary-hover: rgb(255, 255, 255);
   --primary-color: #000000;
   --bg-footer:#ff01b780;
  --white: var(--primary);
-      --card-bg: #13120A;
-      --text-color: #ffffff9a;
+      --card-bg: #ffffff;
+      --text-color: #0000009a;
       --accent-color: var(--primary);
        --card-shadow: inset 0 -40px 200px rgba(253, 253, 253, 0.2);
       --shadow: var(--card-shadow);
@@ -357,7 +357,7 @@ footer p {
 }
 
 #lang-showcase {
-  padding: 45px;
+  padding-top: 50px;
 }
 
 @media (min-width: 1000px) {
@@ -399,7 +399,7 @@ footer {
   display: flex;
   float: right;
   margin-top: 30px;*/
-  position: fixed;
+  position: relative;
   bottom: 10px;
   left: 20px;
   right: 20px;
@@ -410,12 +410,13 @@ footer {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 0 15px;
+  padding: 0 0px;
   border-radius: 100px;
-  background-color: transparent;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
   max-width: 1000px;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
   margin: 0 auto;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
@@ -451,19 +452,10 @@ footer {
 }
 
 @media (max-width: 600px) {
-  #social-links {
-    left: 0px;
-    bottom: 0px;
-    border-radius: 0px;
-    right: 0px;
-  }
-  #social-links::before {
-    border-radius: 0px;
-  }
+  
 }
 
 .social-link {
-  margin-right: 5px;
   width: 70px;
   height: 70px;
   text-align: center;
@@ -474,7 +466,7 @@ footer {
   font-family: var(--small-font);
   font-weight: 400;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   text-decoration: none;
 }
 .ai {
@@ -510,19 +502,19 @@ footer {
 
 .social-link svg {
   vertical-align: middle;
-  mix-blend-mode: normal;
+  mix-blend-mode: difference;
 }
 
 .social-link:hover {
-  box-shadow: inset 0px -10px 10px var(--primary);
+  box-shadow: inset 0px -1px 5px var(--primary);
   color: var(--white);
   text-decoration: none;
   transform: translateY(0px);
 }
 .social-link:active {
   box-shadow:
-    0px 0px 10px var(--primary),
-    inset -2px -20px 10px var(--primary);
+    0px 0px 0px var(--primary),
+    inset 0px -0px 90px var(--primary);
   transform: translateY(0px) scale(0.9);
 }
 
@@ -615,7 +607,7 @@ nav a.active {
 }
 .filter.active {
   background: var(--primary);
-  color: #000;
+  color: #ffffff;
 }
 .grid {
   display: grid;
