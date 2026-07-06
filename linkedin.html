@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile</title>
+<meta name="description" content="A rich personal profile — more than a résumé. Built with Materialize CSS and driven by editable JS arrays." />
+
+<!-- Materialize CSS + Material Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<style>
+  /* Light custom layer on top of Materialize — spacing & polish only */
+  /* ---- Color scheme: RED + YELLOW (edit these two lines to re-theme) ---- */
+  :root { --primary:#e53935; --primary-dark:#c62828; --accent:#fdd835; --accent-dark:#f9a825; }
+  body { background: #fafafa; color: #263238; }
+  .section-block { padding: 42px 0 8px; }
+  .section-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .section-head .material-icons { background: var(--primary); color: #fff; border-radius: 12px; padding: 10px; font-size: 26px; }
+  .section-head h5 { margin: 0; font-weight: 600; }
+  .section-head p { margin: 2px 0 0; }
+  .card { transition: transform .15s ease, box-shadow .15s ease; height: 100%; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,.16); }
+  .card .card-image img { height: 170px; object-fit: cover; }
+  .card-title-sm { font-weight: 600; font-size: 1.05rem; }
+  .grey-sub { color: #78909c; font-size: .85rem; }
+
+  /* Hero */
+  .hero { position: relative; height: 460px; overflow: hidden; }
+  .hero .parallax img { opacity: 1; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.72)); z-index: 1; }
+  .hero-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 34px; color: #fff; }
+  .hero-avatar { width: 132px; height: 132px; border-radius: 50%; border: 4px solid #fff; object-fit: cover; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+  .hero-name { font-size: 2.4rem; font-weight: 600; margin: 14px 0 4px; display: flex; align-items: center; gap: 10px; }
+  .hero-name .material-icons { color: var(--accent); }
+  .hero-headline { font-size: 1.1rem; max-width: 640px; opacity: .95; }
+  .hero-meta { opacity: .85; margin-top: 6px; }
+  .hero-cta { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-orgs { margin-top: 14px; }
+  .hero-orgs .chip { background: rgba(255,255,255,.18); color: #fff; }
+  .hero-orgs .chip img { border-radius: 50%; }
+
+  /* Impact metric tiles */
+  .metric { text-align: center; padding: 22px 10px; border-radius: 14px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.06); height: 100%; }
+  .metric .material-icons { font-size: 40px; color: var(--primary); }
+  .metric .num { font-size: 2rem; font-weight: 700; margin: 6px 0 0; }
+  .metric .lbl { color: #607d8b; }
+
+  /* Services / pricing */
+  .price-card.featured { border: 2px solid var(--primary); }
+  .price-card .price { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+  .price-card ul { margin: 12px 0; }
+  .price-card ul li { padding: 4px 0; }
+  .price-card ul li .material-icons { font-size: 18px; color: var(--accent-dark); vertical-align: middle; margin-right: 6px; }
+
+  /* Gallery + portfolio */
+  .tile { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .tile img { width: 100%; height: 190px; object-fit: cover; display: block; }
+  .tile .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; color: #fff;
+               background: linear-gradient(transparent, rgba(0,0,0,.75)); font-size: .9rem; }
+
+  /* Experience timeline */
+  .exp-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #eceff1; }
+  .exp-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex: none; }
+  .role-line { padding: 6px 0 6px 16px; border-left: 2px solid #b2dfdb; margin-left: 6px; }
+
+  /* skill / chip rows */
+  .skill-row { margin-bottom: 14px; }
+  .skill-row .top { display: flex; align-items: center; gap: 10px; }
+  .skill-row img { width: 28px; height: 28px; border-radius: 6px; }
+  .skill-row .progress { margin: 6px 0 0; background: #fff3c4; }
+  .skill-row .progress .determinate { background: var(--primary); }
+
+  .list-thumb { width: 54px; height: 54px; border-radius: 10px; object-fit: cover; flex: none; }
+  .flex-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid #eceff1; }
+  .flex-item:last-child { border-bottom: none; }
+
+  .book-cover { width: 100%; height: 210px; object-fit: cover; border-radius: 8px; }
+
+  .show-more-wrap { text-align: center; margin: 8px 0 4px; }
+  footer.page-footer { margin-top: 40px; }
+  .tabs .tab a { color: var(--primary-dark); }
+  .tabs .indicator { background-color: var(--primary); }
+  .tabs .tab a.active, .tabs .tab a:hover { color: var(--primary); }
+  a { color: var(--primary); }
+  /* Equal-height card grids — flex instead of floats so rows never leave
+     ragged gaps when cards differ in height (the "weird grid" on mobile). */
+  .section-block .container > .row,
+  .card-content > .row { display: flex; flex-wrap: wrap; }
+  .section-block .container > .row > .col,
+  .card-content > .row > .col { display: flex; flex-direction: column; min-width: 0; }
+  .section-block .container > .row > .col > *,
+  .card-content > .row > .col > * { width: 100%; }
+
+  @media (max-width: 992px) {
+    .container { width: 92%; }
+  }
+  @media (max-width: 600px) {
+    .hero { height: auto; min-height: 440px; }
+    .hero-content { position: relative; padding: 90px 0 26px; }
+    .hero-name { font-size: 1.6rem; }
+    .hero-headline { font-size: .98rem; }
+    .hero-cta { flex-direction: column; }
+    .hero-cta .btn-large { width: 100%; }
+    .section-block { padding: 30px 0 4px; }
+    .section-head { gap: 10px; margin-bottom: 14px; }
+    .section-head .material-icons { padding: 8px; font-size: 22px; }
+    .section-head h5 { font-size: 1.25rem; }
+    .metric { padding: 16px 6px; }
+    .metric .num { font-size: 1.55rem; }
+    .metric .material-icons { font-size: 32px; }
+    .card .card-image img { height: 150px; }
+    .exp-item { flex-direction: column; }
+    .chip { font-size: .78rem; }
+  }
+  @media (max-width: 360px) {
+    .metric .num { font-size: 1.3rem; }
+    .metric .lbl { font-size: .75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<!-- Quick-jump floating action button -->
+<div class="fixed-action-button">
+  <a class="btn-floating btn-large red darken-1"><i class="material-icons">explore</i></a>
+  <ul>
+    <li><a href="#services" class="btn-floating red tooltipped" data-tooltip="Work with me"><i class="material-icons">handshake</i></a></li>
+    <li><a href="#portfolio" class="btn-floating deep-orange tooltipped" data-tooltip="Portfolio"><i class="material-icons">collections</i></a></li>
+    <li><a href="#projects" class="btn-floating orange darken-1 tooltipped" data-tooltip="Projects"><i class="material-icons">rocket_launch</i></a></li>
+    <li><a href="#experience" class="btn-floating amber darken-2 tooltipped" data-tooltip="Experience"><i class="material-icons">work</i></a></li>
+    <li><a href="#contact" class="btn-floating red darken-3 tooltipped" data-tooltip="Contact"><i class="material-icons">mail</i></a></li>
+  </ul>
+</div>
+
+<footer class="page-footer red darken-2">
+  <div class="container">
+    <div class="row">
+      <div class="col l8 s12">
+        <h5 class="white-text" id="footerName"></h5>
+        <p class="grey-text text-lighten-4">This is a living profile — everything on it is driven by editable JS arrays in the page source. Placeholder content.</p>
+      </div>
+      <div class="col l4 s12"><h5 class="white-text">Elsewhere</h5>
+        <ul id="footerLinks"></ul></div>
+    </div>
+  </div>
+  <div class="footer-copyright"><div class="container">Built with Materialize CSS · Edit the <code>DATA</code> object to make it yours.</div></div>
+</footer>
+
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+/* ================================================================
+   ✏️  EDIT EVERYTHING HERE — every section is a JS array/object.
+   Images: leave a field blank and one is auto-generated, or paste
+   your own URL. Helpers pic()/ava() build stable placeholder images.
+   ================================================================ */
+const DATA = {
+  profile: {
+    name: "Alex Morgan",
+    verified: true,
+    pronouns: "she/her",
+    headline: "Senior Product Engineer · I design, build, and ship delightful web products — and help others do the same.",
+    location: "San Francisco Bay Area",
+    connections: "500+",
+    followers: "8,214",
+    avatar: "https://i.pravatar.cc/300?img=47",
+    cover: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=70",
+    currentOrgs: [
+      { label: "Nimbus Labs", img: "https://ui-avatars.com/api/?name=NL&background=e53935&color=fff" },
+      { label: "Stanford", img: "https://ui-avatars.com/api/?name=SU&background=8c1515&color=fff" }
+    ],
+    social: [
+      { label: "Website", url: "#" }, { label: "GitHub", url: "#" },
+      { label: "Twitter / X", url: "#" }, { label: "YouTube", url: "#" }, { label: "Newsletter", url: "#" }
+    ]
+  },
+
+  /* ---- Impact metrics (more than LinkedIn) ---- */
+  metrics: [
+    { icon: "groups", num: "12M+", lbl: "Users reached" },
+    { icon: "rocket_launch", num: "80+", lbl: "Products shipped" },
+    { icon: "star", num: "9.4k", lbl: "GitHub stars" },
+    { icon: "record_voice_over", num: "42", lbl: "Talks given" },
+    { icon: "volunteer_activism", num: "1,300+", lbl: "Volunteer hours" },
+    { icon: "school", num: "60+", lbl: "Engineers mentored" }
+  ],
+
+  about:
+`Product-minded software engineer with 9+ years shipping consumer and B2B web apps used by millions.
+
+I care about the seam where design meets engineering — fast, accessible interfaces, clean systems, and teams that ship. Currently leading the web platform team at Nimbus Labs.
+
+This page is more than a résumé: you can book time with me, browse real case studies and a portfolio, watch talks, read what I'm reading, and get in touch directly.`,
+
+  /* ---- Services / work with me (more than LinkedIn) ---- */
+  services: [
+    { name: "Advisory Call", price: "$150 / hr", img: "https://picsum.photos/seed/advisory/600/300",
+      features: ["30–60 minute 1:1", "Career, code, or architecture review", "Async written follow-up"], cta: "Book a call" },
+    { name: "Project Sprint", price: "from $4k", img: "https://picsum.photos/seed/sprint/600/300", featured: true,
+      features: ["Two-week focused build", "Design + engineering", "Docs & clean handoff"], cta: "Start a project" },
+    { name: "Team Workshop", price: "Custom", img: "https://picsum.photos/seed/workshop/600/300",
+      features: ["Half or full day", "Frontend · a11y · performance", "Up to 20 people"], cta: "Request a quote" }
+  ],
+
+  /* ---- Portfolio (image grid, click to zoom) ---- */
+  portfolio: [
+    { title: "Nimbus Dashboard", tag: "Product design + build", img: "https://picsum.photos/seed/port1/600/400" },
+    { title: "OpenChart Docs", tag: "Open source", img: "https://picsum.photos/seed/port2/600/400" },
+    { title: "Checkout Redesign", tag: "Conversion", img: "https://picsum.photos/seed/port3/600/400" },
+    { title: "Design System v2", tag: "Design systems", img: "https://picsum.photos/seed/port4/600/400" },
+    { title: "Mobile Companion", tag: "React Native", img: "https://picsum.photos/seed/port5/600/400" },
+    { title: "Data Explorer", tag: "Data viz", img: "https://picsum.photos/seed/port6/600/400" },
+    { title: "Marketing Site", tag: "Web", img: "https://picsum.photos/seed/port7/600/400" },
+    { title: "Onboarding Flow", tag: "UX", img: "https://picsum.photos/seed/port8/600/400" }
+  ],
+
+  /* ---- Case studies (more than LinkedIn) ---- */
+  caseStudies: [
+    { title: "Cutting LCP by 60%", client: "Nimbus Labs", result: "+18% activation", img: "https://picsum.photos/seed/case1/600/300",
+      desc: "Rebuilt the render pipeline, deferred non-critical JS, and shipped an image strategy that halved load time." },
+    { title: "Checkout that converts", client: "BigCo", result: "−12% cart abandonment", img: "https://picsum.photos/seed/case2/600/300",
+      desc: "Ran a 6-week experiment program on a checkout serving 20M+ users; simplified to a single accessible step." },
+    { title: "A design system for 40 teams", client: "Nimbus Labs", result: "3× faster feature delivery", img: "https://picsum.photos/seed/case3/600/300",
+      desc: "Created a themeable component library with tokens, docs, and automated a11y checks adopted org-wide." }
+  ],
+
+  /* ---- Experience (multi-role per company) ---- */
+  experience: [
+    { company: "Nimbus Labs", img: "https://ui-avatars.com/api/?name=NL&background=e53935&color=fff&size=112", duration: "3 yrs 4 mos",
+      roles: [
+        { title: "Senior Product Engineer", period: "Jan 2024 – Present · 1 yr 6 mos", location: "San Francisco · Hybrid", desc: "Lead the web platform team (6 engineers). Own the design system and performance program.", skills: ["React","TypeScript","Design Systems"] },
+        { title: "Product Engineer", period: "Mar 2022 – Jan 2024 · 1 yr 10 mos", location: "San Francisco", desc: "Built the customer dashboard from zero to 500k MAU.", skills: ["React","Node.js","GraphQL"] }
+      ] },
+    { company: "BigCo", img: "https://ui-avatars.com/api/?name=BC&background=263238&color=fff&size=112", duration: "4 yrs 1 mo",
+      roles: [ { title: "Frontend Engineer II", period: "Feb 2018 – Mar 2022 · 4 yrs 1 mo", location: "Seattle", desc: "Owned checkout for 20M+ users. Reduced abandonment 12%.", skills: ["JavaScript","Redux","A/B Testing"] } ] },
+    { company: "Freelance", img: "https://ui-avatars.com/api/?name=F&background=f4511e&color=fff&size=112", duration: "2 yrs",
+      roles: [ { title: "Web Developer (Contract)", period: "Jan 2016 – Jan 2018 · 2 yrs", location: "Remote", desc: "Built sites and apps for early-stage startups.", skills: ["HTML","CSS","WordPress"] } ] }
+  ],
+
+  /* ---- Skills with proficiency ---- */
+  skills: [
+    { name: "React.js", level: 95 }, { name: "TypeScript", level: 90 }, { name: "Web Accessibility", level: 85 },
+    { name: "System Design", level: 80 }, { name: "Node.js", level: 78 }, { name: "Design Systems", level: 88 },
+    { name: "Team Leadership", level: 82 }, { name: "GraphQL", level: 72 }
+  ],
+
+  /* ---- Setup / Uses (tabbed, more than LinkedIn) ---- */
+  uses: {
+    Editor: ["VS Code", "Vim keybindings", "GitHub Copilot", "Fira Code"],
+    Hardware: ["MacBook Pro 16\"", "LG 5K display", "Kinesis keyboard", "Sony WH-1000XM5"],
+    Stack: ["React + Vite", "TypeScript", "Tailwind", "Playwright", "Vercel"]
+  },
+
+  /* ---- Projects (50) ---- */
+  projects: [
+    { name:"OpenChart", period:"2024 – Present", desc:"Accessible, dependency-free charting library. 4k+ stars.", tags:["TypeScript","SVG"] },
+    { name:"a11y-lint", period:"2023 – Present", desc:"ESLint plugin catching accessibility bugs in JSX.", tags:["ESLint"] },
+    { name:"Pixelforge", period:"2023", desc:"Browser image editor with layers and filters.", tags:["Canvas","WebGL"] },
+    { name:"Nimbus CLI", period:"2023", desc:"One-command deploy tool for static sites.", tags:["Node.js"] },
+    { name:"DarkMatter", period:"2022", desc:"Runtime theme engine with system-preference sync.", tags:["CSS"] },
+    { name:"QuickPoll", period:"2022", desc:"Real-time polling for live audiences.", tags:["WebSockets"] },
+    { name:"Ledgerly", period:"2022", desc:"Privacy-first personal finance tracker.", tags:["PWA"] },
+    { name:"Wavelength", period:"2021", desc:"Audio visualizer using the Web Audio API.", tags:["Web Audio"] },
+    { name:"Cartography", period:"2021", desc:"Lightweight vector map renderer.", tags:["WebGL"] },
+    { name:"Snippetbox", period:"2021", desc:"Searchable code-snippet manager with sync.", tags:["Go"] },
+    { name:"Focusflow", period:"2021", desc:"Pomodoro timer with focus analytics.", tags:["PWA"] },
+    { name:"Bytesize", period:"2020", desc:"Privacy-friendly URL shortener with stats.", tags:["Redis"] },
+    { name:"Mosaic", period:"2020", desc:"Photo grid generator with smart cropping.", tags:["Canvas"] },
+    { name:"Tempo", period:"2020", desc:"Minimalist habit tracker with streaks.", tags:["RN"] },
+    { name:"Beacon", period:"2020", desc:"Self-hostable status page for services.", tags:["Vue"] },
+    { name:"Orbit", period:"2020", desc:"Two-way calendar sync across providers.", tags:["OAuth"] },
+    { name:"Prism", period:"2019", desc:"Fast, themeable syntax highlighter.", tags:["Parsing"] },
+    { name:"Relay", period:"2019", desc:"Tiny WebSocket framework with rooms.", tags:["Node.js"] },
+    { name:"Sentinel", period:"2019", desc:"Uptime monitor with Slack alerts.", tags:["Cron"] },
+    { name:"Foliage", period:"2019", desc:"Plant-care reminders and schedules.", tags:["PWA"] },
+    { name:"Harbor", period:"2019", desc:"Friendly dashboard for local Docker.", tags:["Docker"] },
+    { name:"Meridian", period:"2018", desc:"Timezone tool for distributed teams.", tags:["Date"] },
+    { name:"Quill", period:"2018", desc:"Distraction-free markdown editor.", tags:["Markdown"] },
+    { name:"Lumen", period:"2018", desc:"Web UI for controlling smart lights.", tags:["IoT"] },
+    { name:"Cascade", period:"2018", desc:"Atomic CSS utility-class generator.", tags:["CSS"] },
+    { name:"Vertex", period:"2018", desc:"In-browser 3D model viewer (glTF).", tags:["Three.js"] },
+    { name:"Ripple", period:"2017", desc:"Embeddable spam-resistant comments.", tags:["Web Comp"] },
+    { name:"Anchor", period:"2017", desc:"Bookmark manager with full-text search.", tags:["SQLite"] },
+    { name:"Kettle", period:"2017", desc:"Recipe app with auto shopping lists.", tags:["React"] },
+    { name:"Signal", period:"2017", desc:"Simple feature-flag service + dashboard.", tags:["Node.js"] },
+    { name:"Atlas", period:"2017", desc:"Docs site generator from Markdown.", tags:["SSG"] },
+    { name:"Fable", period:"2016", desc:"Branching-story authoring tool.", tags:["React"] },
+    { name:"Nomad", period:"2016", desc:"Collaborative trip & itinerary planner.", tags:["Maps"] },
+    { name:"Pulse", period:"2016", desc:"Privacy-focused web analytics.", tags:["Charts"] },
+    { name:"Grove", period:"2016", desc:"Interactive family-tree builder.", tags:["D3"] },
+    { name:"Echo", period:"2016", desc:"Voice notes with transcription.", tags:["Speech"] },
+    { name:"Loomlines", period:"2015", desc:"Visualizer for message threads.", tags:["D3"] },
+    { name:"Sprout", period:"2015", desc:"Seedling growth tracker for gardeners.", tags:["PWA"] },
+    { name:"Cinder", period:"2015", desc:"Fast, filterable browser log viewer.", tags:["Streams"] },
+    { name:"Drift", period:"2015", desc:"Keyboard-first kanban board.", tags:["DnD"] },
+    { name:"Palette", period:"2015", desc:"Accessible color-palette generator.", tags:["Color"] },
+    { name:"Ferry", period:"2014", desc:"Peer-to-peer file transfer over WebRTC.", tags:["WebRTC"] },
+    { name:"Almanac", period:"2014", desc:"Clean weather app with hourly forecasts.", tags:["API"] },
+    { name:"Cobble", period:"2014", desc:"Zero-config static site builder.", tags:["SSG"] },
+    { name:"Tidepool", period:"2014", desc:"Explorer UI for large datasets.", tags:["Data"] },
+    { name:"Nova", period:"2014", desc:"Opinionated project starter template.", tags:["Tooling"] },
+    { name:"Quokka", period:"2013", desc:"Rule-based FAQ chatbot widget.", tags:["NLP"] },
+    { name:"Bramble", period:"2013", desc:"Toy in-memory graph database.", tags:["Algo"] },
+    { name:"Zephyr", period:"2013", desc:"Tiny spring-physics animation library.", tags:["Anim"] },
+    { name:"Keystone", period:"2012", desc:"Auth boilerplate with sessions & 2FA.", tags:["Security"] }
+  ],
+
+  /* ---- Open source (more than LinkedIn) ---- */
+  openSource: [
+    { name:"openchart", desc:"Accessible charts, zero deps", stars:"4.2k", lang:"TypeScript" },
+    { name:"a11y-lint", desc:"Catch a11y bugs in CI", stars:"1.8k", lang:"JavaScript" },
+    { name:"cascade", desc:"Atomic CSS generator", stars:"960", lang:"CSS" },
+    { name:"relay-ws", desc:"Tiny WebSocket rooms", stars:"640", lang:"TypeScript" },
+    { name:"prism-lite", desc:"Fast syntax highlighter", stars:"520", lang:"JavaScript" },
+    { name:"vertex-viewer", desc:"glTF viewer web component", stars:"310", lang:"TypeScript" }
+  ],
+
+  /* ---- Talks & speaking (more than LinkedIn) ---- */
+  talks: [
+    { title:"The Accessible Web", event:"React Summit", year:"2025", img:"https://picsum.photos/seed/talk1/600/340" },
+    { title:"Performance as a Feature", event:"JSConf", year:"2024", img:"https://picsum.photos/seed/talk2/600/340" },
+    { title:"Design Systems that Scale", event:"Config", year:"2023", img:"https://picsum.photos/seed/talk3/600/340" },
+    { title:"Shipping with Small Teams", event:"LeadDev", year:"2022", img:"https://picsum.photos/seed/talk4/600/340" }
+  ],
+
+  /* ---- Writing / publications ---- */
+  writing: [
+    { title:"Rendering at the Edge", outlet:"Smashing Magazine", date:"Mar 2024", img:"https://picsum.photos/seed/write1/600/340" },
+    { title:"Design systems that don't rot", outlet:"Personal blog", date:"Nov 2023", img:"https://picsum.photos/seed/write2/600/340" },
+    { title:"A pragmatic guide to a11y", outlet:"CSS-Tricks", date:"Jun 2023", img:"https://picsum.photos/seed/write3/600/340" },
+    { title:"How we cut LCP by 60%", outlet:"Nimbus Engineering", date:"Feb 2023", img:"https://picsum.photos/seed/write4/600/340" }
+  ],
+
+  /* ---- Press & media (more than LinkedIn) ---- */
+  press: [
+    { outlet:"TechCrunch", title:"30 engineers to watch", date:"2024", img:"https://picsum.photos/seed/press1/600/340" },
+    { outlet:"The Verge", title:"Inside Nimbus' redesign", date:"2024", img:"https://picsum.photos/seed/press2/600/340" },
+    { outlet:"Smashing Podcast", title:"On web performance", date:"2023", img:"https://picsum.photos/seed/press3/600/340" },
+    { outlet:"Changelog", title:"Open source & burnout", date:"2023", img:"https://picsum.photos/seed/press4/600/340" }
+  ],
+
+  /* ---- Education ---- */
+  education: [
+    { school:"Stanford University", img:"https://ui-avatars.com/api/?name=SU&background=8c1515&color=fff&size=112", degree:"M.S. Computer Science", period:"2014 – 2016", desc:"Focus: Human-Computer Interaction. GPA 3.9." },
+    { school:"UC Berkeley", img:"https://ui-avatars.com/api/?name=UCB&background=003262&color=fff&size=112", degree:"B.S. EECS", period:"2010 – 2014", desc:"Dean's List. Minor in Design." }
+  ],
+
+  /* ---- Certifications ---- */
+  certifications: [
+    { name:"AWS Solutions Architect – Associate", issuer:"Amazon Web Services", img:"https://ui-avatars.com/api/?name=AWS&background=ff9900&color=fff&size=112", date:"Jun 2024" },
+    { name:"Professional Scrum Master I", issuer:"Scrum.org", img:"https://ui-avatars.com/api/?name=SM&background=455a64&color=fff&size=112", date:"Feb 2023" },
+    { name:"Google UX Design Certificate", issuer:"Google", img:"https://ui-avatars.com/api/?name=G&background=4285f4&color=fff&size=112", date:"Nov 2022" }
+  ],
+
+  /* ---- Volunteering (50) ---- */
+  volunteering: [
+    { role:"Mentor", org:"Code2040", period:"2021 – Present", cause:"Education" },
+    { role:"Volunteer Instructor", org:"Girls Who Code", period:"2019 – 2021", cause:"Science & Tech" },
+    { role:"Organizer", org:"DevFest Bay Area", period:"2018 – Present", cause:"Science & Tech" },
+    { role:"Board Member", org:"Open Source Collective", period:"2022 – Present", cause:"Science & Tech" },
+    { role:"Tutor", org:"826 Valencia", period:"2017 – 2019", cause:"Education" },
+    { role:"Trail Steward", org:"Sierra Club", period:"2016 – Present", cause:"Environment" },
+    { role:"Fundraiser", org:"Second Harvest Food Bank", period:"2020 – 2022", cause:"Poverty" },
+    { role:"Coach", org:"FIRST Robotics", period:"2015 – 2018", cause:"Science & Tech" },
+    { role:"Ambassador", org:"Out in Tech", period:"2021 – Present", cause:"Human Rights" },
+    { role:"Judge", org:"Local Hackathon League", period:"2019 – Present", cause:"Science & Tech" },
+    { role:"Speaker", org:"CS Career Days", period:"2018 – Present", cause:"Education" },
+    { role:"Cleanup Volunteer", org:"Ocean Conservancy", period:"2017 – Present", cause:"Environment" },
+    { role:"Translator", org:"Translators Without Borders", period:"2020 – 2021", cause:"Human Rights" },
+    { role:"Shelter Volunteer", org:"Humane Society", period:"2016 – 2019", cause:"Animal Welfare" },
+    { role:"Digital Literacy Coach", org:"Senior Center", period:"2018 – 2020", cause:"Social Services" },
+    { role:"Relief Volunteer", org:"American Red Cross", period:"2019 – Present", cause:"Disaster Relief" },
+    { role:"Habitat Builder", org:"Habitat for Humanity", period:"2017 – 2022", cause:"Poverty" },
+    { role:"Reading Buddy", org:"Reach Out and Read", period:"2019 – 2021", cause:"Children" },
+    { role:"Blood Drive Lead", org:"Vitalant", period:"2018 – Present", cause:"Health" },
+    { role:"Museum Docent", org:"Exploratorium", period:"2016 – 2018", cause:"Arts & Culture" },
+    { role:"Community Garden Lead", org:"City Greens", period:"2020 – Present", cause:"Environment" },
+    { role:"Crisis Line Volunteer", org:"Crisis Text Line", period:"2021 – 2023", cause:"Health" },
+    { role:"STEM Judge", org:"Regional Science Fair", period:"2017 – Present", cause:"Education" },
+    { role:"Meal Server", org:"GLIDE", period:"2015 – 2019", cause:"Poverty" },
+    { role:"Mentor", org:"Big Brothers Big Sisters", period:"2018 – 2022", cause:"Children" },
+    { role:"Web Volunteer", org:"Local Animal Rescue", period:"2019 – Present", cause:"Animal Welfare" },
+    { role:"Voter Registration", org:"League of Women Voters", period:"2020 – Present", cause:"Civil Rights" },
+    { role:"Adaptive Ski Guide", org:"Disabled Sports USA", period:"2016 – 2019", cause:"Health" },
+    { role:"Grant Reviewer", org:"The Awesome Foundation", period:"2021 – Present", cause:"Social Services" },
+    { role:"ESL Partner", org:"Refugee Welcome Center", period:"2018 – 2020", cause:"Human Rights" },
+    { role:"Park Assistant", org:"State Parks Foundation", period:"2017 – 2018", cause:"Environment" },
+    { role:"Toy Drive Coordinator", org:"Toys for Tots", period:"2019 – Present", cause:"Children" },
+    { role:"Peer Counselor", org:"Alumni Network", period:"2020 – Present", cause:"Education" },
+    { role:"Care Package Assembler", org:"Operation Gratitude", period:"2018 – 2020", cause:"Social Services" },
+    { role:"Course Marshal", org:"Bay Area Running Club", period:"2016 – Present", cause:"Health" },
+    { role:"Coding Camp TA", org:"Black Girls Code", period:"2019 – 2022", cause:"Science & Tech" },
+    { role:"Neighborhood Watch Lead", org:"Community Association", period:"2017 – 2021", cause:"Civil Rights" },
+    { role:"Hospice Companion", org:"VITAS Healthcare", period:"2020 – 2022", cause:"Health" },
+    { role:"Beekeeping Volunteer", org:"Urban Bee Project", period:"2021 – Present", cause:"Environment" },
+    { role:"Art Workshop Lead", org:"Boys & Girls Club", period:"2018 – 2020", cause:"Arts & Culture" },
+    { role:"Financial Literacy Coach", org:"Junior Achievement", period:"2019 – 2021", cause:"Economic Empowerment" },
+    { role:"Disaster Mapper", org:"Humanitarian OSM", period:"2020 – Present", cause:"Disaster Relief" },
+    { role:"Soup Kitchen Volunteer", org:"St. Anthony's", period:"2015 – 2018", cause:"Poverty" },
+    { role:"Youth Soccer Coach", org:"AYSO", period:"2017 – 2020", cause:"Children" },
+    { role:"Accessibility Auditor", org:"Nonprofit Web Guild", period:"2021 – Present", cause:"Science & Tech" },
+    { role:"Tree Planting Lead", org:"One Tree Planted", period:"2019 – Present", cause:"Environment" },
+    { role:"Outreach Volunteer", org:"Nonprofit Coalition", period:"2020 – 2021", cause:"Civil Rights" },
+    { role:"Library Volunteer", org:"Friends of the Library", period:"2016 – 2019", cause:"Education" },
+    { role:"Meal Delivery Driver", org:"Meals on Wheels", period:"2018 – Present", cause:"Social Services" },
+    { role:"Accessibility Lead", org:"Regional Tech Meetup", period:"2022 – Present", cause:"Science & Tech" }
+  ],
+
+  /* ---- Awards ---- */
+  awards: [
+    { title:"Engineering Excellence Award", issuer:"Nimbus Labs · 2024", img:"https://picsum.photos/seed/award1/300/200" },
+    { title:"Best Talk (Audience Choice)", issuer:"React Summit · 2025", img:"https://picsum.photos/seed/award2/300/200" },
+    { title:"Global Hack Winner", issuer:"BigCo · 2020", img:"https://picsum.photos/seed/award3/300/200" }
+  ],
+
+  /* ---- Testimonials ---- */
+  testimonials: [
+    { name:"Priya Nair", role:"Engineering Manager, Nimbus Labs", avatar:"https://i.pravatar.cc/120?img=32", quote:"Equally strong on craft and communication. Alex rebuilt our design system and lifted the whole org's velocity." },
+    { name:"Marcus Lee", role:"Senior Designer", avatar:"https://i.pravatar.cc/120?img=12", quote:"The best engineer-designer collaboration I've had. Cares about details, pushes for quality without ego." },
+    { name:"Dana Kim", role:"Frontend Lead, Stripe", avatar:"https://i.pravatar.cc/120?img=25", quote:"Alex's accessibility talk changed how our team ships. Practical, generous, and clear." },
+    { name:"Chris Obi", role:"PM, Notion", avatar:"https://i.pravatar.cc/120?img=68", quote:"Ships fast without cutting corners. A rare combination of speed and taste." }
+  ],
+
+  /* ---- Languages ---- */
+  languages: [
+    { name:"English", level:"Native", pct:100 },
+    { name:"Spanish", level:"Professional", pct:70 },
+    { name:"French", level:"Elementary", pct:35 }
+  ],
+
+  /* ---- Beyond work gallery (image grid, more than LinkedIn) ---- */
+  gallery: [
+    { cap:"Trail running, Marin", img:"https://picsum.photos/seed/life1/600/400" },
+    { cap:"Film photography", img:"https://picsum.photos/seed/life2/600/400" },
+    { cap:"Sourdough attempt #37", img:"https://picsum.photos/seed/life3/600/400" },
+    { cap:"Team offsite", img:"https://picsum.photos/seed/life4/600/400" },
+    { cap:"Speaking at JSConf", img:"https://picsum.photos/seed/life5/600/400" },
+    { cap:"Weekend hike", img:"https://picsum.photos/seed/life6/600/400" },
+    { cap:"Home office", img:"https://picsum.photos/seed/life7/600/400" },
+    { cap:"Volunteering day", img:"https://picsum.photos/seed/life8/600/400" }
+  ],
+
+  /* ---- Bookshelf (currently reading, more than LinkedIn) ---- */
+  books: [
+    { title:"Thinking in Systems", author:"Donella Meadows", img:"https://picsum.photos/seed/book1/200/300" },
+    { title:"The Design of Everyday Things", author:"Don Norman", img:"https://picsum.photos/seed/book2/200/300" },
+    { title:"Staff Engineer", author:"Will Larson", img:"https://picsum.photos/seed/book3/200/300" },
+    { title:"A Philosophy of Software Design", author:"John Ousterhout", img:"https://picsum.photos/seed/book4/200/300" }
+  ],
+
+  /* ---- FAQ (collapsible, more than LinkedIn) ---- */
+  faq: [
+    { q:"Are you open to new roles?", a:"Yes — open to Product/Frontend/Full-Stack Engineering roles, remote or Bay Area." },
+    { q:"Do you take freelance projects?", a:"Selectively. See the Services section above to book a sprint or a call." },
+    { q:"Will you speak at our event?", a:"Often, yes. Reach out via the contact form with dates and audience." },
+    { q:"Do you mentor?", a:"I mentor a few engineers each cohort, with priority for underrepresented folks in tech." },
+    { q:"What's your tech stack?", a:"React + TypeScript on the front, Node/GraphQL on the back, deployed on the edge." }
+  ]
+};
+
+/* ================================================================
+   RENDER ENGINE — usually no need to edit below.
+   ================================================================ */
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const PALETTE = ["e53935","d32f2f","c62828","f4511e","fb8c00","ff8f00","f9a825","ffb300","ef6c00","b71c1c"];
+function hash(str){ let h=0; for(let i=0;i<str.length;i++) h=(h*31+str.charCodeAt(i))>>>0; return h; }
+/* stable placeholder photo per seed */
+const pic = (seed,w=600,h=400) => `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
+/* colored initials image per label (guarantees every item has an image) */
+const badge = (label) => { const c = PALETTE[hash(label)%PALETTE.length];
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(label)}&background=${c}&color=fff&size=110&length=2&bold=true`; };
+
+function sectionHead(icon,title,sub){
+  return `<div class="section-head"><i class="material-icons">${icon}</i>
+    <div><h5>${esc(title)}</h5>${sub?`<p class="grey-sub">${esc(sub)}</p>`:""}</div></div>`;
+}
+function section(id,icon,title,sub,body){
+  return `<section id="${id}" class="section-block"><div class="container">${sectionHead(icon,title,sub)}${body}</div></section>`;
+}
+
+/* Hero */
+function hero(){
+  const p = DATA.profile;
+  const orgs = p.currentOrgs.map(o=>`<div class="chip"><img src="${esc(o.img)}">${esc(o.label)}</div>`).join("");
+  return `<div class="parallax-container hero">
+    <div class="parallax"><img src="${esc(p.cover)}" alt=""></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <img class="hero-avatar" src="${esc(p.avatar)}" alt="${esc(p.name)}">
+      <div class="hero-name">${esc(p.name)} ${p.verified?'<i class="material-icons" title="Verified">verified</i>':""}
+        <span style="font-size:.9rem;opacity:.8">(${esc(p.pronouns)})</span></div>
+      <div class="hero-headline">${esc(p.headline)}</div>
+      <div class="hero-meta"><i class="material-icons tiny">place</i> ${esc(p.location)} · ${esc(p.connections)} connections · ${esc(p.followers)} followers</div>
+      <div class="hero-cta">
+        <a href="#services" class="btn-large waves-effect red darken-1"><i class="material-icons left">handshake</i>Work with me</a>
+        <a href="#contact" class="btn-large waves-effect amber darken-2 white-text"><i class="material-icons left">mail</i>Get in touch</a>
+      </div>
+      <div class="hero-orgs">${orgs}</div>
+    </div>
+  </div>`;
+}
+
+function renderMetrics(){
+  const cols = DATA.metrics.map(m=>`<div class="col s6 m4 l2"><div class="metric">
+    <i class="material-icons">${m.icon}</i><div class="num">${esc(m.num)}</div><div class="lbl">${esc(m.lbl)}</div></div></div>`).join("");
+  return section("impact","insights","Impact by the numbers","A quick snapshot of the dent in the universe.",`<div class="row">${cols}</div>`);
+}
+
+function renderAbout(){
+  return section("about","person","About","",
+    `<div class="card"><div class="card-content" style="white-space:pre-line;font-size:1.02rem">${esc(DATA.about)}</div></div>`);
+}
+
+function renderServices(){
+  const cols = DATA.services.map(s=>`<div class="col s12 m4">
+    <div class="card price-card ${s.featured?"featured":""}">
+      <div class="card-image"><img src="${esc(s.img)}" alt="">${s.featured?'<span class="card-title">Most popular</span>':""}</div>
+      <div class="card-content">
+        <span class="card-title-sm">${esc(s.name)}</span>
+        <div class="price">${esc(s.price)}</div>
+        <ul>${s.features.map(f=>`<li><i class="material-icons">check_circle</i>${esc(f)}</li>`).join("")}</ul>
+      </div>
+      <div class="card-action"><a href="#contact" class="waves-effect btn red darken-1">${esc(s.cta)}</a></div>
+    </div></div>`).join("");
+  return section("services","handshake","Work with me","Book time, a sprint, or a workshop — things a résumé can't do.",`<div class="row">${cols}</div>`);
+}
+
+function renderPortfolio(){
+  const cols = DATA.portfolio.map(p=>`<div class="col s12 m6 l3"><div class="tile">
+    <img class="materialboxed" src="${esc(p.img)}" alt="${esc(p.title)}" data-caption="${esc(p.title)} — ${esc(p.tag)}">
+    <div class="cap"><strong>${esc(p.title)}</strong><br><span class="grey-text text-lighten-2">${esc(p.tag)}</span></div>
+  </div></div>`).join("");
+  return section("portfolio","collections","Portfolio","Click any image to zoom.",`<div class="row">${cols}</div>`);
+}
+
+function renderCaseStudies(){
+  const cols = DATA.caseStudies.map(c=>`<div class="col s12 m4"><div class="card">
+    <div class="card-image"><img src="${esc(c.img)}" alt=""></div>
+    <div class="card-content">
+      <span class="card-title-sm">${esc(c.title)}</span>
+      <div class="grey-sub">${esc(c.client)}</div>
+      <div class="chip amber lighten-4 deep-orange-text text-darken-2" style="margin:8px 0">${esc(c.result)}</div>
+      <p>${esc(c.desc)}</p>
+    </div></div></div>`).join("");
+  return section("cases","auto_stories","Case studies","Real problems, measurable outcomes.",`<div class="row">${cols}</div>`);
+}
+
+function renderExperience(){
+  const items = DATA.experience.map(c=>{
+    let inner;
+    if(c.roles.length>1){
+      inner = `<strong>${esc(c.company)}</strong><div class="grey-sub">${esc(c.duration)}</div>` +
+        c.roles.map(r=>`<div class="role-line"><strong>${esc(r.title)}</strong>
+          <div class="grey-sub">${esc(r.period)} · ${esc(r.location)}</div>
+          <p>${esc(r.desc)}</p>${r.skills.map(s=>`<div class="chip">${esc(s)}</div>`).join("")}</div>`).join("");
+    } else {
+      const r=c.roles[0];
+      inner = `<strong>${esc(r.title)}</strong> · ${esc(c.company)}
+        <div class="grey-sub">${esc(r.period)} · ${esc(r.location)}</div>
+        <p>${esc(r.desc)}</p>${r.skills.map(s=>`<div class="chip">${esc(s)}</div>`).join("")}`;
+    }
+    return `<div class="exp-item"><img class="exp-logo" src="${esc(c.img)}" alt=""><div>${inner}</div></div>`;
+  }).join("");
+  return section("experience","work","Experience","",`<div class="card"><div class="card-content">${items}</div></div>`);
+}
+
+function renderSkills(){
+  const rows = DATA.skills.map(s=>`<div class="col s12 m6"><div class="skill-row">
+    <div class="top"><img src="${esc(badge(s.name))}" alt=""><strong>${esc(s.name)}</strong>
+      <span class="grey-sub" style="margin-left:auto">${s.level}%</span></div>
+    <div class="progress"><div class="determinate" style="width:${s.level}%"></div></div>
+  </div></div>`).join("");
+  return section("skills","tune","Skills","",`<div class="card"><div class="card-content"><div class="row" style="margin-bottom:0">${rows}</div></div></div>`);
+}
+
+function renderUses(){
+  const keys = Object.keys(DATA.uses);
+  const tabs = keys.map((k,i)=>`<li class="tab col s4"><a class="${i===0?"active":""}" href="#uses-${i}">${esc(k)}</a></li>`).join("");
+  const panes = keys.map((k,i)=>`<div id="uses-${i}" class="col s12" style="padding-top:18px">
+    ${DATA.uses[k].map(v=>`<div class="chip"><img src="${esc(badge(v))}">${esc(v)}</div>`).join("")}</div>`).join("");
+  return section("uses","build","My setup / uses","The tools behind the work.",
+    `<div class="card"><div class="card-content"><div class="row"><div class="col s12">
+      <ul class="tabs">${tabs}</ul></div>${panes}</div></div></div>`);
+}
+
+/* generic image-card grid with show-more */
+function grid(items, limit, id){
+  const cardHtml = items.map(h=>`<div class="col s12 m6 l4">${h}</div>`);
+  const first = cardHtml.slice(0,limit).join("");
+  const rest = cardHtml.slice(limit).join("");
+  let out = `<div class="row">${first}</div>`;
+  if(rest){
+    out += `<div class="row extra-row" id="${id}-extra" style="display:none">${rest}</div>
+      <div class="show-more-wrap"><button class="btn-flat waves-effect toggle-more teal-text" data-target="${id}-extra" data-count="${items.length}">
+        <i class="material-icons left">expand_more</i>Show all ${items.length}</button></div>`;
+  }
+  return out;
+}
+
+function projectCard(p){
+  return `<div class="card">
+    <div class="card-image"><img src="${esc(pic(p.name,600,360))}" alt=""></div>
+    <div class="card-content">
+      <span class="card-title-sm">${esc(p.name)}</span>
+      <div class="grey-sub">${esc(p.period)}</div>
+      <p>${esc(p.desc)}</p>
+      <div style="margin-top:8px">${(p.tags||[]).map(t=>`<div class="chip">${esc(t)}</div>`).join("")}</div>
+    </div></div>`;
+}
+function renderProjects(){
+  return section("projects","rocket_launch",`Projects`,`${DATA.projects.length} things I've built.`,
+    grid(DATA.projects.map(projectCard),6,"projects"));
+}
+
+function renderOpenSource(){
+  const cols = DATA.openSource.map(r=>`<div class="col s12 m6 l4"><div class="card">
+    <div class="card-image"><img src="${esc(pic("repo-"+r.name,600,300))}" alt=""></div>
+    <div class="card-content"><span class="card-title-sm"><i class="material-icons tiny">code</i> ${esc(r.name)}</span>
+      <p>${esc(r.desc)}</p>
+      <div class="grey-sub" style="margin-top:8px"><i class="material-icons tiny">star</i> ${esc(r.stars)} · ${esc(r.lang)}</div>
+    </div></div></div>`).join("");
+  return section("oss","code","Open source","Code that lives in the open.",`<div class="row">${cols}</div>`);
+}
+
+function mediaCard(m,label){
+  return `<div class="col s12 m6 l3"><div class="card">
+    <div class="card-image"><img src="${esc(m.img)}" alt=""></div>
+    <div class="card-content"><span class="card-title-sm">${esc(m.title)}</span>
+      <div class="grey-sub">${esc(label)} · ${esc(m.year||m.date||"")}</div></div>
+    <div class="card-action"><a href="#">${esc(m.event||m.outlet||"View")}</a></div></div></div>`;
+}
+function renderTalks(){ return section("talks","record_voice_over","Talks & speaking","",`<div class="row">${DATA.talks.map(t=>mediaCard(t,t.event)).join("")}</div>`); }
+function renderWriting(){ return section("writing","edit_note","Writing & publications","",`<div class="row">${DATA.writing.map(w=>mediaCard(w,w.outlet)).join("")}</div>`); }
+function renderPress(){ return section("press","newspaper","Press & media","Where the work got noticed.",`<div class="row">${DATA.press.map(p=>mediaCard(p,p.outlet)).join("")}</div>`); }
+
+function renderEducation(){
+  const items = DATA.education.map(e=>`<div class="exp-item"><img class="exp-logo" src="${esc(e.img)}" alt="">
+    <div><strong>${esc(e.school)}</strong><div>${esc(e.degree)}</div>
+    <div class="grey-sub">${esc(e.period)}</div><p>${esc(e.desc)}</p></div></div>`).join("");
+  return section("education","school","Education","",`<div class="card"><div class="card-content">${items}</div></div>`);
+}
+
+function renderCertifications(){
+  const items = DATA.certifications.map(c=>`<div class="col s12 m4"><div class="card">
+    <div class="card-content" style="display:flex;gap:14px;align-items:center">
+      <img class="list-thumb" src="${esc(c.img)}" alt="">
+      <div><span class="card-title-sm">${esc(c.name)}</span><div class="grey-sub">${esc(c.issuer)} · ${esc(c.date)}</div></div>
+    </div></div></div>`).join("");
+  return section("certs","workspace_premium","Licenses & certifications","",`<div class="row">${items}</div>`);
+}
+
+function volCard(v){
+  return `<div class="card"><div class="card-content" style="display:flex;gap:14px;align-items:flex-start">
+    <img class="list-thumb" src="${esc(badge(v.org))}" alt="">
+    <div><span class="card-title-sm">${esc(v.role)}</span>
+      <div>${esc(v.org)}</div>
+      <div class="grey-sub">${esc(v.period)}</div>
+      <div class="chip red lighten-4 red-text text-darken-2" style="margin-top:6px">${esc(v.cause)}</div>
+    </div></div></div>`;
+}
+function renderVolunteering(){
+  return section("volunteering","volunteer_activism","Volunteering",`${DATA.volunteering.length} causes I show up for.`,
+    grid(DATA.volunteering.map(volCard),6,"vol"));
+}
+
+function renderAwards(){
+  const items = DATA.awards.map(a=>`<div class="col s12 m4"><div class="card">
+    <div class="card-image"><img src="${esc(a.img)}" alt=""></div>
+    <div class="card-content"><span class="card-title-sm">${esc(a.title)}</span><div class="grey-sub">${esc(a.issuer)}</div></div>
+  </div></div>`).join("");
+  return section("awards","emoji_events","Honors & awards","",`<div class="row">${items}</div>`);
+}
+
+function renderTestimonials(){
+  const items = DATA.testimonials.map(t=>`<div class="col s12 m6"><div class="card">
+    <div class="card-content" style="display:flex;gap:14px">
+      <img src="${esc(t.avatar)}" alt="" style="width:60px;height:60px;border-radius:50%;object-fit:cover;flex:none">
+      <div><p style="font-style:italic">“${esc(t.quote)}”</p>
+        <strong>${esc(t.name)}</strong><div class="grey-sub">${esc(t.role)}</div></div>
+    </div></div></div>`).join("");
+  return section("testimonials","format_quote","Testimonials","",`<div class="row">${items}</div>`);
+}
+
+function renderLanguages(){
+  const rows = DATA.languages.map(l=>`<div class="col s12 m4"><div class="skill-row">
+    <div class="top"><img src="${esc(badge(l.name))}" alt=""><strong>${esc(l.name)}</strong></div>
+    <div class="grey-sub">${esc(l.level)}</div>
+    <div class="progress"><div class="determinate" style="width:${l.pct}%"></div></div></div></div>`).join("");
+  return section("languages","translate","Languages","",`<div class="card"><div class="card-content"><div class="row" style="margin-bottom:0">${rows}</div></div></div>`);
+}
+
+function renderGallery(){
+  const cols = DATA.gallery.map(g=>`<div class="col s12 m6 l3"><div class="tile">
+    <img class="materialboxed" src="${esc(g.img)}" data-caption="${esc(g.cap)}" alt="${esc(g.cap)}">
+    <div class="cap">${esc(g.cap)}</div></div></div>`).join("");
+  return section("beyond","photo_camera","Beyond work","Life outside the editor.",`<div class="row">${cols}</div>`);
+}
+
+function renderBooks(){
+  const cols = DATA.books.map(b=>`<div class="col s6 m3"><div class="card">
+    <div class="card-image"><img class="book-cover" src="${esc(b.img)}" alt=""></div>
+    <div class="card-content"><span class="card-title-sm">${esc(b.title)}</span><div class="grey-sub">${esc(b.author)}</div></div>
+  </div></div>`).join("");
+  return section("books","menu_book","On my bookshelf","What I'm reading now.",`<div class="row">${cols}</div>`);
+}
+
+function renderFAQ(){
+  const items = DATA.faq.map(f=>`<li><div class="collapsible-header"><i class="material-icons">help_outline</i>${esc(f.q)}</div>
+    <div class="collapsible-body"><span>${esc(f.a)}</span></div></li>`).join("");
+  return section("faq","quiz","FAQ","",`<ul class="collapsible popout">${items}</ul>`);
+}
+
+function renderContact(){
+  return section("contact","mail","Get in touch","Booking a call? Speaking invite? Just say hi.",
+    `<div class="row">
+      <div class="col s12 m7"><div class="card"><div class="card-content">
+        <form id="contactForm">
+          <div class="row" style="margin-bottom:0">
+            <div class="input-field col s12 m6"><i class="material-icons prefix">person</i><input id="cf_name" type="text"><label for="cf_name">Name</label></div>
+            <div class="input-field col s12 m6"><i class="material-icons prefix">email</i><input id="cf_email" type="email"><label for="cf_email">Email</label></div>
+            <div class="input-field col s12"><i class="material-icons prefix">subject</i>
+              <select><option value="" disabled selected>Reason</option><option>Advisory call</option><option>Project sprint</option><option>Speaking invite</option><option>Just saying hi</option></select>
+              <label>What's this about?</label></div>
+            <div class="input-field col s12"><i class="material-icons prefix">message</i><textarea id="cf_msg" class="materialize-textarea"></textarea><label for="cf_msg">Message</label></div>
+          </div>
+          <button class="btn-large waves-effect red darken-1" type="submit"><i class="material-icons left">send</i>Send message</button>
+        </form>
+      </div></div></div>
+      <div class="col s12 m5">
+        <div class="card red darken-1 white-text"><div class="card-content">
+          <span class="card-title"><i class="material-icons left">event_available</i>Availability</span>
+          <p>Open to select freelance sprints and advisory calls this quarter.</p>
+          <p style="margin-top:10px"><i class="material-icons tiny">place</i> ${esc(DATA.profile.location)}</p>
+        </div></div>
+        <div class="card"><div class="card-content">
+          <span class="card-title-sm"><i class="material-icons left">mark_email_read</i>Newsletter</span>
+          <p class="grey-sub">Occasional notes on web performance, a11y, and craft.</p>
+          <form id="newsForm"><div class="input-field"><input id="nl_email" type="email"><label for="nl_email">Your email</label></div>
+            <button class="btn waves-effect amber darken-2" type="submit">Subscribe</button></form>
+        </div></div>
+      </div>
+    </div>`);
+}
+
+/* ---- Boot ---- */
+function boot(){
+  document.getElementById("app").innerHTML = [
+    hero(),
+    renderMetrics(),
+    renderAbout(),
+    renderServices(),
+    renderPortfolio(),
+    renderCaseStudies(),
+    renderExperience(),
+    renderSkills(),
+    renderUses(),
+    renderProjects(),
+    renderOpenSource(),
+    renderTalks(),
+    renderWriting(),
+    renderPress(),
+    renderEducation(),
+    renderCertifications(),
+    renderVolunteering(),
+    renderAwards(),
+    renderTestimonials(),
+    renderLanguages(),
+    renderGallery(),
+    renderBooks(),
+    renderFAQ(),
+    renderContact()
+  ].join("");
+
+  document.getElementById("footerName").textContent = DATA.profile.name;
+  document.getElementById("footerLinks").innerHTML =
+    DATA.profile.social.map(s=>`<li><a class="grey-text text-lighten-3" href="${esc(s.url)}">${esc(s.label)}</a></li>`).join("");
+
+  // Initialise all Materialize components
+  M.AutoInit();
+
+  // Show-more toggles
+  document.addEventListener("click",(e)=>{
+    const t = e.target.closest(".toggle-more");
+    if(t){
+      const box = document.getElementById(t.dataset.target);
+      const open = box.style.display !== "none";
+      box.style.display = open ? "none" : "flex";
+      t.innerHTML = open
+        ? `<i class="material-icons left">expand_more</i>Show all ${t.dataset.count}`
+        : `<i class="material-icons left">expand_less</i>Show less`;
+    }
+  });
+
+  // Fake form submits -> toast
+  ["contactForm","newsForm"].forEach(id=>{
+    const f = document.getElementById(id);
+    if(f) f.addEventListener("submit",(e)=>{ e.preventDefault(); M.toast({html:"Thanks! This is a demo form — wire it to your backend."}); f.reset(); });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", boot);
+</script>
+</body>
+</html>

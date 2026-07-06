@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Archived Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet" />
+<style>
+  .material-symbols-outlined {
+    font-variation-settings:'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-size:inherit; line-height:1; vertical-align:middle; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0b0d10;
+    --ink:#e6e9ec;
+    --dim:#8a939e;
+    --line:rgba(255,255,255,.14);
+    --line-soft:rgba(255,255,255,.07);
+    --panel:rgba(13,16,20,.92);
+    --panel-hover:#1d232a;
+    --sans:Arial, 'Helvetica Neue', sans-serif;
+    --mono:Arial, 'Helvetica Neue', sans-serif;
+  }
+  html, body { height:100%; overflow:hidden; background:var(--bg); }
+  #pages { position:relative; z-index:1; height:100%;
+    transition:transform 1s cubic-bezier(.77,0,.18,1); will-change:transform; }
+  section.snap { position:relative; height:100vh; overflow:hidden; }
+
+  /* ---- jumbotrons ---- */
+  .jumbo { display:grid; place-items:center; text-align:center; overflow:hidden;
+    font-family:var(--sans); color:var(--ink); }
+  .jumbo .inner { padding:0 24px; }
+  .jumbo h1 { font-size:clamp(48px, 9vw, 112px);
+    font-weight:600; line-height:1.15; margin:20px 0 14px; color:#fff; }
+  .jumbo h1 span { display:inline-block; padding:.04em .3em .1em;
+    background:var(--panel); border:1px solid var(--line-soft);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+  .jumbo p { font-family:var(--mono); font-size:clamp(11px, 1.2vw, 13px);
+    color:var(--dim); line-height:2.1; }
+  .jumbo p span { background:var(--panel); border:1px solid var(--line-soft); padding:.3em .7em;
+    -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  /* ---- games slideshow (bottom scene) ---- */
+  #jumboBottom { --primary:rgb(208,136,77); }
+  #jumboBottom .inner { max-height:100vh; overflow-y:auto; padding:80px 24px 40px; }
+  /* like #cardAnchor: re-projected each frame from a fixed world point on the
+     wall so the slideshow sways with the room instead of reading as a HUD */
+  #gamesAnchor { position:absolute; left:0; top:0; width:min(560px, 92vw);
+    transform:translate(50vw, 50vh) translate(-50%, -50%);  /* fallback until the scene drives it */
+    will-change:transform; }
+  .slideshow-container { display:flex; flex-direction:column; align-items:center;
+    color:var(--ink); font-family:var(--sans); }
+  .slideshow-card-wrapper { position:relative; max-width:520px; width:90%; }
+  .slideshow-card { background:var(--panel); border:1px solid var(--line-soft); border-radius:2px;
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    height:450px; overflow:hidden; text-align:center; position:relative; padding-top:14px; }
+  #card-link { text-decoration:none; color:inherit; }
+  #card-title { display:inline-block; font-weight:600; color:#fff;
+    border-bottom:1px solid transparent; }
+  #card-link:hover #card-title { border-bottom:1px solid var(--primary); }
+  /* the media sits in a wrapper that reserves a 48px gutter on each side for
+     the toggle buttons, so they can never overlap the image/video */
+  .media-wrap { position:relative; width:calc(100% - 96px); max-width:500px; margin:0 auto; }
+  .card-media { border-radius:2px; margin:0 auto; width:100%;
+    border:1px solid var(--line-soft);
+    transition:opacity 0.5s ease-in-out; display:block; }
+  .card-media.hidden { opacity:0; position:absolute; z-index:-1; top:0; left:50%;
+    transform:translateX(-50%)scale(0.5); pointer-events:none; }
+  .slideshow-card h2 { margin:1rem 0 0.5rem 0; font-size:clamp(20px, 3vw, 28px); }
+  .slideshow-card p { padding:0 1.2rem 1rem 1.2rem; font-size:0.9rem;
+    line-height:1.7; color:#b6bec7; }
+  .toggle-btn1 { position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+    width:36px; height:64px; cursor:pointer;
+    background:var(--panel); border:1px solid var(--line); border-radius:2px;
+    color:var(--dim); font-size:16px; display:grid; place-items:center;
+    transition:background .2s, color .2s; }
+  #card-desc { text-align:left; }
+  .toggle-btn1:hover { background:var(--panel-hover); color:#fff; }
+  .toggle-btn1:focus { outline:2px solid var(--primary); }
+  /* centered in the 48px gutter: 6px from the card edge, 6px from the media */
+  .toggle-left { left:-42px; }
+  .toggle-right { right:-42px; }
+  .game-controls { display:flex; gap:8px; margin-top:18px; flex-wrap:wrap; justify-content:center; }
+  .game-controls button { display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--panel); border:1px solid var(--line); border-radius:2px;
+    color:var(--ink); font-family:var(--mono); font-size:13px; padding:13px 24px;
+    transition:background .2s, border-color .2s, color .2s; }
+  .game-controls button:hover { background:var(--panel-hover);
+    border-color:rgba(255,255,255,.35); color:#fff; }
+  .game-controls button:focus-visible { outline:2px solid var(--primary); }
+  .game-controls button svg { fill:var(--primary); width:17px; height:17px; }
+  .game-controls .material-symbols-outlined { font-size:18px; color:var(--dim); }
+  .game-controls button:hover .material-symbols-outlined { color:#fff; }
+  @media(max-width:600px) {
+    .toggle-left, .toggle-right { z-index:3222; }
+    .slideshow-card-wrapper { max-width:100%; width:100%; margin:0; }
+    .slideshow-card { margin:0; }
+    /* no mouse-look on touch: fall back to the static in-flow layout
+       (!important so it also wins over the per-frame inline transform) */
+    #gamesAnchor { position:static; width:auto; transform:none !important; }
+  }
+  .jumbo .links { margin-top:32px; }
+  .jumbo .links a { display:inline-block; margin:0 6px 10px; padding:11px 22px;
+    text-decoration:none; font-family:var(--mono); font-size:12px;
+    border-radius:2px;
+    background:var(--panel); border:1px solid var(--line); color:var(--ink);
+    transition:background .2s, border-color .2s; }
+  .jumbo .links a:hover { background:var(--panel-hover); border-color:rgba(255,255,255,.3); }
+  .scrollcue { position:absolute; left:50%; transform:translateX(-50%); cursor:pointer;
+    z-index:10; display:inline-flex; align-items:center; gap:12px;
+    background:var(--panel); border:1px solid var(--line); border-radius:2px;
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    color:var(--ink); font-family:var(--mono); font-size:13px;
+    padding:14px 28px;
+    transition:background .2s, border-color .2s, color .2s; }
+  .scrollcue:hover { background:var(--panel-hover); border-color:rgba(255,255,255,.35); color:#fff; }
+  .scrollcue.down { bottom:26px; }
+  .scrollcue.up { top:72px; }   /* clear of the fixed navbar */
+  /* on the stage, Back and Contact sit side by side on the same bottom row */
+  #stage .scrollcue.up { top:auto; bottom:26px; left:calc(50% - 6px); transform:translateX(-100%); }
+  #stage .scrollcue.down { left:calc(50% + 6px); transform:none; }
+  .scrollcue .material-symbols-outlined { display:inline-block; font-size:18px; color:var(--dim); }
+  .scrollcue:hover .material-symbols-outlined { color:#fff; }
+  canvas { display:block; position:fixed; inset:0; z-index:0; }
+  .turn { position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+    width:48px; height:88px; cursor:pointer;
+    background:var(--panel); border:1px solid var(--line); border-radius:2px;
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    color:var(--dim); font-size:24px; line-height:1;
+    display:grid; place-items:center; user-select:none;
+    transition:background .2s, color .2s, opacity .2s; }
+  .turn:hover { background:var(--panel-hover); color:#fff; }
+  .turn:disabled { opacity:.3; cursor:default; }
+  #left  { left:16px; }
+  #right { right:16px; }
+
+  /* ---- project card ---- */
+  #card { position:absolute; inset:0; z-index:12; pointer-events:none;
+    font-family:var(--sans); color:var(--ink);
+    transition:opacity .35s; }
+  #card.hide { opacity:0; }
+  /* title + image travel as one block, re-projected each frame from a fixed
+     world point so the card sways with the room instead of reading as a HUD */
+  #cardAnchor { position:absolute; left:0; top:0; width:min(560px, 84vw, 78vh);
+    will-change:transform; }
+  #card header { width:100%; text-align:center; }
+  #card h2 { display:block; width:100%; padding:12px 20px 13px;
+    background:var(--panel); border:1px solid var(--line-soft); border-bottom:0;
+    border-radius:2px 2px 0 0;
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    font-size:clamp(20px, 3vw, 32px);
+    font-weight:600; line-height:1.15; color:#fff; }
+  #media { position:relative; width:100%; pointer-events:auto; cursor:pointer; }
+  #media img { display:block; width:100%; height:auto;
+    border:1px solid var(--line); border-radius:0 0 2px 2px;
+    box-shadow:0 24px 70px rgba(0,0,0,.55); transition:filter .2s; }
+  #media:hover img { filter:brightness(.55); }
+  #viewTag { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:max-content; pointer-events:none;
+    background:var(--panel); border:1px solid var(--line); color:var(--ink); border-radius:2px;
+    padding:11px 24px; font-family:var(--mono); font-size:12px;
+    opacity:0; transition:opacity .2s; }
+  #media:hover #viewTag { opacity:1; }
+
+  /* ---- white flash ---- */
+  #flash { position:fixed; left:50%; top:50%; z-index:40; width:24vmax; height:24vmax;
+    margin:-12vmax 0 0 -12vmax; border-radius:50%; background:#fff;
+    box-shadow:0 0 120px 60px #fff; transform:scale(0); opacity:0; pointer-events:none;
+    transition:transform .9s cubic-bezier(.6,0,.6,1), opacity .5s; }
+  #flash.expand { transform:scale(14); opacity:1; }
+  #flash.fade { transform:scale(14); opacity:0; }
+
+  /* ---- project modal ---- */
+  #modal { position:fixed; inset:0; z-index:30; display:none; overflow:auto;
+    background:#0d0f12; color:var(--ink); font-family:var(--sans); }
+  #modal.open { display:block; }
+  #modal .wrap { max-width:720px; margin:0 auto; padding:72px 28px 88px; }
+  #modal img.hero { width:100%; height:300px; object-fit:cover;
+    border:1px solid var(--line-soft); border-radius:2px; }
+  #modal h1 { font-size:26px; font-weight:600; margin:30px 0 6px; color:#fff; }
+  #modal .year { font-family:var(--mono); font-size:11px; color:var(--dim); }
+  #modal p.desc { font-size:14px; line-height:1.8; color:#b6bec7; margin:18px 0 30px; }
+  #modal .links a { display:inline-block; text-decoration:none; margin-right:10px;
+    padding:11px 20px; border-radius:2px; font-family:var(--mono); font-size:12px;
+    transition:background .2s, border-color .2s; }
+  #modal .links a.demo { background:#242b33; color:#fff; border:1px solid rgba(255,255,255,.3); }
+  #modal .links a.demo:hover { background:#2e3640; border-color:rgba(255,255,255,.45); }
+  #modal .links a.gh { border:1px solid var(--line); color:var(--ink); }
+  #modal .links a.gh:hover { background:var(--panel-hover); }
+  #close { position:fixed; top:22px; right:24px; z-index:35; display:none;
+    cursor:pointer; width:40px; height:40px; border-radius:2px;
+    background:var(--panel); color:var(--dim); border:1px solid var(--line); font-size:18px;
+    place-items:center;
+    transition:color .2s, background .2s; }
+  #close:hover { color:#fff; background:var(--panel-hover); }
+  #modal.open ~ #close, #close.show { display:grid; }
+
+  /* ---- loader ---- */
+  #loader { position:fixed; inset:0; display:grid; place-items:center; z-index:50;
+    background:var(--bg); color:var(--dim); font-family:var(--mono); font-size:12px;
+    transition:opacity .8s; }
+  #loader.hide { opacity:0; pointer-events:none; }
+
+  /* overlays stay hidden while the camera flies between sections
+     (!important so it also wins over the entrance animation state) */
+  .jumbo .inner { transition:opacity .35s; }
+  .scrollcue { transition:background .2s, border-color .2s, color .2s, opacity .35s; }
+  .turn { transition:background .2s, color .2s, opacity .35s; }
+  body.moving .jumbo .inner, body.moving .scrollcue, body.moving .turn {
+    opacity:0 !important; pointer-events:none; }
+
+  /* ---- fixed navbar ---- */
+  #topbar { position:fixed; top:0; left:0; right:0; z-index:25;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; font-family:var(--mono); font-size:13px; color:var(--ink);
+    background:var(--panel); border-bottom:1px solid var(--line-soft);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+  #topbar a { color:inherit; text-decoration:none; transition:color .2s; }
+  #topbar a:hover { color:#fff; }
+  #topbar .nav-links { display:flex; gap:20px; }
+  #topbar .nav-links a { color:var(--dim); }
+  #topbar .nav-links a:hover { color:#fff; }
+
+  /* ---- opening entrance: elements rise in once the scene is ready ---- */
+  #jumboTop h1 span, #jumboTop .scrollcue { opacity:0; }
+  body.ready #jumboTop h1 span, body.ready #jumboTop .scrollcue {
+    opacity:1; animation:riseIn .9s cubic-bezier(.2,.7,.2,1) backwards; }
+  body.ready #jumboTop h1 span { animation-delay:.15s; }
+  body.ready #jumboTop .scrollcue { animation-name:riseInX; animation-delay:.5s; }
+  @keyframes riseIn  { from { opacity:0; transform:translateY(16px); } }
+  @keyframes riseInX { from { opacity:0; transform:translate(-50%, 16px); }
+                       to   { opacity:1; transform:translate(-50%, 0); } }
+  #bar { width:200px; height:2px; background:rgba(255,255,255,.1); overflow:hidden; }
+  #bar i { display:block; height:100%; width:0%; background:#e6e9ec; transition:width .2s; }
+</style>
+</head>
+<body>
+  <nav id="topbar">
+    <a href="index.html">Eldiiar Bekbolotov</a>
+    <span class="nav-links">
+      <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/EldiiarBekbolotov" target="_blank" rel="noopener">GitHub</a>
+    </span>
+  </nav>
+  <div id="pages">
+  <section class="snap jumbo" id="jumboTop">
+    <div class="inner">
+     </div>
+   
+   <button class="scrollcue down" data-goto="stage" aria-label="Scroll to projects">View Archive <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span></button>
+  </section>
+
+  <section class="snap" id="stage">
+  <button class="scrollcue up" data-goto="jumboTop" aria-label="Back to top"><span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span> Back</button>
+  <button id="left"  class="turn" aria-label="Rotate left"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
+  <button id="right" class="turn" aria-label="Rotate right"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+
+  <div id="card" class="hide">
+    <div id="cardAnchor">
+      <header>
+        <h2><span id="cardTitle"></span></h2>
+      </header>
+      <div id="media" role="button" aria-label="View project">
+        <img id="cardImg" alt="" />
+        <span id="viewTag">View Project</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="scrollcue down" data-goto="jumboBottom" aria-label="Scroll to games">Games <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span></button>
+  </section>
+
+  <section class="snap jumbo" id="jumboBottom">
+    <button class="scrollcue up" data-goto="stage" aria-label="Back to projects"><span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span> Back</button>
+    <div class="inner">
+
+      <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
+      <div id="gamesAnchor">
+      <div class="slideshow-container">
+        <div class="slideshow-card-wrapper">
+          <a id="card-link" href="">
+            <div class="slideshow-card" id="game-card">
+              <div class="media-wrap">
+                <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
+                <img src="" alt="Game Image" class="card-media" id="card-img">
+                <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
+                  <source src="" type="video/mp4">
+                  Your browser does not support video.
+                </video>
+                <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
+              </div>
+              <h2 id="card-title"></h2>
+              <p id="card-desc"></p>
+            </div>
+          </a>
+        </div>
+        <div class="game-controls">
+          <button id="prev-btn" aria-label="Previous game">
+            <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span> Prev
+          </button>
+          <button id="like-btn" aria-label="Like this game">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+              <path
+                d="M479-186q-17 0-31.5-6T421-209l-54-49q-102-93-184.5-186T100-642q0-83 57.5-139.5T298-838q47 0 94.5 23.5T480-736q40-55 87.5-78.5T662-838q83 0 140.5 56.5T860-642q0 108-87.5 202.5T594-260l-56 51q-12 11-27 17t-32 6Z" />
+            </svg> <span id="like-count">0</span>
+          </button>
+          <button id="next-btn" aria-label="Next game">
+            Next <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+          </button>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </section>
+  </div>
+
+  <div id="modal">
+    <div class="wrap">
+      <img class="hero" id="modalImg" alt="" />
+      <div class="year" id="modalYear"></div>
+      <h1 id="modalTitle"></h1>
+      <p class="desc" id="modalDesc"></p>
+      <div class="links">
+        <a class="demo" id="modalDemo" href="#" target="_blank" rel="noopener">View Demo</a>
+        <a class="gh" id="modalGh" href="#" target="_blank" rel="noopener">View GitHub</a>
+      </div>
+    </div>
+  </div>
+  <button id="close" aria-label="Close project"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+  <div id="flash"></div>
+
+  <div id="loader">
+    <div id="bar"><i></i></div>
+  </div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const MODEL_URL = './environment-vr-room-baked/source/Untitled.glb';
+
+/* ---------- projects (one per 72° stage) ---------- */
+const PROJECTS = [
+  { title:'Khan Profile Viewer', year:'2025',
+    desc:'Interactive portfolio of your Khan Academy Computer Programming projects.',
+    long:'Interactive portfolio of your Khan Academy Computer Programming projects! Browse any user’s programs, spin-offs and stats in a clean interface.',
+    demo:'https://khanprofileviewer.web.app/', gh:'https://github.com/EldiiarBekbolotov/khan-profile-viewer',
+    img:'./images/projects/kpv.jpg' },
+  { title:'Doppels', year:'2025',
+    desc:'AI social network.',
+    long:'AI social network — Design Lead. Winner at McHacks 13.',
+    demo:'https://doppels.vercel.app/', gh:null,
+    img:'./src/doppel.png' },
+  { title:'SanjyraTree', year:'2025',
+    desc:'The fast & intuitive family tree editor on the web.',
+    long:'The fast & intuitive family tree editor on the web. Build, edit and explore family trees right in the browser.',
+    demo:'https://sanjyratree.web.app', gh:'https://github.com/EldiiarBekbolotov/SanjyraTree',
+    img:'./images/projects/sanjyratree.jpg' },
+  { title:'Hack United', year:'2025',
+    desc:'1,000+ participant hackathons.',
+    long:'Hack United — nonprofit running 1,000+ participant hackathons. Served as Head of Technology and on sponsorships.',
+    demo:'https://unitedhacks.hackunited.org', gh:null,
+    img:'./src/hackunited.png' },
+  { title:'OpenScope', year:'2025',
+    desc:'Chief Technology Officer.',
+    long:'OpenScope — serving as Chief Technology Officer.',
+    demo:'https://openscope.netlify.app/', gh:null,
+    img:'./src/openscope.png' },
+];
+
+/* ---------- renderer / scene ---------- */
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.NoToneMapping;      // baked lighting: show the texture 1:1
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf6b34a);   // fallback: horizon gold
+
+/* golden sky dome: deep amber at the horizon fading to pale cream overhead */
+const sky = new THREE.Mesh(
+  new THREE.SphereGeometry(2000, 32, 16),
+  new THREE.ShaderMaterial({
+    side: THREE.BackSide,
+    depthWrite: false,
+    uniforms: {
+      topColor:     { value: new THREE.Color(0xfff3cf) },  // zenith cream
+      midColor:     { value: new THREE.Color(0xffd27a) },  // golden mid-sky
+      horizonColor: { value: new THREE.Color(0xf6a23c) },  // amber horizon
+    },
+    vertexShader: `
+      varying vec3 vDir;
+      void main(){
+        vDir = normalize(position);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }`,
+    fragmentShader: `
+      uniform vec3 topColor, midColor, horizonColor;
+      varying vec3 vDir;
+      void main(){
+        float h = clamp(vDir.y, -0.1, 1.0);
+        vec3 c = h < 0.25
+          ? mix(horizonColor, midColor, smoothstep(-0.1, 0.25, h))
+          : mix(midColor, topColor, smoothstep(0.25, 1.0, h));
+        gl_FragColor = vec4(c, 1.0);
+      }`
+  })
+);
+scene.add(sky);
+
+const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.02, 5000);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+/* the camera is fully scripted — no user drag / zoom / pan */
+controls.enableRotate = false;
+controls.enableZoom = false;
+controls.enablePan = false;
+
+/* ---------- section transitions (jumbotron / gallery / jumbotron) ---------- */
+const pages = document.getElementById('pages');
+const SECTIONS = ['jumboTop', 'stage', 'jumboBottom'];
+let pageIndex = 0;                 // start on the top jumbotron
+let pageLock = false;
+
+function goPage(i){
+  i = Math.max(0, Math.min(SECTIONS.length - 1, i));
+  if (i === pageIndex || pageLock) return;
+  const from = pageIndex;
+  pageIndex = i;
+  pageLock = true;
+  document.body.classList.add('moving');
+  pages.style.transform = `translateY(${-i * 100}vh)`;
+  if (pagePoses){
+    hideCard();
+    const p = pagePoses[i];
+    const throughRoof = from === 0 || i === 0;   // top-down <-> gallery crosses the roof
+    if (throughRoof){
+      /* two eased phases so neither move is rushed: the vertical leg runs in
+         the empty shaft ring between the tree crown and the roof's inner
+         edge; the horizontal leg runs at gallery height, between columns */
+      const shaft = pagePoses[0].dist;
+      const segs = i === 0
+        ? [ { toYaw: galleryYaw + p.yawOff, toDist: shaft,  toY: view.camY, targetY: p.targetY, dur: 0.9 },
+            { toYaw: galleryYaw + p.yawOff, toDist: p.dist, toY: p.camY,    targetY: p.targetY, dur: 1.6 } ]
+        : [ { toYaw: galleryYaw + p.yawOff, toDist: shaft,  toY: p.camY,    targetY: p.targetY, dur: 1.6 },
+            { toYaw: galleryYaw + p.yawOff, toDist: p.dist, toY: p.camY,    targetY: p.targetY, dur: 0.9,
+              onDone: showCard } ];
+      startAnim({ ...segs[0], onDone: () => startAnim(segs[1]) });
+      setTimeout(() => { pageLock = false; document.body.classList.remove('moving'); },
+        (segs[0].dur + segs[1].dur) * 1000);
+    } else {
+      startAnim({ toYaw: galleryYaw + p.yawOff, toDist: p.dist, toY: p.camY,
+                  targetY: p.targetY, targetDist: p.targetDist, targetYawOff: p.targetYawOff,
+                  dur: 1.15, onDone: i === 1 ? showCard : null });
+      setTimeout(() => { pageLock = false; document.body.classList.remove('moving'); }, 1150);
+    }
+  } else {
+    setTimeout(() => { pageLock = false; document.body.classList.remove('moving'); }, 1150);
+  }
+}
+addEventListener('wheel', (e) => {
+  if (e.target.closest && e.target.closest('#modal')) return;   // modal scrolls itself
+  e.preventDefault();
+  if (pageLock || modalOpen || Math.abs(e.deltaY) < 20) return;
+  goPage(pageIndex + (e.deltaY > 0 ? 1 : -1));
+}, { passive:false });
+let touchY = null;
+addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive:true });
+addEventListener('touchend', (e) => {
+  if (touchY === null || modalOpen) return;
+  const dy = touchY - e.changedTouches[0].clientY;
+  touchY = null;
+  if (Math.abs(dy) > 60) goPage(pageIndex + (dy > 0 ? 1 : -1));
+}, { passive:true });
+document.querySelectorAll('.scrollcue').forEach(b =>
+  b.addEventListener('click', () => goPage(SECTIONS.indexOf(b.dataset.goto))));
+
+/* canonical framing: the rotunda has 5 columns at 72° spacing, so camera yaws
+   that are multiples of 72° always frame the view with one column on each side */
+const STEP = 72;
+const view = {
+  center: new THREE.Vector3(),   // room center (x,z) at look height
+  dist: 0,                       // canonical camera distance from center axis
+  camY: 0,                       // canonical camera height
+};
+
+function poseAt(yawDeg, dist = view.dist, camY = view.camY){
+  const a = yawDeg * Math.PI / 180;
+  return new THREE.Vector3(
+    view.center.x + Math.sin(a) * dist,
+    camY,
+    view.center.z + Math.cos(a) * dist
+  );
+}
+function currentYawDeg(){
+  return Math.atan2(camera.position.x - view.center.x,
+                    camera.position.z - view.center.z) * 180 / Math.PI;
+}
+let galleryYaw = 0;                // canonical stage yaw, always a multiple of STEP
+let pagePoses = null;              // per-section camera poses, set once the model loads
+let roomRadius = 0;                // wall radius, needed to anchor the games slideshow
+function stageIndex(){ return ((Math.round(galleryYaw / STEP) % PROJECTS.length) + PROJECTS.length) % PROJECTS.length; }
+
+/* ---------- project card ---------- */
+const card = document.getElementById('card');
+
+function showCard(){
+  const p = PROJECTS[stageIndex()];
+  document.getElementById('cardImg').src = p.img;
+  document.getElementById('cardTitle').textContent = p.title;
+  card.classList.remove('hide');
+}
+function hideCard(){ card.classList.add('hide'); }
+
+/* ---------- load ---------- */
+const bar = document.querySelector('#bar i');
+let model = null;
+
+new GLTFLoader().load(MODEL_URL, (gltf) => {
+  model = gltf.scene;
+  scene.add(model);
+  model.updateWorldMatrix(true, true);
+
+  // baked scene -> render everything unlit so the baked texture reads exactly as authored
+  model.traverse(o => {
+    if (o.isMesh){
+      const src = Array.isArray(o.material) ? o.material[0] : o.material;
+      o.material = new THREE.MeshBasicMaterial({
+        map: src && src.map ? src.map : null,
+        color: (src && src.map) ? 0xffffff : (src ? src.color : 0xffffff),
+        vertexColors: !!(src && src.vertexColors),
+        transparent: !!(src && src.transparent),
+        opacity: src ? src.opacity : 1,
+        alphaTest: src && src.alphaTest ? src.alphaTest : (src && src.transparent ? 0.5 : 0),
+        side: THREE.DoubleSide,
+      });
+    }
+  });
+
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  const radius = Math.max(size.x, size.z) / 2;
+
+  view.center.set(center.x, box.min.y + size.y * 0.5, center.z);
+  view.dist = radius * 0.88;
+  view.camY = box.min.y + size.y * 0.45;
+  roomRadius = radius;
+
+  pagePoses = {
+    0: { yawOff: 0,  dist: radius * 0.312, camY: box.max.y + size.y * 1.25, targetY: view.center.y }, // top-down, over the crown/roof gap ring
+    1: { yawOff: 0,  dist: view.dist,     camY: view.camY,                 targetY: view.center.y }, // gallery
+    2: { yawOff: 0,  dist: view.dist,     camY: view.camY,                 targetY: view.camY,
+         targetDist: radius, targetYawOff: 30 },   // same spot as the gallery — just turned around to face the wall
+  };
+  const p0 = pagePoses[pageIndex];
+  camera.position.copy(poseAt(galleryYaw + p0.yawOff, p0.dist, p0.camY));
+  controls.target.set(view.center.x, p0.targetY, view.center.z);
+  controls.update();
+
+  document.getElementById('loader').classList.add('hide');
+  document.body.classList.add('ready');
+  if (pageIndex === 1) showCard();
+}, (p) => {
+  const pct = p.total ? (p.loaded/p.total*100) : Math.min(99, p.loaded/17e6*100);
+  bar.style.width = pct.toFixed(0) + '%';
+}, (err) => {
+  document.getElementById('loader').textContent = 'Load failed — check console';
+  console.error(err);
+});
+
+/* ---------- camera animation (turn between stages / zoom into a project) ---------- */
+const anim = { active:false, mode:'turn', t:0, dur:0.9,
+  fromYaw:0, toYaw:0, fromDist:0, toDist:0, fromY:0, toY:0,
+  fromTarget:new THREE.Vector3(), toTarget:new THREE.Vector3(), onDone:null };
+const btnL = document.getElementById('left');
+const btnR = document.getElementById('right');
+
+function setBusy(b){
+  controls.enabled = !b;
+  btnL.disabled = btnR.disabled = b;
+}
+
+function startAnim(opts){
+  const yaw = currentYawDeg();
+  anim.fromYaw = yaw;
+  /* currentYawDeg() is wrapped to (-180,180] while galleryYaw accumulates
+     past 360°, so wrap the delta to the shortest arc or the camera replays
+     every extra full turn */
+  const delta = ((opts.toYaw - yaw) % 360 + 540) % 360 - 180;
+  anim.toYaw = yaw + delta;
+  anim.fromDist = camera.position.distanceTo(new THREE.Vector3(view.center.x, camera.position.y, view.center.z));
+  anim.toDist = opts.toDist ?? view.dist;
+  anim.fromY = camera.position.y;
+  /* default: stay at the current storey's height (turns / project zooms) */
+  anim.toY = opts.toY ?? camera.position.y;
+  anim.fromTarget.copy(controls.target);
+  /* target defaults to the center axis at the current height; targetDist
+     pushes it outward (to aim at the wall), targetYawOff bends its bearing
+     away from the camera's so the aim never sweeps through the camera itself */
+  const ta = (anim.toYaw + (opts.targetYawOff ?? 0)) * Math.PI / 180,
+        td = opts.targetDist ?? 0;
+  anim.toTarget.set(
+    view.center.x + Math.sin(ta) * td,
+    opts.targetY ?? controls.target.y,
+    view.center.z + Math.cos(ta) * td);
+  anim.dur = opts.dur ?? 0.9;
+  anim.onDone = opts.onDone || null;
+  anim.t = 0;
+  anim.active = true;
+  setBusy(true);
+}
+
+function turn(dir){                 // dir: -1 = view slides left, +1 = view slides right
+  if (!model || anim.active || modalOpen || pageIndex !== 1) return;
+  hideCard();
+  galleryYaw += dir * STEP;          // next column-gap framing
+  startAnim({ toYaw: galleryYaw, onDone: showCard });
+}
+/* clicking ‹ should move the view left (camera orbits the other way) */
+btnL.addEventListener('click', () => turn(-1));
+btnR.addEventListener('click', () => turn(1));
+addEventListener('keydown', (e) => {
+  if (modalOpen){ if (e.key === 'Escape') closeProject(); return; }
+  if (e.key === 'ArrowLeft') turn(-1);
+  if (e.key === 'ArrowRight') turn(1);
+  if (e.key === 'ArrowUp' || e.key === 'PageUp') goPage(pageIndex - 1);
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') goPage(pageIndex + 1);
+});
+
+const easeInOut = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+
+/* ---------- view project: zoom in + white flash -> modal ---------- */
+const flash = document.getElementById('flash');
+const modal = document.getElementById('modal');
+const btnClose = document.getElementById('close');
+let modalOpen = false;
+
+function openProject(){
+  if (!model || anim.active || modalOpen || pageIndex !== 1) return;
+  const p = PROJECTS[stageIndex()];
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalYear').textContent = p.year;
+  document.getElementById('modalDesc').textContent = p.long;
+  /* entries without a demo/repo just hide that button */
+  const demoA = document.getElementById('modalDemo');
+  const ghA = document.getElementById('modalGh');
+  demoA.href = p.demo || '#';
+  demoA.style.display = p.demo ? '' : 'none';
+  ghA.href = p.gh || '#';
+  ghA.style.display = p.gh ? '' : 'none';
+
+  hideCard();
+  // dolly toward the blossom while the glow expands to fill the screen
+  startAnim({ toYaw: galleryYaw, toDist: view.dist * 0.22, dur: 1.1 });
+  setTimeout(() => flash.classList.add('expand'), 250);
+  setTimeout(() => {
+    modal.classList.add('open');
+    btnClose.classList.add('show');
+    modal.scrollTop = 0;
+    modalOpen = true;
+    flash.classList.add('fade');                     // glow dissolves, revealing the project
+    setTimeout(() => flash.classList.remove('expand','fade'), 550);
+  }, 1150);
+}
+function closeProject(){
+  if (!modalOpen) return;
+  modalOpen = false;
+  modal.classList.remove('open');
+  btnClose.classList.remove('show');
+  // camera is still zoomed in — glide back out to the stage framing
+  startAnim({ toYaw: galleryYaw, dur: 0.9, onDone: showCard });
+}
+document.getElementById('media').addEventListener('click', openProject);
+btnClose.addEventListener('click', closeProject);
+
+/* ---------- mouse-look parallax: aim drifts slightly toward the cursor ---------- */
+const mouseNorm = { x:0, y:0 };
+const mouseSm = { x:0, y:0 };
+addEventListener('pointermove', (e) => {
+  mouseNorm.x = (e.clientX / innerWidth) * 2 - 1;
+  mouseNorm.y = (e.clientY / innerHeight) * 2 - 1;
+});
+const _dir = new THREE.Vector3(), _right = new THREE.Vector3(),
+      _upv = new THREE.Vector3(), _look = new THREE.Vector3();
+function applyMouseLook(){
+  if (modalOpen) return;
+  mouseSm.x += (mouseNorm.x - mouseSm.x) * 0.06;
+  mouseSm.y += (mouseNorm.y - mouseSm.y) * 0.06;
+  _dir.subVectors(controls.target, camera.position).normalize();
+  _right.crossVectors(_dir, camera.up);
+  if (_right.lengthSq() < 1e-6) return;   // looking straight down: no stable "right"
+  _right.normalize();
+  _upv.crossVectors(_right, _dir);
+  const amp = camera.position.distanceTo(controls.target) * 0.045;
+  _look.copy(controls.target)
+    .addScaledVector(_right, mouseSm.x * amp)
+    .addScaledVector(_upv, -mouseSm.y * amp);
+  camera.lookAt(_look);
+}
+
+/* ---------- resize / loop ---------- */
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+/* project the card's world anchor (the room's center axis at gallery height)
+   into screen space each frame — the card then moves with the environment */
+const cardAnchor = document.getElementById('cardAnchor');
+const gamesAnchor = document.getElementById('gamesAnchor');
+const _proj = new THREE.Vector3();
+const _gamesPt = new THREE.Vector3();
+const mqTouch = matchMedia('(max-width:600px)');
+function placeCard(){
+  if (!pagePoses) return;
+  // rebake matrixWorldInverse from the final (mouse-look) rotation — lookAt()
+  // leaves it stale at the pre-offset aim, which would pin the card to center
+  camera.updateMatrixWorld();
+  _proj.copy(view.center).project(camera);
+  const x = (_proj.x * 0.5 + 0.5) * innerWidth;
+  const y = (-_proj.y * 0.5 + 0.5) * innerHeight;
+  cardAnchor.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
+
+  /* games slideshow: anchored to its wall point (pagePoses[2]'s aim) so it
+     sways with the room too; small screens keep the static in-flow layout */
+  if (gamesAnchor && pageIndex === 2 && !mqTouch.matches){
+    const ta = (galleryYaw + 30) * Math.PI / 180;
+    _gamesPt.set(view.center.x + Math.sin(ta) * roomRadius, view.camY,
+                 view.center.z + Math.cos(ta) * roomRadius);
+    _proj.copy(_gamesPt).project(camera);
+    const gx = (_proj.x * 0.5 + 0.5) * innerWidth;
+    const gy = (-_proj.y * 0.5 + 0.5) * innerHeight;
+    gamesAnchor.style.transform = 'translate(' + gx.toFixed(1) + 'px,' + gy.toFixed(1) + 'px) translate(-50%,-50%)';
+  }
+}
+
+const clock = new THREE.Clock();
+function animate(){
+  const dt = clock.getDelta();
+  if (anim.active){
+    anim.t = Math.min(1, anim.t + dt / anim.dur);
+    const k = easeInOut(anim.t);
+    const yaw = anim.fromYaw + (anim.toYaw - anim.fromYaw) * k;
+    const camY = anim.fromY + (anim.toY - anim.fromY) * k;
+    const dist = anim.fromDist + (anim.toDist - anim.fromDist) * k;
+    camera.position.copy(poseAt(yaw, dist, camY));
+    controls.target.lerpVectors(anim.fromTarget, anim.toTarget, k);
+    camera.lookAt(controls.target);
+    if (anim.t >= 1){
+      anim.active = false;
+      setBusy(false);
+      controls.update();
+      if (anim.onDone) anim.onDone();
+    }
+  } else {
+    /* scene 1 idle: drift slowly around the oculus so the room below rotates.
+       transitions start from currentYawDeg(), so leaving mid-spin stays smooth */
+    if (pageIndex === 0 && model && !modalOpen){
+      const dist = Math.hypot(camera.position.x - view.center.x,
+                              camera.position.z - view.center.z);
+      camera.position.copy(poseAt(currentYawDeg() + dt * 4, dist, camera.position.y));
+      camera.lookAt(controls.target);
+    }
+    controls.update();
+  }
+  applyMouseLook();
+  placeCard();
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<!-- gift box reveal + games slideshow with Abacus per-game likes (ported from index) -->
+<script>
+  const ABACUS_BASE = "https://abacus.jasoncameron.dev";
+  const SITE_IDS = [
+    "eldiiarbekbolotov.github.io",
+    "eldiiarcodes.web.app"
+  ];
+
+  const gameProjects = [
+    {
+      key: "natuwars", title: "NATUWARS v0.4", desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+      img: "src/natuwars.png", video: "src/natuwars.mp4", link: "games/natuwars.html"
+    },
+    {
+      key: "leaferscraft", title: "LeafersCraft v0.3", desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+      img: "src/leaferscraft.png", video: "src/leaferscraft.mp4", link: "games/leaferscraft.html"
+    },
+    {
+      key: "laserfocus", title: "LASER FOCUS", desc: "Gamified concentration test.<br /><em style='font-size:16px;'>Released summer 2023 under the nickname LeaferStudios.</em>",
+      img: "src/laserfocus.png", video: "src/laserfocus.mp4", link: "games/laserfocus.html"
+    },
+    {
+      key: "roguerun", title: "Rogue Run", desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+      img: "src/roguerun.png", video: "src/roguerun.mp4", link: "games/roguerun.html"
+    },
+    {
+      key: "cars", title: "Cars", desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
+      img: "src/cars.png", video: "src/cars.mp4", link: "games/cars.html"
+    }
+  ];
+
+  let currentGameIndex = 0;
+  let mediaIndex = 1; // 0=image, 1=video
+  let currentProjectKey = null;
+
+  const cardImgEl = document.getElementById("card-img");
+  const cardVideoEl = document.getElementById("card-video");
+  const cardTitleEl = document.getElementById("card-title");
+  const cardDescEl = document.getElementById("card-desc");
+  const cardLinkEl = document.getElementById("card-link");
+  const likeBtn = document.getElementById("like-btn");
+  const likeCountEl = document.getElementById("like-count");
+
+  function jsonp(url, timeout = 7000) {
+    return new Promise((resolve, reject) => {
+      const cb = "abacus_cb_" + Math.random().toString(36).slice(2);
+      const sep = url.includes("?") ? "&" : "?";
+      const full = url + sep + "callback=" + cb;
+
+      let timedOut = false;
+      const script = document.createElement("script");
+      script.src = full;
+      script.async = true;
+
+      const timer = setTimeout(() => {
+        timedOut = true;
+        cleanup();
+        reject(new Error("JSONP timeout"));
+      }, timeout);
+
+      function cleanup() {
+        clearTimeout(timer);
+        script.remove();
+        try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+      }
+
+      window[cb] = function (data) {
+        if (timedOut) return;
+        cleanup();
+        resolve(data);
+      };
+
+      script.onerror = () => {
+        cleanup();
+        reject(new Error("JSONP network error"));
+      };
+
+      document.head.appendChild(script);
+    });
+  }
+
+  async function hitIncrementAcrossSites(key) {
+    const safeKey = encodeURIComponent(key);
+    const promises = SITE_IDS.map(site => {
+      const url = `${ABACUS_BASE}/hit/${encodeURIComponent(site)}/${safeKey}`;
+      return jsonp(url)
+        .then(res => res && typeof res.value === "number" ? res.value : null)
+        .catch(() => null);
+    });
+    const results = await Promise.all(promises);
+    const valid = results.filter(v => typeof v === "number");
+    return valid.length ? valid.reduce((s, v) => s + v, 0) : null;
+  }
+
+  let lastLoadToken = 0;
+
+  async function loadLikesForProject(key) {
+    const token = ++lastLoadToken;
+    likeCountEl.textContent = "…";
+
+    try {
+      const total = await hitIncrementAcrossSites(key);
+      if (token === lastLoadToken && key === currentProjectKey) {
+        likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : "0";
+      }
+    } catch {
+      if (token === lastLoadToken && key === currentProjectKey) {
+        likeCountEl.textContent = "0";
+      }
+    }
+  }
+
+  async function addLikeForProject(key) {
+    const prev = Number(likeCountEl.textContent) || 0;
+    likeCountEl.textContent = String(prev + 1);
+    try {
+      const total = await hitIncrementAcrossSites(key);
+      if (key === currentProjectKey) {
+        likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : String(prev);
+      }
+    } catch {
+      if (key === currentProjectKey) {
+        likeCountEl.textContent = String(prev);
+      }
+    }
+  }
+
+  function fadeOutIn(element, callback) {
+    element.style.opacity = 0;
+    setTimeout(() => { callback(); element.style.opacity = 1; }, 300);
+  }
+
+  function displayGame(index) {
+    const proj = gameProjects[index];
+    currentProjectKey = proj.key;
+
+    fadeOutIn(cardTitleEl, () => cardTitleEl.textContent = proj.title);
+    fadeOutIn(cardDescEl, () => cardDescEl.innerHTML = proj.desc);
+    fadeOutIn(cardImgEl, () => cardImgEl.src = proj.img);
+    fadeOutIn(cardVideoEl, () => {
+      const srcEl = cardVideoEl.querySelector("source");
+      srcEl.src = proj.video;
+      cardVideoEl.load();
+    });
+
+    mediaIndex === 0 ? cardImgEl.classList.remove("hidden") : cardImgEl.classList.add("hidden");
+    mediaIndex === 1 ? cardVideoEl.classList.remove("hidden") : cardVideoEl.classList.add("hidden");
+    cardLinkEl.href = proj.link;
+
+    loadLikesForProject(proj.key);
+  }
+
+  function changeGame(dir) {
+    currentGameIndex = (currentGameIndex + dir + gameProjects.length) % gameProjects.length;
+    mediaIndex = 1;
+    displayGame(currentGameIndex);
+  }
+  document.getElementById("prev-btn").addEventListener("click", () => changeGame(-1));
+  document.getElementById("next-btn").addEventListener("click", () => changeGame(1));
+
+  function toggleMedia(next = true) {
+    mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
+    mediaIndex === 0 ? cardImgEl.classList.remove("hidden") : cardImgEl.classList.add("hidden");
+    mediaIndex === 1 ? cardVideoEl.classList.remove("hidden") : cardVideoEl.classList.add("hidden");
+  }
+
+  document.getElementById("toggle-left").addEventListener("click", e => { e.preventDefault(); toggleMedia(false); });
+  document.getElementById("toggle-right").addEventListener("click", e => { e.preventDefault(); toggleMedia(true); });
+  likeBtn.addEventListener("click", e => { e.preventDefault(); addLikeForProject(gameProjects[currentGameIndex].key); });
+
+  displayGame(currentGameIndex);
+  // register a like on load so the counter shows the real total instead of 0
+  addLikeForProject(gameProjects[currentGameIndex].key);
+</script>
+</body>
+</html>

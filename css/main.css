@@ -38,7 +38,7 @@ body.theme0 #web-content > div {
  --primary: #000000;
   --primary-hover: rgb(255, 255, 255);
   --primary-color: #000000;
-  --bg-footer:#ff01b780;
+  --bg-footer:#000000;
  --white: var(--primary);
       --card-bg: #ffffff;
       --text-color: #0000009a;
@@ -500,21 +500,23 @@ footer {
   fill: var(--white);
 }
 
+.social-link {
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
 .social-link svg {
   vertical-align: middle;
   mix-blend-mode: difference;
 }
 
 .social-link:hover {
-  box-shadow: inset 0px -1px 5px var(--primary);
+ border: 1px solid var(--primary);
   color: var(--white);
   text-decoration: none;
   transform: translateY(0px);
 }
 .social-link:active {
-  box-shadow:
-    0px 0px 0px var(--primary),
-    inset 0px -0px 90px var(--primary);
+  border: 1px dashed var(--primary);
   transform: translateY(0px) scale(0.9);
 }
 

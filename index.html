@@ -46,6 +46,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+    rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -112,6 +115,42 @@
       /* same width as digits */
       text-align: center;
       /* center the dot */
+    }
+
+    .gallery-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 2px;
+      color: var(--text-color, #e6e9ec);
+      text-decoration: none !important;
+      isolation: isolate;
+    }
+
+    .gallery-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #000;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    .gallery-cta:hover::before {
+      transform: scaleX(1);
+    }
+
+    .gallery-cta:hover {
+      color: #fff;
+    }
+
+    .gallery-cta .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px;
+      line-height: 1;
     }
   </style>
 
@@ -647,9 +686,17 @@
   grid-template-columns: 1fr; 
 }
 
+/* Medium screens (tablets/iPad): 2 equal columns */
+@media (min-width: 601px) and (max-width: 899px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+  }
+}
+
 @media (min-width: 900px) {
   .grid-container {
-    grid-template-columns: repeat(12, 1fr); 
+    grid-template-columns: repeat(12, 1fr);
     align-items: start;
   }
 
@@ -731,6 +778,32 @@
 
     .card h2 span {
       color: var(--accent-color);
+      position: relative;
+      isolation: isolate;
+      padding: 2px 2px;
+      transition: color 0.3s ease;
+    }
+
+    /* black wipe: sweeps in from the left on hover, exits shrinking to the
+       right on leave (the transform-origin swaps between the two states) */
+    .card h2 span::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #000;
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .cardlink:hover .card h2 span::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .cardlink:hover .card h2 span {
+      color: #fff;
     }
 
     .card p {
@@ -771,181 +844,6 @@ text-align:center;
     }
   </style>
 
-  <style>
-    #giftBox {
-      background-color: transparent;
-      width: 300px;
-      margin: 0 auto;
-      transition: all 0.3s ease;
-    }
-
-    #giftBox:hover {
-      background-color: transparent;
-      transform: translateY(-10px);
-    }
-
-    .slideshow-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #eee;
-      background-color: transparent;
-    }
-
-    .slideshow-card-wrapper {
-      position: relative;
-      max-width: 500px;
-      width: 90%;
-    }
-
-    .slideshow-card {
-      background-color: #00000087;
-
-      border-radius: 20px;
-      box-shadow: inset 0 20px 90px rgba(99, 99, 99, 0.3);
-      height: 450px;
-      overflow: hidden;
-      text-align: center;
-      position: relative;
-    }
-
-    #card-link {
-      text-decoration: none;
-    }
-
-    #card-title {
-      display: inline-block;
-
-      border-bottom: 1px solid transparent;
-    }
-
-    #card-link:hover #card-title {
-      border-bottom: 1px solid var(--primary);
-    }
-
-    .card-media {
-      border-radius: 8px;
-      margin: 0 auto;
-      width: 80%;
-      max-width: 500px;
-      min-width: 300px;
-      transition: opacity 0.5s ease-in-out;
-      display: block;
-    }
-
-    .card-media.hidden {
-      opacity: 0;
-      position: absolute;
-      z-index: -1;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%)scale(0.5);
-      pointer-events: none;
-    }
-
-    .slideshow-card h2 {
-      font-family: var(--big-font);
-      margin: 1rem 0 0.5rem 0;
-    }
-
-    .slideshow-card p {
-      font-family: var(--small-font);
-      padding: 0 1rem 1rem 1rem;
-      font-size: 0.9rem;
-    }
-
-    .toggle-btn1 {
-      position: absolute;
-      top: 25%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.8);
-      border: none;
-      color: #fff;
-      box-shadow: 0px 0px 70px var(--primary);
-      font-size: 1.5rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-radius: 0px;
-      z-index: 2;
-      font-family: var(--small-font);
-      text-shadow: 0px 0px 10px var(--primary);
-      transform: scale(1, 1.9);
-      font-weight: 100;
-      transition: all 0.2s ease;
-    }
-
-    #card-desc {
-      text-align: left;
-    }
-
-    .toggle-btn1:hover {
-      background-color: rgba(0, 0, 0, 1);
-      color: var(--primary);
-      font-weight: 300;
-    }
-
-    .toggle-btn1:focus {
-      outline: 2px solid var(--primary);
-    }
-
-    .toggle-left {
-      left: 5px;
-    }
-
-    .toggle-right {
-      right: 5px;
-    }
-
-    .slideshow-refresh-btn {
-      background-color: transparent;
-      border: none;
-      padding: 15px 10px;
-      padding-right: 25px;
-      font-size: 20px;
-      color: var(--primary);
-      font-family: var(--big-font);
-      border: 2px solid var(--primary);
-      border-radius: 100px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin-top: 1.5rem;
-      margin-right: 10px;
-      margin-left: 10px;
-    }
-
-    .slideshow-refresh-btn .emoji {
-      margin-right: 5px;
-    }
-
-    .slideshow-refresh-btn:hover {
-      background-color: var(--primary-hover);
-      border-color: var(--primary-hover);
-      color: var(--primary-color);
-    }
-
-    .slideshow-refresh-btn:focus {
-      outline: 2px solid white;
-    }
-
-    @media(max-width:600px) {
-
-      .toggle-left,
-      .toggle-right {
-        z-index: 3222;
-      }
-
-      .slideshow-card-wrapper {
-        max-width: 100%;
-        width: 100vw;
-        margin: 0;
-      }
-
-      .slideshow-card {
-        margin: 0;
-      }
-    }
-  </style>
 
 
 </head>
@@ -958,7 +856,6 @@ text-align:center;
   height: 100%;
   min-height: 100%;">
 
-    <canvas id="pondCanvas"></canvas>
     <nav id="tnav" style="display:none;">
       <a href="index.html" class="active">Portfolio</a>
       <a href="services.html">Services</a>
@@ -968,15 +865,6 @@ text-align:center;
    
 
 
-    <div style="height: 80vh;display: flex;
-  align-items: center; 
-  justify-content: center;" id="logo-scene">
-      <div style="display:block;text-align:cenwter;">
-
-        <div class="network no-select"></div>
-        <p style="display:none;font-size:2rem;color:rgba(255,255,255,0.5);font-weight:400;">Developer Portfolio</p>
-      </div>
-    </div>
     <div id="web-content">
       <div style="
   background-color: var(--card-bg);">
@@ -993,59 +881,7 @@ text-align:center;
 
           <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
             <div style="margin:0 auto;">
-               <div id="social-links" style="">
-      <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" class="social-link"><svg
-          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round" color="currentColor"
-          class="size-5 transition-all hover:text-primary group-focus:text-primary size-[1.35rem]">
-          <path d="M7 10V17" stroke="currentColor"></path>
-          <path d="M11 13V17M11 13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17M11 13V10"
-            stroke="currentColor"></path>
-          <path d="M7.00801 7L6.99902 7" stroke="currentColor"></path>
-          <path
-            d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
-            stroke="currentColor"></path>
-        </svg></a>
-      <a href="https://github.com/eldiiarbekbolotov" target="_blank" class="social-link"><svg
-          style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-          class="h-6 w-6" aria-hidden="true">
-          <path
-            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-          </path>
-        </svg></a>
-      <a href="mailto:eldiiarbekbolotov@gmail.com" class="social-link"><svg xmlns="http://www.w3.org/2000/svg"
-          width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"
-          stroke-linejoin="round" color="currentColor"
-          class="size-5 transition-all hover:text-primary group-focus:text-primary">
-          <path d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6" stroke="currentColor">
-          </path>
-          <path
-            d="M2.01577 13.4756C2.08114 16.5412 2.11383 18.0739 3.24496 19.2094C4.37608 20.3448 5.95033 20.3843 9.09883 20.4634C11.0393 20.5122 12.9607 20.5122 14.9012 20.4634C18.0497 20.3843 19.6239 20.3448 20.7551 19.2094C21.8862 18.0739 21.9189 16.5412 21.9842 13.4756C22.0053 12.4899 22.0053 11.5101 21.9842 10.5244C21.9189 7.45886 21.8862 5.92609 20.7551 4.79066C19.6239 3.65523 18.0497 3.61568 14.9012 3.53657C12.9607 3.48781 11.0393 3.48781 9.09882 3.53656C5.95033 3.61566 4.37608 3.65521 3.24495 4.79065C2.11382 5.92608 2.08114 7.45885 2.01576 10.5244C1.99474 11.5101 1.99475 12.4899 2.01577 13.4756Z"
-            stroke="currentColor"></path>
-        </svg></a>
-
-
-
-      <a class="ai no-select" href="eldiiargpt.html" style="display:none;">
-        <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
-          height="24" viewBox="0 0 24 24" width="24">
-          <g>
-            <rect fill="none" height="24" width="24"></rect>
-          </g>
-          <g>
-            <g>
-              <path
-                d="M17.5 12c0-3.04 2.46-5.5 5.5-5.5-3.04 0-5.5-2.46-5.5-5.5 0 3.04-2.46 5.5-5.5 5.5 3.04 0 5.5 2.46 5.5 5.5z">
-              </path>
-              <path
-                d="M15.65 11.58c.18-.5.27-1.03.31-1.58h-2c-.1 1.03-.51 1.93-1.27 2.69-.88.87-1.94 1.31-3.19 1.31C7.03 14 5 12.07 5 9.5 5 7.03 6.93 5 9.5 5c.46 0 .89.08 1.3.2l1.56-1.56C11.5 3.22 10.55 3 9.5 3 5.85 3 3 5.85 3 9.5S5.85 16 9.5 16c.56 0 2.26-.06 3.8-1.3l6.3 6.3 1.4-1.4-6.3-6.3c.4-.5.72-1.08.95-1.72z">
-              </path>
-            </g>
-          </g>
-        </svg>
-        <span style="letter-spacing:-1px;">AI Mode</span>
-      </a>
-    </div>
+            
             </div>
           </div>
 
@@ -1341,37 +1177,11 @@ text-align:center;
                 </div>
               </div>
             </a>
-             <a href="https://unitedhacks.hackunited.org"class="cardlink"  target="_blank">
-              <div class="card">
-                <img src="src/hackunited.png" alt="Lucid" />
-                <div class="card-content">
-                  <h2><span>Hack United</span></h2>
-                  <p>
-                  1,000+ participant hackathons
-                  </p>
-                  <div class="card-tags">
-                    <span class="tag">Head of Technology</span>
-                    <span class="tag">Sponsorships</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-             <a href="https://doppels.vercel.app/"class="cardlink"  target="_blank">
-              <div class="card">
-                <img src="src/doppel.png" alt="Lucid" />
-                <div class="card-content">
-                  <h2><span>Doppels</span></h2>
-                  <p>
-                   AI social network
-                  </p>
-                  <div class="card-tags">
-                    <span class="tag">Design Lead</span>
-                    <span class="tag">McHacks 13 Winner</span>
-                  </div>
-                </div>
-              </div>
-            </a>
           </div>
+          <p style="margin-top: 28px;">
+            <a href="gallery.html" class="gallery-cta">Archived Projects
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </p>
           <p><a href="archive.html" class="underline-link" style="display:none;">View Project Archive</a></p>
         </div>
         <!--  PROJECT SHOWCASE END  -->
@@ -1384,21 +1194,145 @@ text-align:center;
         ">
           <h1 class="section-title">
 
-            Technical Skills
           </h1>
-          <p style="text-align: left;max-width:950px;margin:0 auto;">
-          
-          </p>
-          <div class="filters" style="margin-top:35px;">
-            <div class="filter active" data-category="all">All</div>
-            <div class="filter" data-category="language">Languages</div>
-            <div class="filter" data-category="frontend">Frontend</div>
-            <div class="filter" data-category="backend">Backend</div>
-            <div class="filter" data-category="tool">Tools</div>
-            <div class="filter" data-category="design">Design</div>
-          </div>
+          <!-- 3D MacBook (fails silently: stays hidden if WebGL/model/CDN unavailable) -->
+          <div id="laptop3d" style="display:none;position:relative;z-index:0;"></div>
+          <script>
+            (function () {
+              'use strict';
+              var host = document.getElementById('laptop3d');
+              function abort(e) {
+                try { if (host && host.parentNode) host.parentNode.removeChild(host); } catch (_) {}
+                try { document.body.classList.add('no-laptop3d'); } catch (_) {}
+                if (e) try { console.warn('3D laptop skipped:', e); } catch (_) {}
+              }
+              try {
+                // no 3D on mobile — the skills marquee takes over there
+                if (window.matchMedia && matchMedia('(max-width: 768px)').matches) return abort();
+                if (!host || !window.WebGLRenderingContext) return abort();
+                var testGl = document.createElement('canvas').getContext('webgl2') ||
+                             document.createElement('canvas').getContext('webgl');
+                if (!testGl) return abort();
 
-          <div class="grid" id="skillsGrid"></div>
+                var CDN = 'https://cdn.jsdelivr.net/npm/three@0.160.0';
+                Promise.all([
+                  import(CDN + '/+esm'),
+                  import(CDN + '/examples/jsm/loaders/GLTFLoader.js/+esm'),
+                  import(CDN + '/examples/jsm/environments/RoomEnvironment.js/+esm')
+                ]).then(function (mods) {
+                  var THREE = mods[0], GLTFLoader = mods[1].GLTFLoader, RoomEnvironment = mods[2].RoomEnvironment;
+
+                  var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+                  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                  renderer.toneMappingExposure = 1.05;
+                  // z-index:0 overrides the global `canvas { z-index:-1 }` rule in css/main.css
+                  renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;';
+
+                  var scene = new THREE.Scene();
+                  var pmrem = new THREE.PMREMGenerator(renderer);
+                  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.02).texture;
+
+                  var camera = new THREE.PerspectiveCamera(35, 1, 0.001, 10000);
+                  scene.add(new THREE.HemisphereLight(0xdfe6ff, 0x1a1e28, 0.5));
+                  var key = new THREE.DirectionalLight(0xffffff, 1.5);
+                  key.position.set(3, 7, 5);
+                  scene.add(key);
+                  var rim = new THREE.DirectionalLight(0x9db8ff, 0.7);
+                  rim.position.set(-6, 3, -4);
+                  scene.add(rim);
+
+                  var pivot = new THREE.Group();
+                  scene.add(pivot);
+
+                  var mouse = { x: 0, y: 0 }, rot = { x: 0, y: 0 };
+                  var floatAmp = 0.02, model = null;
+
+                  new GLTFLoader().load(
+                    'macbook-pro-14-inch-m5/source/macbook_pro_14_inch_M5.glb',
+                    function (gltf) {
+                      try {
+                        model = gltf.scene;
+                        pivot.add(model);
+                        var box = new THREE.Box3().setFromObject(model);
+                        var size = box.getSize(new THREE.Vector3());
+                        var center = box.getCenter(new THREE.Vector3());
+                        var maxDim = Math.max(size.x, size.y, size.z);
+                        model.position.sub(center);
+                        floatAmp = maxDim * 0.03;
+                        // 1.6 leaves headroom so the float/tilt animation never clips at the canvas edges
+                        var dist = (maxDim / 2) / Math.tan((camera.fov * Math.PI / 180) / 2) * 1.6;
+                        camera.near = maxDim / 1000;
+                        camera.far = maxDim * 1000;
+                        camera.position.set(0, maxDim * 0.18, dist);
+                        camera.lookAt(0, 0, 0);
+
+                        // reveal only once everything is ready
+                        host.style.display = 'block';
+                        host.appendChild(renderer.domElement);
+                        resize();
+
+                        window.addEventListener('pointermove', function (e) {
+                          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                          mouse.y = (e.clientY / window.innerHeight) * 2 - 1;
+                        });
+                        window.addEventListener('resize', resize);
+
+                        var clock = new THREE.Clock();
+                        (function animate() {
+                          try {
+                            var dt = clock.getDelta();
+                            var t = clock.elapsedTime;
+                            var k = Math.min(1, dt * 5);
+                            rot.y += (mouse.x * 1.4 - rot.y) * k;
+                            rot.x += (mouse.y * 0.7 - rot.x) * k;
+                            pivot.rotation.y = rot.y + Math.sin(t * 0.25) * 0.06;
+                            pivot.rotation.x = rot.x;
+                            pivot.position.y = Math.sin(t * 0.9) * floatAmp;
+                            renderer.render(scene, camera);
+                            requestAnimationFrame(animate);
+                          } catch (e) { abort(e); }
+                        })();
+                      } catch (e) { abort(e); }
+                    },
+                    undefined,
+                    abort
+                  );
+
+                  function resize() {
+                    var w = host.clientWidth || 1, h = host.clientHeight || 1;
+                    camera.aspect = w / h;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(w, h);
+                  }
+                }).catch(abort);
+              } catch (e) { abort(e); }
+            })();
+          </script>
+          <style>
+            #laptop3d{ height:600px; max-width:950px; margin:0 auto; }
+            .orbit-icon{ position:absolute; left:0; top:0; width:40px; height:40px; will-change:transform; }
+            .orbit-icon svg, .orbit-icon img{ width:100%; height:100%; display:block;
+              filter:drop-shadow(0 2px 6px rgba(0,0,0,.18)); }
+            /* full-bleed: break out of the centered 80vw parent to the viewport edges */
+            .skills-marquee{ display:none; margin-top:35px; overflow:hidden;
+              width:100vw; margin-left:calc(50% - 50vw); margin-right:0; }
+            .skills-marquee .marquee-row{ display:flex; width:max-content; margin-bottom:12px;
+              animation:skillsMarquee 30s linear infinite; }
+            .skills-marquee .marquee-row.reverse{ animation-direction:reverse; }
+            .skill-chip{ display:inline-flex; align-items:center; gap:8px; margin-right:10px;
+              padding:8px 14px; border-radius:999px; border:1px solid rgba(127,127,127,.3);
+              font-size:14px; white-space:nowrap; }
+            .skill-chip svg, .skill-chip img{ width:20px; height:20px; flex:none; }
+            @keyframes skillsMarquee{ to{ transform:translateX(-50%); } }
+            /* marquee is the fallback when the 3D laptop can't load on desktop */
+            body.no-laptop3d .skills-marquee{ display:block; }
+            @media (max-width:768px){
+              #laptop3d{ display:none !important; }
+              .skills-marquee{ display:block; }
+            }
+          </style>
+          <div id="skillsMarquee" class="skills-marquee" aria-label="Technical skills"></div>
         </div>
 
         <div style="
@@ -1419,159 +1353,40 @@ text-align:center;
         </div>
 
       </div>
-      <div style="
-          padding: 30px;
-          text-align: center;
-          max-width: 80vw;
-          margin: 0 auto;
-          display:none;
-        " class="hidemobile">
-        <h2 class="section-title">What's inside?
-        </h2>
-        <p id="ty">
-          As a thank-you for making it to the end, click the gift box to reveal your mystery prize!
-        </p>
 
-      </div>
-      <div style="margin: 0 auto;text-align:center;
-          display:none;" class="hidemobile">
-        <svg id="giftBox" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 512 512" xml:space="preserve" fill="#EFE6D8" stroke="#EFE6D8" stroke-width="0.00512">
-
-          <g id="SVGRepo_iconCarrier">
-            <g>
-
-              <!-- Box body -->
-              <path fill="#8B5E3C" d="M448.424,198.784v293.948c0,10.577-8.609,19.268-19.268,19.268H45.261
-            c-10.659,0-19.268-8.691-19.268-19.268V198.784
-            c0-10.577,8.609-19.269,19.268-19.269h383.895
-            C439.815,179.515,448.424,188.206,448.424,198.784z" />
-
-              <!-- Box lid -->
-              <path fill="#C4A484" d="M474.416,157.623v73.221c0,16.235-13.283,29.6-29.6,29.6H29.6
-            C13.283,260.444,0,247.079,0,230.843v-73.221
-            c0-16.235,13.283-29.6,29.6-29.6h415.217
-            C461.133,128.023,474.416,141.388,474.416,157.623z" />
-
-              <!-- Ribbon vertical -->
-              <rect x="189.054" y="259.145" width="96.309" height="252.643" fill="#5A3A2E" />
-              <rect x="189.078" y="127.695" width="96.261" height="132.748" fill="#8B5E3C" />
-
-              <!-- Gradients -->
-              <defs>
-                <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="188.4222" y1="135.2383" x2="285.9946"
-                  y2="135.2383">
-                  <stop offset="0.03" stop-color="#8B5E3C" />
-                  <stop offset="1" stop-color="#5A3A2E" />
-                </linearGradient>
-
-                <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="68.6858" y1="63.7493" x2="228.107"
-                  y2="63.7493">
-                  <stop offset="0.03" stop-color="#C4A484" />
-                  <stop offset="1" stop-color="#8B5E3C" />
-                </linearGradient>
-
-                <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="246.3099" y1="63.7815" x2="405.731"
-                  y2="63.7815">
-                  <stop offset="0.03" stop-color="#C4A484" />
-                  <stop offset="1" stop-color="#8B5E3C" />
-                </linearGradient>
-              </defs>
-
-              <!-- Bow center -->
-              <path fill="url(#SVGID_1_)" d="M285.995,135.239c0,18.12-21.54,31.485-48.786,31.485
-            c-27.246,0-48.786-13.365-48.786-31.485
-            c0-18.119,21.54-31.485,48.786-31.485
-            C264.455,103.754,285.995,117.12,285.995,135.239z" />
-
-              <!-- Bow left -->
-              <path fill="url(#SVGID_2_)" d="M228.107,116.298c0,7.625-6.559,11.971-18.039,11.397
-            l-118.363-6.363c-15.251-0.82-24.27-13.529-18.039-26.156
-            l38.291-74.697c8.609-16.891,25.418-18.612,37.307-3.853
-            l74.286,92.407
-            C226.549,111.294,228.107,113.996,228.107,116.298z" />
-
-              <!-- Bow right -->
-              <path fill="url(#SVGID_3_)" d="M246.31,116.298c0,7.625,6.559,11.971,18.039,11.397
-            l118.363-6.363c15.251-0.82,24.27-13.529,18.039-26.156
-            l-38.291-74.697c-8.609-16.891-25.418-18.612-37.307-3.853
-            l-74.286,92.407
-            C247.868,111.294,246.31,113.996,246.31,116.298z" />
-
-            </g>
-          </g>
-        </svg>
-
-        <p style="padding: 30px;max-width:80vw;margin:0 auto;margin-top:-40px;text-align:center;" id="msg1"></p>
-
-
-
-
-        <!-- SLIDESHOW + Abacus per-project likes (JSONP, robust) -->
-        <div class="slideshow-container">
-          <div class="slideshow-card-wrapper">
-            <a id="card-link" href="">
-              <div class="slideshow-card" id="game-card">
-                <button class="toggle-btn1 toggle-left" id="toggle-left">&lt;</button>
-                <img src="" alt="Game Image" class="card-media" id="card-img">
-                <video autoplay loop muted playsinline class="card-media hidden" id="card-video">
-                  <source src="" type="video/mp4">
-                  Your browser does not support video.
-                </video>
-                <button class="toggle-btn1 toggle-right" id="toggle-right">&gt;</button>
-                <h2 id="card-title"></h2>
-                <p id="card-desc"></p>
-
-
-              </div>
-            </a>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <button id="like-btn" class="slideshow-refresh-btn">
-              <span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                  viewBox="0 -960 960 960" width="24px">
-                  <path
-                    d="M479-186q-17 0-31.5-6T421-209l-54-49q-102-93-184.5-186T100-642q0-83 57.5-139.5T298-838q47 0 94.5 23.5T480-736q40-55 87.5-78.5T662-838q83 0 140.5 56.5T860-642q0 108-87.5 202.5T594-260l-56 51q-12 11-27 17t-32 6Z" />
-                </svg></span> <span id="like-count">0</span>
-            </button>
-            <button class="slideshow-refresh-btn" id="refresh-btn">
-              <span class="emoji" style="font-style:normal;"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                  viewBox="0 -960 960 960" width="24px">
-                  <path
-                    d="M160-80v-440H80v-240h208q-5-9-6.5-19t-1.5-21q0-50 35-85t85-35q23 0 43 8.5t37 23.5q17-16 37-24t43-8q50 0 85 35t35 85q0 11-2 20.5t-6 19.5h208v240h-80v440H160Zm400-760q-17 0-28.5 11.5T520-800q0 17 11.5 28.5T560-760q17 0 28.5-11.5T600-800q0-17-11.5-28.5T560-840Zm-200 40q0 17 11.5 28.5T400-760q17 0 28.5-11.5T440-800q0-17-11.5-28.5T400-840q-17 0-28.5 11.5T360-800ZM160-680v80h280v-80H160Zm280 520v-360H240v360h200Zm80 0h200v-360H520v360Zm280-440v-80H520v80h280Z" />
-                </svg></span> New Prize</button>
-          </div>
-        </div>
-
-      </div>
+     
 
       <footer style="background:var(--bg-footer);padding-top:45px;padding:0;">
         <div style="display: flex; justify-content: space-between;padding: 0 20px;">
           <p>
             <span id="visits"style="color:#FFF !important;"></span>
           </p>
-          <p style="color:#FFF !important;text-align:center;font-family:arial;">
-            &copy; 2025 <span id="currentYear"></span>
+          <p style="color:#FFF !important;opacity:0;text-align:center;font-family:arial;">
+            &copy; <span id="currentYear"></span>
           
           </p>
           <p>
-            <a href="https://github.com/EldiiarBekbolotov" target="_blank">
-              <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#FFF"
-                class="h-6 w-6" aria-hidden="true">
-                <path
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
-                </path>
-              </svg>
-            </a>
+         
           </p>
         </div>
         <img src="src/mylogo.svg" style="width:100vw;">
-        <p style="text-align:center;"style="color:#FFF !important;">
+        <style>
+          .footer-link{ color:#9e9e9e; text-decoration:none; font-family:arial; font-size:15px;
+            transition:color .2s ease; }
+          .footer-link:hover{ color:#fff; text-decoration:none; }
+        </style>
+        <div style="display:flex;gap:50px;padding:50px 35px 0;">
+          <a href="https://www.linkedin.com/in/eldiiar/" target="_blank" rel="noopener"
+            class="footer-link">LinkedIn</a>
+          <a href="https://github.com/EldiiarBekbolotov" target="_blank" rel="noopener"
+            class="footer-link">GitHub</a>
+        </div>
+        <p style="text-align:center;display:none;color:#FFF !important;">
           <span style="color:#FFF !important;font-family:arial;">Last updated on</span>
           <span id="commit-date"style="color:#FFF !important;">Loading...</span>
 
         </p>
-
+  
         <script>
           const owner = 'EldiiarBekbolotov';
           const repo = 'eldiiarbekbolotov.github.io';
@@ -1604,59 +1419,37 @@ text-align:center;
               console.error(error);
               document.getElementById('commit-date').textContent = 'Error loading data';
             });</script>
-        <div style="height:120px;"></div>
+        <div style="height:35px;"></div>
       </footer>
     </div>
   </div>
   <script src="js/techstack.js"></script>
-  <script src="js/index.js"></script>
   <script>
-    const giftSvg = document.getElementById("giftBox");
-    const slideshow = document.querySelector(".slideshow-container");
-
-    document.querySelector("#msg1").style.display = 'none';
-    slideshow.style.display = "none";
-
-    giftSvg.style.cursor = "pointer";
-    giftSvg.addEventListener("click", () => {
-      giftSvg.style.transition = "transform 0.6s ease, opacity 0.6s ease";
-      giftSvg.style.transformOrigin = "center";
-      giftSvg.style.animation = "wiggle 0.6s ease forwards";
-      giftSvg.style.transform = "scale(1.3)";
-      giftSvg.style.opacity = "0";
-
-      setTimeout(() => {
-        giftSvg.style.display = "none";
-
-        document.querySelector("#msg1").style.display = 'block';
-
-        document.querySelector("#msg1").style.opacity = "0";
-
-        document.querySelector("#msg1").style.transition = "opacity 0.6s ease";
-        slideshow.style.display = "flex";
-        slideshow.style.opacity = "0";
-        slideshow.style.transition = "opacity 0.6s ease";
-        requestAnimationFrame(() => {
-          slideshow.style.opacity = "1";
-
-          document.querySelector("#ty").style.display = 'none';
-          document.querySelector("#msg1").style.opacity = '1';
+    // kept from js/index.js (no longer loaded here): button ripple + theme class.
+    // The pond canvas and logo intro were removed for performance.
+    (function () {
+      document.querySelectorAll(".rp-button").forEach((button) => {
+        const rp = document.createElement("div");
+        rp.classList.add("rp");
+        button.appendChild(rp);
+        button.addEventListener("mousemove", (e) => {
+          const rect = button.getBoundingClientRect();
+          rp.style.left = `${e.clientX - rect.left}px`;
+          rp.style.top = `${e.clientY - rect.top}px`;
+          rp.style.transform = "translate(-50%, -50%) scale(1)";
+          rp.style.opacity = "1";
+          rp.style.borderRadius = "20%";
+          button.style.color = "#000";
         });
-      }, 600);
-    });
-
-    const style = document.createElement("style");
-    style.textContent = `
-    @keyframes wiggle {
-      0% { transform: rotate(0deg) scale(1); }
-      20% { transform: rotate(-10deg) scale(1.05); }
-      40% { transform: rotate(10deg) scale(1.1); }
-      60% { transform: rotate(-8deg) scale(1.2); }
-      80% { transform: rotate(8deg) scale(1.25); }
-      100% { transform: rotate(0deg) scale(1.3); }
-    }
-  `;
-    document.head.appendChild(style);
+        button.addEventListener("mouseleave", () => {
+          rp.style.transform = "translate(-50%, -50%) scale(0)";
+          rp.style.opacity = "1";
+          rp.style.borderRadius = "50%";
+          button.style.color = "#FFF";
+        });
+      });
+      document.body.classList.add("theme1");
+    })();
   </script>
   <script>
     function toggleDescription(id) {
@@ -1673,19 +1466,9 @@ text-align:center;
   </script>
   <script type>
     document.getElementById("currentYear").innerText =
-      new Date().getFullYear() == 2025 ? "" : "- " + new Date().getFullYear();
-    /* pond */
-    animateText("Eldiiar Bekbolotov");
-    document.getElementById("logo-scene").style.display = "none";
-
+      new Date().getFullYear() == 2025 ? "" : new Date().getFullYear();
     document.getElementById("web-content").style.display = "block";
     document.getElementById("web-content").style.opacity = 1;
-    function animate() {
-      pond.update();
-      pond.draw();
-      window.pondAnimationFrame = requestAnimationFrame(animate);
-    }
-    animate();
 
 
   </script>
@@ -1758,219 +1541,125 @@ text-align:center;
     })();
   </script>
   <script>
-    const grid = document.getElementById("skillsGrid");
-    const filters = document.querySelectorAll(".filter");
+    (function () {
+      if (typeof skills === "undefined" || !Array.isArray(skills)) return;
+      var sorted = skills.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
 
-    function displaySkills(category = "all") {
-      grid.innerHTML = "";
-      const filtered =
-        category === "all"
-          ? skills
-          : skills.filter((skill) => skill.category === category);
+      // Only detect inline SVG markup, not .svg files
+      function iconHTML(s) {
+        return /<svg/i.test(s.img) ? s.img : '<img src="' + s.img + '" alt="' + s.name + '">';
+      }
 
-      // Sort alphabetically by name
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
+      // mobile + fallback: 3-row never-stopping marquee
+      var mq = document.getElementById("skillsMarquee");
+      if (mq) {
+        var rows = [[], [], []];
+        sorted.forEach(function (s, i) { rows[i % 3].push(s); });
+        var isMobile = window.matchMedia && matchMedia("(max-width: 768px)").matches;
+        rows.forEach(function (row, ri) {
+          var r = document.createElement("div");
+          r.className = "marquee-row" + (ri % 2 ? " reverse" : "");
+          r.style.animationDuration = (26 + ri * 7) * (isMobile ? 10 : 1) + "s";
+          var half = row.map(function (s) {
+            return '<span class="skill-chip">' + iconHTML(s) + "<span>" + s.name + "</span></span>";
+          }).join("");
+          r.innerHTML = half + half; // duplicated so translateX(-50%) loops seamlessly
+          mq.appendChild(r);
+        });
+      }
 
-      filtered.forEach((skill) => {
-        const card = document.createElement("div");
-        card.className = "skill-card";
-
-        // Only detect inline SVG markup, not .svg files
-        const regex = /<svg/i;
-        if (regex.test(skill.img)) {
-          card.innerHTML = `${skill.img}<div class="skill-name">${skill.name}</div>`;
-        } else {
-          card.innerHTML = `<img src="${skill.img}" alt="${skill.name}"><div class="skill-name">${skill.name}</div>`;
+      // desktop: icons orbiting the MacBook on 3 elliptical rings
+      var host = document.getElementById("laptop3d");
+      if (!host || (window.matchMedia && matchMedia("(max-width: 768px)").matches)) return;
+      // ring gaps and per-ring counts are sized so icons (40px, max scale 1.1)
+      // can never touch: same-ring arc spacing and cross-ring gaps stay > icon size
+      var rings = [
+        { rx: 0.340, ry: 0.220, speed: 0.30, dir: 1,  count: 12, items: [] },
+        { rx: 0.405, ry: 0.310, speed: 0.22, dir: -1, count: 16, items: [] },
+        { rx: 0.470, ry: 0.400, speed: 0.16, dir: 1,  count: 20, items: [] }
+      ];
+      var ringIdx = 0, placed = 0;
+      sorted.forEach(function (s) {
+        if (placed >= rings[ringIdx].count && ringIdx < rings.length - 1) { ringIdx++; placed = 0; }
+        var el = document.createElement("div");
+        el.className = "orbit-icon";
+        el.title = s.name;
+        el.style.visibility = "hidden"; // revealed by the first tick that places it on its orbit
+        el.innerHTML = iconHTML(s);
+        rings[ringIdx].items.push(el);
+        placed++;
+        host.appendChild(el);
+      });
+      rings.forEach(function (ring) {
+        ring.phase = 0;
+        ring.factor = 1;   // eases toward 0.12 while the cursor is near one of the ring's icons
+        ring.near = false;
+        ring.items.forEach(function (el, i) {
+          el.dataset.angle = (i * Math.PI * 2 / ring.items.length);
+        });
+      });
+      // cursor proximity instead of mouseenter: works for icons behind the canvas
+      // and keeps working when an icon drifts under a stationary cursor.
+      // coordinates are divided by the rendered/layout ratio so ancestor
+      // transform scaling can't skew the hit math
+      var cursor = null;
+      function trackCursor(e) {
+        var r = host.getBoundingClientRect();
+        var sx = host.offsetWidth ? r.width / host.offsetWidth : 1;
+        var sy = host.offsetHeight ? r.height / host.offsetHeight : 1;
+        cursor = { x: (e.clientX - r.left) / (sx || 1), y: (e.clientY - r.top) / (sy || 1) };
+      }
+      host.addEventListener("pointermove", trackCursor);
+      host.addEventListener("mousemove", trackCursor);
+      host.addEventListener("pointerleave", function () { cursor = null; });
+      host.addEventListener("mouseleave", function () { cursor = null; });
+      var prev = null;
+      function tick(now) {
+        var dt = prev === null ? 0 : Math.min(0.1, (now - prev) / 1000);
+        prev = now;
+        var w = host.clientWidth, h = host.clientHeight;
+        if (w && h) {
+          var cx = w / 2, cy = h / 2;
+          rings.forEach(function (ring) {
+            var target = ring.near ? 0.12 : 1;
+            ring.factor += (target - ring.factor) * Math.min(1, dt * 6);
+            ring.phase += dt * ring.speed * ring.dir * ring.factor;
+            var near = false;
+            // hovering anywhere along the ring's elliptical path counts, not just on icons
+            if (cursor) {
+              var px = cursor.x - cx, py = cursor.y - cy;
+              var ca = Math.atan2(py / (ring.ry * h), px / (ring.rx * w));
+              var nx = Math.cos(ca) * ring.rx * w - px;
+              var ny = Math.sin(ca) * ring.ry * h - py;
+              if (nx * nx + ny * ny < 2500) near = true; // within 50px of the orbit path
+            }
+            var grow = 1 + 0.12 * (1 - ring.factor); // slowed ring's icons swell slightly
+            ring.items.forEach(function (el) {
+              var a = parseFloat(el.dataset.angle) + ring.phase;
+              var x = cx + Math.cos(a) * ring.rx * w;
+              var y = cy + Math.sin(a) * ring.ry * h;
+              var depth = (Math.sin(a) + 1) / 2; // 0 = behind the laptop, 1 = in front
+              el.style.transform = "translate3d(" + (x - 20) + "px," + (y - 20) + "px,0) scale(" + ((0.6 + 0.4 * depth) * grow) + ")";
+              el.style.opacity = (0.45 + 0.55 * depth).toFixed(2);
+              el.style.zIndex = depth > 0.5 ? 2 : -1; // laptop canvas sits at z-index 0
+              if (el.style.visibility) el.style.visibility = "";
+              if (cursor && !near) {
+                var dx = x - cursor.x, dy = y - cursor.y;
+                if (dx * dx + dy * dy < 2116) near = true; // within 46px of the icon center
+              }
+            });
+            ring.near = near;
+          });
         }
-
-        grid.appendChild(card);
-      });
-    }
-
-    filters.forEach((filter) => {
-      filter.addEventListener("click", () => {
-        filters.forEach((f) => f.classList.remove("active"));
-        filter.classList.add("active");
-        displaySkills(filter.getAttribute("data-category"));
-      });
-    });
-
-    // Initial display
-    displaySkills();
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
   </script>
 
 
 
 
-  <script>
-    const ABACUS_BASE = "https://abacus.jasoncameron.dev";
-    const SITE_IDS = [
-      "eldiiarbekbolotov.github.io",
-      "eldiiarcodes.web.app"
-    ];
-
-    const projects = [
-      {
-        key: "natuwars", title: "NATUWARS v0.4", desc: "Indie 2D offline shooter game built using 7,500 lines of JavaScript. You can save your progress anywhere.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-        img: "src/natuwars.png", video: "src/natuwars.mp4", link: "games/natuwars.html"
-      },
-      {
-        key: "leaferscraft", title: "LeafersCraft v0.3", desc: "WebGL platformer obby with creative mode to build and save your own worlds.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-        img: "src/leaferscraft.png", video: "src/leaferscraft.mp4", link: "games/leaferscraft.html"
-      },
-      {
-        key: "laserfocus", title: "LASER FOCUS", desc: "Gamified concentration test.<br /><em style='font-size:16px;'>Released summer 2023 under the nickname LeaferStudios.</em>",
-        img: "src/laserfocus.png", video: "src/laserfocus.mp4", link: "games/laserfocus.html"
-      },
-      {
-        key: "roguerun", title: "Rogue Run", desc: "Defend yourself and your base from alien spaceships!<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-        img: "src/roguerun.png", video: "src/roguerun.mp4", link: "games/roguerun.html"
-      },
-      {
-        key: "cars", title: "Cars", desc: "Dodge incoming cars in a highway.<br /><em style='font-size:16px;'>Released summer 2024 under the nickname LeaferStudios.</em>",
-        img: "src/cars.png", video: "src/cars.mp4", link: "games/cars.html"
-      }
-    ];
-
-    let currentIndex = 0;
-    let mediaIndex = 1; // 0=image, 1=video
-    let currentProjectKey = null;
-
-    const cardImg = document.getElementById("card-img");
-    const cardVideo = document.getElementById("card-video");
-    const cardTitle = document.getElementById("card-title");
-    const cardDesc = document.getElementById("card-desc");
-    const cardLink = document.getElementById("card-link");
-    const likeBtn = document.getElementById("like-btn");
-    const likeCountEl = document.getElementById("like-count");
-
-    function jsonp(url, timeout = 7000) {
-      return new Promise((resolve, reject) => {
-        const cb = "abacus_cb_" + Math.random().toString(36).slice(2);
-        const sep = url.includes("?") ? "&" : "?";
-        const full = url + sep + "callback=" + cb;
-
-        let timedOut = false;
-        const script = document.createElement("script");
-        script.src = full;
-        script.async = true;
-
-        const timer = setTimeout(() => {
-          timedOut = true;
-          cleanup();
-          reject(new Error("JSONP timeout"));
-        }, timeout);
-
-        function cleanup() {
-          clearTimeout(timer);
-          script.remove();
-          try { delete window[cb]; } catch (e) { window[cb] = undefined; }
-        }
-
-        window[cb] = function (data) {
-          if (timedOut) return;
-          cleanup();
-          resolve(data);
-        };
-
-        script.onerror = () => {
-          cleanup();
-          reject(new Error("JSONP network error"));
-        };
-
-        document.head.appendChild(script);
-      });
-    }
-
-    async function hitIncrementAcrossSites(key) {
-      const safeKey = encodeURIComponent(key);
-      const promises = SITE_IDS.map(site => {
-        const url = `${ABACUS_BASE}/hit/${encodeURIComponent(site)}/${safeKey}`;
-        return jsonp(url)
-          .then(res => res && typeof res.value === "number" ? res.value : null)
-          .catch(() => null);
-      });
-      const results = await Promise.all(promises);
-      const valid = results.filter(v => typeof v === "number");
-      return valid.length ? valid.reduce((s, v) => s + v, 0) : null;
-    }
-
-    let lastLoadToken = 0;
-
-    async function loadLikesForProject(key) {
-      const token = ++lastLoadToken;
-      likeCountEl.textContent = "…";
-
-      try {
-        const total = await hitIncrementAcrossSites(key);
-        if (token === lastLoadToken && key === currentProjectKey) {
-          likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : "0";
-        }
-      } catch {
-        if (token === lastLoadToken && key === currentProjectKey) {
-          likeCountEl.textContent = "0";
-        }
-      }
-    }
-
-    async function addLikeForProject(key) {
-      const prev = Number(likeCountEl.textContent) || 0;
-      likeCountEl.textContent = String(prev + 1);
-      try {
-        const total = await hitIncrementAcrossSites(key);
-        if (key === currentProjectKey) {
-          likeCountEl.textContent = total !== null ? String(Math.round(total / 2)) : String(prev);
-        }
-      } catch {
-        if (key === currentProjectKey) {
-          likeCountEl.textContent = String(prev);
-        }
-      }
-    }
-
-    function fadeOutIn(element, callback) {
-      element.style.opacity = 0;
-      setTimeout(() => { callback(); element.style.opacity = 1; }, 300);
-    }
-
-    function displayProject(index) {
-      const proj = projects[index];
-      currentProjectKey = proj.key;
-
-      fadeOutIn(cardTitle, () => cardTitle.textContent = proj.title);
-      fadeOutIn(cardDesc, () => cardDesc.innerHTML = proj.desc);
-      fadeOutIn(cardImg, () => cardImg.src = proj.img);
-      fadeOutIn(cardVideo, () => {
-        const srcEl = cardVideo.querySelector("source");
-        srcEl.src = proj.video;
-        cardVideo.load();
-      });
-
-      mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
-      mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
-      cardLink.href = proj.link;
-
-      loadLikesForProject(proj.key);
-    }
-
-    document.getElementById("refresh-btn").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % projects.length;
-      mediaIndex = 1;
-      displayProject(currentIndex);
-    });
-
-    function toggleMedia(next = true) {
-      mediaIndex = (mediaIndex + (next ? 1 : -1) + 2) % 2;
-      mediaIndex === 0 ? cardImg.classList.remove("hidden") : cardImg.classList.add("hidden");
-      mediaIndex === 1 ? cardVideo.classList.remove("hidden") : cardVideo.classList.add("hidden");
-    }
-
-    document.getElementById("toggle-left").addEventListener("click", e => { e.preventDefault(); toggleMedia(false); });
-    document.getElementById("toggle-right").addEventListener("click", e => { e.preventDefault(); toggleMedia(true); });
-    likeBtn.addEventListener("click", e => { e.preventDefault(); addLikeForProject(projects[currentIndex].key); });
-
-    displayProject(currentIndex);
-  </script>
 
   <!-- simple counter -->
   <script>
