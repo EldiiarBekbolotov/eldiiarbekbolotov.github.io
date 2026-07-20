@@ -150,10 +150,10 @@
     border-radius:2px 2px 0 0;
     -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     font-size:clamp(20px, 3vw, 32px);
-    font-weight:600; line-height:1.15; color:#fff; }
+    font-weight:300; line-height:1.15; color:#fff; }
   #media { position:relative; width:100%; pointer-events:auto; cursor:pointer; }
   #media img { display:block; width:100%; height:auto;
-    border:1px solid var(--line); border-radius:0 0 2px 2px;
+    border:1px solid var(--line); border-top:0; border-radius:0 0 2px 2px;
     box-shadow:0 24px 70px rgba(0,0,0,.55); transition:filter .2s; }
   #media:hover img { filter:brightness(.55); }
   #viewTag { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -351,11 +351,11 @@ const MODEL_URL = './environment-vr-room-baked/source/Untitled.glb';
 
 /* ---------- projects (one per 72° stage) ---------- */
 const PROJECTS = [
-  { title:'Khan Profile Viewer', year:'2025',
-    desc:'Interactive portfolio of your Khan Academy Computer Programming projects.',
-    long:'Interactive portfolio of your Khan Academy Computer Programming projects! Browse any user’s programs, spin-offs and stats in a clean interface.',
-    demo:'https://khanprofileviewer.web.app/', gh:'https://github.com/EldiiarBekbolotov/khan-profile-viewer',
-    img:'./images/projects/kpv.jpg' },
+  { title:'OpenScope', year:'2025',
+    desc:'Chief Technology Officer.',
+    long:'OpenScope — serving as Chief Technology Officer.',
+    demo:'https://openscope.netlify.app/', gh:null,
+    img:'./src/openscope.png' },
   { title:'Doppels', year:'2025',
     desc:'AI social network.',
     long:'AI social network — Design Lead. Winner at McHacks 13.',
@@ -371,11 +371,11 @@ const PROJECTS = [
     long:'Hack United — nonprofit running 1,000+ participant hackathons. Served as Head of Technology and on sponsorships.',
     demo:'https://unitedhacks.hackunited.org', gh:null,
     img:'./src/hackunited.png' },
-  { title:'OpenScope', year:'2025',
-    desc:'Chief Technology Officer.',
-    long:'OpenScope — serving as Chief Technology Officer.',
-    demo:'https://openscope.netlify.app/', gh:null,
-    img:'./src/openscope.png' },
+  { title:'Khan Profile Viewer', year:'2025',
+    desc:'Interactive portfolio of your Khan Academy Computer Programming projects.',
+    long:'Interactive portfolio of your Khan Academy Computer Programming projects! Browse any user’s programs, spin-offs and stats in a clean interface.',
+    demo:'https://khanprofileviewer.web.app/', gh:'https://github.com/EldiiarBekbolotov/khan-profile-viewer',
+    img:'./images/projects/kpv.jpg' },
 ];
 
 /* ---------- renderer / scene ---------- */

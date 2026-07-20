@@ -323,7 +323,6 @@ footer p {
   width: 100%;
   margin: 0;
   display: block;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -356,8 +355,19 @@ footer p {
   padding: 45px;
 }
 
+#about h1 {
+  margin: 0;
+  padding-top: 55px;
+  line-height: 1.2;
+}
+
 #lang-showcase {
-  padding-top: 50px;
+  padding: 45px 45px 20px;
+  text-align: left;
+}
+
+#lang-showcase.about-aside {
+  display: block;
 }
 
 @media (min-width: 1000px) {
@@ -373,6 +383,23 @@ footer p {
   #lang-showcase {
     padding: 40px;
     width: 50%;
+  }
+
+  #lang-showcase.about-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  /* Same top offset + line box as the h1 so the button sits on that line */
+  #lang-showcase.about-aside .about-toggle {
+    margin: 0;
+    padding-top: 55px;
+    height: calc(3rem * 1.2);
+    box-sizing: content-box;
+    align-items: center;
   }
 
   #tech img {

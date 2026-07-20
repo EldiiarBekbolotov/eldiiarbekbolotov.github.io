@@ -56,6 +56,56 @@
     rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css" />
   <style>
+    .about-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin: 8px 0 4px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--accent-color, var(--primary));
+      font: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .about-toggle-icon {
+      font-size: 20px;
+      line-height: 1;
+      transition: transform 0.4s ease;
+    }
+
+    .about-toggle[aria-expanded="true"] .about-toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Natural height open: animate grid rows 0fr → 1fr */
+    .about-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s ease;
+    }
+
+    .about-body.is-open {
+      grid-template-rows: 1fr;
+    }
+
+    .about-body-inner {
+      overflow: hidden;
+      min-height: 0;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.35s ease 0.05s, transform 0.45s ease;
+    }
+
+    .about-body.is-open .about-body-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     #visits svg {
       fill: #FFF;
       position: relative;
@@ -700,20 +750,17 @@
     align-items: start;
   }
 
-  /* Row 1: 70% / 30% split (42 columns and 18 columns) */
-  .grid-container > :nth-child(1) { grid-column: span 5; }
-  .grid-container > :nth-child(2) { grid-column: span 7; }
+  /* Row 1: left larger / right smaller */
+  .grid-container > :nth-child(1) { grid-column: span 7; }
+  .grid-container > :nth-child(2) { grid-column: span 5; }
 
-  /* Row 2: 30% / 70% split (18 columns and 42 columns) */
-  .grid-container > :nth-child(3) { grid-column: span 7; }
-  .grid-container > :nth-child(4) { grid-column: span 5; }
+  /* Row 2: left smaller / right larger */
+  .grid-container > :nth-child(3) { grid-column: span 5; }
+  .grid-container > :nth-child(4) { grid-column: span 7; }
 
-  /* Row 3: 33.33% each for cards 5, 6, and 7 (20 columns each) */
-  .grid-container > :nth-child(5),
-  .grid-container > :nth-child(6),
-  .grid-container > :nth-child(7) {
-    grid-column: span 4;
-  }
+  /* Row 3: left larger / right smaller */
+  .grid-container > :nth-child(5) { grid-column: span 7; }
+  .grid-container > :nth-child(6) { grid-column: span 5; }
 }
 
  
@@ -734,8 +781,39 @@
         margin-bottom: 30px !important;
       }
     }
-    .card img {
-      border-radius: 0px;
+    .card-media {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+      overflow: hidden;
+    }
+
+    .card-media img {
+      border-radius: 0;
+      display: block;
+      width: 100%;
+    }
+
+    .card-logo {
+      height: auto;
+      position: relative;
+      z-index: 0;
+    }
+
+    .card-shot {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.35s ease;
+    }
+
+    .cardlink:hover .card-shot {
+      opacity: 1;
     }
 
     .card:hover {
@@ -749,13 +827,6 @@
 
     .grid-container a:hover {
       text-decoration: none;
-    }
-
-    .card img {
-      background: linear-gradient(30deg, rgb(75, 75, 75), rgb(2, 22, 38));
-      width: 100%;
-      height: 50%;
-      object-fit: cover;
     }
 
     .card-content {
@@ -870,18 +941,24 @@ text-align:center;
   background-color: var(--card-bg);">
         <div id="wrapper">
           <div id="about" style="text-align: left;">
-            <h1 style="color:var(--white);text-align: left;font-size:2rem;font-family:var(--big-font);padding-top:55px;">
+            <h1 style="color:var(--white);text-align: left;font-size:3rem;font-family:var(--big-font);">
               Eldiiar Bekbolotov
-            </h1>
+            </h1> <h2 style="font-size:22px;"> Building products with human-centered design.
+         </h2>
             <p style="text-align:left;">
-              Building products with human-centered design
+            
             </p>
-         
           </div>
 
-          <div id="lang-showcase" style="align-items:center;display:flex;justify-content: center;">
-            <div style="margin:0 auto;">
-            
+          <div id="lang-showcase" class="about-aside">
+            <button type="button" class="about-toggle" aria-expanded="false" aria-controls="about-body" style="text-decoration:none;">
+             My Story
+              <span class="material-symbols-outlined about-toggle-icon" aria-hidden="true">expand_more</span>
+            </button>
+            <div id="about-body" class="about-body" hidden>
+              <div class="about-body-inner">
+                <p style="font-size:18px;">I started teaching myself JavaScript when I was 8 years old, and I quickly fell in love with building things. Over the next nine years, I invested tens of thousands of hours writing over one million lines of code to launch products that solved problems for over one hundred thousand total users. But my background isn't just technical. Born in Kyrgyzstan and raised across the San Francisco Bay Area, Bishkek, and Ottawa, I grew up constantly adapting to change. Moving between three cultures, six languages, and five different schools taught me how to understand multicultural communities, see the world from their perspective, and identify what their issues are and how to solve them. I approach problems as a designer first, focusing on user experience, human empathy, aesthetics, and solving both local and global problems. Today, I obsess over human-centered design and how products function, scale, and ultimately serve the end user.</p>
+              </div>
             </div>
           </div>
 
@@ -1102,7 +1179,10 @@ text-align:center;
             
               <a href="https://finbilim.com" class="cardlink" target="_blank">
               <div class="card">
-                <img src="src/finbilim2.png" alt="FinBilim" />
+                <div class="card-media">
+                  <img class="card-logo" src="src/logos/1.png" alt="FinBilim" />
+                  <img class="card-shot" src="src/finbilim2.png" alt="" aria-hidden="true" />
+                </div>
                 <div class="card-content">
                   <h2><span>FinBilim</span></h2>
                   <p>
@@ -1118,7 +1198,10 @@ text-align:center;
         
             <a href="https://golucid.app"class="cardlink"  target="_blank">
               <div class="card">
-                <img src="src/lucid.png" alt="Lucid" />
+                <div class="card-media">
+                  <img class="card-logo" src="src/logos/2.png" alt="Lucid" />
+                  <img class="card-shot" src="src/lucid.png" alt="" aria-hidden="true" />
+                </div>
                 <div class="card-content">
                   <h2><span>Lucid</span></h2>
                   <p>
@@ -1133,7 +1216,10 @@ text-align:center;
             </a>
                  <a href="https://clearpolicy.org"class="cardlink"  target="_blank">
               <div class="card">
-                <img src="src/clearpolicy.png" alt="ClearPolicy" />
+                <div class="card-media">
+                  <img class="card-logo" src="src/logos/3.png" alt="ClearPolicy" />
+                  <img class="card-shot" src="src/clearpolicy.png" alt="" aria-hidden="true" />
+                </div>
                 <div class="card-content">
                   <h2><span>ClearPolicy</span></h2>
                   <p>
@@ -1147,7 +1233,10 @@ text-align:center;
             </a>
                <a href="https://univadev.com"class="cardlink"  target="_blank">
               <div class="card">
-                <img src="src/univadev.png" alt="Univa Dev" />
+                <div class="card-media">
+                  <img class="card-logo" src="src/logos/4.png" alt="Univa Dev" />
+                  <img class="card-shot" src="src/univadev.png" alt="" aria-hidden="true" />
+                </div>
                 <div class="card-content">
                   <h2><span>Univa Dev</span></h2>
                   <p>
@@ -1164,7 +1253,10 @@ text-align:center;
          
            <a href="https://journality.org"class="cardlink"  target="_blank">
               <div class="card">
-                <img src="src/journality.png" alt="Journality" />
+                <div class="card-media">
+                  <img class="card-logo" src="src/logos/5.png" alt="Journality" />
+                  <img class="card-shot" src="src/journality.png" alt="" aria-hidden="true" />
+                </div>
                 <div class="card-content">
                   <h2><span>Journality</span></h2>
                   <p>
@@ -1177,12 +1269,25 @@ text-align:center;
                 </div>
               </div>
             </a>
+
+            <a href="gallery.html" class="cardlink">
+              <div class="card">
+                <div class="card-media">
+                  <img class="card-logo" src="src/logos/6.png" alt="Archived Projects" />
+                  <img class="card-shot" src="src/archivein.png" alt="" aria-hidden="true" />
+                </div>
+                <div class="card-content">
+                  <h2><span>Archived Projects</span></h2>
+                  <p>
+                    Past builds &amp; experiments
+                  </p>
+                  <div class="card-tags">
+                    <span class="tag">Gallery</span>
+                  </div>
+                </div>
+              </div>
+            </a>
           </div>
-          <p style="margin-top: 28px;">
-            <a href="gallery.html" class="gallery-cta">Archived Projects
-              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-          </p>
-          <p><a href="archive.html" class="underline-link" style="display:none;">View Project Archive</a></p>
         </div>
         <!--  PROJECT SHOWCASE END  -->
 
@@ -1449,6 +1554,30 @@ text-align:center;
         });
       });
       document.body.classList.add("theme1");
+    })();
+  </script>
+  <script>
+    (function () {
+      var btn = document.querySelector(".about-toggle");
+      var body = document.getElementById("about-body");
+      if (!btn || !body) return;
+
+      btn.addEventListener("click", function () {
+        var open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        if (open) {
+          body.classList.remove("is-open");
+          body.addEventListener("transitionend", function hide(e) {
+            if (e.target !== body || e.propertyName !== "grid-template-rows") return;
+            body.removeEventListener("transitionend", hide);
+            if (!body.classList.contains("is-open")) body.hidden = true;
+          });
+        } else {
+          body.hidden = false;
+          body.offsetHeight; // reflow so 0fr → 1fr can animate
+          body.classList.add("is-open");
+        }
+      });
     })();
   </script>
   <script>
