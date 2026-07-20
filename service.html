@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Securely pay for Eldiiar Bekbolotov's services.">
+  <meta name="theme-color" content="#080808">
+  <title>Pay for Service | Eldiiar Bekbolotov</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #080808;
+      --surface: #111;
+      --border: rgba(255, 255, 255, 0.14);
+      --muted: #a1a1aa;
+      --accent: #ff8a00;
+      --accent-hover: #ffa12f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 138, 0, 0.12), transparent 34rem),
+        var(--background);
+      color: #fff;
+      font-family: "Google Sans", system-ui, sans-serif;
+    }
+
+    nav,
+    footer {
+      width: min(100% - 40px, 1080px);
+      margin: 0 auto;
+    }
+
+    nav {
+      padding: 28px 0;
+    }
+
+    nav a,
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    main {
+      display: grid;
+      place-items: center;
+      padding: 56px 20px 96px;
+    }
+
+    .payment-card {
+      width: min(100%, 520px);
+      padding: clamp(28px, 6vw, 52px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font: 500 0.75rem/1.4 "Roboto Mono", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.25rem, 8vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .description {
+      max-width: 390px;
+      margin: 22px auto 32px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    button {
+      width: 100%;
+      min-height: 56px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #111;
+      cursor: pointer;
+      font: 600 1rem/1 "Google Sans", system-ui, sans-serif;
+      transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(255, 138, 0, 0.35);
+      outline-offset: 4px;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    .secure-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 0;
+      color: #71717a;
+      font-size: 0.82rem;
+    }
+
+    .secure-note svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    #status {
+      min-height: 22px;
+      margin: 18px 0 0;
+      color: #fca5a5;
+      font-size: 0.9rem;
+    }
+
+    #status.success {
+      color: #86efac;
+    }
+
+    footer {
+      padding: 24px 0 32px;
+      color: #71717a;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Primary navigation">
+    <a class="brand" href="index.html">Eldiiar Bekbolotov</a>
+  </nav>
+
+  <main>
+    <section class="payment-card" aria-labelledby="payment-title">
+      <p class="eyebrow">Secure payment</p>
+      <h1 id="payment-title">Ready to get started?</h1>
+      <p class="description">
+        Complete your service payment through Stripe's secure checkout.
+      </p>
+
+      <button id="checkout-button" type="button">Pay for service</button>
+
+      <p class="secure-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2Zm-7-2a2 2 0 1 1 4 0v2h-4V6Zm3 9.73V18h-2v-2.27a2 2 0 1 1 2 0Z"/>
+        </svg>
+        Payments are securely processed by Stripe
+      </p>
+      <p id="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="services.html">Back to services</a>
+  </footer>
+
+  <script>
+    const checkoutButton = document.getElementById("checkout-button");
+    const statusMessage = document.getElementById("status");
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("payment") === "success") {
+      statusMessage.textContent = "Payment successful. Thank you!";
+      statusMessage.classList.add("success");
+    } else if (query.get("payment") === "cancelled") {
+      statusMessage.textContent = "Checkout was cancelled. You have not been charged.";
+    }
+
+    checkoutButton.addEventListener("click", async () => {
+      checkoutButton.disabled = true;
+      checkoutButton.textContent = "Opening secure checkout…";
+      statusMessage.textContent = "";
+      statusMessage.classList.remove("success");
+
+      try {
+        const response = await fetch("/.netlify/functions/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.url) {
+          throw new Error(data.error || "Unable to start checkout.");
+        }
+
+        window.location.assign(data.url);
+      } catch (error) {
+        statusMessage.textContent = error.message || "Unable to start checkout. Please try again.";
+        checkoutButton.disabled = false;
+        checkoutButton.textContent = "Pay for service";
+      }
+    });
+  </script>
+</body>
+</html>
