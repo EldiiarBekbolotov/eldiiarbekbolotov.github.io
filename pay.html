@@ -116,6 +116,28 @@ h1,h2,h3 {
       transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
     }
 
+    button .button-content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .button-spinner {
+      width: 17px;
+      height: 17px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 700ms linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     button:hover:not(:disabled) {
       background: var(--accent-hover);
       box-shadow: 0px 2px 6px rgba(0,0,0,0.4);
@@ -127,7 +149,7 @@ h1,h2,h3 {
     }
 
     button:disabled {
-      cursor: wait;
+      cursor: pointer;
       opacity: 0.65;
     }
 
@@ -178,7 +200,7 @@ h1,h2,h3 {
      
       <h1 id="payment-title" style="margin-bottom:40px;text-align:left;">Pay for Service</h1>
       <p id="price" class="price" aria-live="polite">Loading price...</p>
-      <button id="checkout-button" type="button">Checkout</button>
+      <button id="checkout-button" type="button"><span class="button-content">Pay now</span></button>
 
       <p class="secure-note">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -201,6 +223,15 @@ h1,h2,h3 {
     const statusMessage = document.getElementById("status");
     const priceMessage = document.getElementById("price");
     const query = new URLSearchParams(window.location.search);
+
+    const setCheckoutButton = (label, isLoading = false) => {
+      checkoutButton.innerHTML = `
+        <span class="button-content">
+          ${isLoading ? '<span class="button-spinner" aria-hidden="true"></span>' : ""}
+          <span>${label}</span>
+        </span>
+      `;
+    };
 
     const formatPrice = (price) => {
       if (!price || typeof price.unit_amount !== "number" || !price.currency) {
@@ -234,7 +265,7 @@ h1,h2,h3 {
         }
 
         priceMessage.innerHTML = formatPrice(data.price);
-        checkoutButton.textContent = "Pay now";
+        setCheckoutButton("Pay now");
       } catch (error) {
         priceMessage.textContent = "Price unavailable";
       }
@@ -251,7 +282,7 @@ h1,h2,h3 {
 
     checkoutButton.addEventListener("click", async () => {
       checkoutButton.disabled = true;
-      checkoutButton.textContent = "Opening secure checkout…";
+      setCheckoutButton("Opening secure checkout...", true);
       statusMessage.textContent = "";
       statusMessage.classList.remove("success");
 
@@ -270,7 +301,7 @@ h1,h2,h3 {
       } catch (error) {
         statusMessage.textContent = error.message || "Unable to start checkout. Please try again.";
         checkoutButton.disabled = false;
-        checkoutButton.textContent = "Pay for service";
+        setCheckoutButton("Pay now");
       }
     });
   </script>
