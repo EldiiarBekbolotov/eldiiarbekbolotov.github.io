@@ -1,7 +1,5 @@
 const Stripe = require("stripe");
 
-const PRODUCT_ID = "prod_UuXuTQCtE6J1dl";
-
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return {
@@ -12,6 +10,8 @@ exports.handler = async (event) => {
   }
 
   const secretKey = process.env.STRIPE_SECRET_KEY;
+  const productId = process.env.STRIPE_PRODUCT_ID;
+
   if (!secretKey) {
     console.error("STRIPE_SECRET_KEY is not configured.");
     return {
@@ -20,9 +20,17 @@ exports.handler = async (event) => {
     };
   }
 
+  if (!productId) {
+    console.error("STRIPE_PRODUCT_ID is not configured.");
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Checkout product is not configured yet." }),
+    };
+  }
+
   try {
     const stripe = new Stripe(secretKey);
-    const product = await stripe.products.retrieve(PRODUCT_ID, {
+    const product = await stripe.products.retrieve(productId, {
       expand: ["default_price"],
     });
 
@@ -60,7 +68,7 @@ exports.handler = async (event) => {
       line_items: [{ price: price.id, quantity: 1 }],
       success_url: `${siteUrl}/service.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/service.html?payment=cancelled`,
-      metadata: { product_id: PRODUCT_ID },
+      metadata: { product_id: productId },
     });
 
     return {
