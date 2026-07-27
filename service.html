@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Securely pay for Eldiiar Bekbolotov's services.">
   <meta name="theme-color" content="#080808">
   <title>Pay for Service | Eldiiar Bekbolotov</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -15,30 +14,29 @@
   <style>
     :root {
       color-scheme: dark;
-      --background: #080808;
-      --surface: #111;
-      --border: rgba(255, 255, 255, 0.14);
+      --background: #000000;
+      --surface: #000000;
+      --border: rgba(255, 255, 255, 0.1);
       --muted: #a1a1aa;
-      --accent: #ff8a00;
-      --accent-hover: #ffa12f;
+      --accent: #125804;
+      --accent-hover: #137300;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
     }
 
     body {
       min-height: 100vh;
       margin: 0;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      background:
-        radial-gradient(circle at 50% 30%, rgba(255, 138, 0, 0.12), transparent 34rem),
-        var(--background);
-      color: #fff;
+      background: #000;
+      color: #ffffff;
       font-family: "Google Sans", system-ui, sans-serif;
     }
-
+h1,h2,h3 {
+  font-weight: 100;
+}
     nav,
     footer {
       width: min(100% - 40px, 1080px);
@@ -57,7 +55,6 @@
 
     .brand {
       font-weight: 600;
-      letter-spacing: -0.02em;
     }
 
     main {
@@ -70,26 +67,17 @@
       width: min(100%, 520px);
       padding: clamp(28px, 6vw, 52px);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      
+      border-radius: 6px;
       text-align: center;
       backdrop-filter: blur(12px);
     }
 
-    .eyebrow {
-      margin: 0 0 18px;
-      color: var(--accent);
-      font: 500 0.75rem/1.4 "Roboto Mono", monospace;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
 
     h1 {
       margin: 0;
       font-size: clamp(2.25rem, 8vw, 4rem);
-      line-height: 0.98;
-      letter-spacing: -0.055em;
+      
     }
 
     .description {
@@ -104,17 +92,18 @@
       width: 100%;
       min-height: 56px;
       border: 0;
-      border-radius: 14px;
+      border-radius: 50px;
       background: var(--accent);
-      color: #111;
+      color: #ffffff;
       cursor: pointer;
-      font: 600 1rem/1 "Google Sans", system-ui, sans-serif;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+      font: 400 1rem/1 "Google Sans", system-ui, sans-serif;
       transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
     }
 
     button:hover:not(:disabled) {
       background: var(--accent-hover);
-      transform: translateY(-2px);
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.4);
     }
 
     button:focus-visible {
@@ -133,8 +122,9 @@
       justify-content: center;
       gap: 8px;
       margin: 18px 0 0;
-      color: #71717a;
-      font-size: 0.82rem;
+      color: #c9c9c9;
+      font-weight: 100;
+      font-size: 1.00rem;
     }
 
     .secure-note svg {
@@ -146,12 +136,13 @@
     #status {
       min-height: 22px;
       margin: 18px 0 0;
-      color: #fca5a5;
+      color: #a10000;
       font-size: 0.9rem;
     }
 
     #status.success {
-      color: #86efac;
+      
+      color: #00c711;
     }
 
     footer {
@@ -164,18 +155,14 @@
 </head>
 <body>
   <nav aria-label="Primary navigation">
-    <a class="brand" href="index.html">Eldiiar Bekbolotov</a>
+    <a class="brand" href="index.html">Eldiiar.com</a>
   </nav>
 
-  <main>
+  <main style="height:85vh;">
     <section class="payment-card" aria-labelledby="payment-title">
-      <p class="eyebrow">Secure payment</p>
-      <h1 id="payment-title">Ready to get started?</h1>
-      <p class="description">
-        Complete your service payment through Stripe's secure checkout.
-      </p>
-
-      <button id="checkout-button" type="button">Pay for service</button>
+     
+      <h1 id="payment-title" style="margin-bottom:40px;text-align:left;">Pay for Service</h1>
+      <button id="checkout-button" type="button">Checkout</button>
 
       <p class="secure-note">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -187,10 +174,12 @@
     </section>
   </main>
 
-  <footer>
-    <a href="services.html">Back to services</a>
-  </footer>
+  <footer style="background:rgb(2, 2, 2);margin-top:45px;padding:0;width:100%;">
+ 
+    <img src="\src/mylogo.svg" style="width:100vw;" onclick='window.scrollTo({top: 0,behavior: "smooth"});'>
+    
 
+</footer>
   <script>
     const checkoutButton = document.getElementById("checkout-button");
     const statusMessage = document.getElementById("status");
