@@ -88,6 +88,21 @@ h1,h2,h3 {
       line-height: 1.6;
     }
 
+    .price {
+      min-height: 44px;
+      margin: -18px 0 28px;
+      color: #ffffff;
+      font-size: 1.7rem;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
     button {
       width: 100%;
       min-height: 56px;
@@ -162,6 +177,7 @@ h1,h2,h3 {
     <section class="payment-card" aria-labelledby="payment-title">
      
       <h1 id="payment-title" style="margin-bottom:40px;text-align:left;">Pay for Service</h1>
+      <p id="price" class="price" aria-live="polite">Loading price...</p>
       <button id="checkout-button" type="button">Checkout</button>
 
       <p class="secure-note">
@@ -183,7 +199,46 @@ h1,h2,h3 {
   <script>
     const checkoutButton = document.getElementById("checkout-button");
     const statusMessage = document.getElementById("status");
+    const priceMessage = document.getElementById("price");
     const query = new URLSearchParams(window.location.search);
+
+    const formatPrice = (price) => {
+      if (!price || typeof price.unit_amount !== "number" || !price.currency) {
+        return "Price unavailable";
+      }
+
+      const amount = new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: price.currency.toUpperCase()
+      }).format(price.unit_amount / 100);
+
+      if (!price.recurring) {
+        return amount;
+      }
+
+      const intervalCount = price.recurring.interval_count || 1;
+      const interval = price.recurring.interval;
+      const recurringLabel =
+        intervalCount === 1 ? `/${interval}` : `/every ${intervalCount} ${interval}s`;
+
+      return `${amount} <span>${recurringLabel}</span>`;
+    };
+
+    const loadPrice = async () => {
+      try {
+        const response = await fetch("/.netlify/functions/create-checkout-session");
+        const data = await response.json();
+
+        if (!response.ok || !data.price) {
+          throw new Error(data.error || "Unable to load price.");
+        }
+
+        priceMessage.innerHTML = formatPrice(data.price);
+        checkoutButton.textContent = "Pay now";
+      } catch (error) {
+        priceMessage.textContent = "Price unavailable";
+      }
+    };
 
     if (query.get("payment") === "success") {
       statusMessage.textContent = "Payment successful. Thank you!";
@@ -191,6 +246,8 @@ h1,h2,h3 {
     } else if (query.get("payment") === "cancelled") {
       statusMessage.textContent = "Checkout was cancelled. You have not been charged.";
     }
+
+    loadPrice();
 
     checkoutButton.addEventListener("click", async () => {
       checkoutButton.disabled = true;

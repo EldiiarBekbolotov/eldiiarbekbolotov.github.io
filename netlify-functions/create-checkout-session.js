@@ -1,10 +1,10 @@
 const Stripe = require("stripe");
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
+  if (!["GET", "POST"].includes(event.httpMethod)) {
     return {
       statusCode: 405,
-      headers: { Allow: "POST" },
+      headers: { Allow: "GET, POST" },
       body: JSON.stringify({ error: "Method not allowed." }),
     };
   }
@@ -55,6 +55,26 @@ exports.handler = async (event) => {
       };
     }
 
+    if (event.httpMethod === "GET") {
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product: {
+            id: product.id,
+            name: product.name,
+            description: product.description,
+          },
+          price: {
+            id: price.id,
+            currency: price.currency,
+            unit_amount: price.unit_amount,
+            recurring: price.recurring,
+          },
+        }),
+      };
+    }
+
     const requestOrigin = event.headers.origin;
     const siteUrl =
       process.env.URL ||
@@ -66,8 +86,8 @@ exports.handler = async (event) => {
     const session = await stripe.checkout.sessions.create({
       mode: price.recurring ? "subscription" : "payment",
       line_items: [{ price: price.id, quantity: 1 }],
-      success_url: `${siteUrl}/service.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/service.html?payment=cancelled`,
+      success_url: `${siteUrl}/pay.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}/pay.html?payment=cancelled`,
       metadata: { product_id: productId },
     });
 
